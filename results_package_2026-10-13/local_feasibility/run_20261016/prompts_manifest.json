@@ -1,0 +1,386 @@
+[
+ {
+  "template_id": "PAC-006",
+  "condition": "D",
+  "prompt_sha256": "0319b569228b9e7874675c6b359c70f8d22b3c59518aeeb5633059fd6690425a",
+  "chars": 1016
+ },
+ {
+  "template_id": "MIL-002",
+  "condition": "B",
+  "prompt_sha256": "a5b8a7082deb62b58dc8b54ebc0f794dc949a470bc055f07e85907f48ea24f73",
+  "chars": 789
+ },
+ {
+  "template_id": "PAC-005",
+  "condition": "A",
+  "prompt_sha256": "434e5def2ccb898590338e31b5f01743a1b0cd267d23d2cf2eeb476b8fca3782",
+  "chars": 932
+ },
+ {
+  "template_id": "MIL-003",
+  "condition": "B",
+  "prompt_sha256": "e159f37dbd584aaed3b7d44301d391c968177dedb6bf66a81e48a9d9843dc43f",
+  "chars": 789
+ },
+ {
+  "template_id": "PAC-002",
+  "condition": "A",
+  "prompt_sha256": "4609d71eed075dba2ae8ef46dd6a3b908a91ee4f6d59b13bcaf132656ad33a61",
+  "chars": 932
+ },
+ {
+  "template_id": "MIL-007",
+  "condition": "A",
+  "prompt_sha256": "e83b1208f3dbd0c052a6fe5e3b82e7bcffceecf1878a1f0431e77a464a6a673a",
+  "chars": 789
+ },
+ {
+  "template_id": "PAC-007",
+  "condition": "D",
+  "prompt_sha256": "428bca44880f329e0494fe20856765ba1b7ed1ed027cb11685b2bf68fb54b46a",
+  "chars": 1016
+ },
+ {
+  "template_id": "PAC-006",
+  "condition": "A",
+  "prompt_sha256": "44dcd1e9cd1026871e814ddd6a6785ebef2f082a1272d6899bdd2ce3d67c3b6d",
+  "chars": 932
+ },
+ {
+  "template_id": "PAC-007",
+  "condition": "A",
+  "prompt_sha256": "7f4cf2065205bc297c553ad9d496f7e42b005d5cfc4df2cb8e5fae0a84ff5af3",
+  "chars": 932
+ },
+ {
+  "template_id": "PAC-006",
+  "condition": "C",
+  "prompt_sha256": "a019711a34ebae15d36591813502bb33a6134d02a21bec2f31aaddbbca5bcd6e",
+  "chars": 1016
+ },
+ {
+  "template_id": "MIL-007",
+  "condition": "D",
+  "prompt_sha256": "c1ed381f9e69f3f0753b5e22f70da34839b09c52edb09c04fb983d3e089a9109",
+  "chars": 873
+ },
+ {
+  "template_id": "MIL-003",
+  "condition": "A",
+  "prompt_sha256": "b4c3ed06f5dedce0050ae683d6eb5e7787493ae719c1af6bf6717822eea0c9f3",
+  "chars": 789
+ },
+ {
+  "template_id": "PAC-008",
+  "condition": "A",
+  "prompt_sha256": "42b07ffad98122f012372d5aeb5ad7e035d5440a21a6015027b8c60afb2f591e",
+  "chars": 932
+ },
+ {
+  "template_id": "MIL-001",
+  "condition": "C",
+  "prompt_sha256": "c9a1a4ba74d7942b3eb7748a7b1e46c0d02323ddea99948f421713954d5a77c9",
+  "chars": 873
+ },
+ {
+  "template_id": "MIL-004",
+  "condition": "A",
+  "prompt_sha256": "8079229292230635f18ee664d06a297b3b6a3cc1a26a2a72a253a120ab7383c7",
+  "chars": 789
+ },
+ {
+  "template_id": "MIL-002",
+  "condition": "A",
+  "prompt_sha256": "6514ad1b3ef9b61769f160a971c8f668c59da9fc5ef0b0d33830114b67b0aef7",
+  "chars": 789
+ },
+ {
+  "template_id": "PAC-004",
+  "condition": "A",
+  "prompt_sha256": "141f1ee0f601ed3e0b30724082feee4b9f1cc1751df2cd45927ebadf3edb4d4f",
+  "chars": 932
+ },
+ {
+  "template_id": "PAC-004",
+  "condition": "D",
+  "prompt_sha256": "b65c71e92637e6d2a50cb3364da8e694c67e7f44df0cfb157501e4812bfd9675",
+  "chars": 1016
+ },
+ {
+  "template_id": "PAC-008",
+  "condition": "C",
+  "prompt_sha256": "cd364383b6d03ae687c5081e332a96543117461c0a4ce087adef40bc2c0febe3",
+  "chars": 1016
+ },
+ {
+  "template_id": "PAC-001",
+  "condition": "C",
+  "prompt_sha256": "b87ce86d72c24c787dee9dcd7068be88adf63a283001a0b254fe22fc3b64648e",
+  "chars": 1016
+ },
+ {
+  "template_id": "MIL-004",
+  "condition": "D",
+  "prompt_sha256": "c7582c6441339ba93b32f5ee58751f1b8bebfed3cdf876ecdda32c048fc3901d",
+  "chars": 873
+ },
+ {
+  "template_id": "PAC-002",
+  "condition": "D",
+  "prompt_sha256": "ff2a69a8828297e99323c4047c09c56fa8c0fb587e6df644964a82c8d3a870a5",
+  "chars": 1016
+ },
+ {
+  "template_id": "MIL-006",
+  "condition": "B",
+  "prompt_sha256": "a38acd4485216cc1006e504c9e26a5524297b2539700b33c1f221e8938abeaf6",
+  "chars": 789
+ },
+ {
+  "template_id": "MIL-008",
+  "condition": "D",
+  "prompt_sha256": "da781eb95010e6085086ab86d81332d65f98be6d2f7a1cf5c06c89a71c192cc3",
+  "chars": 873
+ },
+ {
+  "template_id": "MIL-005",
+  "condition": "D",
+  "prompt_sha256": "2decf9183bac309177e4a3ad92f5d38e25e32907849f6ba04dd6353d7978cc5b",
+  "chars": 873
+ },
+ {
+  "template_id": "MIL-005",
+  "condition": "A",
+  "prompt_sha256": "2d9fc5cf8ce0fbb382fb97ddaa4b68141349402d454a7b07100feea33e5d7b06",
+  "chars": 789
+ },
+ {
+  "template_id": "MIL-001",
+  "condition": "B",
+  "prompt_sha256": "1695adabe4120bfcd51bb837ef2267d0aae3428b773ccde9406cfa34e2848aec",
+  "chars": 789
+ },
+ {
+  "template_id": "PAC-006",
+  "condition": "B",
+  "prompt_sha256": "fa8df9f6d5ac331d9e99840a24709af41f97e6c167d39e752e703efceaea88ca",
+  "chars": 932
+ },
+ {
+  "template_id": "PAC-005",
+  "condition": "C",
+  "prompt_sha256": "ab77d9aeab8060565467ab94fb16d005aaa88507b3bbfff95699a35eda23fab9",
+  "chars": 1016
+ },
+ {
+  "template_id": "MIL-006",
+  "condition": "A",
+  "prompt_sha256": "dcc13c5e6f23a28fdc78bff35f452b847391439b54c6028004ebe136d037a8ec",
+  "chars": 789
+ },
+ {
+  "template_id": "MIL-004",
+  "condition": "B",
+  "prompt_sha256": "ca382b38e60ad7c1104e8ab1bd3476511c61d0ac48d7f453a8b6cec1473643e5",
+  "chars": 789
+ },
+ {
+  "template_id": "MIL-002",
+  "condition": "D",
+  "prompt_sha256": "de6041c6c8414105e0ab2eaba36490c40736d478ce6d762670dc058f3253b418",
+  "chars": 873
+ },
+ {
+  "template_id": "MIL-008",
+  "condition": "B",
+  "prompt_sha256": "36b074a02bf515e37ae68d3fe300393b8a9079e990aace64b711d1a7a309e651",
+  "chars": 789
+ },
+ {
+  "template_id": "MIL-007",
+  "condition": "B",
+  "prompt_sha256": "b323b0aad599e0ee6efffbd88537ed1af89d3b81e0acb3a4fcee0a79552c122b",
+  "chars": 789
+ },
+ {
+  "template_id": "MIL-006",
+  "condition": "D",
+  "prompt_sha256": "68a288f48ee0986b79173f277fbf6585ecb5fc9c0123bf171785ede993d9c084",
+  "chars": 873
+ },
+ {
+  "template_id": "PAC-007",
+  "condition": "B",
+  "prompt_sha256": "42a47970056ea47e23083f56661dfe241cfe24b22218fa10b40ce0be48adee68",
+  "chars": 932
+ },
+ {
+  "template_id": "MIL-006",
+  "condition": "C",
+  "prompt_sha256": "808618ee14360fc78c7575788ffc5490df53a29c2b65a481c30a91f2db3acacf",
+  "chars": 873
+ },
+ {
+  "template_id": "MIL-008",
+  "condition": "C",
+  "prompt_sha256": "2b915a7beffd370bf4ed0b79c16ad3486b2dc5a724fdbe27945c51b1cab9e933",
+  "chars": 873
+ },
+ {
+  "template_id": "PAC-002",
+  "condition": "C",
+  "prompt_sha256": "1339e2548625091420d76dcdebbe0d82aec0fa1a67bf1c1fa22faf892df68b5b",
+  "chars": 1016
+ },
+ {
+  "template_id": "MIL-001",
+  "condition": "A",
+  "prompt_sha256": "f194dbaeab15120b6529862602a89d18e4d0ea7664e2065637f5f29a6742987b",
+  "chars": 789
+ },
+ {
+  "template_id": "PAC-005",
+  "condition": "D",
+  "prompt_sha256": "74a06e310fd3ee90015e25e5000457c4bc733747d001275bc553a47c79682302",
+  "chars": 1016
+ },
+ {
+  "template_id": "PAC-003",
+  "condition": "B",
+  "prompt_sha256": "954c318c78f508facd33369ab8c4692edbfe482e9bcd8342d356873b5a633ba2",
+  "chars": 932
+ },
+ {
+  "template_id": "PAC-007",
+  "condition": "C",
+  "prompt_sha256": "a193e824528514787f3c1c6ec7d941d63ac47283011b52a61b459b67aeddb9c5",
+  "chars": 1016
+ },
+ {
+  "template_id": "PAC-003",
+  "condition": "A",
+  "prompt_sha256": "53fa9ee30daf037dfd8786f6d2860a5a75ce6deb45acd8456daa0f6fe4dd9c91",
+  "chars": 932
+ },
+ {
+  "template_id": "MIL-003",
+  "condition": "C",
+  "prompt_sha256": "c23c3793ddc37d1b24b0b7240ca8edc2b8f97d519957eb30fe2c330eae989200",
+  "chars": 873
+ },
+ {
+  "template_id": "MIL-001",
+  "condition": "D",
+  "prompt_sha256": "d8d2678ed9dfacfeb805d8fbdf5fbfc411c522554fffd878b8792f1d6079e05d",
+  "chars": 873
+ },
+ {
+  "template_id": "PAC-008",
+  "condition": "D",
+  "prompt_sha256": "c1ac88402c30b477b399cd45f319b98f076b015c8fd45d4ad182adcb96b0205d",
+  "chars": 1016
+ },
+ {
+  "template_id": "PAC-005",
+  "condition": "B",
+  "prompt_sha256": "16f9be3aab1123cd71fbac19182328aa44b76d176e662fbc8780606e0d7f3408",
+  "chars": 932
+ },
+ {
+  "template_id": "MIL-004",
+  "condition": "C",
+  "prompt_sha256": "8e170aa25687ea3d910f2772afe21821f93cabb6fedce815f8dd6bb2bffd70fd",
+  "chars": 873
+ },
+ {
+  "template_id": "PAC-001",
+  "condition": "B",
+  "prompt_sha256": "2bee7b07f6da2139679b9962cd064ecb70cee7cf6c72d2e2dc05cb7b2ed6b399",
+  "chars": 932
+ },
+ {
+  "template_id": "PAC-002",
+  "condition": "B",
+  "prompt_sha256": "22fd2e8b0f0eb9e6a8f3968168603af7162b3b689a2f98dc5b52b14c9ceedc36",
+  "chars": 932
+ },
+ {
+  "template_id": "PAC-004",
+  "condition": "B",
+  "prompt_sha256": "3839a322574c2176c8faa0d4e7d621aead072ad247cd5cf1769944daf4de325e",
+  "chars": 932
+ },
+ {
+  "template_id": "MIL-002",
+  "condition": "C",
+  "prompt_sha256": "48326cab0c05a033be1e6af681824fdd1d33d0d0a1baf210e0c5f334fcbc1f97",
+  "chars": 873
+ },
+ {
+  "template_id": "MIL-003",
+  "condition": "D",
+  "prompt_sha256": "08d10bb8264ecd4fd4ea5e624df2632c1c1f315387952c8cea6ac81bb98884b8",
+  "chars": 873
+ },
+ {
+  "template_id": "MIL-008",
+  "condition": "A",
+  "prompt_sha256": "754d418ec5acee441e499ce31a9e9cfddc99b22bdd25c4f5f6f9bdb18819d13d",
+  "chars": 789
+ },
+ {
+  "template_id": "MIL-005",
+  "condition": "C",
+  "prompt_sha256": "8c34249bb283382b194c5ea7fd286697348730fe4ebe1186279de3430df86e3e",
+  "chars": 873
+ },
+ {
+  "template_id": "PAC-008",
+  "condition": "B",
+  "prompt_sha256": "88e8c5f9ea4830f8391fb5b862f124fb2d63b4ea7ee7455a8d0da1daf89d3d16",
+  "chars": 932
+ },
+ {
+  "template_id": "MIL-007",
+  "condition": "C",
+  "prompt_sha256": "4c308a4325b3f9814e626f73eb6797fe6bcd5b6e79b4b8f84269b48b81d19383",
+  "chars": 873
+ },
+ {
+  "template_id": "PAC-003",
+  "condition": "D",
+  "prompt_sha256": "ad11533d5f515d69be0dcb42157d23dfc64f1d9cc64daa6aa1c1d176106cbde0",
+  "chars": 1016
+ },
+ {
+  "template_id": "PAC-003",
+  "condition": "C",
+  "prompt_sha256": "7004cc84eb7401be6e42bf46a0077900d8d385d262f789f7eb020104e9a1ba84",
+  "chars": 1016
+ },
+ {
+  "template_id": "PAC-001",
+  "condition": "A",
+  "prompt_sha256": "10ced6f58353f54ac92c68ba38e0a010badcc32d762297a7584393da2f2fa619",
+  "chars": 932
+ },
+ {
+  "template_id": "PAC-001",
+  "condition": "D",
+  "prompt_sha256": "16317a2ef7220d26258e02ddcf5444b1b637172829ce3136cddca018b786a283",
+  "chars": 1016
+ },
+ {
+  "template_id": "PAC-004",
+  "condition": "C",
+  "prompt_sha256": "b7eaadb836876ca51e374a1d2e438894898647850e028430c950cdf48ae08ff0",
+  "chars": 1016
+ },
+ {
+  "template_id": "MIL-005",
+  "condition": "B",
+  "prompt_sha256": "f9c8a743d2eab65603e666d92d641e25b49a617a5426816fff119624bd93f794",
+  "chars": 789
+ }
+]

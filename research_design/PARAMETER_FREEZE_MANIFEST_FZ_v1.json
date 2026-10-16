@@ -1,0 +1,206 @@
+{
+  "manifest_purpose": "Step 6 parameter-freeze record (section 21.1 step 6). The specification fixes no format or location; this administrative format, modelled on the Step 1 manifest, is chosen for Step 6 under the owner's authorization of 2026-10-12. This manifest carries no self-hash.",
+  "freeze_step": "Step 6 - Parameter freeze (section 21.1)",
+  "freeze_date": "2026-10-12",
+  "fz_version": "FZ-v1 (initial)",
+  "specification": {
+    "path": "research_design/SCENARIO_CONSTRUCTION_SPECIFICATION_v2_7_DRAFT.md",
+    "sha256": "d5fcffadd1045fc0c86a7c84eb8d51592d807576b6a51b712cef025164082ca8",
+    "unchanged": true
+  },
+  "preconditions_verified": {
+    "pjr_finalized_by_owner": "2026-10-12",
+    "head": "224d9101f3737bf5d5057b2cb8835ddea037a860",
+    "step4": "numeric-stage dry run, corrected Implementation A: 30/30 gates PASS for main and pilot register (numeric admissibility only)"
+  },
+  "owner_decisions": {
+    "OD-5": "shared windows (2026-10-12)",
+    "J-1..J-11": "kept with qualifications (2026-10-12, PJR 10.2)",
+    "OD-8": "gemini-3.5-flash-lite, thinking_level=minimal, only frozen model; gemini-3.8-flash unfrozen, not usable in this FZ; replacement = new FZ version + repeated required validation",
+    "OD-9": "max_output_tokens=8192 initial operational limit; not evidence of complete responses; check at Step 7; change = new FZ version, never silent",
+    "OD-10": "US$100 operational cost limit; estimates conditional; recompute with measured I_max at Step 7; if >100 or not assured, stop before paid API call and ask owner"
+  },
+  "register": {
+    "fixed_rules": {
+      "N": 5,
+      "K": 4,
+      "pilot_cap_rounds": 2
+    },
+    "row1_P_percent": 10,
+    "row2_N": 5,
+    "row3_rho_NT": "0.40",
+    "row4_windows_shared_OD5": {
+      "W_V": [
+        "0.60",
+        "0.90"
+      ],
+      "W_MILD": [
+        "1.10",
+        "1.30"
+      ],
+      "W_CLEAR": [
+        "1.50",
+        "2.00"
+      ]
+    },
+    "row5_D_dist_km": 10,
+    "row6_tau_F_s": 50,
+    "row7_S_list": {
+      "S_0": 200,
+      "step": 10,
+      "length": 26,
+      "unit": "tenths of km",
+      "last": 450
+    },
+    "row8_G_list": {
+      "G_0": 310,
+      "step": 1,
+      "length": 26,
+      "unit": "s/km",
+      "last": 335
+    },
+    "row9_X": {
+      "X_min": 100,
+      "X_max": 999
+    },
+    "row10_plausibility": {
+      "G_min": 300,
+      "G_max": 349,
+      "p_min": 270,
+      "p_max": 420,
+      "Tm_min": 2700,
+      "Tm_max": 4200
+    },
+    "row11_n_M": 13,
+    "row11_n_P": 13,
+    "row11_L_M": 26,
+    "row11_L_P": 26,
+    "row12_R": 2,
+    "row13_R_min": 2,
+    "row13_R_cap": 2,
+    "row13_C_max_planned_main_call_slots": 2496,
+    "row14_precision": {
+      "z": "1.96",
+      "level": "0.95",
+      "multiplicity": "per-cell unadjusted, not simultaneous (DP2(i), OD-4)",
+      "n_cells": 12,
+      "hw_star": "0.20",
+      "precision_targeted_contrasts": "none"
+    },
+    "row15_interval": {
+      "n_boot": 10000,
+      "L_small": 10
+    },
+    "row17_model_and_settings": {
+      "provider": "Gemini",
+      "model_id": "gemini-3.5-flash-lite",
+      "thinking_level": "minimal",
+      "system_prompt": "none",
+      "temperature": "not sent (provider default applies)",
+      "timeout_s": 180,
+      "delay_between_calls_s": 1,
+      "concurrency": 1,
+      "retries": 0,
+      "max_output_tokens": 8192,
+      "returned_model_id": "recorded for every call",
+      "unfrozen_candidate_not_usable_in_this_FZ": "gemini-3.8-flash"
+    },
+    "row18_pilot": {
+      "L_pilot": 2,
+      "S_pilot": [
+        455,
+        465
+      ],
+      "G_pilot": [
+        340,
+        341
+      ],
+      "pilot_extras": 0,
+      "f_S": 1,
+      "theta_unp": "0.50",
+      "c_stop": 5,
+      "theta_main": "0.10",
+      "calls_min_main": 100
+    },
+    "row19_blind_check": {
+      "coverage": "100%",
+      "minimum_delay_days": 7
+    },
+    "operational_cost_limit_usd": 100,
+    "not_frozen_here": [
+      "row 16 seeds (step 11)",
+      "row 20 wording (step 7)",
+      "prompt specification",
+      "registry",
+      "generator code"
+    ]
+  },
+  "register_canonical_sha256": "c7d50e115b08b6d70b9c35f1d09183118c3d2aaffa89b1c838987f7ab73987a2",
+  "register_hash_method": "SHA-256 of the UTF-8 JSON of the 'register' object with sorted keys and separators (',', ':'), ensure_ascii=False",
+  "model_verification": {
+    "date": "2026-10-12",
+    "api_calls_made": 0,
+    "tool": "WebFetch page summaries (not raw DOM)",
+    "sources": [
+      {
+        "url": "https://ai.google.dev/gemini-api/docs/models/gemini-3.5-flash-lite",
+        "page_updated": "2026-07-30",
+        "facts": "gemini-3.5-flash-lite Stable; no separate snapshot ID; input 1,048,576, output 65,536 tokens"
+      },
+      {
+        "url": "https://ai.google.dev/gemini-api/docs/thinking",
+        "page_updated": "2026-10-09",
+        "facts": "3.5-flash-lite levels minimal/low/medium/high, default minimal; 3.8-flash low/medium/high, minimal not supported; thinking tokens count in max_output_tokens and are billed; limit reached during reasoning gives status incomplete"
+      },
+      {
+        "url": "https://ai.google.dev/gemini-api/docs/pricing",
+        "page_updated": "2026-10-09",
+        "facts": "3.5-flash-lite $0.30 in / $2.50 out per 1M tokens, no change listed; 3.8-flash $0.75/$3.75 through 2026-12-31 then $1.50/$7.50; output includes thinking tokens"
+      },
+      {
+        "url": "https://ai.google.dev/gemini-api/docs/deprecations",
+        "page_updated": "2026-10-09",
+        "facts": "no shutdown announced for 3.5-flash-lite and 3.8-flash; gemini-3.1-flash-lite earliest shutdown 2027-05-07; deprecated IDs may be routed automatically"
+      },
+      {
+        "url": "https://ai.google.dev/gemini-api/docs/gemini-3",
+        "page_updated": "2026-10-09",
+        "facts": "default temperature 1.0 recommended for 'all Gemini 3 models'; the page does not name gemini-3.5-flash-lite; applicability by that wording only; the page calls Gemini 3 models preview while model and pricing pages say Stable"
+      }
+    ],
+    "limits": "Model identity has no snapshot; stable-ID behaviour is not guaranteed; relative capability of models not established; returned model ID recorded per call"
+  },
+  "cost_estimate_conditional": {
+    "basis": "hard cap, every call uses 8192 output tokens, retries 0, I_max assumed 1,000-2,000 tokens (prompt does not exist until Step 7), prices of the 2026-10-12 reading",
+    "gemini-3.5-flash-lite_usd": {
+      "main_2496_slots": "51.87-52.62",
+      "plus_pilot_round_1_18": "52.24-53.00",
+      "plus_two_rounds_36": "52.61-53.37"
+    },
+    "status": "conditional estimate, not a guarantee; recompute at Step 7 (OD-10)"
+  },
+  "artifact_hashes": {
+    "research_design/SCENARIO_CONSTRUCTION_SPECIFICATION_v2_7_DRAFT.md": "d5fcffadd1045fc0c86a7c84eb8d51592d807576b6a51b712cef025164082ca8",
+    "research_design/METHODOLOGY_FREEZE_MANIFEST_v2_7.json": "b93ff372d44854e19266159f389f29e8051a4f678ffbbf4a35b9a85a602bb1d3",
+    "research_design/PARAMETER_JUSTIFICATION_RECORD_DRAFT.md": "a1b2148766965d0b7a35f5996e83e77cf9c303eece09e275589f5939f7df7de1",
+    "research_design/STEP3_OWNER_DECISIONS_RECORD_DRAFT.md": "94fa64f981d59ccc37d1312b5fc815675c3e668373b0ef86742bce28b4903c8c",
+    "research_design/implementation_a/impl_a.py": "daa2cd49b86ed1a546e95478bc3f40c1fc131ea52d4622b981e4e3b117f018ee",
+    "research_design/implementation_a/test_impl_a.py": "92d36252f54c9e216d09754a172aa112e44b92df5497384c9c50277731daa723",
+    "research_design/implementation_a/run_step4.py": "17f3e554769d3eaf3273751756ef0113eeb90270a43885f7c4c00015dc73512f",
+    "research_design/implementation_a/step4_run_output.txt": "9dc59b9dee8f0c375f0e533882706ab3305411da937ef32171a43c62fc6487ec",
+    "research_design/implementation_a/step4_run_output_corrected.txt": "6a6fe76ce97860f932a2cafae3d15dbb1591e59ea5d93e55c623371a5f1b876a"
+  },
+  "not_authorized_by_this_freeze": [
+    "Step 7",
+    "Step 8",
+    "pilot",
+    "any API call",
+    "experiment"
+  ],
+  "open_items_carried": [
+    "PRD-4, PRD-5, PRD-6, PRD-8, PRD-10, PC-1, PC-2 (specification 19.3)",
+    "open audit findings F-3, F-4, T-1, I-6 and limited independence of checks",
+    "OD-6 before Step 7",
+    "OD-7 any time"
+  ]
+}

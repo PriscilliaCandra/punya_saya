@@ -1,0 +1,51 @@
+{
+  "run_id": "stage2_gemini_20261008T035839Z",
+  "stage": 2,
+  "dry_run": false,
+  "provider": "gemini",
+  "model_requested": "gemini-3.1-flash-lite",
+  "registry_version": "stage2-v1",
+  "planned_calls": 40,
+  "repetitions": 5,
+  "scenarios": 8,
+  "shuffle_seed": 20261008,
+  "call_order_sha256": "8b98a43e72f7ab243e1ce21a7a18f908286a0b5fcbf2429c06621570e7e30e81",
+  "settings": {
+    "max_output_tokens": 8192,
+    "temperature": "provider default (temperature parameter is NOT sent)",
+    "system_prompt": null,
+    "retries": 0,
+    "timeout_seconds": 180,
+    "delay_between_calls_seconds": 1.0
+  },
+  "bindings": {
+    "codebook_sha256": "177a1c5d9b7dbf1ab9e53d0684365dcf67b21f1b1f3154f3f8b1ecc5aa6eb4fc",
+    "codebook_freeze_manifest_sha256": "669ef62e758b4243a732ac417f6dd670623637d1f8fd19453a2f5124ee1891b2",
+    "registry_file_sha256": "51895ee5329059930959f15746439f692bb849521de346099a1838be7689f5c7",
+    "registry_canonical_sha256": "c0e9447bb50911f3f7bc33f8fa1d0bda85c909ed39ba82eaa01a1e398a41e76b",
+    "prompt_specification_sha256": "5d88b1e57557d9fb8ba67d9623972d3420953e9e3f28961e0dfed401b3637a80",
+    "stage1_registry_canonical_sha256": "d5213f039073acc72140956b46c792c4f76d980e2c800982cbca247bafb86e81",
+    "call_order_sha256": "8b98a43e72f7ab243e1ce21a7a18f908286a0b5fcbf2429c06621570e7e30e81",
+    "config_specification_sha256": "3fd7df12a39d569add1ca8f010fb1fa12635c4fec53157d3801f62dc8ab5b61c",
+    "runner_specification_sha256": "538dbf979ad8e57df0e11d3b8bb8c93bc4255c05fdd27215ddb5ac958f275136",
+    "analyzer_specification_sha256": "4d55c305da83c2d6d62f1ac7b725e1001884aaab0dda20dae2a70799e470ba5b",
+    "prompt_hashes": {
+      "E-F-A": "1770f1572342116c12e75b0b42efa70789d1a54f2f4b670cba6b56a15024cb49",
+      "E-F-B": "5406c93c376febd64b2df037580f1d1f4ed5995eece059cba390a4e92e8a2a46",
+      "K-E-TRUE": "808c1545b65a1ce4f2052bdd06458967a500de06cd151cffbdaf992702f29967",
+      "K-E-TRUE-B": "4b33b6067d75783dd3b77c0417ef21cfe768a8e5be82d1f5c80e347408776085",
+      "C-L2": "9479e2e9ba1d0540bddec16b29ba9be044e76004a87402eb9ed44d22b61c0a04",
+      "C-L3": "a672ab88f0101ea5c5ca67c36f65205630c85091ab66d6d76070ec190375893c",
+      "C-L4-S2": "ba5ef99887b0dccc05caec191dbe08469f876eb3d0d2ee5e0b8e8afc552bdee8",
+      "K-C-L4-S2": "61eeac0b0c4043b0ae463756483241f33641cf64548867a453545e91fc601393"
+    },
+    "runner_sha256": "b149c57568110d1cd0574b8bec63424fd9b40b5712cbcb2557709a71c96f684e",
+    "analyzer_sha256": "08e8432e52ec9ed6c68730eb288cf32348c54355aa8709a3bccc0edd72aa3056"
+  },
+  "config_sha256": "3ee87c5c392d40eef6a9dceb599c5f0c83275ba589c0d8d496629a0728876a6b",
+  "runner_sha256": "b149c57568110d1cd0574b8bec63424fd9b40b5712cbcb2557709a71c96f684e",
+  "python_version": "3.11.9",
+  "platform": "Windows-10-10.0.26300-SP0",
+  "started_utc": "2026-10-08T03:58:39+00:00",
+  "httpx_version": "0.28.1"
+}

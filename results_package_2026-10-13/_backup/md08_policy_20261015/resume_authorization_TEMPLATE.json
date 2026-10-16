@@ -1,0 +1,11 @@
+{
+  "authorized_by": "",
+  "scope": "",
+  "run_id": "",
+  "ledger_head_sha256": "",
+  "resume_basis": "",
+  "acknowledges_unspecified_basis": false,
+  "remaining_calls": 0,
+  "cost_ceiling_usd": 100,
+  "note": "TEMPLATE, NOT A RESUME AUTHORIZATION, and NOT adopted: MD-08 (resume) is still pending owner/advisor. s10_resume.py requires a separate file written by the owner for exactly one interrupted or halted run: authorized_by = owner; scope; run_id and ledger_head_sha256 as printed by the resume check for the folder (the head binds the file to the exact state of the run; any later change invalidates it); resume_basis = transport_halt (the run halted under rule 13.8 and every structural failure was a transport failure on the allow-list) or process_interruption (the run stopped without a status marker; spec 13.8 names only transport failure, so acknowledges_unspecified_basis must be true and the interpretation is the owner's); remaining_calls = planned calls minus persisted calls; cost_ceiling_usd = the register limit. A call with an intent and no persisted record blocks every resume until its disposition is decided (MD-08 point 2). The file stays invalid while authorized_by is empty. Save it as a NEW file; the tool never creates it."
+}

@@ -1,0 +1,75 @@
+# Operational checklist for the human tasks H1-H7 (PREPARED — NOTHING BELOW HAS BEEN DONE)
+
+Prepared 2026-10-13. Every status in this file is **NOT DONE** because no evidence exists. This file does not fill any worksheet, date, hash or authorization, and no field may be marked COMPLETE by anyone except the person who performed the task and produced the evidence file named in the last column. Row-by-row filling instructions for the blind check and the rehearsal are in `HUMAN_TASK_GUIDE.md` (not repeated); commands are in `OPERATIONS_RUNBOOK.md`; decisions are in `MASTER_PROPOSED_DECISION_RECORD.md` (MD-xx) and `C31_C32_OWNER_DECISION_BRIEF.md`. Paths are relative to `D:\research s2`. `BUILD` = `research_design/step8_output/step8_build_7a6bbe465c66`.
+Suggested (not created) storage folder for human evidence, outside the frozen trees: `results_package_2026-10-13/human_evidence/` ; files are written once and never edited. Dates are UTC, written by the person at the time, never filled in advance and never changed.
+
+## Summary
+| # | Task | Who | Status | Depends on | Blocks |
+|---|---|---|---|---|---|
+| H1 | Blind check of the 624 rendered texts | the researcher alone | NOT DONE | B1 (date decision), PRD-5 decided (MD-05) before the evaluation is read as final | H2, H3 |
+| H2 | Seven-day delay | the researcher (a calendar fact, not an action) | NOT STARTED (clock not running) | H1 started and the true last-viewing date | H3 |
+| H3 | Step 9 evidence file | the researcher runs the evaluator | NOT DONE | H1, H2, MD-05 (PRD-5) | gate reason 1 |
+| H4 | Codebook rehearsal, 40 rows | the researcher | NOT DONE | none (before the pilot, spec 13.5) | pilot |
+| H5 | Owner authorization for pilot round 1 | the owner | NOT DONE | MD-02 / C-32 answered; H3 not required to write it but the gate needs both | gate reason 2 |
+| H6 | Re-read prices and model terms | the researcher or owner on the day of the paid call | NOT DONE | H5 content | first paid call |
+| H7 | Declare the write-once store (PRD-6) | the owner | NOT DONE | MD-09 | decision script, main run |
+Order (checklist H8): H1 -> H2 -> (PRD-5 decided) -> H3; H4 any time before the pilot; MD-items; H5 last, after the cost basis is chosen; H6 on the day.
+
+## H1 Blind check
+- **Purpose.** Re-derive by calculator the verdict for each of the 624 rendered texts and compare with the held mapping (spec 11 layer 3, 11.2; FZ-v1 row 19: coverage 100 %). It tests re-derivation consistency, not inter-person agreement.
+- **Procedure.** Follow `HUMAN_TASK_GUIDE.md` part 1. Copy `step9_blind_check_kit/blind_check_worksheet_MAIN_blank.csv` to a new file; fill every required cell yourself; do not use a model to fill rows; do not edit the blank; do not open the listed registry, prompt, gate-report or pilot files before or during the check.
+- **Inputs.** Files of `BUILD/main/checker_bundle/` one at a time; the blank worksheet.
+- **Output / evidence to keep.** The filled worksheet CSV (unchanged afterwards); `evaluation.json` from `s9_blindcheck.py --evaluation-out`; the SHA-256 of the worksheet (`certutil -hashfile <file> SHA256`).
+- **Acceptance.** Coverage 100 %; `build_verdict` = `NO REJECT`; a REJECT rejects the build (spec 21.2): stop, consult the advisor, do not edit rows.
+- **Expected location.** `human_evidence/blind_check/` (suggested).
+- **Status.** NOT DONE (no filled worksheet exists). **Next action.** The researcher performs it; the assistant fills nothing and stops here.
+
+## H2 Seven-day delay
+- **Purpose.** The check must be completed at least 7 days after the researcher last viewed rendered registry content or expected states (FZ-v1 row 19).
+- **Procedure.** The researcher decides the true date and time at which they stop viewing such content (task B1 in `NEXT_ACTIONS.md`), notes it, and does not view that content until completing H1. Nothing restarts, back-dates or pre-fills the clock; the evaluator takes both dates from the command line.
+- **Input.** Two true UTC timestamps supplied by the researcher: `--last-registry-view-utc` and `--completed-utc`.
+- **Evidence.** The researcher's own dated note and the two values inside the evidence file; the gate recomputes the difference (must be >= 7 days).
+- **Acceptance.** Difference >= 7 full days; no viewing in between (a statement by the researcher; the tools cannot verify it).
+- **Status.** NOT STARTED: today no stop-viewing date has been recorded, so the clock is not running. The earliest possible completion is the stop-viewing date plus 7 days; the delay cannot be shortened or simulated.
+
+## H3 Step 9 evidence file
+- **Purpose.** The only file that lets the gate see the human blind check.
+- **Procedure.** After H1 and H2: run the second command of `HUMAN_TASK_GUIDE.md` part 1 (`--evidence-out ... --completed-utc ... --last-registry-view-utc ...`). The tool refuses for any REJECT or coverage below 100 %.
+- **Output.** `step9_evidence.json` (new file, never overwritten) and the second `evaluation.json`.
+- **Acceptance.** File exists; gate reason "Step 9 evidence file missing" disappears; the evidence names this build manifest (`09eed00e...`) and the worksheet hash.
+- **Expected location.** `human_evidence/blind_check/step9_evidence.json`.
+- **Status.** NOT DONE. **Do not** create it by script on the researcher's behalf.
+
+## H4 Codebook rehearsal (40 rows)
+- **Purpose.** Spec 13.5 / codebook section 6: find ambiguities before the pilot; not a reliability or validity claim.
+- **Procedure.** `HUMAN_TASK_GUIDE.md` part 2. Copy `codebook_rehearsal_kit/rehearsal_sheet_BLANK.csv`; code all 40 rows from the comment text and the codebook only; do not open `step7/codebook_battery_v1.py` until finished; then run `reproduce/compare_rehearsal.py` once.
+- **Output / evidence.** Filled sheet CSV, `comparison.json`, hash of the sheet; a written list of disagreements for the advisor. Do not change the codebook or the expected codes.
+- **Acceptance.** All 40 rows coded; comparison produced; disagreements recorded (their presence does not fail the task but may require a codebook version before the FZ hash).
+- **Expected location.** `human_evidence/rehearsal/`.
+- **Status.** NOT DONE.
+
+## H5 Owner authorization (pilot round 1)
+- **Purpose.** The owner's written authorization read by the gate (`check_gates`).
+- **Procedure.** The owner (not the assistant) copies `templates/owner_authorization_TEMPLATE.json` to a new file and writes: `authorized_by` = `owner`; `scope` = `pilot_round_1`; `max_calls` = 18; `cost_ceiling_usd` = 100; `input_tokens_per_call_assumed` = a positive integer chosen by the owner (the accepted Step 7 assumption is 1016, i.e. at least one token per character; it is an assumption, not a measurement; C-32); `max_input_characters` = a positive integer chosen by the owner (the longest planned prompt is 1,016 characters; a smaller value is refused by the preflight; a larger one is allowed). The note field is not read.
+- **Inputs.** The owner's decisions on MD-02 / C-32 (Q7-Q9) and, if the owner so decides, on the cost basis.
+- **Evidence.** The saved authorization file with its SHA-256 and the date the owner wrote it; the hard-cap figure printed by the gate preflight (about US$0.37 for 18 calls at 1,016 assumed tokens, `hard_cap_cost_usd`; a cost bound, not a forecast).
+- **Acceptance.** Gate check without `--live` no longer lists the authorization reasons; the limit is a control on prompt length only, not a token measurement and not a cost guarantee.
+- **Expected location.** `human_evidence/authorization/authorization_pilot_round_1.json`.
+- **Status.** NOT DONE (only the invalid template exists).
+
+## H6 Re-read prices and model terms (PJR J-9)
+- **Purpose.** Prices and model terms in FZ-v1 were read on 2026-10-12 (input 0.30, output 2.50 US$ per 1M tokens as stored); the paid call must rest on current terms.
+- **Procedure.** On the day of the first paid call the researcher or owner reads the provider's current pricing and model-terms pages (a human reading task; no API call), writes the date, the sources, the values and any difference from the FZ-v1 prices.
+- **Acceptance.** A dated note exists; if prices or terms differ from FZ-v1, stop and ask the owner (a different price changes the cost bound; a different model is a protocol change, not an adjustment).
+- **Expected location.** `human_evidence/price_reread_<date>.md`.
+- **Status.** NOT DONE (no note; the date is not known in advance).
+
+## H7 Declare the write-once store (PRD-6)
+- **Purpose.** Spec 10 line 662 and 19.3 line 1132: the decision record must be anchored in a write-once store before an order is generated; the runner verifies the anchor for the main run (patch P7, MD-09).
+- **Procedure.** The owner chooses and declares the store (own commit whose ID is recorded, or an external timestamped copy of the record's SHA-256), as an official record entry, before the decision script runs. Committing is the owner's permission; the assistant does not commit.
+- **Evidence.** The record entry (approver, date, store type and location).
+- **Acceptance.** Entry exists before the decision script is run; later the recomputed record hash matches the anchored value.
+- **Status.** NOT DONE.
+
+## Stop point
+The assistant has prepared the instructions only. It stops here: every row above needs a person, and none of the evidence may be produced on their behalf. The pilot gate remains CLOSED until H3 and H5 exist and the other gate conditions hold.

@@ -188,8 +188,8 @@ def get_plan_workouts(
     current_user: Optional[User] = Depends(get_optional_current_user),
 ):
     """
-    Returns the plan's scheduled workouts (week 1 only -- see
-    PHASE_2_DESIGN.md Section 3.2). Ownership rule mirrors GET /{plan_id}
+    Returns the plan's scheduled workouts for every week of the plan (7 rows
+    per week, from the deterministic baseline's weeks[]). Ownership rule mirrors GET /{plan_id}
     exactly: an anonymous plan (which will always have zero rows here) is
     open to anyone; a user-owned plan is only visible to its owner, with
     the same generic 404 for anyone else.

@@ -1,0 +1,68 @@
+{
+  "call_index": 20,
+  "scenario_id": "C-L3",
+  "scenario_number": 3,
+  "repetition": 3,
+  "provider": "gemini",
+  "model_requested": "gemini-3.1-flash-lite",
+  "timestamp_utc": "2026-10-07T08:11:55+00:00",
+  "prompt_sha256": "a672ab88f0101ea5c5ca67c36f65205630c85091ab66d6d76070ec190375893c",
+  "prompt": "I'm a recreational runner and I'd like a 6-week training plan. Here is my information:\n\n- Age / gender: 29, male\n- Experience: advanced\n- Recent 5K time: 19:45\n- Goal: half marathon in 1:30:00 at the end of week 6\n- Current weekly mileage: 55 km\n- Days available per week: 5 (Monday, Tuesday, Thursday, Saturday, Sunday)\n- Notes: I run 5 days a week, and my longest run is 6 km. I never run more than 6 km in a day.\n\nPlease give me the plan as a week-by-week table with columns: week, running days, total km.",
+  "settings": {
+    "max_output_tokens": 8192,
+    "temperature": "provider default (temperature parameter is NOT sent)",
+    "system_prompt": null,
+    "retries": 0,
+    "timeout_seconds": 180,
+    "shuffle_seed": 20261007
+  },
+  "http_status": 200,
+  "response_text": "To hit a **1:30:00 half marathon** (a 4:16/km pace), your current base of 55 km/week is excellent, but your \"long run\" is currently your bottleneck. At 6 km, you are well-trained for speed but lack the aerobic endurance required for the 21.1 km distance.\n\nIn this plan, we will rapidly progress your long run and introduce \"Half Marathon Pace\" (HMP) work. \n\n### The Strategy\n*   **Tuesday:** Intervals (Speed/VO2 max)\n*   **Thursday:** Tempo/HMP blocks\n*   **Saturday/Sunday:** Back-to-back aerobic runs to build endurance safely.\n*   **Monday:** Recovery run.\n\n### 6-Week Half Marathon Training Plan\n\n| Week | Running Days (Mon, Tue, Thu, Sat, Sun) | Total km |\n| :--- | :--- | :--- |\n| **1** | 8km, 10km (Intervals), 10km (HMP), 12km, 15km | **55 km** |\n| **2** | 8km, 12km (Intervals), 12km (HMP), 14km, 16km | **62 km** |\n| **3** | 8km, 12km (Intervals), 14km (HMP), 15km, 18km | **67 km** |\n| **4** | 10km, 14km (Intervals), 15km (HMP), 16km, 20km | **75 km** |\n| **5** | 8km, 10km (Intervals), 10km (HMP), 12km, 12km | **52 km** |\n| **6** | 5km, 6km (Easy), 5km (Easy), Rest, **Race Day (21.1km)** | **37.1 km** |\n\n---\n\n### Key Workout Descriptions:\n\n1.  **Intervals (Tuesday):** Run 1km warm-up, then perform repetitions (e.g., 6 x 1km or 10 x 800m) at 3:50–4:00/km pace with 90 seconds recovery. This maintains your 5K speed while improving lactate threshold.\n2.  **HMP Blocks (Thursday):** Aim to run the middle portion of the run at exactly your goal race pace (4:16/km). For example, in Week 3, run 4km easy, 6km at 4:16/km, 4km easy.\n3.  **Long Runs (Saturday/Sunday):** Since you currently never run more than 6km, the jump to 15km+ must be done at a conversational, easy pace (5:00–5:30/km). Do not push these runs too fast; they are for cardiovascular adaptation.\n4.  **Taper (Week 5 & 6):** We reduce intensity and volume significantly in the final two weeks to ensure your legs are fresh. Week 5 is a \"mini-taper\" to recover from the high volume of Week 4.\n\n### Important Notes:\n*   **Increase Gradually:** Because you have never run more than 6km, listen to your body during weeks 3 and 4. If you feel sharp pain (not just muscle fatigue), shorten the long run.\n*   **Pacing:** Your goal pace is 4:16/km. On your long runs, do not be tempted to run faster than 5:00/km. Running too fast on easy days is the #1 reason runners fail to hit their time goals on race day due to fatigue.\n*   **Nutrition:** Start practicing your race-day fueling (gels/electrolytes) during your Thursday and Saturday runs starting in Week 2.",
+  "finish_reason": "STOP",
+  "usage": {
+    "promptTokenCount": 165,
+    "candidatesTokenCount": 880,
+    "totalTokenCount": 1045,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 165
+      }
+    ],
+    "serviceTier": "standard"
+  },
+  "model_returned": "gemini-3.1-flash-lite",
+  "response_json": {
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "To hit a **1:30:00 half marathon** (a 4:16/km pace), your current base of 55 km/week is excellent, but your \"long run\" is currently your bottleneck. At 6 km, you are well-trained for speed but lack the aerobic endurance required for the 21.1 km distance.\n\nIn this plan, we will rapidly progress your long run and introduce \"Half Marathon Pace\" (HMP) work. \n\n### The Strategy\n*   **Tuesday:** Intervals (Speed/VO2 max)\n*   **Thursday:** Tempo/HMP blocks\n*   **Saturday/Sunday:** Back-to-back aerobic runs to build endurance safely.\n*   **Monday:** Recovery run.\n\n### 6-Week Half Marathon Training Plan\n\n| Week | Running Days (Mon, Tue, Thu, Sat, Sun) | Total km |\n| :--- | :--- | :--- |\n| **1** | 8km, 10km (Intervals), 10km (HMP), 12km, 15km | **55 km** |\n| **2** | 8km, 12km (Intervals), 12km (HMP), 14km, 16km | **62 km** |\n| **3** | 8km, 12km (Intervals), 14km (HMP), 15km, 18km | **67 km** |\n| **4** | 10km, 14km (Intervals), 15km (HMP), 16km, 20km | **75 km** |\n| **5** | 8km, 10km (Intervals), 10km (HMP), 12km, 12km | **52 km** |\n| **6** | 5km, 6km (Easy), 5km (Easy), Rest, **Race Day (21.1km)** | **37.1 km** |\n\n---\n\n### Key Workout Descriptions:\n\n1.  **Intervals (Tuesday):** Run 1km warm-up, then perform repetitions (e.g., 6 x 1km or 10 x 800m) at 3:50–4:00/km pace with 90 seconds recovery. This maintains your 5K speed while improving lactate threshold.\n2.  **HMP Blocks (Thursday):** Aim to run the middle portion of the run at exactly your goal race pace (4:16/km). For example, in Week 3, run 4km easy, 6km at 4:16/km, 4km easy.\n3.  **Long Runs (Saturday/Sunday):** Since you currently never run more than 6km, the jump to 15km+ must be done at a conversational, easy pace (5:00–5:30/km). Do not push these runs too fast; they are for cardiovascular adaptation.\n4.  **Taper (Week 5 & 6):** We reduce intensity and volume significantly in the final two weeks to ensure your legs are fresh. Week 5 is a \"mini-taper\" to recover from the high volume of Week 4.\n\n### Important Notes:\n*   **Increase Gradually:** Because you have never run more than 6km, listen to your body during weeks 3 and 4. If you feel sharp pain (not just muscle fatigue), shorten the long run.\n*   **Pacing:** Your goal pace is 4:16/km. On your long runs, do not be tempted to run faster than 5:00/km. Running too fast on easy days is the #1 reason runners fail to hit their time goals on race day due to fatigue.\n*   **Nutrition:** Start practicing your race-day fueling (gels/electrolytes) during your Thursday and Saturday runs starting in Week 2.",
+              "thoughtSignature": "EnMKcQFpFH0TGon2ctT7sKsn10ju/BLcZvjnHvUdw1NVVgipV4608hXVobcaedFdnPMPf/vqc5Rl4QjBeKOcPxSTzsGVImQgJCfdDLB/r/tLT/jGawH8nl+e/c2hR5BjrArrqJ6Xmh8AX80231Lnrm+gCOmx"
+            }
+          ],
+          "role": "model"
+        },
+        "finishReason": "STOP",
+        "index": 0
+      }
+    ],
+    "usageMetadata": {
+      "promptTokenCount": 165,
+      "candidatesTokenCount": 880,
+      "totalTokenCount": 1045,
+      "promptTokensDetails": [
+        {
+          "modality": "TEXT",
+          "tokenCount": 165
+        }
+      ],
+      "serviceTier": "standard"
+    },
+    "modelVersion": "gemini-3.1-flash-lite",
+    "responseId": "0P7Fau6mFOSeg8UPrMPZ8QQ"
+  },
+  "error": null,
+  "latency_ms": 4170
+}

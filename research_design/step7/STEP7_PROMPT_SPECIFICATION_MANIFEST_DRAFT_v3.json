@@ -1,0 +1,310 @@
+{
+  "manifest_purpose": "Step 7 prompt-specification documentation, revision 3 (section 21.1 step 7; section 14), after the second review and the decisions of decision record 12.21. DRAFT FOR OWNER REVIEW. Administrative format modelled on the Step 1 and Step 6 manifests (owner decision of 2026-10-12, record 12.13 item 3); the specification fixes no format, location or hashing method. This manifest carries no self-hash. It supersedes STEP7_PROMPT_SPECIFICATION_MANIFEST_DRAFT_v2.json (kept unchanged, sha256 c4466c0d...72f5a) and v1 (kept unchanged); the states are preserved in research_design/step7_history/.",
+  "status": "DRAFT_FOR_OWNER_REVIEW - NOT DECLARED FROZEN. Step 7 is not complete until the owner approves the artifacts and declares the freeze. Nothing in this manifest says that Step 8 may start.",
+  "date": "2026-10-12",
+  "supersedes": {
+    "path": "research_design/step7/STEP7_PROMPT_SPECIFICATION_MANIFEST_DRAFT_v2.json",
+    "sha256": "c4466c0d5484d3a4a9b95eceab0ad911ad7414767a15917ad187c4c10ca72f5a",
+    "earlier": {
+      "path": "research_design/step7/STEP7_PROMPT_SPECIFICATION_MANIFEST_DRAFT_v1.json",
+      "sha256": "f789cf265cb84c4d665b8698bfeea312f7e683c88a10f45c2a375ab93472f609"
+    },
+    "first_draft_snapshot": "research_design/step7_history/audit1_draft_2026-10-12/ (hash list: research_design/step7_history/audit1_draft_2026-10-12.SHA256SUMS.txt)",
+    "revision2_snapshot": "research_design/step7_history/revision2_2026-10-12/ (hash list: research_design/step7_history/revision2_2026-10-12.SHA256SUMS.txt)",
+    "record_before_12_21": "research_design/step7_history/STEP3_OWNER_DECISIONS_RECORD_DRAFT.before_12_21.md (sha256 bad7d187e0cdfc2745f84312d6b1c140988c42c766d2f9f05a20e3f49442ce45)"
+  },
+  "specification": {
+    "path": "research_design/SCENARIO_CONSTRUCTION_SPECIFICATION_v2_7_DRAFT.md",
+    "sha256": "d5fcffadd1045fc0c86a7c84eb8d51592d807576b6a51b712cef025164082ca8",
+    "unchanged": true
+  },
+  "fz_v1_register": {
+    "path": "research_design/PARAMETER_FREEZE_MANIFEST_FZ_v1.json",
+    "register_canonical_sha256": "c7d50e115b08b6d70b9c35f1d09183118c3d2aaffa89b1c838987f7ab73987a2",
+    "file_sha256_at_this_time": "149445715a8280f4079bcd34d3594e25fe1b6b30118e382e96e94360c0faf338",
+    "changed_by_step7": false
+  },
+  "decision_record": {
+    "path": "research_design/STEP3_OWNER_DECISIONS_RECORD_DRAFT.md",
+    "entries": [
+      "12.18 owner decisions after the audit (with the classification of each as clarification, scope decision, owner approval or held)",
+      "12.19 pre-registration of the revised batteries (hashes recorded before any test used them)",
+      "12.20 results of the revision",
+      "12.21 second review: C4 decision, delegated decisions, proposals (not applied)",
+      "12.22 pre-registration of the extended codebook battery (before the tests of this review)",
+      "12.23 results of the second review (written after the tests)"
+    ],
+    "note": "The record is an append-only amended file; its own hash is not stored here because 12.20 is appended after this manifest. The historical mismatch with the hash stored in the FZ-v1 manifest remains (12.12 to 12.17)."
+  },
+  "owner_decisions_applied": [
+    "OD-6 (12.12)",
+    "PRD-4 closed list (12.13)",
+    "Step 7 artifact format (12.13)",
+    "PRD-10 Option A (12.14)",
+    "PC-1 Option E (12.16)",
+    "12.18 rows 1-13: GAP-1 (a), GAP-2 FAIL-U precedence, GAP-3 G3-A, decoding by replacement, final decisions only, OD-10 character bound, parser ASCII whitespace, wording approved as written, S2 Unicode symbols only, Comments boundary, CQ narrow, MPG for MX",
+    "12.21 row 1 (C4): the closed relation vocabulary is not expanded; detection is lexical and separate from verification; this supersedes the negation sentence of 12.18 row 10",
+    "12.21 rows 2-10: delegated decisions and proposals; P-1 (18.2), P-2 (FZ hash) and P-4 (token measurement) are proposals only"
+  ],
+  "hash_method": {
+    "canon": "sha256(json.dumps(obj, sort_keys=True, separators=(\",\", \":\"), ensure_ascii=False).encode(\"utf-8\"))",
+    "utf8": "sha256 of the UTF-8 bytes of the text",
+    "file": "sha256 of the bytes of the file",
+    "reproduce": "python -B research_design/step7/s7_manifest_items.py prints every item hash and file hash with its recipe; the test class TestManifestConsistency compares them with this manifest"
+  },
+  "items_section_14_and_21_1": {
+    "I01_constraint_label_per_family": {
+      "where": "prompt_specification_v1.FAMILIES[*].constraint_label",
+      "sha256": "12f1cde5fb49dddde637fffd1f9023d46aebe572fa0ab711b9c5bfde6c96172b",
+      "hashed_as": "canon(I01_constraint_label_per_family object of canon_items())"
+    },
+    "I02_rule_text_per_family_with_slot_markers": {
+      "where": "FAMILIES[*].rule_template, FAMILIES[*].slots, SLOT_P/SLOT_D/SLOT_TAU",
+      "sha256": "2242fd132b27faa2ec83220107117517bb39b765bb19eac436cea1fb6b483a55",
+      "hashed_as": "canon(I02_rule_text_per_family_with_slot_markers object of canon_items())"
+    },
+    "I03_plan_format_and_labels": {
+      "where": "FAMILIES[*].plan_header/plan_separator/distance_label/time_label",
+      "sha256": "16680cb253721b418a6c58bce3011677c245909002aa96eb34745095da6a688b",
+      "hashed_as": "canon(I03_plan_format_and_labels object of canon_items())"
+    },
+    "I04_runner_sentence": {
+      "value": "none (absent; no profile or runner text in any prompt, section 7)",
+      "sha256": null
+    },
+    "I05_task_text": {
+      "where": "prompt_specification_v1.TASK_TEXT",
+      "sha256": "b28100aa316c0a12cdee128dbf1c76f6e1b9c21d63e85cf1d89de43e6a23b50d",
+      "hashed_as": "utf8(TASK_TEXT)"
+    },
+    "I06_response_format": {
+      "where": "prompt_specification_v1.RESPONSE_FORMAT",
+      "sha256": "3d56c3a12d931322b6b0182267afab8160a68c5c405f315e74a9b841d3637237",
+      "hashed_as": "utf8(RESPONSE_FORMAT)"
+    },
+    "I07_reviewer_claim_block_and_insertion": {
+      "where": "CLAIM_BLOCK, JOINER, insertion position, removal rule",
+      "sha256": "53b787310e4ba1487dc4e4d5737fa40224997d89dde38a62835259397eeebc67",
+      "hashed_as": "canon(I07_reviewer_claim_block_and_insertion object of canon_items())"
+    },
+    "I08_block_markers": {
+      "where": "FAMILIES[*].block_start_marker, BLOCK_END_MARKER",
+      "sha256": "44d405dd9f6fe6d266f5dc6eefd3ecec1b3c75bdc9abb7689ea951484208e593",
+      "hashed_as": "canon(I08_block_markers object of canon_items())"
+    },
+    "I09_numeral_renderers": {
+      "where": "s7_core.py (render_int/render_mil/render_pace/render_time/render_dist/n_dec and the PG12 matcher)",
+      "sha256": "64789acb84047f3dabbdd9855baa997317cab637dbb0d7f152cabac98cadea21",
+      "hashed_as": "file(s7_core.py)"
+    },
+    "I10_verdict_parser_grammar": {
+      "where": "s7_parser.py (parse_verdict, comments_of, S2/S3 rules)",
+      "sha256": "b9d60196c50f8099c0a8319c1308abd40937f7fc3e87e58a30983225c3bd56d8",
+      "hashed_as": "file(s7_parser.py)"
+    },
+    "I11_frozen_reference_grammar_checker": {
+      "where": "s7_refcheck.py (no re, no project import; own file since the revision)",
+      "sha256": "39e10a85068262c960a475fc30cacc7e43ca5ebc8a8ce395bd41fad8d3bf80d4",
+      "hashed_as": "file(s7_refcheck.py)"
+    },
+    "I12_pt_patterns_PT1_to_PT10": {
+      "where": "PT_PATTERNS plus PT10_PATTERN",
+      "sha256": "fd79379a683d40dc749ae838f9e4a50a56f4b978ed6ac157262c711b3d370386",
+      "hashed_as": "canon(I12_pt_patterns_PT1_to_PT10 object of canon_items())"
+    },
+    "I13_pt_control_batteries": {
+      "where": "PT_NEGATIVE_CONTROLS, PT_POSITIVE_CONTROLS, PT10_POSITIVE_CONTROLS, PT10_NEGATIVE_CONTROLS",
+      "sha256": "bda98347e90c6a8dff0d3cd7943c09a2481591ffcc04571e624cad2394aeaa18",
+      "hashed_as": "canon(I13_pt_control_batteries object of canon_items())"
+    },
+    "I14_pg12_whitelist_entries_and_controls": {
+      "where": "PG12_* controls; the entries themselves are in s7_core.py (I09)",
+      "sha256": "5ba7fb097ce625d31055126ec3a7f2d2d1423cc6ba02a2e9bcf7676c0c57c43a",
+      "hashed_as": "canon(I14_pg12_whitelist_entries_and_controls object of canon_items())"
+    },
+    "I15_anti_cue_list": {
+      "where": "ANTI_CUE_WORDS (applies to the task text only)",
+      "sha256": "b704a64513e7ebbc0c84ca777788470d3e447cb7ab1556eb366109d1f006aa64",
+      "hashed_as": "canon(I15_anti_cue_list object of canon_items())"
+    },
+    "I16_reviewer_reference_trigger_list": {
+      "where": "REVIEWER_REFERENCE_PHRASES",
+      "sha256": "1ce6b31d0d0f8b59d7ba7533d3b6b9e1410466c60038134e0f97ade993e66da8",
+      "hashed_as": "canon(I16_reviewer_reference_trigger_list object of canon_items())"
+    },
+    "I17_codebook_S2_S3": {
+      "where": "CODEBOOK_S2_S3_v1_DRAFT.md (revision 3)",
+      "sha256": "62388d4e5c18ba7758ec0081837d61288776c10605d2c9d5cb4f3f3201b23bc1",
+      "hashed_as": "file(CODEBOOK_S2_S3_v1_DRAFT.md)"
+    },
+    "I18_codebook_synthetic_battery": {
+      "where": "codebook_battery_v1.py (40 items; pre-registered in decision record 12.22)",
+      "sha256": "8200cfea41e23255242576ace494fa039ce28880d1a443a2326d6900e0107d49",
+      "hashed_as": "file(codebook_battery_v1.py)"
+    },
+    "I19_pg11a_pg11b_bundle_builders": {
+      "where": "s7_bundle.py",
+      "sha256": "10567178b20976eab4958c98db0fca8bd54eabcfa0cb96727936b4985dfa1636",
+      "hashed_as": "file(s7_bundle.py)"
+    },
+    "I20_decision_script": {
+      "where": "s7_decision.py",
+      "sha256": "cf0823f7abdf4b6b44d4efd44006567ac42290350714415e8e11496444f57618",
+      "hashed_as": "file(s7_decision.py)"
+    },
+    "I21_prompt_specification_module": {
+      "where": "prompt_specification_v1.py (all texts, lists, patterns, controls, lexical data)",
+      "sha256": "8b9a73e945f0251c648ca2045ce9c0ee2de25581127f905764139229bcae3167",
+      "hashed_as": "file(prompt_specification_v1.py)"
+    },
+    "I22_structural_diagnostic_code": {
+      "where": "s7_diagnostic.py (13.6.1 activity A; decision 12.18 row 3)",
+      "sha256": "5e0f6e707231d66f2ca89b4a0765d6edcde78cdc5bc1e1137e7c9fa6fe9806b6",
+      "hashed_as": "file(s7_diagnostic.py)"
+    },
+    "I23_codebook_lexical_data": {
+      "where": "ASCII_WHITESPACE, EMPHASIS_CHARS, VERDICT_TRAILING_PUNCTUATION, REDACTION_MARKER, EMPTY_COMMENT_TOKENS, RELATION_*",
+      "sha256": "202e736c53e5dc997aaa3ba9da04f560a3103c2596eecf94f5737381d79ff3b4",
+      "hashed_as": "canon(I23_codebook_lexical_data object of canon_items())"
+    },
+    "I24_parser_and_comments_battery": {
+      "where": "parser_battery_v1.py (pre-registered, decision record 12.19)",
+      "sha256": "82af5d5361561d9812dd0827a061fa609e42a76dc6f03c6dc90ba2ab38296b27",
+      "hashed_as": "file(parser_battery_v1.py)"
+    },
+    "I25_diagnostic_report_schema": {
+      "where": "s7_diagnostic.REPORT_FIELDS, LABELS and the value whitelists (schema hashed separately from the file)",
+      "sha256": "0bba0219b4d3bd6d9c790f711b2760a49376acb9237283259a0f17b02e2645e4",
+      "hashed_as": "canon(I25_diagnostic_report_schema object of canon_items())"
+    },
+    "I26_recode_procedure": {
+      "where": "s7_recode.py (selection, order, delay, agreement table; decision 12.21 row 6)",
+      "sha256": "300fea018e94241098f19914626e84c3f0eba405eca779a309a782e1d319d577",
+      "hashed_as": "file(s7_recode.py)"
+    },
+    "I27_proposed_clarifications_and_amendments": {
+      "where": "PROPOSED_CLARIFICATIONS_AND_AMENDMENTS_DRAFT_v1.md (proposals only, nothing adopted)",
+      "sha256": "2becb5102d66c720f496dc42077bf06106779ddb51748b9b5402d166f2b68749",
+      "hashed_as": "file(PROPOSED_CLARIFICATIONS_AND_AMENDMENTS_DRAFT_v1.md)"
+    },
+    "I28_recode_parameters": {
+      "where": "s7_recode.RECODE_FLOOR, RECODE_NUM/RECODE_DEN, RECODE_DELAY_DAYS",
+      "sha256": "68fee1ac4b6efb6be185b1e5218696299b8d77311d02ca57e66c384c5947eaca",
+      "hashed_as": "canon(I28_recode_parameters object of canon_items())"
+    }
+  },
+  "file_hashes": {
+    "research_design/step7/CODEBOOK_S2_S3_v1_DRAFT.md": "62388d4e5c18ba7758ec0081837d61288776c10605d2c9d5cb4f3f3201b23bc1",
+    "research_design/step7/PROPOSED_CLARIFICATIONS_AND_AMENDMENTS_DRAFT_v1.md": "2becb5102d66c720f496dc42077bf06106779ddb51748b9b5402d166f2b68749",
+    "research_design/step7/codebook_battery_v1.py": "8200cfea41e23255242576ace494fa039ce28880d1a443a2326d6900e0107d49",
+    "research_design/step7/parser_battery_v1.py": "82af5d5361561d9812dd0827a061fa609e42a76dc6f03c6dc90ba2ab38296b27",
+    "research_design/step7/prompt_specification_v1.py": "8b9a73e945f0251c648ca2045ce9c0ee2de25581127f905764139229bcae3167",
+    "research_design/step7/s7_bundle.py": "10567178b20976eab4958c98db0fca8bd54eabcfa0cb96727936b4985dfa1636",
+    "research_design/step7/s7_core.py": "64789acb84047f3dabbdd9855baa997317cab637dbb0d7f152cabac98cadea21",
+    "research_design/step7/s7_decision.py": "cf0823f7abdf4b6b44d4efd44006567ac42290350714415e8e11496444f57618",
+    "research_design/step7/s7_diagnostic.py": "5e0f6e707231d66f2ca89b4a0765d6edcde78cdc5bc1e1137e7c9fa6fe9806b6",
+    "research_design/step7/s7_manifest_items.py": "9b55941d97788009047a5cea90f78566ba99d9edc2867eecf6567d7dfd2cc340",
+    "research_design/step7/s7_parser.py": "b9d60196c50f8099c0a8319c1308abd40937f7fc3e87e58a30983225c3bd56d8",
+    "research_design/step7/s7_recode.py": "300fea018e94241098f19914626e84c3f0eba405eca779a309a782e1d319d577",
+    "research_design/step7/s7_refcheck.py": "39e10a85068262c960a475fc30cacc7e43ca5ebc8a8ce395bd41fad8d3bf80d4",
+    "research_design/step7/test_step7.py": "2bf9c83bd9b1af4b33ea488506507ae155d113ff9358da22a891f63d1d252ffd"
+  },
+  "batteries": {
+    "pre_registered_in": "decision record 12.19 (parser battery, 55 + 20 cases) and 12.22 (codebook battery, 40 items), before the tests that use them",
+    "parser_battery_v1.py": {
+      "sha256": "82af5d5361561d9812dd0827a061fa609e42a76dc6f03c6dc90ba2ab38296b27",
+      "parser_cases": 55,
+      "comments_cases": 20
+    },
+    "codebook_battery_v1.py": {
+      "sha256": "8200cfea41e23255242576ace494fa039ce28880d1a443a2326d6900e0107d49",
+      "items": 40
+    },
+    "read_by_human_coder": false,
+    "limit": "the feature assignments (what a coder would mark) are the author's; the free-text reading step is untested"
+  },
+  "tests": {
+    "command": "python -B -I -W error::ResourceWarning -m unittest discover -s research_design/step7 -p test_step7.py",
+    "result_line": "Ran 125 tests - OK",
+    "status": "OK",
+    "step4_command": "python -B -I -m unittest discover -s research_design/implementation_a -p test_impl_a.py",
+    "step4_result_line": "Ran 123 tests - OK (implementation_a unchanged)",
+    "scope": "synthetic strings and synthetic batteries only; no registry, no model output, no API call; temporary files only outside the repository; ResourceWarning treated as error",
+    "mutation_check": {
+      "mutants": 22,
+      "killed": 22,
+      "survived": 0,
+      "kind": "in-memory patches of one decision or fix each: the 14 of the first revision plus 'does not exceed' added to the vocabulary, negated clauses dropped from detection, observed round calls replaced by planned, template list check weakened, re-code floor, re-code selection ignoring the bundle hash, re-code delay, unregistered synonym registered",
+      "limit": "22 chosen mutants, not a complete mutation analysis; the mutants are not stored in the repository"
+    },
+    "not_covered": [
+      "the reading of free text into features by a human coder (rehearsal pending)",
+      "the equivalence of the generator with Implementation A (F-4)",
+      "any tokenizer-level behaviour and any measured I_max",
+      "behaviour on real model responses (none exist)",
+      "independence: the code, the tests, the batteries and this review have the same author"
+    ]
+  },
+  "regression_for_audit_defects": {
+    "D1": "PT4 is in the PG11 scan (TestAuditRegressions.test_D1_pt4_is_in_the_pg11_scan)",
+    "D2": "mapping content in a body or name is detected as a whole token (test_D2_mapping_content_in_a_body_is_detected)",
+    "D3": "non-ASCII coder bodies are written as UTF-8; failures leave no directory (test_D3_non_ascii_response_is_written_and_failures_leave_nothing)",
+    "D4": "directory names are scanned (test_D4_directory_names_are_scanned)",
+    "D5": "the decision script has an entry point, writes the canonical record and prints its SHA-256; every invocation is logged (test_D5_*, TestDecision.test_cli_*)",
+    "D6": "no combined label; inputs validated; FAIL-U precedence (test_D6_*, TestDecision.test_gap2_*)",
+    "D7": "missing plan block is a FAIL; floats rejected by render_dist (test_D7_*)"
+  },
+  "gap_status_after_revision": {
+    "GAP-1": "pilot rule decided (12.18 row 1): UNP / all calls of the round, disjoint counts, observed calls must equal planned calls (script fixed in 12.21 row 9). CONFLICT with 18.2 for the main run: reported, amendment P-1 proposed, NOT applied",
+    "GAP-2": "decided (12.18 row 2); verified in 12.21 row 3; the round-1 action after FAIL-S and a round-2 record without a round-1 outcome are not defined by 13.6 and not automated",
+    "GAP-3": "decided (12.18 rows 3-4); code hashed as I22, schema as I25; invalid inputs raise TypeError; distinct from the H3 checker (I11); scope decision, the lists of 13.2, 14 and 21.1 are not amended",
+    "GAP-4": "open: PG1-PG9, PG12 block level, A1b and A6b as registry-level checkers are Step 8 and Step 9 work",
+    "GAP-5": "open: F-4. The Step 7 renderers agree with Implementation A on the tested domains, which is not evidence for F-4",
+    "GAP-6": "open: no human coder has read the batteries; the rehearsal of codebook section 6 is pending",
+    "GAP-7": "wording approved as written (12.18 row 8); the redaction marker and the body layout of the coder materials are builder design choices",
+    "GAP-8": "open as before: PC-2, PRD-5, PRD-6, PRD-8 (statuses in decision record 12.23)",
+    "GAP-9": "I_max is not measured; character bound only; measurement method and cost effect in P-4; pending authorization"
+  },
+  "open_items_not_decided": [
+    "P-1: amendment of 18.2 for structural failures in the main run (conflict reported, not applied)",
+    "P-2: FZ hash contract (proposal; the decision script records the supplied value as unverified)",
+    "P-3: inconsistencies of the specification text (s2_values category none, MX, kappa, 13.4 versus SF2/SF3)",
+    "P-4: token measurement (needs an external call, pending authorization)",
+    "round-1 action after FAIL-S and the multi-type case; a round-2 record without a round-1 outcome",
+    "delegated values of the re-code (20 percent, floor 20, 14 days) await the owner's and the advisor's review",
+    "rehearsal of the codebook on the synthetic battery by the human coder (pending)",
+    "run rule for relation symbols (maximal run of < > = !) is a codebook elaboration awaiting owner confirmation",
+    "the compact canonical serialization of the decision record is a Step 7 choice",
+    "the codebook is not frozen and no coder has used it"
+  ],
+  "cost_bound_conditional": {
+    "owner_decision": "12.18 row 6: character bound accepted for Step 7; an assumption (a token covers at least one character), not a measurement; the tokenizer was not queried",
+    "frozen_text_worst_case_characters": {
+      "MIL_with_claim_max_numerals": 878,
+      "PAC_with_claim_max_numerals": 1016
+    },
+    "hard_cap_usd_gemini-3.5-flash-lite": {
+      "2496_main_slots_I=1016": 51.88,
+      "with_36_pilot_slots_I=1016": 52.63
+    },
+    "basis": "8192 output tokens on every call, retries 0, prices USD 0.30 / 2.50 per 1M tokens read on 2026-10-12 (FZ-v1 manifest)",
+    "check": "TestHygiene.test_od10_character_bound_still_holds_for_the_current_texts recomputes the bound from the current texts",
+    "od10_gate": "the US$100 limit of OD-10 is unchanged; a change of any prompt text requires the bound to be recomputed"
+  },
+  "od9_check_max_output_tokens_8192": {
+    "result": "no change proposed",
+    "reason": "plausibility argument only, not evidence that every response will be complete; SF3 handling and the pilot decide"
+  },
+  "not_done": [
+    "freeze of Step 7",
+    "readiness statement for Step 8",
+    "registry generation",
+    "rendered prompts for any real template",
+    "Step 8",
+    "pilot",
+    "API or model call",
+    "experiment",
+    "parameter change",
+    "commit or push"
+  ]
+}

@@ -1,0 +1,214 @@
+{
+ "disagreements": [
+  {
+   "coder": "NV",
+   "expected": "IV",
+   "item": "B17",
+   "variable": "s2_evidence"
+  },
+  {
+   "coder": "N",
+   "expected": "Y",
+   "item": "B17",
+   "variable": "s2_prov"
+  },
+  {
+   "coder": "none",
+   "expected": "cv",
+   "item": "B09",
+   "variable": "s2_values"
+  },
+  {
+   "coder": "SW",
+   "expected": "cv",
+   "item": "B10",
+   "variable": "s2_values"
+  },
+  {
+   "coder": "none",
+   "expected": "cv",
+   "item": "B20",
+   "variable": "s2_values"
+  },
+  {
+   "coder": "none",
+   "expected": "cv",
+   "item": "B23",
+   "variable": "s2_values"
+  },
+  {
+   "coder": "none",
+   "expected": "cv",
+   "item": "B32",
+   "variable": "s2_values"
+  },
+  {
+   "coder": "none",
+   "expected": "cv",
+   "item": "B35",
+   "variable": "s2_values"
+  },
+  {
+   "coder": "SW",
+   "expected": "cv",
+   "item": "B36",
+   "variable": "s2_values"
+  },
+  {
+   "coder": "none",
+   "expected": "cv",
+   "item": "B37",
+   "variable": "s2_values"
+  },
+  {
+   "coder": "none",
+   "expected": "cv",
+   "item": "B38",
+   "variable": "s2_values"
+  },
+  {
+   "coder": "AN",
+   "expected": "AC",
+   "item": "B09",
+   "variable": "s2_arith"
+  },
+  {
+   "coder": "AN",
+   "expected": "AC",
+   "item": "B12",
+   "variable": "s2_arith"
+  },
+  {
+   "coder": "AN",
+   "expected": "AI",
+   "item": "B17",
+   "variable": "s2_arith"
+  },
+  {
+   "coder": "AN",
+   "expected": "AC",
+   "item": "B20",
+   "variable": "s2_arith"
+  },
+  {
+   "coder": "AN",
+   "expected": "AC",
+   "item": "B21",
+   "variable": "s2_arith"
+  },
+  {
+   "coder": "AN",
+   "expected": "AC",
+   "item": "B22",
+   "variable": "s2_arith"
+  },
+  {
+   "coder": "AN",
+   "expected": "AC",
+   "item": "B23",
+   "variable": "s2_arith"
+  },
+  {
+   "coder": "AN",
+   "expected": "AC",
+   "item": "B24",
+   "variable": "s2_arith"
+  },
+  {
+   "coder": "AN",
+   "expected": "AC",
+   "item": "B31",
+   "variable": "s2_arith"
+  },
+  {
+   "coder": "AN",
+   "expected": "AC",
+   "item": "B32",
+   "variable": "s2_arith"
+  },
+  {
+   "coder": "AN",
+   "expected": "AC",
+   "item": "B35",
+   "variable": "s2_arith"
+  },
+  {
+   "coder": "AN",
+   "expected": "AC",
+   "item": "B36",
+   "variable": "s2_arith"
+  },
+  {
+   "coder": "AN",
+   "expected": "AC",
+   "item": "B37",
+   "variable": "s2_arith"
+  },
+  {
+   "coder": "AN",
+   "expected": "AC",
+   "item": "B38",
+   "variable": "s2_arith"
+  },
+  {
+   "coder": "AN",
+   "expected": "AC",
+   "item": "B39",
+   "variable": "s2_arith"
+  },
+  {
+   "coder": "AN",
+   "expected": "AC",
+   "item": "B40",
+   "variable": "s2_arith"
+  },
+  {
+   "coder": "",
+   "expected": "RT",
+   "item": "B36",
+   "variable": "s2_rel"
+  },
+  {
+   "coder": "NS",
+   "expected": "MPG",
+   "item": "B03",
+   "variable": "s3_stance"
+  }
+ ],
+ "items_expected": 40,
+ "items_in_sheet": 40,
+ "missing": [],
+ "statement": "rehearsal on synthetic comments; not a reliability or validity claim; no kappa",
+ "variables": {
+  "s2_arith": {
+   "agree": 24,
+   "n": 40,
+   "raw_agreement_percent": "60.0"
+  },
+  "s2_evidence": {
+   "agree": 39,
+   "n": 40,
+   "raw_agreement_percent": "97.5"
+  },
+  "s2_prov": {
+   "agree": 39,
+   "n": 40,
+   "raw_agreement_percent": "97.5"
+  },
+  "s2_rel": {
+   "agree": 39,
+   "n": 40,
+   "raw_agreement_percent": "97.5"
+  },
+  "s2_values": {
+   "agree": 31,
+   "n": 40,
+   "raw_agreement_percent": "77.5"
+  },
+  "s3_stance": {
+   "agree": 39,
+   "n": 40,
+   "raw_agreement_percent": "97.5"
+  }
+ }
+}

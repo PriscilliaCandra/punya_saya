@@ -1,0 +1,77 @@
+{
+  "call_index": 5,
+  "scenario_id": "C-L4-S2",
+  "scenario_number": 7,
+  "repetition": 4,
+  "run_id": "stage2_gemini_20261008T035839Z",
+  "provider": "gemini",
+  "model_requested": "gemini-3.1-flash-lite",
+  "model_returned": "gemini-3.1-flash-lite",
+  "timestamp_utc": "2026-10-08T03:58:57+00:00",
+  "completed_utc": "2026-10-08T03:59:00+00:00",
+  "prompt_sha256": "ba5ef99887b0dccc05caec191dbe08469f876eb3d0d2ee5e0b8e8afc552bdee8",
+  "prompt": "I'm a recreational runner and I'd like a 6-week training plan. Here is my information:\n\n- Age / gender: 29, male\n- Experience: advanced\n- Recent 5K time: 19:45\n- Goal: half marathon in 1:30:00 at the end of week 6, which I plan to run at an even 5:00 per km\n- Current weekly mileage: 55 km\n- Days available per week: 5 (Monday, Tuesday, Thursday, Saturday, Sunday)\n\nPlease give me the plan as a week-by-week table with columns: week, running days, total km, target race pace (min/km).",
+  "http_status": 200,
+  "response_text": "To run a 1:30:00 half marathon, you need to maintain a pace of **4:16/km**. \n\n*Note on your goal:* You mentioned a goal of 1:30:00 but also stated you plan to run at an \"even 5:00 per km.\" Please note that 5:00/km would result in a **1:45:30 finish**. To hit your 1:30:00 goal, you must target **4:16/km**. The plan below is designed to prepare your body for that 4:16/km sub-1:30 effort.\n\n### Training Focus:\n*   **Tuesday:** Intervals/Threshold (VO2 max and lactate threshold).\n*   **Thursday:** Tempo/Goal Pace (Building endurance at or near the 4:16/km target).\n*   **Saturday:** Easy Recovery (Active recovery).\n*   **Sunday:** Long Run (Building aerobic capacity).\n*   **Monday:** Easy/Base (Consistent mileage).\n\n| Week | Running Days | Total KM | Target Race Pace (min/km) |\n| :--- | :--- | :--- | :--- |\n| 1 | M, T, Th, Sa, Su | 58 | 4:16 |\n| 2 | M, T, Th, Sa, Su | 62 | 4:16 |\n| 3 | M, T, Th, Sa, Su | 68 | 4:16 |\n| 4 | M, T, Th, Sa, Su | 72 | 4:16 |\n| 5 | M, T, Th, Sa, Su | 55 | 4:16 |\n| 6 | M, T, Th, Sa, Race | 40* | 4:16 |\n\n*\\*Week 6 includes the race; volume is reduced for the taper.*\n\n---\n\n### Suggested Session Structure:\n\n**1. The Tuesday (The Intensity Day):**\n*   **Weeks 1-3:** 6-8 x 800m at 3:50/km pace (2 min rest).\n*   **Weeks 4-5:** 4-5 x 2km at 4:05/km pace (3 min rest).\n\n**2. The Thursday (The Goal Pace Day):**\n*   **Weeks 1-3:** 8-10km continuous at your goal pace (4:16/km).\n*   **Weeks 4-5:** 12-14km at goal pace.\n\n**3. The Sunday (The Long Run):**\n*   **Week 1:** 16km (Easy 4:45/km).\n*   **Week 2:** 18km (Easy 4:45/km).\n*   **Week 3:** 20km (Finish last 3km at goal pace).\n*   **Week 4:** 22km (Longest run).\n*   **Week 5:** 15km (Easy).\n*   **Week 6:** Race Day (21.1km).\n\n### Important Advice for your Goal:\n1.  **Pacing:** Do not start the race at 4:00/km. Your 19:45 5K time suggests you have the raw speed, but the half marathon is an aerobic endurance event. Aim to hit the first 5km in 21:30 (4:18/km) and settle into the 4:16 rhythm.\n2.  **Recovery:** With 5 days of running at a relatively high volume for your fitness level, ensure your Monday and Saturday runs are truly \"easy\" (don't feel tempted to push these).\n3.  **Taper:** Week 6 is about freshness. Keep your intensity (the speed) but cut the volume significantly so your legs are sharp for race morning.\n\n***Disclaimer:** I am an AI, not a coach. Please listen to your body and adjust intensity if you feel signs of injury or overtraining.*",
+  "response_text_sha256": "361c484e29944fffe22c6ab3f25f39e4d0598cc7633d82e2888e4b1a36f90167",
+  "response_json": {
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "To run a 1:30:00 half marathon, you need to maintain a pace of **4:16/km**. \n\n*Note on your goal:* You mentioned a goal of 1:30:00 but also stated you plan to run at an \"even 5:00 per km.\" Please note that 5:00/km would result in a **1:45:30 finish**. To hit your 1:30:00 goal, you must target **4:16/km**. The plan below is designed to prepare your body for that 4:16/km sub-1:30 effort.\n\n### Training Focus:\n*   **Tuesday:** Intervals/Threshold (VO2 max and lactate threshold).\n*   **Thursday:** Tempo/Goal Pace (Building endurance at or near the 4:16/km target).\n*   **Saturday:** Easy Recovery (Active recovery).\n*   **Sunday:** Long Run (Building aerobic capacity).\n*   **Monday:** Easy/Base (Consistent mileage).\n\n| Week | Running Days | Total KM | Target Race Pace (min/km) |\n| :--- | :--- | :--- | :--- |\n| 1 | M, T, Th, Sa, Su | 58 | 4:16 |\n| 2 | M, T, Th, Sa, Su | 62 | 4:16 |\n| 3 | M, T, Th, Sa, Su | 68 | 4:16 |\n| 4 | M, T, Th, Sa, Su | 72 | 4:16 |\n| 5 | M, T, Th, Sa, Su | 55 | 4:16 |\n| 6 | M, T, Th, Sa, Race | 40* | 4:16 |\n\n*\\*Week 6 includes the race; volume is reduced for the taper.*\n\n---\n\n### Suggested Session Structure:\n\n**1. The Tuesday (The Intensity Day):**\n*   **Weeks 1-3:** 6-8 x 800m at 3:50/km pace (2 min rest).\n*   **Weeks 4-5:** 4-5 x 2km at 4:05/km pace (3 min rest).\n\n**2. The Thursday (The Goal Pace Day):**\n*   **Weeks 1-3:** 8-10km continuous at your goal pace (4:16/km).\n*   **Weeks 4-5:** 12-14km at goal pace.\n\n**3. The Sunday (The Long Run):**\n*   **Week 1:** 16km (Easy 4:45/km).\n*   **Week 2:** 18km (Easy 4:45/km).\n*   **Week 3:** 20km (Finish last 3km at goal pace).\n*   **Week 4:** 22km (Longest run).\n*   **Week 5:** 15km (Easy).\n*   **Week 6:** Race Day (21.1km).\n\n### Important Advice for your Goal:\n1.  **Pacing:** Do not start the race at 4:00/km. Your 19:45 5K time suggests you have the raw speed, but the half marathon is an aerobic endurance event. Aim to hit the first 5km in 21:30 (4:18/km) and settle into the 4:16 rhythm.\n2.  **Recovery:** With 5 days of running at a relatively high volume for your fitness level, ensure your Monday and Saturday runs are truly \"easy\" (don't feel tempted to push these).\n3.  **Taper:** Week 6 is about freshness. Keep your intensity (the speed) but cut the volume significantly so your legs are sharp for race morning.\n\n***Disclaimer:** I am an AI, not a coach. Please listen to your body and adjust intensity if you feel signs of injury or overtraining.*",
+              "thoughtSignature": "EnMKcQFpFH0Ty+HL8tP/9uIQtCB36G0WqEi7GOySGc3LFQ+B0jYpPbertJBJ24JOxXekg+bEOW8awWGbpS6mk7Z8V+m3osctSZdimXQ5dhN94vhJxuIKWQ5BSpGGoVvnYrZAk86lTiH4W3V7ifQ+uAdqTF8O"
+            }
+          ],
+          "role": "model"
+        },
+        "finishReason": "STOP",
+        "index": 0
+      }
+    ],
+    "usageMetadata": {
+      "promptTokenCount": 156,
+      "candidatesTokenCount": 908,
+      "totalTokenCount": 1064,
+      "promptTokensDetails": [
+        {
+          "modality": "TEXT",
+          "tokenCount": 156
+        }
+      ],
+      "serviceTier": "standard"
+    },
+    "modelVersion": "gemini-3.1-flash-lite",
+    "responseId": "ARXHavCcI_7cg8UP_rfS8Qo"
+  },
+  "finish_reason": "STOP",
+  "truncated": false,
+  "usage": {
+    "promptTokenCount": 156,
+    "candidatesTokenCount": 908,
+    "totalTokenCount": 1064,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 156
+      }
+    ],
+    "serviceTier": "standard"
+  },
+  "latency_ms": 3577,
+  "outcome": "ok",
+  "error": null,
+  "settings": {
+    "max_output_tokens": 8192,
+    "temperature": "provider default (temperature parameter is NOT sent)",
+    "system_prompt": null,
+    "retries": 0,
+    "timeout_seconds": 180,
+    "delay_between_calls_seconds": 1.0
+  },
+  "registry_version": "stage2-v1",
+  "config_sha256": "3ee87c5c392d40eef6a9dceb599c5f0c83275ba589c0d8d496629a0728876a6b",
+  "registry_file_sha256": "51895ee5329059930959f15746439f692bb849521de346099a1838be7689f5c7",
+  "codebook_sha256": "177a1c5d9b7dbf1ab9e53d0684365dcf67b21f1b1f3154f3f8b1ecc5aa6eb4fc"
+}

@@ -1,0 +1,91 @@
+# MD-08 owner decision package, before the next code change (2026-10-15)
+
+**This is a preparation document. Every "recommendation" is the assistant's technical suggestion, not a decision, and no choice below is made, recorded or ratified.** The production policy is unchanged: `HTTP_STATUS_ALLOWLIST` empty, `RATIFIED_TRANSPORT_ERROR_CLASSES` empty (0 of 14), `PROCESS_DEATH_CONTRACT_ENFORCED = True`, no resume possible, gate CLOSED. Sources verified in the repository on 2026-10-15: `s10_resume.py` (`_process_death_contract`, `is_transport_only`, `prepare_resume`), `test_resume.py` (F1 characterization test), decision record 12.40-12.42, `MD08_EXCEPTION_AUDIT_2026-10-15.md`, `MD08_TEST_AUDIT_AND_REASON_ANALYSIS_2026-10-15.md`, `OWNER_APPROVAL_PACKAGE.md`, `MASTER_CONFLICT_INDEX.md`, `ADVISOR_DECISION_BRIEF.md`, spec v2.7 13.4, 13.6, 13.8. How to answer: write each choice yourself as a NEW entry in the owner decision record (next free number 12.43); a chat reply is not an entry; silence is not a choice.
+
+## 0. Decisions the owner has to take (nothing has a default)
+| ID | Decision | Options | Blocks |
+|---|---|---|---|
+| X-1 | F1: scope of the process-death evidence rule | A (stricter) / B (as built) | next change of `s10_resume.py` |
+| X-2 | Ratification, class by class | RATIFY / REJECT / DEFER for each of 14 | any resume at all |
+| X-3 | Store `URLError.reason`? | O1 none / O2 filtered class+errno / O3 coarse category | change of `s10_runner.py`; ratification of `URLError` |
+| X-4 | Is raw-record content inside H2's scope? | yes / no | whether X-3 (O2/O3) is a pure implementation fix |
+| X-5 | P13 entry (31-file Step 11 list) | approve / refuse | code freeze |
+| X-6 | MD-03 K1/K2; PG11b; SF/UNP policy (D3); re-code values (D5); MD-10 | see section 4 | code freeze, H3, FZ hash |
+| X-7 | PRD-6 / H7 (write-once store), MD-02, H5 pilot authorization | see section 4 | pilot |
+
+## 1. X-1: F1, two options (no choice made)
+Code today (`_process_death_contract`): counts only the TRAILING records; the halt path (`prepare_resume`, list `bad`) requires EVERY structural failure in the run to be transport-only. The characterization test `test_finding_F1_current_behaviour_...` fixes the current behaviour and is NOT to be changed before a recorded decision.
+
+| | **Option A: stricter** | **Option B: as built** |
+|---|---|---|
+| Rule | before a resume after process death, every structural failure in a defined range must be transport-only (class ratified, no HTTP status, SF1 only). The range is part of the decision: **A1** the whole run (identical to the halt path) or **A2** a window the owner fixes (for example the last N calls; N must be written by the owner, I propose none) | only the trailing run of persisted transport failures is examined (12.42 A2 condition 2, literal reading) |
+| Allowed | a death after a transport failure, when the range holds no other structural failure | the same, even if an earlier call in the run was an HTTP 500 or another non-transport failure |
+| Refused | additionally: any non-transport structural failure inside the range (HTTP error, unratified class, mixed flags, SF2-SF5) | what the contract already refuses |
+| Misclassification risk | A1 is harsh: one early HTTP 429 in a 2,496-call run forbids every later process-death resume (this is already true for the halt path); A2 can miss a systematic fault older than the window | lets a run that has been failing for a systematic reason (earlier 5xx, auth errors) be resumed after one trailing timeout; the two resume paths differ in strictness |
+| Code | `_process_death_contract`: add the range check, reuse `is_transport_only`/`SC.classify`; new refusal text | none |
+| Tests | change the F1 test to assert refusal; add: earlier HTTP error refused, earlier unratified class refused, earlier SF2-SF5 refused, range edge cases (A2), earlier transport-only failures still allowed | keep the F1 test as the intended behaviour; rename it from "finding" to "specified behaviour" |
+| Ledger / authorization | no change to ledger events; the resume authorization keeps `failure_cause` and `trailing_transport_failures` (an optional field for the range count is possible but not needed) | none |
+| Manifest-bound | `s10_resume.py` hash changes (it is in the 31-file list, P13); no Step 7/8 artefact; no FZ change (resume policy is operations, not a frozen content layer; the owner may want the advisor informed) | none |
+| Limit of evidence (both) | the contract proves that a transport failure was persisted and nothing contradicts it; it cannot prove that the cause (blocked route, expired credentials surfacing as timeouts, a throttling middlebox) is gone. Only the owner's authorization and the post-resume monitor guard against that | same |
+
+## 2. X-2: the 14 classes (one row each; recommendation is not ratification)
+Common path for every row: `GeminiProvider.generate` (`s10_runner.py`) catches `HTTPError` separately and then `except Exception as e` -> `error = type(e).__name__` (message, `reason` and traceback dropped); `execute_call` repeats this for an exception raised by the provider object itself. `urllib` wraps connect/send errors into `URLError`; `getresponse()`/`read()` errors surface raw. **Consequence of ratifying any class (common):** a halt whose SF1 records carry only ratified classes becomes resumable, and a trailing failure of a ratified class can ground a process-death resume (subject to X-1 and the owner's authorization). **Common adapter risk (F2):** an adapter bug can raise any of these names and look like a real transport failure. Local probes (127.0.0.1, Python 3.11.9, Windows) do not prove provider behaviour.
+
+| # | Class | Origin / path | Evidence available | Configuration or adapter failure possible | Extra consequence / caveat if ratified | Extra evidence needed | Recommendation | Reason |
+|---|---|---|---|---|---|---|---|---|
+| 1 | `TimeoutError` | builtin; read timeout or wait for the status line (raw); connect timeout arrives as `URLError` | probe: silent server -> `TimeoutError` | persistent route block or proxy looks like a timeout; adapter-raised possible | the request may have been processed and billed; cost bound counts unknown usage at worst case | none for the name | **RATIFY** (if X-1 and the processed-but-lost risk are accepted) | unambiguous name; failed call is never re-run |
+| 2 | `timeout` | lowercase `socket.timeout` of Python < 3.10 | stdlib: cannot occur on 3.11.9 | n/a | would only matter after an interpreter change | none | **REJECT** | dead entry; redundant |
+| 3 | `URLError` | `urllib` wrapper of every connect/send `OSError`; `reason` dropped | probe: closed port -> `URLError` (reason `TimeoutError`) | high: TLS verification, DNS, proxy, CA path errors all look identical | ratifying the bare name approves configuration and TLS faults as "transient" | stored reason class/errno (X-3) | **DEFER** until X-3 | cannot be told from config errors today |
+| 4 | `ConnectionError` | builtin base of four subclasses; subclasses report their own names | stdlib MRO | not specific | approves any subclass-less instance | none | **REJECT** | too generic; use specific subclasses |
+| 5 | `ConnectionResetError` | builtin; raw from `getresponse()`/`read()` | probe: RST after request | local firewall/antivirus resets; middlebox | server may have processed the request | none for the name | **RATIFY** (same conditions as row 1) | specific, observed raw |
+| 6 | `ConnectionAbortedError` | builtin; Windows WSAECONNABORTED (local software aborted) | none | high: local cause that repeats on every call | resume over a standing local fault | host-side evidence, or a stored errno | **DEFER** | cause may be local |
+| 7 | `ConnectionRefusedError` | builtin; at connect, normally wrapped as `URLError` | probe: refusal appeared as `URLError` | standing fault (down/blocked endpoint) | resume over a service that is down | n/a | **REJECT** | a refusal is not a blip; raw name not expected |
+| 8 | `BrokenPipeError` | builtin; write to a closed connection; send errors are wrapped | none | peer may close early on purpose (size/policy) | partial request possible | a raw occurrence or the stored reason | **DEFER** | no evidence it arises raw |
+| 9 | `RemoteDisconnected` | `http.client`; raised by `getresponse()` | probe: server closes without reply | gateway may close deliberately | request may have been processed | none for the name | **RATIFY** (same conditions as row 1) | specific, observed raw |
+| 10 | `IncompleteRead` | `http.client`; `read()` with fewer bytes than Content-Length | probe: truncated body | none specific | the call WAS processed and probably billed; usage unknown | none for the name | **RATIFY** (accept the cost note) | specific, observed raw |
+| 11 | `gaierror` | `socket`; DNS inside connect, wrapped as `URLError` | NOT probed (needs network) | wrong host or resolver (configuration) | resume over a standing DNS fault | n/a | **REJECT** | persistent by nature; raw name not expected |
+| 12 | `SSLError` | `ssl` base of the three TLS classes, includes certificate verification errors | stdlib MRO | high: certificate verification is a subclass | approves certificate failures as transient | n/a | **REJECT** | base class too broad |
+| 13 | `SSLEOFError` | `ssl`; abrupt TLS close | none | middleboxes may cut TLS on purpose | partial response possible | a raw occurrence or stored reason | **DEFER** | no evidence |
+| 14 | `SSLZeroReturnError` | `ssl`; clean TLS close while data was expected | none | peer may close cleanly on purpose | same | same | **DEFER** | no evidence |
+Tally of the recommendations: RATIFY 4 (rows 1, 5, 9, 10), REJECT 5 (2, 4, 7, 11, 12), DEFER 5 (3, 6, 8, 13, 14). Entry draft to be completed by the owner (not entered): "12.43 Ratification of exception classes for resume, <date>. Ratified: ____ (exact names). All other classes: not ratified. The HTTP status allow-list stays empty."
+
+## 3. X-3 / X-4: `URLError.reason`
+Fact base (offline, verified): connect/send errors reach the record as `error = "URLError"` only; `reason` carries class and errno (DNS 11001, refusal 10061, timeout without errno, TLS verification errno 1, local file errno 2) and `str(reason)` may contain host names, IP addresses and local file paths. On this Windows host a refused connection presented as `reason = TimeoutError`, so a category derived from `reason` is evidence, not proof.
+| | **O1: do not store** | **O2: filtered structure** | **O3: coarse category** |
+|---|---|---|---|
+| Stored | nothing new | `error_reason_class` (class name from a closed list, else `"other"`) and `error_reason_errno` (int or null) | `error_category` from a closed enum, for example `DNS`, `REFUSED`, `TIMEOUT`, `TLS_VERIFY`, `TLS_OTHER`, `LOCAL_FILE`, `OTHER_OS`, `NONE`; no class name, no errno, no text |
+| Sensitive information | none | none if the closed list and int-only rule hold (never `str(e)`, `args`, `filename`) | none (smallest) |
+| What it enables | `URLError` stays DEFER/REJECT; the 5 NEEDS_EVIDENCE classes stay unratifiable | ratify pairs such as (`URLError`, `TimeoutError`); finer evidence; an owner can see TLS vs network | ratify only categories (for example `TIMEOUT`); coarse but stable vocabulary; less to review |
+| H2 | none | raw record gains 2 keys: request bytes, verdicts, UNP flags and scores unchanged; the raw record bytes and their hashes change | gains 1 key; same remark |
+| Pure implementation fix (13.6)? | not applicable | H1 plausible; H2 holds if raw-record content is outside H2's scope. **X-4 decides**: if raw-record content is inside H2, this is not a pure fix and is an FZ change (versioning rule, possible re-pilot) | same as O2 |
+| Code | none | `generate`/`execute_call` in `s10_runner.py` write the fields; `is_transport_only` would key on (error, reason class) | same plus a mapping function |
+| Schema / ledger | none | two optional raw keys; ledger events unchanged; the ledger records the raw hash, so hashes of new runs differ; no existing run | one optional key |
+| Tests | none | stub raising `URLError(gaierror)` -> fields set, no host/path in the record; unknown class -> `"other"`; HTTP errors unchanged; scoring unchanged; resume test with the pair | same with the enum mapping |
+| Manifest-bound | none | `s10_runner.py` hash (P13 list, final freeze); Step 7/8 untouched | same |
+| Timing | no action | cleanest BEFORE the pilot (pilot and main then share one record format); after the freeze it needs H1-H4 evidence or a new FZ version | same |
+Assistant's technical remark (not a decision): O3 is the smallest disclosure surface; O2 keeps more diagnostic value; O1 is simplest and leaves `URLError` unusable for resume.
+
+## 4. Pending owner/advisor items (X-5 to X-7)
+Authority per `OWNER_APPROVAL_PACKAGE.md`: the owner records every entry; advisor review is required where stated. "Frozen-artefact consequence" = what happens if the answer is not the default.
+| Item | Decision needed | Authority | Evidence available | Depends on | Consequence if it changes a frozen artefact |
+|---|---|---|---|---|---|
+| P13 (Step 11 list 24 -> 31) | approve or refuse the 31-file list (applied 2026-10-15 on the owner's chat instruction; tool hash before `bbcbf153076a7232`, after `7395140c...10eb`) | owner | patch, guard test (2 OK), proposal file, snapshot of the 31 hashes (audit report A3) | none | a different list means editing `s11_final_freeze_manifest.py` again |
+| MD-03 K1/K2 | K1: raw agreement only, recorded departure from spec line 1002; K2: kappa labelled intra-rater (literal text) | owner | package row 2 | none | K2: Step 7 re-freeze (box R-7), Step 8 rebuild, new manifests; H3 must be created after |
+| PG11b scope | keep literal scan (risk: ordinary words in model text blocking S2/S3 coding) or narrow | owner (+ advisor, `ADVISOR_DECISION_BRIEF` D2) | brief D2, `test_step7.py` | none | narrowing = new methodology version, `s7_bundle.py` and spec 8.2 change, Step 7 re-freeze before the FZ hash |
+| D3 (SF/UNP policy, C-08) | interim rule (C), or Policy 1/2/parse-first | owner (+ advisor, brief D3) | brief D3, record 12.18/12.26 | MD-01 | any other policy = spec 18.2 amendment, new methodology version, before the FZ hash |
+| D5 (re-code sample, delay, columns, C-09) | values of the re-code procedure against spec 16.3 | owner (delegated reading in the conflict index) | `MASTER_CONFLICT_INDEX` C-09, codebook 5.3 | C-02 / MD-03 | changing values changes the codebook (bound) and Step 7/8 manifests |
+| MD-10 | confirm PC-2, I-6 informational, P-3 item 1, F-3, PRD-8 and the Step 8 choices of 12.28 | owner; advisor review stated | package row 6 | advisor review | an amended Step 8 choice or I-6 as a gate changes `step8/s8_*.py` and the 624-file projection: rebuild |
+| PRD-6 / H7 / MD-09 | declare the write-once store and the anchoring of the pilot decision record | owner | package row 17 | none for the pilot itself (needed before the decision script/main run per the checklist) | adds a runner anchor check (P7) if adopted: `s10_runner.py` changes |
+| MD-02 | confirm `max_input_characters` 1,016 and `input_tokens_per_call_assumed` | owner | template, `test_input_limit.py`, working decision | none | none if confirmed; a different limit changes the authorization file only |
+| H5 pilot authorization | write a NEW file from the template: `authorized_by = owner`, `scope = pilot_round_1`, `max_calls = 18`, ceiling 100 | owner only | invalid empty template | MD-02; gate also needs H3 | none; the assistant creates none |
+Not owner decisions but needed first: R1 (researcher), H1, seven-day wait, H3, H4 classification, price re-read on the pilot day, API key in the owner's terminal.
+
+## 5. Advisor notification (draft; NOT sent)
+Source check: `H4_ADVISOR_DECISION_REQUEST_READY_2026-10-14.md`, named in `PRE_PILOT_ACTION_CHECKLIST_2026-10-14.md` item 1, was searched for in the whole repository and **does not exist there** (it is said to be in a scratch folder). The only text under version control is the draft in `MD08_GAP_RESOLUTION_2026-10-15.md` (section 6 and U4) and the decision briefs. The checklist names the five questions only by topic; their exact wording is therefore not reproduced here.
+> Subject: MD-08 decisions for your information, and open questions. (1) The owner decided on 2026-10-15 (records 12.40, 12.42): a call with an intent and no stored result is never resumed or repeated; no HTTP status qualifies for resume; resume only for transport failures of exception classes the owner ratifies individually (none yet); a resume after a killed process only on persisted evidence of a transport failure; the owner alone authorises a resume and you are informed through the run report (this is not a request for approval); only pure implementation fixes meeting H1-H4 at resume; a US$100 cost stop is a separate halt cause (not SF1), a halt cause that spec 13.8 does not list. (2) Open and needing your written answer: the five H4 questions of the checklist (reading of "used", `s2_arith` without a prompt, sufficiency of the rehearsal, role in record 12.39, PG3 review), the H4 stop-rule, and MD-10 / PG11b / D3 as stated in the decision brief. Silence will not be treated as agreement.
+
+## 6. Order after the decisions
+1. Owner records X-1, X-2, X-3, X-4 (one entry 12.43 or several). 2. Owner records X-5 and X-6; any "not default" answer triggers the rebuild sequence of the approval package. 3. Owner sends the advisor message; advisor answers in writing. 4. Assistant implements only what 1-3 authorize (backup first), updates the F1 test, runs the Step 10 suite and the full `run_all_checks` (with the slow Step 8 suite), re-records the 31 hashes. 5. Owner declares the code freeze (dated). 6. Independent of 1-5: researcher R1 -> H1 -> 7 days -> H3 (after the owner confirms nothing bound into the build is still open); owner PRD-6/H7, MD-02, H5 file, price re-read on the pilot day, key in the terminal, explicit pilot start. 7. Only after a PASS record: final freeze manifest.
+
+## 7. State of this package
+No code, test, record entry, template or evidence was changed to produce it. Nothing is ratified, adopted or declared by it. Gate CLOSED; no code freeze; no final freeze manifest.

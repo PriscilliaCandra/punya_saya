@@ -1,0 +1,25 @@
+# Results package index (updated 2026-10-13)
+
+| Artifact | Path | Status |
+|---|---|---|
+| Execution status | `01_EXECUTION_STATUS_REPORT.md` | current |
+| Methodology and freeze record | `02_METHODOLOGY_AND_FREEZE_RECORD.md` (decisions also in `research_design/STEP3_OWNER_DECISIONS_RECORD_DRAFT.md` entries 12.26 to 12.28) | current |
+| Experimental results (Stage 1, Stage 2) | `03_EXPERIMENTAL_RESULTS.md` | final for the data that exist |
+| Analysis and limitations | `04_ANALYSIS_AND_LIMITATIONS.md` | final |
+| Reproduction | `05_REPRODUCIBILITY.md`, `reproduce/` | current |
+| Lecturer brief | `06_LECTURER_DISCUSSION_BRIEF.md` | current |
+| Step 7 freeze manifest | `research_design/step7/STEP7_PROMPT_SPECIFICATION_FREEZE_MANIFEST_v1.json` | FROZEN on owner instruction; advisor items open |
+| Step 7 history snapshot | `research_design/step7_history/revision4_2026-10-13/` | complete |
+| Step 8 code and tests | `research_design/step8/` | 30 tests OK |
+| Step 8 output (registries, prompts, hashes, gate reports, checker bundle, manifest) | `research_design/step8_output/step8_build_7a6bbe465c66/` | published, verified |
+| Steps 10-12 components (scoring, analysis, gated runner, report) | `research_design/step10/` | 18 tests OK (mock provider); gates closed; NOT run |
+| Post-run coding prep, tabulation, final freeze manifest tool | `research_design/step10/s12_coding.py`, `s11_final_freeze_manifest.py` | 9 tests OK (synthetic); NOT run |
+| Run integrity check, pilot report and decision glue | `research_design/step10/s10_integrity.py`, `s11_pilot.py` | 8 tests OK (mock); NOT run |
+| Blind-check evaluator and evidence-file writer | `research_design/step9/s9_blindcheck.py` | 6 tests OK (synthetic); the human check NOT done |
+| Implementation B and tests | `research_design/step9/` | AGREE; 10 tests OK |
+| Codebook rehearsal kit | `codebook_rehearsal_kit/` | blank sheet ready; rehearsal NOT done |
+| Human blind-check kit | `step9_blind_check_kit/` | blank worksheet ready; the check is NOT done |
+| Staged texts used for Step 7 | `staged_step7_freeze/` | applied (kept as record) |
+| v2.7 pilot / main-run outputs | none | not run: blocked at Step 9 |
+
+Commands (read-only unless stated): see `05_REPRODUCIBILITY.md`; Step 8 verification: `python -B -I research_design/step8/s8_verify.py research_design/step8_output/step8_build_7a6bbe465c66`; tests: `python -B -I -W error::ResourceWarning -m unittest discover -s research_design/step8 -p test_step8.py` (about 2 minutes).

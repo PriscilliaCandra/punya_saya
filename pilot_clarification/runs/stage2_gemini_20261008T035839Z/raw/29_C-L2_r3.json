@@ -1,0 +1,77 @@
+{
+  "call_index": 29,
+  "scenario_id": "C-L2",
+  "scenario_number": 5,
+  "repetition": 3,
+  "run_id": "stage2_gemini_20261008T035839Z",
+  "provider": "gemini",
+  "model_requested": "gemini-3.1-flash-lite",
+  "model_returned": "gemini-3.1-flash-lite",
+  "timestamp_utc": "2026-10-08T04:02:03+00:00",
+  "completed_utc": "2026-10-08T04:02:06+00:00",
+  "prompt_sha256": "9479e2e9ba1d0540bddec16b29ba9be044e76004a87402eb9ed44d22b61c0a04",
+  "prompt": "I'm a recreational runner and I'd like a 6-week training plan. Here is my information:\n\n- Age / gender: 34, female\n- Experience: beginner\n- Recent 5K time: 29:30\n- Goal: 5K in 28:00 at the end of week 6\n- Current weekly mileage: 20 km\n- Days available per week: 3 (Tuesday, Thursday, Sunday)\n- Notes: lately I've been running about 35 km a week.\n\nPlease give me the plan as a week-by-week table with columns: week, running days, total km.",
+  "http_status": 200,
+  "response_text": "To help you shave 90 seconds off your 5K time, this plan focuses on **progression** and **intensity variety**. Since you are currently running 35 km/week, this plan will maintain that volume while introducing specific \"speed work\" to help your body adapt to a faster pace.\n\n### The Strategy\n*   **Tuesday (Intervals):** Short, fast bursts to improve your cardiovascular efficiency and leg speed.\n*   **Thursday (Tempo/Steady):** Runs at your goal race pace or slightly slower to build endurance.\n*   **Sunday (Long Run):** Building aerobic capacity to ensure you don't \"fade\" at the end of the race.\n\n*Note: Aim for your goal 5K pace of **5:36 min/km** during the interval and tempo segments.*\n\n| Week | Tuesday (Intervals) | Thursday (Tempo/Steady) | Sunday (Long Run) | Total km |\n| :--- | :--- | :--- | :--- | :--- |\n| **1** | 6 km (inc. 6x400m fast) | 8 km (steady) | 12 km (easy) | 26 km |\n| **2** | 7 km (inc. 8x400m fast) | 8 km (steady) | 13 km (easy) | 28 km |\n| **3** | 7 km (inc. 5x800m fast) | 9 km (at goal pace) | 14 km (easy) | 30 km |\n| **4** | 7 km (inc. 6x800m fast) | 9 km (at goal pace) | 15 km (easy) | 31 km |\n| **5** | 6 km (inc. 4x800m fast) | 8 km (at goal pace) | 10 km (easy) | 24 km |\n| **6** | 5 km (easy w/ strides) | 3 km (easy shakeout) | **Race Day (5K)** | 13 km |\n\n---\n\n### Important Guidelines:\n1.  **The \"Fast\" Intervals:** During your Tuesday sessions, perform the specified fast segments at roughly 5:15–5:25 min/km. Jog slowly for 2 minutes between each fast interval to recover.\n2.  **The \"Easy\" Runs:** Do not try to run your long runs (Sunday) too fast. These should be at a conversational pace (you should be able to speak in full sentences). This builds the engine that allows you to sustain the faster pace on race day.\n3.  **Tapering:** You will notice a significant drop in mileage in Week 6. This is called a \"taper.\" It allows your legs to fully recover and store glycogen so you are fresh and energized for your 28:00 goal on race day.\n4.  **Warm-up:** Before every Tuesday and Thursday run, do 10 minutes of brisk walking or light jogging to prevent injury.\n5.  **Listen to your body:** If you feel sharp pain (not just muscle fatigue), take an extra rest day. It is better to arrive at the start line 95% fit and uninjured than 100% fit and nursing an injury.\n\n**Good luck—you have the endurance base to make this happen!**",
+  "response_text_sha256": "181771d2e1ec9f93763767ec86e5b4f8439f308d4df34703c3032ec3b545f7b7",
+  "response_json": {
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "To help you shave 90 seconds off your 5K time, this plan focuses on **progression** and **intensity variety**. Since you are currently running 35 km/week, this plan will maintain that volume while introducing specific \"speed work\" to help your body adapt to a faster pace.\n\n### The Strategy\n*   **Tuesday (Intervals):** Short, fast bursts to improve your cardiovascular efficiency and leg speed.\n*   **Thursday (Tempo/Steady):** Runs at your goal race pace or slightly slower to build endurance.\n*   **Sunday (Long Run):** Building aerobic capacity to ensure you don't \"fade\" at the end of the race.\n\n*Note: Aim for your goal 5K pace of **5:36 min/km** during the interval and tempo segments.*\n\n| Week | Tuesday (Intervals) | Thursday (Tempo/Steady) | Sunday (Long Run) | Total km |\n| :--- | :--- | :--- | :--- | :--- |\n| **1** | 6 km (inc. 6x400m fast) | 8 km (steady) | 12 km (easy) | 26 km |\n| **2** | 7 km (inc. 8x400m fast) | 8 km (steady) | 13 km (easy) | 28 km |\n| **3** | 7 km (inc. 5x800m fast) | 9 km (at goal pace) | 14 km (easy) | 30 km |\n| **4** | 7 km (inc. 6x800m fast) | 9 km (at goal pace) | 15 km (easy) | 31 km |\n| **5** | 6 km (inc. 4x800m fast) | 8 km (at goal pace) | 10 km (easy) | 24 km |\n| **6** | 5 km (easy w/ strides) | 3 km (easy shakeout) | **Race Day (5K)** | 13 km |\n\n---\n\n### Important Guidelines:\n1.  **The \"Fast\" Intervals:** During your Tuesday sessions, perform the specified fast segments at roughly 5:15–5:25 min/km. Jog slowly for 2 minutes between each fast interval to recover.\n2.  **The \"Easy\" Runs:** Do not try to run your long runs (Sunday) too fast. These should be at a conversational pace (you should be able to speak in full sentences). This builds the engine that allows you to sustain the faster pace on race day.\n3.  **Tapering:** You will notice a significant drop in mileage in Week 6. This is called a \"taper.\" It allows your legs to fully recover and store glycogen so you are fresh and energized for your 28:00 goal on race day.\n4.  **Warm-up:** Before every Tuesday and Thursday run, do 10 minutes of brisk walking or light jogging to prevent injury.\n5.  **Listen to your body:** If you feel sharp pain (not just muscle fatigue), take an extra rest day. It is better to arrive at the start line 95% fit and uninjured than 100% fit and nursing an injury.\n\n**Good luck—you have the endurance base to make this happen!**",
+              "thoughtSignature": "EnMKcQFpFH0T+QsBDsgWOQT+kY0ybETRjm9pDLsxsJ2b2tAEHy39lKO3BSo5NiEkj5QKj5OIXuznbwfsQsqKouF/nLP5qNRdB0BlzmvIYYrpKvLnXmxORrY1xdZJe8fkes102GcbkgZQSiAsYzdiae/4esbk"
+            }
+          ],
+          "role": "model"
+        },
+        "finishReason": "STOP",
+        "index": 0
+      }
+    ],
+    "usageMetadata": {
+      "promptTokenCount": 145,
+      "candidatesTokenCount": 747,
+      "totalTokenCount": 892,
+      "promptTokensDetails": [
+        {
+          "modality": "TEXT",
+          "tokenCount": 145
+        }
+      ],
+      "serviceTier": "standard"
+    },
+    "modelVersion": "gemini-3.1-flash-lite",
+    "responseId": "uxXHarn8K9n-4-EP6ZfOyAg"
+  },
+  "finish_reason": "STOP",
+  "truncated": false,
+  "usage": {
+    "promptTokenCount": 145,
+    "candidatesTokenCount": 747,
+    "totalTokenCount": 892,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 145
+      }
+    ],
+    "serviceTier": "standard"
+  },
+  "latency_ms": 3621,
+  "outcome": "ok",
+  "error": null,
+  "settings": {
+    "max_output_tokens": 8192,
+    "temperature": "provider default (temperature parameter is NOT sent)",
+    "system_prompt": null,
+    "retries": 0,
+    "timeout_seconds": 180,
+    "delay_between_calls_seconds": 1.0
+  },
+  "registry_version": "stage2-v1",
+  "config_sha256": "3ee87c5c392d40eef6a9dceb599c5f0c83275ba589c0d8d496629a0728876a6b",
+  "registry_file_sha256": "51895ee5329059930959f15746439f692bb849521de346099a1838be7689f5c7",
+  "codebook_sha256": "177a1c5d9b7dbf1ab9e53d0684365dcf67b21f1b1f3154f3f8b1ecc5aa6eb4fc"
+}

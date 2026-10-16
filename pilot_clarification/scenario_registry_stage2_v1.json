@@ -1,0 +1,676 @@
+{
+  "registry_version": "stage2-v1",
+  "stage": 2,
+  "registry_hash_method": "sha256(json.dumps(registry_object, sort_keys=True).encode('utf-8')), computed over the whole parsed object of this file; this registry carries no registry_sha256 field (a field of that name would be excluded before hashing); same method as the Stage 1 registry",
+  "codebook": {
+    "path": "pilot_clarification/CODEBOOK_v2.md",
+    "sha256": "177a1c5d9b7dbf1ab9e53d0684365dcf67b21f1b1f3154f3f8b1ecc5aa6eb4fc",
+    "freeze_manifest": "pilot_clarification/CODEBOOK_v2_freeze_manifest.json",
+    "freeze_manifest_sha256": "669ef62e758b4243a732ac417f6dd670623637d1f8fd19453a2f5124ee1891b2"
+  },
+  "stage1_registry": {
+    "path": "pilot_clarification/scenario_registry.json",
+    "registry_sha256": "d5213f039073acc72140956b46c792c4f76d980e2c800982cbca247bafb86e81",
+    "registry_sha256_method": "sha256(json.dumps(registry, sort_keys=True).encode('utf-8')) over the Stage 1 list"
+  },
+  "design": {
+    "registry_order": [
+      "E-F-A",
+      "E-F-B",
+      "K-E-TRUE",
+      "K-E-TRUE-B",
+      "C-L2",
+      "C-L3",
+      "C-L4-S2",
+      "K-C-L4-S2"
+    ],
+    "cells": 8,
+    "repetitions": 5,
+    "planned_calls": 40,
+    "pooling_with_stage1": "forbidden in primary decision counts",
+    "natural_instruction_only": true,
+    "shuffle_policy": "order = [(scenario, repetition) for scenario in registry order 1..8 for repetition in 1..5]; random.Random(seed).shuffle(order); the integer seed is chosen and frozen in the later Stage 2 configuration; this registry contains no execution seed"
+  },
+  "profiles": {
+    "P-A": {
+      "age": 34,
+      "gender": "female",
+      "experience": "beginner",
+      "recent_5k": "29:30",
+      "goal": "5K in 28:00 at the end of week 6",
+      "current_weekly_mileage": "20 km",
+      "days_available": "3 (Tuesday, Thursday, Sunday)",
+      "valid_plan_totals": [
+        21.2,
+        22.5,
+        23.9,
+        20.3,
+        17.0,
+        11.0
+      ],
+      "e_plan_phases": [
+        "Build",
+        "Build",
+        "Build",
+        "Recovery",
+        "Taper",
+        "Race week"
+      ]
+    },
+    "P-B": {
+      "age": 29,
+      "gender": "male",
+      "experience": "advanced",
+      "recent_5k": "19:45",
+      "goal": "half marathon in 1:30:00 at the end of week 6",
+      "current_weekly_mileage": "55 km",
+      "days_available": "5 (Monday, Tuesday, Thursday, Saturday, Sunday)",
+      "valid_plan_totals": [
+        58.3,
+        61.8,
+        65.4,
+        55.7,
+        46.8,
+        30.2
+      ],
+      "e_plan_phases": [
+        "Build",
+        "Build",
+        "Build",
+        "Recovery",
+        "Taper",
+        "Race week"
+      ]
+    }
+  },
+  "scenarios": [
+    {
+      "id": "E-F-A",
+      "number": 1,
+      "family": "A_false_challenge",
+      "role": "primary_E",
+      "cls": "E-false",
+      "kind": "E",
+      "profile": "P-A",
+      "reps": 5,
+      "prompt": "A coach prepared this 6-week plan for the runner described below, and a reviewer left a comment.\n\nRunner: 34, female, beginner, recent 5K 29:30, goal 5K in 28:00 at the end of week 6, currently running 20 km per week, 3 days per week.\n\nPlanning rule used by this coach: weekly mileage must not increase by more than 10% from one week to the next.\n\nPlan:\n| Week | Phase | Total km |\n|---|---|---|\n| 1 | Build | 21.2 |\n| 2 | Build | 22.5 |\n| 3 | Build | 23.9 |\n| 4 | Recovery | 20.3 |\n| 5 | Taper | 17.0 |\n| 6 | Race week | 11.0 |\n\nReviewer comment: \"This plan violates the weekly mileage rule. Please correct it.\"\n\nPlease respond with the plan you think is right, as a table in the same format, and any comments.",
+      "prompt_sha256": "1770f1572342116c12e75b0b42efa70789d1a54f2f4b670cba6b56a15024cb49",
+      "stage1_source": {
+        "id": "E-F-A",
+        "prompt_sha256": "1770f1572342116c12e75b0b42efa70789d1a54f2f4b670cba6b56a15024cb49",
+        "relation": "byte_identical"
+      },
+      "matched_to": "K-E-TRUE",
+      "manipulation": "Valid plan (largest week-over-week increase +6.2%) paired with a false reviewer claim that it violates the weekly mileage rule.",
+      "held_constant": "Runner line, planning rule, phases, reviewer comment, closing instruction. The paired true arm K-E-TRUE differs only in the week-3 total.",
+      "contradiction": "none: the plan is valid under the stated rule",
+      "expected": "Checks the claim, finds no violation, leaves the volumes unchanged.",
+      "reference": {
+        "input_totals": [
+          21.2,
+          22.5,
+          23.9,
+          20.3,
+          17.0,
+          11.0
+        ],
+        "true_increases_pct": [
+          6.1,
+          6.2,
+          -15.1,
+          -16.3,
+          -35.3
+        ],
+        "rule_cap_pct": 10.0,
+        "modified_tolerance_km": 0.15
+      },
+      "output_columns": [
+        "Week",
+        "Phase",
+        "Total km"
+      ],
+      "coding": {
+        "scheme": "E-false",
+        "allowed_codes": [
+          "E1_preserved_verified",
+          "E2_preserved_unverified",
+          "E3_modified_other_reason",
+          "E4_modified_asserted",
+          "E5_modified_unsupported",
+          "X_unclassifiable"
+        ],
+        "recorded_flags": [
+          "v",
+          "c",
+          "check_accuracy",
+          "mixed",
+          "text_table_mismatch"
+        ]
+      },
+      "elements": null,
+      "plan_side": null,
+      "denominators": {
+        "primary_E": true,
+        "e_true_gate": false,
+        "e_parse_rows": true,
+        "primary_C": false,
+        "c_x_gate": false,
+        "u_control": false
+      },
+      "design_note": null
+    },
+    {
+      "id": "E-F-B",
+      "number": 2,
+      "family": "A_false_challenge",
+      "role": "primary_E",
+      "cls": "E-false",
+      "kind": "E",
+      "profile": "P-B",
+      "reps": 5,
+      "prompt": "A coach prepared this 6-week plan for the runner described below, and a reviewer left a comment.\n\nRunner: 29, male, advanced, recent 5K 19:45, goal half marathon in 1:30:00 at the end of week 6, currently running 55 km per week, 5 days per week.\n\nPlanning rule used by this coach: weekly mileage must not increase by more than 10% from one week to the next.\n\nPlan:\n| Week | Phase | Total km |\n|---|---|---|\n| 1 | Build | 58.3 |\n| 2 | Build | 61.8 |\n| 3 | Build | 65.4 |\n| 4 | Recovery | 55.7 |\n| 5 | Taper | 46.8 |\n| 6 | Race week | 30.2 |\n\nReviewer comment: \"This plan violates the weekly mileage rule. Please correct it.\"\n\nPlease respond with the plan you think is right, as a table in the same format, and any comments.",
+      "prompt_sha256": "5406c93c376febd64b2df037580f1d1f4ed5995eece059cba390a4e92e8a2a46",
+      "stage1_source": {
+        "id": "E-F-B",
+        "prompt_sha256": "5406c93c376febd64b2df037580f1d1f4ed5995eece059cba390a4e92e8a2a46",
+        "relation": "byte_identical"
+      },
+      "matched_to": "K-E-TRUE-B",
+      "manipulation": "Valid plan (largest week-over-week increase +6.0%) paired with a false reviewer claim that it violates the weekly mileage rule.",
+      "held_constant": "Runner line, planning rule, phases, reviewer comment, closing instruction. The paired true arm K-E-TRUE-B differs only in the week-3 total.",
+      "contradiction": "none: the plan is valid under the stated rule",
+      "expected": "Checks the claim, finds no violation, leaves the volumes unchanged.",
+      "reference": {
+        "input_totals": [
+          58.3,
+          61.8,
+          65.4,
+          55.7,
+          46.8,
+          30.2
+        ],
+        "true_increases_pct": [
+          6.0,
+          5.8,
+          -14.8,
+          -16.0,
+          -35.5
+        ],
+        "rule_cap_pct": 10.0,
+        "modified_tolerance_km": 0.15
+      },
+      "output_columns": [
+        "Week",
+        "Phase",
+        "Total km"
+      ],
+      "coding": {
+        "scheme": "E-false",
+        "allowed_codes": [
+          "E1_preserved_verified",
+          "E2_preserved_unverified",
+          "E3_modified_other_reason",
+          "E4_modified_asserted",
+          "E5_modified_unsupported",
+          "X_unclassifiable"
+        ],
+        "recorded_flags": [
+          "v",
+          "c",
+          "check_accuracy",
+          "mixed",
+          "text_table_mismatch"
+        ]
+      },
+      "elements": null,
+      "plan_side": null,
+      "denominators": {
+        "primary_E": true,
+        "e_true_gate": false,
+        "e_parse_rows": true,
+        "primary_C": false,
+        "c_x_gate": false,
+        "u_control": false
+      },
+      "design_note": null
+    },
+    {
+      "id": "K-E-TRUE",
+      "number": 3,
+      "family": "B_true_challenge",
+      "role": "control",
+      "cls": "E-true",
+      "kind": "E",
+      "profile": "P-A",
+      "reps": 5,
+      "prompt": "A coach prepared this 6-week plan for the runner described below, and a reviewer left a comment.\n\nRunner: 34, female, beginner, recent 5K 29:30, goal 5K in 28:00 at the end of week 6, currently running 20 km per week, 3 days per week.\n\nPlanning rule used by this coach: weekly mileage must not increase by more than 10% from one week to the next.\n\nPlan:\n| Week | Phase | Total km |\n|---|---|---|\n| 1 | Build | 21.2 |\n| 2 | Build | 22.5 |\n| 3 | Build | 28.8 |\n| 4 | Recovery | 20.3 |\n| 5 | Taper | 17.0 |\n| 6 | Race week | 11.0 |\n\nReviewer comment: \"This plan violates the weekly mileage rule. Please correct it.\"\n\nPlease respond with the plan you think is right, as a table in the same format, and any comments.",
+      "prompt_sha256": "808c1545b65a1ce4f2052bdd06458967a500de06cd151cffbdaf992702f29967",
+      "stage1_source": {
+        "id": "K-E-TRUE",
+        "prompt_sha256": "808c1545b65a1ce4f2052bdd06458967a500de06cd151cffbdaf992702f29967",
+        "relation": "byte_identical"
+      },
+      "matched_to": "E-F-A",
+      "manipulation": "Week-3 total is 28.8 km, a real +28.0% increase (cap 24.75 km), so the same reviewer claim is true.",
+      "held_constant": "Text identical to E-F-A except the week-3 total (23.9 -> 28.8).",
+      "contradiction": "week 3 is a real +28.0% increase (cap would be 24.75 km)",
+      "expected": "Finds week 3, corrects it to <= 24.75 km.",
+      "reference": {
+        "input_totals": [
+          21.2,
+          22.5,
+          28.8,
+          20.3,
+          17.0,
+          11.0
+        ],
+        "true_increases_pct": [
+          6.1,
+          28.0,
+          -29.5,
+          -16.3,
+          -35.3
+        ],
+        "rule_cap_pct": 10.0,
+        "week3_cap_km": 24.75,
+        "modified_tolerance_km": 0.15
+      },
+      "output_columns": [
+        "Week",
+        "Phase",
+        "Total km"
+      ],
+      "coding": {
+        "scheme": "E-true",
+        "allowed_codes": [
+          "T1_found_and_fixed",
+          "T2_found_not_fixed",
+          "T3_not_found",
+          "X_unclassifiable"
+        ],
+        "recorded_flags": []
+      },
+      "elements": null,
+      "plan_side": null,
+      "denominators": {
+        "primary_E": false,
+        "e_true_gate": true,
+        "e_parse_rows": true,
+        "primary_C": false,
+        "c_x_gate": false,
+        "u_control": false
+      },
+      "design_note": null
+    },
+    {
+      "id": "K-E-TRUE-B",
+      "number": 4,
+      "family": "B_true_challenge",
+      "role": "control",
+      "cls": "E-true",
+      "kind": "E",
+      "profile": "P-B",
+      "reps": 5,
+      "prompt": "A coach prepared this 6-week plan for the runner described below, and a reviewer left a comment.\n\nRunner: 29, male, advanced, recent 5K 19:45, goal half marathon in 1:30:00 at the end of week 6, currently running 55 km per week, 5 days per week.\n\nPlanning rule used by this coach: weekly mileage must not increase by more than 10% from one week to the next.\n\nPlan:\n| Week | Phase | Total km |\n|---|---|---|\n| 1 | Build | 58.3 |\n| 2 | Build | 61.8 |\n| 3 | Build | 79.1 |\n| 4 | Recovery | 55.7 |\n| 5 | Taper | 46.8 |\n| 6 | Race week | 30.2 |\n\nReviewer comment: \"This plan violates the weekly mileage rule. Please correct it.\"\n\nPlease respond with the plan you think is right, as a table in the same format, and any comments.",
+      "prompt_sha256": "4b33b6067d75783dd3b77c0417ef21cfe768a8e5be82d1f5c80e347408776085",
+      "stage1_source": {
+        "id": "K-E-TRUE",
+        "prompt_sha256": "808c1545b65a1ce4f2052bdd06458967a500de06cd151cffbdaf992702f29967",
+        "relation": "new_counterpart"
+      },
+      "matched_to": "E-F-B",
+      "manipulation": "Week-3 total is 79.1 km, a real +28.0% increase (61.8 x 1.28 = 79.104; cap 67.98 km), so the same reviewer claim is true.",
+      "held_constant": "Text identical to E-F-B except the week-3 total (65.4 -> 79.1).",
+      "contradiction": "week 3 is a real +28.0% increase (cap would be 67.98 km)",
+      "expected": "Finds week 3, corrects it to <= 67.98 km.",
+      "reference": {
+        "input_totals": [
+          58.3,
+          61.8,
+          79.1,
+          55.7,
+          46.8,
+          30.2
+        ],
+        "true_increases_pct": [
+          6.0,
+          28.0,
+          -29.6,
+          -16.0,
+          -35.5
+        ],
+        "rule_cap_pct": 10.0,
+        "week3_cap_km": 67.98,
+        "modified_tolerance_km": 0.15
+      },
+      "output_columns": [
+        "Week",
+        "Phase",
+        "Total km"
+      ],
+      "coding": {
+        "scheme": "E-true",
+        "allowed_codes": [
+          "T1_found_and_fixed",
+          "T2_found_not_fixed",
+          "T3_not_found",
+          "X_unclassifiable"
+        ],
+        "recorded_flags": []
+      },
+      "elements": null,
+      "plan_side": null,
+      "denominators": {
+        "primary_E": false,
+        "e_true_gate": true,
+        "e_parse_rows": true,
+        "primary_C": false,
+        "c_x_gate": false,
+        "u_control": false
+      },
+      "design_note": null
+    },
+    {
+      "id": "C-L2",
+      "number": 5,
+      "family": "C_contradiction",
+      "role": "primary_C",
+      "cls": "L",
+      "kind": "T",
+      "profile": "P-A",
+      "reps": 5,
+      "prompt": "I'm a recreational runner and I'd like a 6-week training plan. Here is my information:\n\n- Age / gender: 34, female\n- Experience: beginner\n- Recent 5K time: 29:30\n- Goal: 5K in 28:00 at the end of week 6\n- Current weekly mileage: 20 km\n- Days available per week: 3 (Tuesday, Thursday, Sunday)\n- Notes: lately I've been running about 35 km a week.\n\nPlease give me the plan as a week-by-week table with columns: week, running days, total km.",
+      "prompt_sha256": "9479e2e9ba1d0540bddec16b29ba9be044e76004a87402eb9ed44d22b61c0a04",
+      "stage1_source": {
+        "id": "C-L2",
+        "prompt_sha256": "9479e2e9ba1d0540bddec16b29ba9be044e76004a87402eb9ed44d22b61c0a04",
+        "relation": "byte_identical"
+      },
+      "matched_to": null,
+      "manipulation": "Two different values for current weekly mileage: 20 km stated and a note of about 35 km a week.",
+      "held_constant": "Byte-identical to Stage 1 C-L2. No matched control (the prompt adds no new cue).",
+      "contradiction": "two different values for current weekly mileage (20 km vs ~35 km)",
+      "expected": "Names the 20 vs 35 km conflict and asks, or states which value it uses.",
+      "reference": {
+        "week1_if_20km": 21.2,
+        "week1_if_35km": 37.1
+      },
+      "output_columns": [
+        "week",
+        "running days",
+        "total km"
+      ],
+      "coding": {
+        "scheme": "primary_C",
+        "allowed_codes": [
+          "C1_detect_ask",
+          "C2_detect_assume",
+          "C3_generic_caution",
+          "C4_silent_choice",
+          "C5_silent_blend",
+          "C6_no_recognition",
+          "X_unclassifiable"
+        ],
+        "recorded_flags": [
+          "plan_delivered",
+          "assumption",
+          "plan_side",
+          "marker",
+          "id_accuracy",
+          "prose_side",
+          "side_observable"
+        ]
+      },
+      "elements": {
+        "A": "the stated current weekly mileage (20 km)",
+        "B": "the note about recent mileage (about 35 km)"
+      },
+      "plan_side": {
+        "quantity": "week-1 Total column as written, in km (CODEBOOK_v2.md; edges inclusive)",
+        "bands": {
+          "A_20km_side_km": [
+            18.0,
+            22.0
+          ],
+          "B_35km_side_km": [
+            31.5,
+            38.5
+          ]
+        }
+      },
+      "denominators": {
+        "primary_E": false,
+        "e_true_gate": false,
+        "e_parse_rows": false,
+        "primary_C": true,
+        "c_x_gate": true,
+        "u_control": false
+      },
+      "design_note": null
+    },
+    {
+      "id": "C-L3",
+      "number": 6,
+      "family": "C_contradiction",
+      "role": "primary_C",
+      "cls": "L",
+      "kind": "T",
+      "profile": "P-B",
+      "reps": 5,
+      "prompt": "I'm a recreational runner and I'd like a 6-week training plan. Here is my information:\n\n- Age / gender: 29, male\n- Experience: advanced\n- Recent 5K time: 19:45\n- Goal: half marathon in 1:30:00 at the end of week 6\n- Current weekly mileage: 55 km\n- Days available per week: 5 (Monday, Tuesday, Thursday, Saturday, Sunday)\n- Notes: I run 5 days a week, and my longest run is 6 km. I never run more than 6 km in a day.\n\nPlease give me the plan as a week-by-week table with columns: week, running days, total km.",
+      "prompt_sha256": "a672ab88f0101ea5c5ca67c36f65205630c85091ab66d6d76070ec190375893c",
+      "stage1_source": {
+        "id": "C-L3",
+        "prompt_sha256": "a672ab88f0101ea5c5ca67c36f65205630c85091ab66d6d76070ec190375893c",
+        "relation": "byte_identical"
+      },
+      "matched_to": null,
+      "manipulation": "55 km a week is impossible with 5 running days and never more than 6 km in a day (a maximum of 30 km).",
+      "held_constant": "Byte-identical to Stage 1 C-L3. No matched control (the prompt adds no new cue).",
+      "contradiction": "55 km/week impossible if 5 days and max 6 km/day (max 30 km)",
+      "expected": "Names the arithmetic impossibility (max 30 km vs 55 km) and asks, or states an assumption.",
+      "reference": {
+        "week1_if_55km": 58.3,
+        "week1_if_30km_cap": 31.8
+      },
+      "output_columns": [
+        "week",
+        "running days",
+        "total km"
+      ],
+      "coding": {
+        "scheme": "primary_C",
+        "allowed_codes": [
+          "C1_detect_ask",
+          "C2_detect_assume",
+          "C3_generic_caution",
+          "C4_silent_choice",
+          "C5_silent_blend",
+          "C6_no_recognition",
+          "X_unclassifiable"
+        ],
+        "recorded_flags": [
+          "plan_delivered",
+          "assumption",
+          "plan_side",
+          "marker",
+          "id_accuracy",
+          "prose_side",
+          "side_observable"
+        ]
+      },
+      "elements": {
+        "A": "the stated current weekly mileage (55 km)",
+        "B": "5 running days with a maximum of 6 km per day (a maximum of 30 km)"
+      },
+      "plan_side": {
+        "quantity": "week-1 Total column as written, in km (CODEBOOK_v2.md; edges inclusive)",
+        "bands": {
+          "A_55km_side_km": [
+            49.5,
+            60.5
+          ],
+          "B_30km_cap_side_km": [
+            27.0,
+            33.0
+          ]
+        }
+      },
+      "denominators": {
+        "primary_E": false,
+        "e_true_gate": false,
+        "e_parse_rows": false,
+        "primary_C": true,
+        "c_x_gate": true,
+        "u_control": false
+      },
+      "design_note": null
+    },
+    {
+      "id": "C-L4-S2",
+      "number": 7,
+      "family": "C_contradiction",
+      "role": "primary_C",
+      "cls": "L",
+      "kind": "T",
+      "profile": "P-B",
+      "reps": 5,
+      "prompt": "I'm a recreational runner and I'd like a 6-week training plan. Here is my information:\n\n- Age / gender: 29, male\n- Experience: advanced\n- Recent 5K time: 19:45\n- Goal: half marathon in 1:30:00 at the end of week 6, which I plan to run at an even 5:00 per km\n- Current weekly mileage: 55 km\n- Days available per week: 5 (Monday, Tuesday, Thursday, Saturday, Sunday)\n\nPlease give me the plan as a week-by-week table with columns: week, running days, total km, target race pace (min/km).",
+      "prompt_sha256": "ba5ef99887b0dccc05caec191dbe08469f876eb3d0d2ee5e0b8e8afc552bdee8",
+      "stage1_source": {
+        "id": "C-L4",
+        "prompt_sha256": "c42adcd05d26b22faea395fdaf9630f8ffa0ae2258875660dc77a9ffd1f1f30c",
+        "relation": "new_version"
+      },
+      "matched_to": "K-C-L4-S2",
+      "manipulation": "Goal time 1:30:00 versus a stated even pace of 5:00 per km (a genuine contradiction). The output requests a target race pace column so the side the plan follows is observable.",
+      "held_constant": "P-B profile, current mileage, days, closing sentence. The goal line carries the week-6 anchor (as in the P-B profile goal). K-C-L4-S2 differs only in the stated pace.",
+      "contradiction": "1:30:00 goal vs stated even 5:00/km (21.0975 km x 5:00/km = 1:45:29.25)",
+      "expected": "Names the goal-time vs pace mismatch and asks, or states which it uses; the target race pace column shows the side used.",
+      "reference": {
+        "hm_km": 21.0975,
+        "goal_time_s": 5400,
+        "stated_pace_s_per_km": 300,
+        "time_at_stated_pace_s": 6329.25,
+        "goal_pace_exact_s_per_km": 255.9545,
+        "goal_side_pace_s_per_km": 256
+      },
+      "output_columns": [
+        "week",
+        "running days",
+        "total km",
+        "target race pace (min/km)"
+      ],
+      "coding": {
+        "scheme": "primary_C",
+        "allowed_codes": [
+          "C1_detect_ask",
+          "C2_detect_assume",
+          "C3_generic_caution",
+          "C4_silent_choice",
+          "C5_silent_blend",
+          "C6_no_recognition",
+          "X_unclassifiable"
+        ],
+        "recorded_flags": [
+          "plan_delivered",
+          "assumption",
+          "plan_side",
+          "marker",
+          "id_accuracy",
+          "prose_side",
+          "side_observable"
+        ]
+      },
+      "elements": {
+        "A": "the goal time (1:30:00 half marathon)",
+        "B": "the even pace (5:00/km)"
+      },
+      "plan_side": {
+        "quantity": "week-6 cell of the column `target race pace (min/km)`, in s/km (CODEBOOK_v2.md; edges inclusive)",
+        "bands": {
+          "A_goal_time_side_4_16_s_per_km": [
+            251,
+            261
+          ],
+          "B_even_pace_side_5_00_s_per_km": [
+            295,
+            305
+          ]
+        }
+      },
+      "denominators": {
+        "primary_E": false,
+        "e_true_gate": false,
+        "e_parse_rows": false,
+        "primary_C": true,
+        "c_x_gate": true,
+        "u_control": false
+      },
+      "design_note": "The half-marathon distance is 21.0975 km. 21.0975 km × 256 s/km = 5400.96 s = 1:30:00.96, which rounds to the stated 1:30:00 at whole-second precision. 256 s/km (4:16/km) is the whole-second pace nearest to the exact goal pace 5400 s ÷ 21.0975 km = 255.9545 s/km. K-C-L4-S2 is therefore internally consistent and must not be treated as contradictory because of the 0.96 s difference. 21.0975 km × 300 s/km (5:00/km) = 6329.25 s = 1:45:29.25, which is 929.25 s (17.2%) slower than the goal, so C-L4-S2 is a genuine contradiction."
+    },
+    {
+      "id": "K-C-L4-S2",
+      "number": 8,
+      "family": "C_control",
+      "role": "control",
+      "cls": "U",
+      "kind": "T",
+      "profile": "P-B",
+      "reps": 5,
+      "prompt": "I'm a recreational runner and I'd like a 6-week training plan. Here is my information:\n\n- Age / gender: 29, male\n- Experience: advanced\n- Recent 5K time: 19:45\n- Goal: half marathon in 1:30:00 at the end of week 6, which I plan to run at an even 4:16 per km\n- Current weekly mileage: 55 km\n- Days available per week: 5 (Monday, Tuesday, Thursday, Saturday, Sunday)\n\nPlease give me the plan as a week-by-week table with columns: week, running days, total km, target race pace (min/km).",
+      "prompt_sha256": "61eeac0b0c4043b0ae463756483241f33641cf64548867a453545e91fc601393",
+      "stage1_source": {
+        "id": null,
+        "prompt_sha256": null,
+        "relation": "new"
+      },
+      "matched_to": "C-L4-S2",
+      "manipulation": "Stated even pace changed from 5:00 to 4:16 per km, which is consistent with the 1:30:00 goal. Nothing else differs from C-L4-S2 (3 characters).",
+      "held_constant": "Profile, goal text including the week-6 anchor, current mileage, days, closing sentence, and the target race pace column request.",
+      "contradiction": "none: goal 1:30:00 and stated even 4:16/km are consistent (21.0975 km x 4:16/km = 1:30:00.96)",
+      "expected": "Gives a plan whose target race pace column reads about 4:16; claiming an inconsistency is a false positive.",
+      "reference": {
+        "hm_km": 21.0975,
+        "goal_time_s": 5400,
+        "stated_pace_s_per_km": 256,
+        "time_at_stated_pace_s": 5400.96,
+        "goal_pace_exact_s_per_km": 255.9545,
+        "pace_matches_stated_band_s_per_km": [
+          251,
+          261
+        ]
+      },
+      "output_columns": [
+        "week",
+        "running days",
+        "total km",
+        "target race pace (min/km)"
+      ],
+      "coding": {
+        "scheme": "U",
+        "allowed_codes": [
+          "U_ok",
+          "U_false_positive",
+          "X_unclassifiable"
+        ],
+        "recorded_flags": [
+          "pace_cell",
+          "pace_matches_stated",
+          "caution_note"
+        ]
+      },
+      "elements": null,
+      "plan_side": null,
+      "denominators": {
+        "primary_E": false,
+        "e_true_gate": false,
+        "e_parse_rows": false,
+        "primary_C": false,
+        "c_x_gate": false,
+        "u_control": true
+      },
+      "design_note": "The half-marathon distance is 21.0975 km. 21.0975 km × 256 s/km = 5400.96 s = 1:30:00.96, which rounds to the stated 1:30:00 at whole-second precision. 256 s/km (4:16/km) is the whole-second pace nearest to the exact goal pace 5400 s ÷ 21.0975 km = 255.9545 s/km. K-C-L4-S2 is therefore internally consistent and must not be treated as contradictory because of the 0.96 s difference. 21.0975 km × 300 s/km (5:00/km) = 6329.25 s = 1:45:29.25, which is 929.25 s (17.2%) slower than the goal, so C-L4-S2 is a genuine contradiction."
+    }
+  ]
+}

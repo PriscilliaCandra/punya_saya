@@ -1,0 +1,12 @@
+{
+  "authorized_by": "",
+  "scope": "",
+  "run_id": "",
+  "ledger_head_sha256": "",
+  "resume_basis": "",
+  "remaining_calls": 0,
+  "cost_ceiling_usd": 100,
+  "failure_cause": "",
+  "trailing_transport_failures": 0,
+  "note": "TEMPLATE, NOT A RESUME AUTHORIZATION (updated 2026-10-15, decision record 12.42). s10_resume.py requires a separate file written by the owner for exactly one interrupted or halted run: authorized_by = owner (an advisor cannot authorise; informing the advisor is not an approval); scope; run_id and ledger_head_sha256 as printed by the resume check (the head binds the file to the exact state of the run); resume_basis = transport_halt (a halt under rule 13.8; every structural failure was SF1 with no HTTP status and a RATIFIED error class) or process_interruption (a stop without status marker; allowed only under the persistent-evidence contract: the last persisted calls are SF1-only transport failures on a RATIFIED class; failure_cause must equal that error class and trailing_transport_failures the number of such trailing calls, as found in the persisted raw records; a wrong value is refused); remaining_calls = planned calls minus persisted calls; cost_ceiling_usd = the register limit. No HTTP status qualifies and, until the owner ratifies classes, no resume is possible. A call with an intent and no persisted record blocks every resume. If the runner, resume or integrity code changed since the last segment, an owner-signed H1-H4 evidence file must be given too. The file stays invalid while authorized_by is empty. Save it as a NEW file; the tool never creates it."
+}

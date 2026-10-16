@@ -1,0 +1,72 @@
+# Audit of stale statements about the SF counting, and a proposed correction text for owner review (PROPOSED — NOT ADOPTED)
+
+Prepared 2026-10-13. **The official record `research_design/STEP3_OWNER_DECISIONS_RECORD_DRAFT.md` was NOT edited** (last modified 2026-10-13 10:31, before the P1 patch). The record is append-only and is changed only on the owner's instruction; this file is a separate proposal for the owner to review, amend or reject. Nothing below is an approval, and the working decisions MD-01 and MD-02 it mentions are working technical decisions directed by the project owner, not formal owner or advisor approvals.
+
+## 1. What is stale (verified against the files of 2026-10-13)
+| # | Location | Statement | Why it is now inaccurate | Kind |
+|---|---|---|---|---|
+| 1 | record 12.37 heading (line 799) | "record of work; no rule adopted, no code changed" | After 12.37 the counting code WAS changed (patch P1, working decision MD-01, backup `_backup/p1_p3/`); "no rule adopted" remains true in the sense that no official entry adopts a rule | official record |
+| 2 | record 12.37 body (line 801) | `test_sf_matrix_literal.py` "10 tests ... OK (expected failures=6)"; six rows marked expectedFailure "because the current counting ... returns PASS" | The file now has 14 tests, no expectedFailure marker, and the six rows expect FAIL-S; the counting no longer uses one primary type per call | official record |
+| 3 | record 12.37 closing line | "Not authorized by this entry: any change of the counting rule" | still true of that entry, but the code has since been changed on the owner's direction, outside the record | official record |
+| 4 | record 12.30 (heading line 757; text line 759) | the primary SF type of a multi-flag call is "PROVISIONAL, not adopted, used only for the disjoint pilot count vector" | The decision vector now comes from `decision_type` (hard flags first, one soft count per call); the primary order is used for recording only (`primary_counts`) | official record |
+| 5 | `s10_scoring.py` module docstring (lines 3-7) | "uses the provisional primary type ... ONLY to build the disjoint count vector" | same as 4; comment only | code comment. **CORRECTED in the closeout batch** (docstring only, code AST identical, backup `_backup/master_exec/s10_scoring.py.before_docstring`) |
+| 6 | `s11_pilot.py` docstring (line 5) | "The provisional multi-flag order of s10_scoring only decides under which SF type a multi-flag call is counted" | same as 4; comment only | code comment. **CORRECTED in the closeout batch** (same method, backup `s11_pilot.py.before_docstring`) |
+| 7 | `MASTER_IMPLEMENTATION_PLAN.md` table row 1 | "six rows marked expectedFailure ... remove the markers when P1 is applied" | the original plan text; the plan now carries a dated section 4 and a header note | proposal document (annotated) |
+| 8 | `MASTER_PREPILOT_RESOLUTION.md` section 2, `CONFLICT_RESOLUTION_BRIEF.md` section 4, `PROPOSED_FINAL_DECISIONS.md` item 6/70, `PROPOSED_DECISION_RECORD_ENTRIES.md` line 22 | describe the counting before P1 ("current rule", "false pass", "Code is not to be changed before it") | dated analyses of the earlier state; a banner now points to the current state | proposal documents (annotated) |
+Accurate and unchanged: 12.18 row 1 (SF and UNP disjoint), 12.36 (provider response validation), and the statement in 12.37 that the unit of `f_S` and the primary order are not decided by the tests.
+Not edited by the assistant: rows 1-4 (official record). Rows 5-6 were corrected as comment-only edits in the closeout batch after verifying that the code AST is identical; the new text describes the behaviour as a working decision, not as a ratified rule.
+
+## 2. Proposed append-only entry (draft text for the owner; number assigned by the owner)
+> ### 12.38 Status note on the pilot SF counting and the input-size check, 2026-10-13 (record of work; NOT an approval)
+> Corrects the status statements of 12.30 and 12.37; changes no register value, specification text, frozen artifact or earlier entry.
+> 1. On the project owner's direction of 2026-10-13, working technical decisions MD-01 and MD-02 were applied in `research_design/step10/` (backup `results_package_2026-10-13/_backup/p1_p3/`): (a) all SF flags are kept; a call that meets SF2, SF3 or SF5 counts once as a hard failure even if it also meets SF1 or SF4; any other call that meets SF1 or SF4 counts once as a soft failure; `f_S` is compared with the number of soft-failure calls (SF1+SF4 on one call is one); the primary type of 12.30 is used for recording only; (b) the authorization carries an owner-stated `max_input_characters`; a pilot or main run refuses, before any provider call, a missing limit, an empty prompt and any prompt above the limit, without truncation; the limit is not a token measurement and not a cost guarantee.
+> 2. These are NOT approvals by the advisor or formal owner decisions. The unit of `f_S` (calls versus flags) and the relation between SF2 and SF1/SF4 (conflict C-31 of `MASTER_CONFLICT_INDEX.md`) and the assumed-token check (C-32) are open; see `C31_C32_OWNER_DECISION_BRIEF.md`.
+> 3. `test_sf_matrix_literal.py` now has 14 tests and no expectedFailure marker. `test_sf2_detection.py` (19 tests, no expected failure) encodes the working decision on C-31 (option B, SF1/SF4 precedence over SF2; not ratified); `test_input_limit.py`, `test_ledger_resilience.py` and `test_sf2_variants.py` were added. No live call, pilot or main run was made.
+> 4. Not authorized by this entry: the pilot, the main run, any API call, a commit or a push.
+> Owner decision: PENDING | Date: PENDING
+
+## 3. Alternative the owner may prefer
+Instead of a new entry, the owner may amend 12.37 and 12.30 in place; that is an edit of the official record and is the owner's call. Either way the corrected statement must keep the distinction between a working technical decision (applied in code, not ratified) and an approval.
+
+## 4. Comment-only corrections for the code (APPLIED in the closeout batch; kept here for the record)
+- `s10_scoring.py` docstring: "this module records ALL flags; the pilot decision vector comes from `decision_type` (hard flags SF2/SF3/SF5 first, then one soft count per call; working decision MD-01, not ratified); the provisional primary type SF1 > SF4 > SF3 > SF2 > SF5 is used for recording only".
+- `s11_pilot.py` docstring line 5: "counts.counts is the decision vector (MD-01); the provisional order only decides the recorded primary type".
+
+## 5. Factual basis, impact and approvals needed
+**Evidence (2026-10-13, closeout batch).** The official record file `STEP3_OWNER_DECISIONS_RECORD_DRAFT.md` is unchanged since 10:31 (sha256 prefix `5a7ff76878501a0e`, 803 lines); 12.37 is at lines 799-803 and 12.30 at 757-759. Counting code: `s10_scoring.py` `decision_type`/`decision_counts`/`pilot_counts` (docstring-corrected file sha256 prefix `67b85b183fab`); `test_sf_matrix_literal.py` has 14 tests and no expectedFailure marker (it had 10 tests, 6 marked, when 12.37 was written); `test_sf2_detection.py` 14 tests with 4 marked tests for the open C-31; backups: `_backup/p1_p3/` (state before P1/P3). These facts are re-checked by `MASTER_CLOSEOUT_REPORT.md`.
+**Impact if the record is NOT corrected.** A reader of the official record would conclude that no code changed after 12.37 and that six rows still document a defect, while the pilot decision code in fact applies a working decision that the record does not mention; the record and the code would disagree on a pilot-deciding rule. No test or gate depends on the record text, so nothing breaks, but the audit trail is misleading.
+**Impact if it IS corrected.** The record gains an entry stating that the rule is a working decision, not an approval, and pointing to the open questions; the working decision does not become official by being recorded. It does not change code, tests or frozen artifacts.
+**Approvals needed.** (a) To append or amend an entry in the official record: the owner (the record is append-only and changed on the owner's instruction). (b) To turn the working decisions MD-01/MD-02 into approved decisions: the owner, and the advisor where the MD entry says so; this file does not request that. (c) None to leave this proposal unadopted. The assistant will not edit 12.30 or 12.37 and does not treat this file as an instruction to do so.
+
+## 6. Review-ready correction proposal (old text, current facts, replacement text, reason, impact, approval) — added in the final pre-pilot preparation batch
+Everything here is PROPOSED. The assistant did not edit the official record and will not do so without the owner's explicit instruction naming the entry and the text.
+
+### 6.1 Entry 12.37 (record lines 799-803)
+- **Old text (quoted):** heading "12.37 Acceptance tests for the pilot SF decision, 2026-10-13 (record of work; no rule adopted, no code changed)"; body "New: step10/test_sf_matrix_literal.py (10 tests, exit 0, "OK (expected failures=6)"). ... Six rows (SF1+SF3, SF4+SF3, SF1+SF5, SF4+SF5, SF1+SF3+SF5, SF4+SF3+SF5) are marked expectedFailure because the current counting (one provisional primary type per call) returns PASS for them; the single-flag rows pass. The per-call or per-flag unit of f_S and the primary order are NOT decided by these tests."
+- **Current facts (verifiable):** the file has 14 tests and no expectedFailure marker; the six rows expect FAIL-S and pass; the counting uses `decision_type` (hard flags first, one count per call); the code change was made on the project owner's direction as working decision MD-01 and is not an official entry; `f_S` unit and the SF2/SF1/SF4 precedence remain undecided (C-31); `test_sf2_detection.py` carries four expected failures for the open conflict.
+- **Proposed replacement (as an appended status note, not an overwrite):** the text of the draft entry "12.38" in section 2 above, whose items 1-4 restate these facts.
+- **Reason.** The audit trail should not say "no code changed" or describe six expected failures that no longer exist, while stating that the unit of `f_S` is undecided (still true) and that the rule in force is a working decision (not recorded anywhere in the record).
+- **Impact if applied.** Documentation only: no code, test, gate or frozen artifact changes; the working decision does not become official. **Impact if not applied.** The record and the code disagree on a pilot-deciding rule (section 5).
+- **Approval needed.** The owner (the record is append-only and changed on the owner's instruction). Advisor review is not required to append a factual status note, but is required (per MD-01) to make the rule itself an approved decision.
+
+### 6.2 Entry 12.30 (record lines 757-761, text at 759)
+- **Old text (quoted fragment):** "the primary SF type of a multi-flag call SF1>SF4>SF3>SF2>SF5 is PROVISIONAL, not adopted, used only for the disjoint pilot count vector, multi-flag calls are counted".
+- **Current facts:** the provisional order is still not adopted and is still used for recording (`primary_sf`, `primary_counts`); it is NO LONGER used for the pilot count vector (`counts` comes from `decision_type`, working decision MD-01).
+- **Proposed replacement (appended note, or the owner may amend in place):** "Superseded in part: the provisional primary order is used for recording only; the pilot decision vector follows the working decision MD-01 (see 12.38)".
+- **Reason, impact, approval:** as 6.1.
+
+### 6.3 Entry 12.32 (record line 771, last sentence)
+- **Old text (quoted fragment):** "The provisional multi-flag order and all advisor items are unchanged and still open."
+- **Current facts:** the advisor items are still open; the provisional order is unchanged as a recording order; it no longer decides the pilot count. The sentence is therefore partly accurate.
+- **Proposal:** no replacement needed if 12.38 is appended; mention here only so the owner sees every sentence that touches the point.
+
+### 6.4 What is deliberately NOT proposed
+No change to 12.18 row 1, 12.36, the specification, FZ-v1 or any manifest; no statement that MD-01 or MD-02 is approved; no resolution of C-31 or C-32.
+
+## 7. Draft adoption entry for the owner (PROPOSED — NOT ADOPTED; added in the execution batch of 2026-10-13)
+This is paste-ready text that would turn the two working decisions into an official owner decision if the owner signs it. It is not an entry, not an approval, and the assistant does not append it. Replace the PENDING fields only by the person who decides.
+> ### 12.39 Adoption of the pilot SF counting (MD-01) and the input-size preflight (MD-02) (DRAFT)
+> 1. **SF counting (MD-01).** All SF flags met by a call are recorded. For the pilot decision a call that meets SF2, SF3 or SF5 counts once as a hard failure; any other call that meets SF1 or SF4 counts once as a soft failure; `f_S` is compared with the number of soft-failure calls (SF1+SF4 on one call counts once). SF1 and SF4 take precedence over SF2: an empty body that is explained by a transport or HTTP error (SF1) or by a provider block or the absence of a candidate (SF4) is not additionally SF2. An empty or whitespace-only (space, TAB, LF, VT, FF, CR) body of a received response that is neither SF1 nor SF4 is SF2. The recording primary type has no role in the outcome. No outcome label is added. Definitions D1-D8 of `C31_C32_OWNER_DECISION_BRIEF.md` section 6.1 apply. Open and not decided here: the separation of "no candidate" from "candidate without text and without finish reason" (Q5) and every live-provider behaviour.
+> 2. **Input-size preflight (MD-02).** For the pilot the authorization states `max_input_characters` (proposed 1,016, the maximum prompt length of the build) and `input_tokens_per_call_assumed` (the Step 7 assumption, not a measurement). Before any provider call the preflight refuses a missing limit, an empty prompt and any prompt above the limit; nothing is truncated. The character limit is not a token count and does not bound cost; the US$100 cost ceiling is separate and the run stops if it cannot be assured. For the main run the token basis is the check of the pilot's maximum `promptTokenCount` against all prompt lengths unless the owner separately authorizes a provider count.
+> 3. Not authorized by this entry: the pilot, the main run, any API call, a commit or a push.
+> Approved by owner: PENDING | Advisor: PENDING | Date: PENDING | Option chosen: PENDING | Edits: PENDING

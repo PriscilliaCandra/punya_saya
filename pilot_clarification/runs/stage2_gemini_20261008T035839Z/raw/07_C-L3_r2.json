@@ -1,0 +1,77 @@
+{
+  "call_index": 7,
+  "scenario_id": "C-L3",
+  "scenario_number": 6,
+  "repetition": 2,
+  "run_id": "stage2_gemini_20261008T035839Z",
+  "provider": "gemini",
+  "model_requested": "gemini-3.1-flash-lite",
+  "model_returned": "gemini-3.1-flash-lite",
+  "timestamp_utc": "2026-10-08T03:59:33+00:00",
+  "completed_utc": "2026-10-08T03:59:36+00:00",
+  "prompt_sha256": "a672ab88f0101ea5c5ca67c36f65205630c85091ab66d6d76070ec190375893c",
+  "prompt": "I'm a recreational runner and I'd like a 6-week training plan. Here is my information:\n\n- Age / gender: 29, male\n- Experience: advanced\n- Recent 5K time: 19:45\n- Goal: half marathon in 1:30:00 at the end of week 6\n- Current weekly mileage: 55 km\n- Days available per week: 5 (Monday, Tuesday, Thursday, Saturday, Sunday)\n- Notes: I run 5 days a week, and my longest run is 6 km. I never run more than 6 km in a day.\n\nPlease give me the plan as a week-by-week table with columns: week, running days, total km.",
+  "http_status": 200,
+  "response_text": "To achieve a 1:30:00 half marathon (a pace of 4:16/km), your primary challenge is the transition from a maximum distance of 6 km to a 21.1 km race. Your 19:45 5K shows you have the raw speed, but you lack the aerobic base and muscular endurance for the distance.\n\n**Important Note:** Your current long run (6 km) is significantly low for a sub-90 minute half marathon goal. I have structured this plan to rapidly increase your volume safely. **Listen to your body:** If you feel sharp pain (not just muscle fatigue), scale back the long run.\n\n### The Training Strategy\n*   **Easy Runs (Mon/Thu):** Should be conversational pace (approx. 5:00–5:15/km).\n*   **Speed Work (Tue):** Focus on interval sessions to maintain your 5K speed.\n*   **Long Runs (Sun):** These are the most critical. You must progress from 6 km to 16-18 km.\n*   **Recovery/Short (Sat):** Active recovery or light aerobic effort to keep the legs moving.\n\n### 6-Week Half Marathon Plan\n\n| Week | Running Days | Total KM |\n| :--- | :--- | :--- |\n| **1** | Mon(8), Tue(8), Thu(8), Sat(6), Sun(10) | 40 km |\n| **2** | Mon(8), Tue(10), Thu(8), Sat(6), Sun(12) | 44 km |\n| **3** | Mon(10), Tue(12), Thu(10), Sat(6), Sun(15) | 53 km |\n| **4** | Mon(10), Tue(12), Thu(10), Sat(8), Sun(18) | 58 km |\n| **5** | Mon(8), Tue(10), Thu(8), Sat(6), Sun(12) | 44 km |\n| **6** | Mon(6), Tue(6), Thu(4), Sat(0), **Sun(Race)** | 37 km |\n\n---\n\n### Key Workouts Explained:\n\n*   **Tuesday Speed Sessions:**\n    *   **Weeks 1-2:** 6 x 800m at 3:55/km pace with 90s jog recovery.\n    *   **Weeks 3-4:** 5 x 1km at 4:00/km pace with 2min jog recovery.\n*   **Sunday Long Runs:** \n    *   These must be done at an \"easy\" pace (5:00–5:20/km). Do not push these runs to race pace; the goal is to teach your body to burn fat and handle the impact for 90+ minutes.\n*   **The Taper (Week 5-6):** \n    *   Notice the drop in mileage. This \"taper\" allows your muscles to repair and glycogen stores to replenish so you are fresh for your sub-90 attempt.\n*   **Race Day Strategy:**\n    *   Aim for an even split. 4:16/km is your target. Start the first 3km at 4:20/km to settle in, then hold 4:15-4:16/km for the middle section. If you feel good at the 17km mark, empty the tank.\n\n**Warning on your \"Current Mileage\":** You mentioned you currently run 55 km, but your longest run is only 6 km. This implies you are running 55 km/week by running 6 km very frequently (or doing multiple short runs). **Please ensure your Sunday long runs increase gradually as shown above to avoid injury.** Do not jump from 6 km to 18 km in one week.",
+  "response_text_sha256": "ccc20e4dce6e4330b55562583436fc1088fb1a8221d01e9c3f50a72b010b2c5c",
+  "response_json": {
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "To achieve a 1:30:00 half marathon (a pace of 4:16/km), your primary challenge is the transition from a maximum distance of 6 km to a 21.1 km race. Your 19:45 5K shows you have the raw speed, but you lack the aerobic base and muscular endurance for the distance.\n\n**Important Note:** Your current long run (6 km) is significantly low for a sub-90 minute half marathon goal. I have structured this plan to rapidly increase your volume safely. **Listen to your body:** If you feel sharp pain (not just muscle fatigue), scale back the long run.\n\n### The Training Strategy\n*   **Easy Runs (Mon/Thu):** Should be conversational pace (approx. 5:00–5:15/km).\n*   **Speed Work (Tue):** Focus on interval sessions to maintain your 5K speed.\n*   **Long Runs (Sun):** These are the most critical. You must progress from 6 km to 16-18 km.\n*   **Recovery/Short (Sat):** Active recovery or light aerobic effort to keep the legs moving.\n\n### 6-Week Half Marathon Plan\n\n| Week | Running Days | Total KM |\n| :--- | :--- | :--- |\n| **1** | Mon(8), Tue(8), Thu(8), Sat(6), Sun(10) | 40 km |\n| **2** | Mon(8), Tue(10), Thu(8), Sat(6), Sun(12) | 44 km |\n| **3** | Mon(10), Tue(12), Thu(10), Sat(6), Sun(15) | 53 km |\n| **4** | Mon(10), Tue(12), Thu(10), Sat(8), Sun(18) | 58 km |\n| **5** | Mon(8), Tue(10), Thu(8), Sat(6), Sun(12) | 44 km |\n| **6** | Mon(6), Tue(6), Thu(4), Sat(0), **Sun(Race)** | 37 km |\n\n---\n\n### Key Workouts Explained:\n\n*   **Tuesday Speed Sessions:**\n    *   **Weeks 1-2:** 6 x 800m at 3:55/km pace with 90s jog recovery.\n    *   **Weeks 3-4:** 5 x 1km at 4:00/km pace with 2min jog recovery.\n*   **Sunday Long Runs:** \n    *   These must be done at an \"easy\" pace (5:00–5:20/km). Do not push these runs to race pace; the goal is to teach your body to burn fat and handle the impact for 90+ minutes.\n*   **The Taper (Week 5-6):** \n    *   Notice the drop in mileage. This \"taper\" allows your muscles to repair and glycogen stores to replenish so you are fresh for your sub-90 attempt.\n*   **Race Day Strategy:**\n    *   Aim for an even split. 4:16/km is your target. Start the first 3km at 4:20/km to settle in, then hold 4:15-4:16/km for the middle section. If you feel good at the 17km mark, empty the tank.\n\n**Warning on your \"Current Mileage\":** You mentioned you currently run 55 km, but your longest run is only 6 km. This implies you are running 55 km/week by running 6 km very frequently (or doing multiple short runs). **Please ensure your Sunday long runs increase gradually as shown above to avoid injury.** Do not jump from 6 km to 18 km in one week.",
+              "thoughtSignature": "EnMKcQFpFH0TCM6lhOUM7ZhkjsbkG0Zkg/VYa0oceJPUD5mLseBCVNeN1ctAssHVa8Hr0MsGziwlh0Hk8fP8ql9m6P9nol/prAzz3MEqHIzoxNJWCfvX4kuWKJyqBx64DolouipDu6XkZhiPlt9ZkNQsazfa"
+            }
+          ],
+          "role": "model"
+        },
+        "finishReason": "STOP",
+        "index": 0
+      }
+    ],
+    "usageMetadata": {
+      "promptTokenCount": 165,
+      "candidatesTokenCount": 865,
+      "totalTokenCount": 1030,
+      "promptTokensDetails": [
+        {
+          "modality": "TEXT",
+          "tokenCount": 165
+        }
+      ],
+      "serviceTier": "standard"
+    },
+    "modelVersion": "gemini-3.1-flash-lite",
+    "responseId": "JRXHavr0HJjnqfkPzqSZ0Qg"
+  },
+  "finish_reason": "STOP",
+  "truncated": false,
+  "usage": {
+    "promptTokenCount": 165,
+    "candidatesTokenCount": 865,
+    "totalTokenCount": 1030,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 165
+      }
+    ],
+    "serviceTier": "standard"
+  },
+  "latency_ms": 3723,
+  "outcome": "ok",
+  "error": null,
+  "settings": {
+    "max_output_tokens": 8192,
+    "temperature": "provider default (temperature parameter is NOT sent)",
+    "system_prompt": null,
+    "retries": 0,
+    "timeout_seconds": 180,
+    "delay_between_calls_seconds": 1.0
+  },
+  "registry_version": "stage2-v1",
+  "config_sha256": "3ee87c5c392d40eef6a9dceb599c5f0c83275ba589c0d8d496629a0728876a6b",
+  "registry_file_sha256": "51895ee5329059930959f15746439f692bb849521de346099a1838be7689f5c7",
+  "codebook_sha256": "177a1c5d9b7dbf1ab9e53d0684365dcf67b21f1b1f3154f3f8b1ecc5aa6eb4fc"
+}

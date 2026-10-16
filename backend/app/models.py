@@ -158,6 +158,10 @@ class PlanEvaluation(Base):
     
     # Identifies whether the participant evaluated the 'rule_based' baseline or the 'ai_personalized' plan
     evaluated_plan_type = Column(String(20), nullable=False, default="ai_personalized")
+
+    # Anonymous pairing code (form P-XXXXXXXX, validated by the API) set only by the blinded RQ3 endpoint;
+    # NULL for every evaluation made through the original endpoint. Not an account, e-mail or name.
+    participant_code = Column(String(16), nullable=True, index=True)
     
     # 1 to 5 Likert Scale criteria for S2 research paper
     personalization_score = Column(Integer, nullable=False)
@@ -174,15 +178,14 @@ class PlanEvaluation(Base):
 class TrainingPlanWorkout(Base):
     """
     A SCHEDULED/PLANNED workout day within a consumer training plan --
-    distinct from WorkoutLog (an ACTUAL/completed workout). Read-only in
-    Phase 2: a materialized snapshot of week 1 of the plan's generated JSON
-    (rule_based_plan_json), taken once at plan-generation time.
+    distinct from WorkoutLog (an ACTUAL/completed workout). A materialized
+    snapshot of the plan's deterministic rule-based schedule (rule_based_plan_json
+    "weeks"), taken once at plan-generation time: 7 rows per week for every week
+    of the plan (total_weeks * 7 rows), Monday through Sunday, rest days included.
 
     Only ever created for consumer plans (training_plans.user_id IS NOT
-    NULL) -- anonymous research plans get zero rows here. Only week 1 is
-    materialized because the rule engine (app/rules/generator.py) only
-    produces full daily detail for week 1; weeks 2+ are intentionally not
-    fabricated (see PHASE_2_DESIGN.md Section 3.2 / Section 6).
+    NULL) -- anonymous research plans get zero rows here. Rows always reflect
+    the deterministic baseline; AI-personalized text is never materialized.
     """
     __tablename__ = "training_plan_workouts"
 

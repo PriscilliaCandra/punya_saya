@@ -1,0 +1,98 @@
+[
+  {
+    "id": 1,
+    "name": "CODEBOOK_v2.md hash",
+    "passed": true,
+    "detail": ""
+  },
+  {
+    "id": 2,
+    "name": "Stage 2 registry file and canonical hash",
+    "passed": true,
+    "detail": ""
+  },
+  {
+    "id": 3,
+    "name": "prompt specification hash",
+    "passed": true,
+    "detail": ""
+  },
+  {
+    "id": 4,
+    "name": "exactly 8 scenarios in registry order",
+    "passed": true,
+    "detail": ""
+  },
+  {
+    "id": 5,
+    "name": "each scenario has 5 repetitions",
+    "passed": true,
+    "detail": ""
+  },
+  {
+    "id": 6,
+    "name": "planned calls = 40 = hard cap",
+    "passed": true,
+    "detail": ""
+  },
+  {
+    "id": 7,
+    "name": "prompt hashes recompute and equal bindings",
+    "passed": true,
+    "detail": ""
+  },
+  {
+    "id": 8,
+    "name": "reused Stage 1 prompts byte-identical",
+    "passed": true,
+    "detail": ""
+  },
+  {
+    "id": 9,
+    "name": "registry has no mutable execution state",
+    "passed": true,
+    "detail": ""
+  },
+  {
+    "id": 10,
+    "name": "model ID equals configuration",
+    "passed": true,
+    "detail": ""
+  },
+  {
+    "id": 11,
+    "name": "API key environment variable present",
+    "passed": true,
+    "detail": ""
+  },
+  {
+    "id": 12,
+    "name": "reconstructed order equals stored order and hash",
+    "passed": true,
+    "detail": ""
+  },
+  {
+    "id": 13,
+    "name": "no existing live Stage 2 run for this configuration",
+    "passed": true,
+    "detail": ""
+  },
+  {
+    "id": 14,
+    "name": "configuration valid and Python version bound",
+    "passed": true,
+    "detail": ""
+  },
+  {
+    "id": 15,
+    "name": "bound hashes (manifest, specs, Stage 1, runner, analyzer)",
+    "passed": true,
+    "detail": ""
+  },
+  {
+    "id": 16,
+    "name": "target run directory does not exist",
+    "passed": true,
+    "detail": "checked again at creation (exclusive)"
+  }
+]

@@ -1,0 +1,1 @@
+{"block_reason":null,"call_index":17,"call_key":"PAC-004,B,1","condition":"B","error":"HTTP 429","finish_reason":null,"http_status":429,"latency_ms":531,"model_returned":null,"prompt_sha256":"1c889dde9c13c7c40f18f70bfc4ea0bfa081176495caa7ec213f197fec412628","repetition":1,"response_text":"","template_id":"PAC-004","usage":null,"utc_start":"2026-10-15T09:24:50Z"}

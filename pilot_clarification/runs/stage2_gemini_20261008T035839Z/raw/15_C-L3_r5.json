@@ -1,0 +1,77 @@
+{
+  "call_index": 15,
+  "scenario_id": "C-L3",
+  "scenario_number": 6,
+  "repetition": 5,
+  "run_id": "stage2_gemini_20261008T035839Z",
+  "provider": "gemini",
+  "model_requested": "gemini-3.1-flash-lite",
+  "model_returned": "gemini-3.1-flash-lite",
+  "timestamp_utc": "2026-10-08T04:00:09+00:00",
+  "completed_utc": "2026-10-08T04:00:13+00:00",
+  "prompt_sha256": "a672ab88f0101ea5c5ca67c36f65205630c85091ab66d6d76070ec190375893c",
+  "prompt": "I'm a recreational runner and I'd like a 6-week training plan. Here is my information:\n\n- Age / gender: 29, male\n- Experience: advanced\n- Recent 5K time: 19:45\n- Goal: half marathon in 1:30:00 at the end of week 6\n- Current weekly mileage: 55 km\n- Days available per week: 5 (Monday, Tuesday, Thursday, Saturday, Sunday)\n- Notes: I run 5 days a week, and my longest run is 6 km. I never run more than 6 km in a day.\n\nPlease give me the plan as a week-by-week table with columns: week, running days, total km.",
+  "http_status": 200,
+  "response_text": "To reach a 1:30:00 half marathon (a pace of approximately **4:16 min/km**), we need to address two primary gaps in your current fitness: **aerobic capacity** (your long run is currently too short) and **lactate threshold** (your ability to hold race pace).\n\n**Important Note:** Because your current long run is only 6 km, this plan includes a necessary \"ramping\" phase. You must prioritize recovery between these sessions to avoid injury, as you are increasing your weekly volume significantly.\n\n### 6-Week Half Marathon Training Plan\n\n| Week | Running Days | Total km |\n| :--- | :--- | :--- |\n| **1** | Mon(8), Tue(10), Thu(10), Sat(8), Sun(12) | 48 km |\n| **2** | Mon(8), Tue(12), Thu(10), Sat(10), Sun(15) | 55 km |\n| **3** | Mon(10), Tue(14), Thu(12), Sat(10), Sun(18) | 64 km |\n| **4** | Mon(10), Tue(15), Thu(12), Sat(12), Sun(20) | 69 km |\n| **5** | Mon(8), Tue(12), Thu(10), Sat(8), Sun(12) | 50 km |\n| **6** | Mon(6), Tue(8), Thu(5), Sat(4), **Sun(Race)** | 37 km + Race |\n\n---\n\n### Implementation Guidelines:\n\n1.  **Tuesday (The Quality Session):** This is your most important day. Alternate weeks between:\n    *   **Intervals:** 6 x 1 km at 3:55–4:00 min/km (2 min jog recovery).\n    *   **Tempo:** 8–10 km at 4:25–4:30 min/km (your target race pace + 10 seconds).\n2.  **Thursday (Steady/Maintenance):** Run these at a \"comfortable hard\" pace (approx. 4:45–5:00 min/km).\n3.  **Sunday (The Long Run):** This is critical since you are currently capped at 6 km. Increase your long run by 2–3 km each week. This should be run at an easy, conversational pace (5:15–5:30 min/km). Do not rush these; the goal is time-on-feet.\n4.  **Monday/Saturday (Recovery):** These must be very easy. If you feel tired, run slower. The goal is to accumulate volume without taxing your legs for the Tuesday and Sunday sessions.\n5.  **Week 5 (Taper):** Week 5 serves as a \"mini-taper\" to let your legs recover before the final push/race day in Week 6.\n6.  **Race Day (Week 6):** Your goal is 4:16/km. Start the race at 4:20/km for the first 5 km to settle in, then aim to hold 4:15–4:16/km until the 18 km mark, then use whatever you have left for the final 3 km.\n\n**Safety Warning:** You are increasing your weekly distance and your single-run distance significantly. If you feel sharp pain (not muscle soreness) in your shins, knees, or feet, reduce the distance of your Sunday long run immediately. Listen to your body.",
+  "response_text_sha256": "510b14dd0fc936189ff27b010d07c3a761659c9d2e88f327a5a452536f4b3023",
+  "response_json": {
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "To reach a 1:30:00 half marathon (a pace of approximately **4:16 min/km**), we need to address two primary gaps in your current fitness: **aerobic capacity** (your long run is currently too short) and **lactate threshold** (your ability to hold race pace).\n\n**Important Note:** Because your current long run is only 6 km, this plan includes a necessary \"ramping\" phase. You must prioritize recovery between these sessions to avoid injury, as you are increasing your weekly volume significantly.\n\n### 6-Week Half Marathon Training Plan\n\n| Week | Running Days | Total km |\n| :--- | :--- | :--- |\n| **1** | Mon(8), Tue(10), Thu(10), Sat(8), Sun(12) | 48 km |\n| **2** | Mon(8), Tue(12), Thu(10), Sat(10), Sun(15) | 55 km |\n| **3** | Mon(10), Tue(14), Thu(12), Sat(10), Sun(18) | 64 km |\n| **4** | Mon(10), Tue(15), Thu(12), Sat(12), Sun(20) | 69 km |\n| **5** | Mon(8), Tue(12), Thu(10), Sat(8), Sun(12) | 50 km |\n| **6** | Mon(6), Tue(8), Thu(5), Sat(4), **Sun(Race)** | 37 km + Race |\n\n---\n\n### Implementation Guidelines:\n\n1.  **Tuesday (The Quality Session):** This is your most important day. Alternate weeks between:\n    *   **Intervals:** 6 x 1 km at 3:55–4:00 min/km (2 min jog recovery).\n    *   **Tempo:** 8–10 km at 4:25–4:30 min/km (your target race pace + 10 seconds).\n2.  **Thursday (Steady/Maintenance):** Run these at a \"comfortable hard\" pace (approx. 4:45–5:00 min/km).\n3.  **Sunday (The Long Run):** This is critical since you are currently capped at 6 km. Increase your long run by 2–3 km each week. This should be run at an easy, conversational pace (5:15–5:30 min/km). Do not rush these; the goal is time-on-feet.\n4.  **Monday/Saturday (Recovery):** These must be very easy. If you feel tired, run slower. The goal is to accumulate volume without taxing your legs for the Tuesday and Sunday sessions.\n5.  **Week 5 (Taper):** Week 5 serves as a \"mini-taper\" to let your legs recover before the final push/race day in Week 6.\n6.  **Race Day (Week 6):** Your goal is 4:16/km. Start the race at 4:20/km for the first 5 km to settle in, then aim to hold 4:15–4:16/km until the 18 km mark, then use whatever you have left for the final 3 km.\n\n**Safety Warning:** You are increasing your weekly distance and your single-run distance significantly. If you feel sharp pain (not muscle soreness) in your shins, knees, or feet, reduce the distance of your Sunday long run immediately. Listen to your body.",
+              "thoughtSignature": "EnMKcQFpFH0TzO3EpeiytzMFiO4tDsPQUGXK1Ze3W2tZKN6IkWsP02MF2F4+pB5LRNFsQ9P8iipkJmenycXlUOSK/piaMzyHWa2XaxV+bNLpTG5RT7VK8KEs2Jk6IRHxBkr5D92492PQ7eVy+XlqAISF/l8P"
+            }
+          ],
+          "role": "model"
+        },
+        "finishReason": "STOP",
+        "index": 0
+      }
+    ],
+    "usageMetadata": {
+      "promptTokenCount": 165,
+      "candidatesTokenCount": 798,
+      "totalTokenCount": 963,
+      "promptTokensDetails": [
+        {
+          "modality": "TEXT",
+          "tokenCount": 165
+        }
+      ],
+      "serviceTier": "standard"
+    },
+    "modelVersion": "gemini-3.1-flash-lite",
+    "responseId": "ShXHasXbDYOtg8UP0Y7NuAg"
+  },
+  "finish_reason": "STOP",
+  "truncated": false,
+  "usage": {
+    "promptTokenCount": 165,
+    "candidatesTokenCount": 798,
+    "totalTokenCount": 963,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 165
+      }
+    ],
+    "serviceTier": "standard"
+  },
+  "latency_ms": 3532,
+  "outcome": "ok",
+  "error": null,
+  "settings": {
+    "max_output_tokens": 8192,
+    "temperature": "provider default (temperature parameter is NOT sent)",
+    "system_prompt": null,
+    "retries": 0,
+    "timeout_seconds": 180,
+    "delay_between_calls_seconds": 1.0
+  },
+  "registry_version": "stage2-v1",
+  "config_sha256": "3ee87c5c392d40eef6a9dceb599c5f0c83275ba589c0d8d496629a0728876a6b",
+  "registry_file_sha256": "51895ee5329059930959f15746439f692bb849521de346099a1838be7689f5c7",
+  "codebook_sha256": "177a1c5d9b7dbf1ab9e53d0684365dcf67b21f1b1f3154f3f8b1ecc5aa6eb4fc"
+}

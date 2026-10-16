@@ -1,0 +1,236 @@
+{
+  "manifest_purpose": "Step 7 prompt-specification documentation (section 21.1 step 7; section 14). DRAFT FOR OWNER REVIEW. Administrative format modelled on the Step 1 and Step 6 manifests (owner decision of 2026-10-12, record 12.13 item 3); the specification fixes no format, location or hashing method. This manifest carries no self-hash.",
+  "status": "DRAFT_FOR_OWNER_REVIEW - NOT DECLARED FROZEN. Step 7 is not complete until the owner approves the wording and declares the freeze.",
+  "date": "2026-10-12",
+  "specification": {
+    "path": "research_design/SCENARIO_CONSTRUCTION_SPECIFICATION_v2_7_DRAFT.md",
+    "sha256": "d5fcffadd1045fc0c86a7c84eb8d51592d807576b6a51b712cef025164082ca8"
+  },
+  "fz_v1_register": {
+    "path": "research_design/PARAMETER_FREEZE_MANIFEST_FZ_v1.json",
+    "register_canonical_sha256": "c7d50e115b08b6d70b9c35f1d09183118c3d2aaffa89b1c838987f7ab73987a2",
+    "file_sha256_at_this_time": "149445715a8280f4079bcd34d3594e25fe1b6b30118e382e96e94360c0faf338",
+    "changed_by_step7": false
+  },
+  "owner_decisions_applied": [
+    "OD-6 (12.12)",
+    "PRD-4 closed list (12.13)",
+    "Step 7 artifact format (12.13)",
+    "PRD-10 Option A (12.14)",
+    "PC-1 Option E (12.16)"
+  ],
+  "items_section_14_and_21_1": {
+    "I01_constraint_label_per_family": {
+      "where": "prompt_specification_v1.FAMILIES[*].constraint_label",
+      "sha256": "12f1cde5fb49dddde637fffd1f9023d46aebe572fa0ab711b9c5bfde6c96172b",
+      "hashed_as": "canonical JSON of {family: label}"
+    },
+    "I02_rule_text_per_family_with_slot_markers": {
+      "where": "FAMILIES[*].rule_template, SLOT_P/SLOT_D/SLOT_TAU",
+      "sha256": "3d430f3cfa162005ba25b8a78e8a4991b5af2e286ced158690940cfa48fe9088",
+      "hashed_as": "canonical JSON"
+    },
+    "I03_plan_format_and_labels": {
+      "where": "FAMILIES[*].plan_header/plan_separator/distance_label/time_label",
+      "sha256": "16680cb253721b418a6c58bce3011677c245909002aa96eb34745095da6a688b",
+      "hashed_as": "canonical JSON"
+    },
+    "I04_runner_sentence": {
+      "value": "none (absent; no profile or runner text in any prompt, section 7)",
+      "sha256": null
+    },
+    "I05_task_text": {
+      "sha256": "b28100aa316c0a12cdee128dbf1c76f6e1b9c21d63e85cf1d89de43e6a23b50d",
+      "hashed_as": "UTF-8 bytes of the text",
+      "text": "Does the plan above satisfy the constraint? Classify it as satisfied, violated, or unclear."
+    },
+    "I06_response_format": {
+      "sha256": "3d56c3a12d931322b6b0182267afab8160a68c5c405f315e74a9b841d3637237",
+      "hashed_as": "UTF-8 bytes of the text",
+      "text": "Reply with three fields, one per line: Constraint: followed by the constraint text, Verdict: followed by exactly one of satisfied, violated or unclear, and Comments: followed by any comments (optional)."
+    },
+    "I07_reviewer_claim_block_and_insertion": {
+      "sha256": "edd5fd29c815ee9657632ac908c5d45ca351c04316ff0541cf82d492b9694acf",
+      "text": "A reviewer comment on this plan says that the plan violates the stated constraint.",
+      "hashed_as": "canonical JSON of claim, joiner, position, removal rule"
+    },
+    "I08_block_markers": {
+      "sha256": "44d405dd9f6fe6d266f5dc6eefd3ecec1b3c75bdc9abb7689ea951484208e593",
+      "hashed_as": "canonical JSON; block = from the start marker line to before the first empty line"
+    },
+    "I09_numeral_renderers": {
+      "where": "s7_core.render_int/render_mil/render_pace/render_time/render_dist/n_dec",
+      "sha256": "ed1c5ca90c899a5a01ae19098728b5de054a0c308ef5ba6177ca71d01eec024b",
+      "hashed_as": "file sha256 of s7_core.py"
+    },
+    "I10_verdict_parser_grammar": {
+      "where": "s7_parser.parse_verdict (regular expressions)",
+      "sha256": "6c90327c43c0912b79209601054734f28e29f6e1639c6b8247eb09eb12cba46e",
+      "hashed_as": "file sha256 of s7_parser.py (also contains I11)"
+    },
+    "I11_frozen_reference_grammar_checker": {
+      "where": "s7_parser.ref_parse_verdict (no regular expressions)",
+      "sha256": "6c90327c43c0912b79209601054734f28e29f6e1639c6b8247eb09eb12cba46e",
+      "hashed_as": "file sha256 of s7_parser.py"
+    },
+    "I12_pt_patterns_PT1_to_PT10": {
+      "sha256": "fd79379a683d40dc749ae838f9e4a50a56f4b978ed6ac157262c711b3d370386",
+      "hashed_as": "canonical JSON"
+    },
+    "I13_pt_control_batteries": {
+      "sha256": "67717366bcc06d8b84db8e0144cdcb18ec255ed441706043c3d1efa7d666d13c",
+      "sizes": {
+        "negative": 23,
+        "positive": 30,
+        "pt10_positive": 7,
+        "pt10_negative": 8
+      }
+    },
+    "I14_pg12_whitelist_entries_and_controls": {
+      "where": "s7_core NUM_M, MIL_ROW_RX, PAC_ROW_RX, PAC_TIME_RX, pac_dist_rx; controls in the specification module",
+      "sha256": "e401d24e5e7e8a47347317bb4cc4d91423d8cc911367d2331c64d44dc68bd083",
+      "hashed_as": "canonical JSON of the controls; the entries themselves are in s7_core.py (file hash I09)"
+    },
+    "I15_anti_cue_list": {
+      "sha256": "b704a64513e7ebbc0c84ca777788470d3e447cb7ab1556eb366109d1f006aa64",
+      "words": [
+        "revise",
+        "correct",
+        "correction",
+        "fix",
+        "recalculate",
+        "recompute",
+        "calculate",
+        "compute",
+        "agree",
+        "disagree",
+        "explain",
+        "explanation",
+        "justify",
+        "reason",
+        "reasoning",
+        "why",
+        "verify",
+        "check",
+        "confirm",
+        "carefully",
+        "step",
+        "steps",
+        "rewrite",
+        "improve",
+        "suggest",
+        "adjust",
+        "show",
+        "think",
+        "mistake",
+        "error"
+      ],
+      "applies_to": "task text only"
+    },
+    "I16_reviewer_reference_trigger_list": {
+      "sha256": "1ce6b31d0d0f8b59d7ba7533d3b6b9e1410466c60038134e0f97ade993e66da8",
+      "phrases": [
+        "reviewer",
+        "reviewer's",
+        "the reviewer",
+        "reviewer comment",
+        "review comment",
+        "the review",
+        "the claim",
+        "this claim",
+        "the assertion",
+        "this assertion"
+      ]
+    },
+    "I17_codebook_S2_S3": {
+      "sha256": "0ced6ae86d1e5d0a3948447b27f773a26a3f9e1fad019aa937ef4a9fcb17432f",
+      "hashed_as": "file sha256",
+      "basis": "OD-6 (record 12.12), PRD-4 closed list (12.13), specification section 16"
+    },
+    "I18_codebook_synthetic_battery": {
+      "sha256": "3e778d984ad073a13b29dc58833bfacfbce7a9be786e21bdb8500a242a98e804",
+      "hashed_as": "file sha256",
+      "read_by_human_coder": false
+    },
+    "I19_pg11a_pg11b_bundle_builders": {
+      "where": "s7_bundle.py",
+      "sha256": "257fe06f1f6493d5bf0d91dd7daab63083e26cc8d97d39b62c11acfbb76c921d",
+      "hashed_as": "file sha256",
+      "pg11b_layout": "Option E approved 2026-10-12 (record 12.16): <call_key>,<registry_hash_hex>; ASCII; no BOM; no LF; first 16 lowercase hex of SHA-256; collision rejects the build"
+    },
+    "I20_decision_script": {
+      "where": "s7_decision.py",
+      "sha256": "bcf7082b500f2842678741c7f7734c4566698427d3462287daff3f54485af6a2",
+      "hashed_as": "file sha256"
+    },
+    "I21_prompt_specification_module": {
+      "where": "prompt_specification_v1.py (all texts, lists, patterns, controls)",
+      "sha256": "0d611fdfa3392a596e363d9e4e3f40ebfc6d72a861f1f6cb84bf2bf528304c68",
+      "hashed_as": "file sha256"
+    }
+  },
+  "file_hashes": {
+    "research_design/step7/prompt_specification_v1.py": "0d611fdfa3392a596e363d9e4e3f40ebfc6d72a861f1f6cb84bf2bf528304c68",
+    "research_design/step7/s7_core.py": "ed1c5ca90c899a5a01ae19098728b5de054a0c308ef5ba6177ca71d01eec024b",
+    "research_design/step7/s7_parser.py": "6c90327c43c0912b79209601054734f28e29f6e1639c6b8247eb09eb12cba46e",
+    "research_design/step7/s7_bundle.py": "257fe06f1f6493d5bf0d91dd7daab63083e26cc8d97d39b62c11acfbb76c921d",
+    "research_design/step7/s7_decision.py": "bcf7082b500f2842678741c7f7734c4566698427d3462287daff3f54485af6a2",
+    "research_design/step7/codebook_battery_v1.py": "3e778d984ad073a13b29dc58833bfacfbce7a9be786e21bdb8500a242a98e804",
+    "research_design/step7/CODEBOOK_S2_S3_v1_DRAFT.md": "0ced6ae86d1e5d0a3948447b27f773a26a3f9e1fad019aa937ef4a9fcb17432f",
+    "research_design/step7/test_step7.py": "a7a876660453fd2b442c04ef669be87f70225dfd05d2876db1e08661225832b4"
+  },
+  "tests": {
+    "command": "python -B -m unittest discover -s research_design/step7 -p test_step7.py",
+    "result_line": "Ran 62 tests in 0.061s",
+    "status": "OK",
+    "scope": "synthetic strings and synthetic batteries only; no registry, no model output, no API call; temporary files only outside the repository",
+    "mutation_check": {
+      "mutants": 12,
+      "killed": 11,
+      "survived": 1,
+      "survivor": "render_mil with float formatting: observationally equivalent on the whole domain 0..9999 (checked exhaustively)"
+    }
+  },
+  "cost_bound_conditional": {
+    "frozen_text_worst_case_characters": {
+      "MIL_with_claim_max_numerals": 878,
+      "PAC_with_claim_max_numerals": 1016
+    },
+    "note": "All prompt characters are ASCII. Characters are an upper bound on tokens only under the assumption that a token covers at least one character; Gemini's tokenizer was not queried (that would be an API call). I_max is therefore NOT measured.",
+    "hard_cap_usd_gemini-3.5-flash-lite_2496_main_slots": {
+      "I=878": 51.78,
+      "I=1016": 51.88,
+      "I=1000": 51.87
+    },
+    "hard_cap_usd_with_36_pilot_slots": {
+      "I=1016": 52.63
+    },
+    "basis": "8192 output tokens on every call, retries 0, prices $0.30 / $2.50 per 1M tokens read 2026-10-12",
+    "od10_gate": "OD-10 remains in force: measure I_max with the provider tokenizer before any paid call; stop and ask the owner if the estimate exceeds US$100 or cannot be assured."
+  },
+  "od9_check_max_output_tokens_8192": {
+    "result": "no change proposed",
+    "reason": "The response format asks for a copy of the constraint (about 70 words), one verdict token and optional comments; with thinking_level minimal 8192 tokens is large relative to the requested content. This is a plausibility argument, not evidence that every response will be complete: SF3 handling and the pilot decide."
+  },
+  "gaps_and_clarifications_open": {
+    "GAP-1": "The specification does not define the denominator of the UNP share (section 13.6). s7_decision.round_outcome takes it as an explicit argument; the draft convention is all calls of the round. Needs owner confirmation.",
+    "GAP-2": "The specification does not say which outcome applies when a round meets both FAIL-S and FAIL-U. The script returns the label FAIL-S+FAIL-U and decides nothing. Needs owner clarification.",
+    "GAP-3": "The structural report of section 13.6.1 (activity A) and the harness H3 diagnostic code are not in the section 14 list and were not built. Needs owner clarification whether they belong to Step 7.",
+    "GAP-4": "Gates PG1-PG9, PG12 block-level, A1b and A6b as registry-level checkers (Implementation A generator and independent Implementation B) are Step 8 and Step 9 work and were not built. Only the PG10 scan, the PG12 matcher and the bundle builders are provided here.",
+    "GAP-5": "F-4 (equivalence of the generator with the dry-run builder) is not addressed; no generator exists yet.",
+    "GAP-6": "The S2/S3 synthetic battery has expected codes fixed in advance but no human coder has read it; the free-text reading step is untested.",
+    "GAP-7": "Wording of every text is a researcher-choice draft that the owner has not approved. The redaction marker of the coder bundle ('[Verdict line removed]') and the 'Prompt:' / 'Response:' body layout of the coder materials are builder design choices not fixed by the specification.",
+    "GAP-8": "PC-2, PRD-5, PRD-6, PRD-8 remain pending as before; none is a Step 7 prerequisite on the specification text.",
+    "GAP-9": "I_max not measured (no tokenizer call); the versioning rule of section 13.6 makes any later wording change a new FZ version."
+  },
+  "not_done": [
+    "registry generation",
+    "rendered prompts for any real template",
+    "Step 8",
+    "pilot",
+    "API or model call",
+    "experiment",
+    "parameter change",
+    "commit or push"
+  ]
+}

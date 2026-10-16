@@ -1,0 +1,21 @@
+{
+  "blocked_reasons": [
+    "B30 (K-C-L4-S2 r4): pace_matches_stated recorded 'Y', deterministic 'N'",
+    "B13 (E-F-A r5): no parsed table requires X, coded E3",
+    "B11 (E-F-B r4): no parsed table requires X, coded E4",
+    "B36 (K-C-L4-S2 r3): pace_matches_stated recorded 'Y', deterministic 'N'",
+    "B22 (K-C-L4-S2 r1): pace_matches_stated recorded 'Y', deterministic 'N'",
+    "B20 (K-C-L4-S2 r5): pace_matches_stated recorded 'Y', deterministic 'N'",
+    "B29 (E-F-A r3): repeated note key 'v'",
+    "B29 (E-F-A r3): E3 requires v=N"
+  ],
+  "statements": [
+    "Exploratory descriptive counts from one model on fixed prompts.",
+    "No population-level estimate is computed or permitted.",
+    "Not a thesis-level conclusion; NO TRIGGER is abandonment-leaning only.",
+    "Stage 1 and Stage 2 are not pooled.",
+    "Coder protocol (frozen codebook): Primary coding is performed using the frozen deterministic codebook. Coding may be LLM-assisted, but the coder must apply only the observable rules defined in this codebook and must not infer hidden model intent. Ambiguous cases are handled using the stated ambiguity protocol. Repeated coding by the same model or session is a consistency check only and must not be reported as independent inter-rater reliability.",
+    "Limitation recorded by the researcher: No independent human second coder was available. Repeated LLM-assisted coding was used only as a consistency check and is not treated as inter-rater reliability."
+  ],
+  "status": "BLOCKED_CODING_INCONSISTENT"
+}

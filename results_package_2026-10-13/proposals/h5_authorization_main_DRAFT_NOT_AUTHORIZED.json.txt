@@ -1,0 +1,8 @@
+{
+  "authorized_by": "owner",
+  "cost_ceiling_usd": 100,
+  "input_tokens_per_call_assumed": 1016,
+  "max_calls": 2496,
+  "max_input_characters": 1016,
+  "scope": "main"
+}

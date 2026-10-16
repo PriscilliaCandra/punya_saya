@@ -1,0 +1,48 @@
+--- a/research_design/step10/s10_runner.py
++++ b/research_design/step10/s10_runner.py
+@@ -274,6 +274,23 @@
+                 "block_reason": (data.get("promptFeedback") or {}).get("blockReason")}
+ 
+ 
++def provider_anomaly(rec, requested_model):
++    """MD-06 safe-stop clauses 1, 2 and 4 (INACTIVE DRAFT P2): a reason class (str) if the stored record shows an anomaly that stops the workflow for owner review,
++    else None. A record with an error marker is a transport/HTTP failure (SF1) and is not an anomaly. Nothing is reclassified; the record stays as stored."""
++    if rec.get("error"):
++        return None
++    st = rec.get("http_status")
++    if st is None:
++        return "record without HTTP status"
++    if not (isinstance(st, int) and not isinstance(st, bool) and 200 <= st < 300):
++        return None
++    if rec.get("model_returned") != requested_model:
++        return "returned model ID missing or not exactly the requested ID"
++    if SC.finish_reason_class(rec.get("finish_reason")) == "unlisted":
++        return "unlisted finish reason"
++    return None
++
++
+ def run(scope, build, out_dir, provider, *, evidence_path, auth_path, pilot_record_path=None, sleeper=time.sleep, clock=None, verify_build=True,
+         timer=time.monotonic):
+     settings = check_gates(scope, build, evidence_path, auth_path, pilot_record_path, verify_build)
+@@ -328,6 +345,10 @@
+             ledger({"event": "classified", "call_index": c["call_index"], "outcome": cl["outcome"], "flags": cl["flags"]})
+             records.append(rec)
+             done += 1
++            anomaly = provider_anomaly(rec, settings["model_id"])
++            if anomaly:
++                halted = f"provider anomaly after call {done}: {anomaly}"       # stop for owner review; the record is kept as stored (MD-06)
++                break
+             if cl["outcome"] == "SF":
+                 consec += 1
+                 sf_total += 1
+--- a/research_design/step10/test_step10.py
++++ b/research_design/step10/test_step10.py
+@@ -36,7 +36,7 @@
+ def good(call_key, prompt):
+     cond = call_key.split(",")[1]
+     return {"http_status": 200, "text": f"Constraint: x\nVerdict: {SC.EXPECTED[cond]}\nComments: {SECRET}", "error": None,
+-            "finish_reason": "STOP", "model_returned": "mock", "usage": {"totalTokenCount": 900}, "latency_ms": 1000}
++            "finish_reason": "STOP", "model_returned": "gemini-3.5-flash-lite", "usage": {"totalTokenCount": 900}, "latency_ms": 1000}
+ 
+ 
+ class TestScoring(unittest.TestCase):

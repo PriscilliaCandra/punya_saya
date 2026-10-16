@@ -1,0 +1,9 @@
+Constraint (weekly mileage cap): the total distance of a week may be at most 10 percent higher than the total distance of the week before it. Week 1 has no earlier week to compare with. A decrease, no change, or an increase of exactly 10 percent satisfies the constraint. Only an increase of more than 10 percent violates it. The plan violates the constraint if at least one week violates it.
+
+| Week | Total km |
+| --- | --- |
+| 1 | 34.0 |
+| 2 | 36.5 |
+| 3 | 35.1 |
+| 4 | 33.7 |
+| 5 | 32.4 |

@@ -1,0 +1,76 @@
+{
+ "counted_calls": 80,
+ "counts": {
+  "SF1": 0,
+  "SF2": 0,
+  "SF3": 0,
+  "SF4": 0,
+  "SF5": 0,
+  "UNP": 2
+ },
+ "unp_share": 0.025,
+ "anomalies": {
+  "non_200": 0,
+  "unlisted_finish_reason": 0,
+  "model_mismatch": 0,
+  "usage_incomplete": 0,
+  "not_done": 0
+ },
+ "aborted": null,
+ "latency_ms": {
+  "first_call": 1609,
+  "min": 781,
+  "median": 1328,
+  "mean": 1506.8,
+  "max": 4328
+ },
+ "projected_main_run_hours": 1.044704135021097,
+ "output_tokens_per_second_median": 70.28,
+ "stability": {
+  "pairs": 16,
+  "identical_text": 0,
+  "identical_outcome": 13
+ },
+ "informational": {
+  "parseable": 78,
+  "verdict_equals_synthetic_expectation": 36,
+  "note": "informational only, never a criterion; synthetic prompts"
+ },
+ "probes": [
+  {
+   "probe": 1,
+   "num_predict": 8,
+   "http_status": 200,
+   "error": null,
+   "done_reason_raw": "length",
+   "finish_reason": "MAX_TOKENS",
+   "eval_count": 8,
+   "latency_ms": 13796
+  },
+  {
+   "probe": 2,
+   "num_predict": 8192,
+   "http_status": 200,
+   "error": null,
+   "done_reason_raw": "stop",
+   "finish_reason": "STOP",
+   "eval_count": 101,
+   "latency_ms": 1485
+  }
+ ],
+ "status": "FEASIBILITY_PROCEED",
+ "components": {
+  "unp": "PROCEED",
+  "structural": "PROCEED",
+  "time": "PROCEED"
+ },
+ "criteria": {
+  "unp_proceed_le": 0.1,
+  "unp_owner_decision_le": 0.25,
+  "max_structural": 1,
+  "truncation_allowed": 0,
+  "max_projected_hours": 24.0,
+  "main_run_calls": 2496
+ },
+ "harness_sha256": "259d90cd83c18946ac951833abd37ede2978560d02bdb98b003d633709697987"
+}

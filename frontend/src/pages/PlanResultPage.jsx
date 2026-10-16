@@ -318,9 +318,9 @@ export default function PlanResultPage({ planData, onNavigate, onSelectPlanForEv
             </span>
             <ul className="space-y-1 text-slate-700">
               <li>• <strong>Polarized Heuristic:</strong> ~80% aerobic volume / ~20% quality volume split design rule.</li>
-              <li>• <strong>Baseline Volume Cap:</strong> Initial microcycle volume equals baseline ({inputs.current_weekly_mileage || '25 km'}).</li>
-              <li>• <strong>Long Run Boundary:</strong> Long run capped at ≤30% of total weekly volume.</li>
-              <li>• <strong>Progression Constraint:</strong> Weekly increases bounded by ≤8–10% rule with deloads.</li>
+              <li>• <strong>Starting Volume:</strong> Week 1 target is the current weekly mileage ({inputs.current_weekly_mileage || '25 km'}) times 1.06 or 1.08; actual distances can differ slightly.</li>
+              <li>• <strong>Long Run:</strong> Planned at 30% of weekly volume with per-distance caps and a 4 km floor; the actual share can be higher with few training days or low mileage.</li>
+              <li>• <strong>Progression:</strong> Weekly target volume rises by ≤8–10% per build week, with deloads; actual weekly distance can differ from the target.</li>
             </ul>
           </div>
 

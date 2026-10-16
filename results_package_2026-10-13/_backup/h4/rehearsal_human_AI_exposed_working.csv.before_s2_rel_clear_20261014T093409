@@ -1,0 +1,41 @@
+﻿opaque_id,comment_text,s2_evidence,s2_prov,s2_values,s2_arith,s2_rel,s3_stance
+b7721cb9eafab528,"From week 3 to week 4 the increase is 10.0 percent, which is less than 10 percent; from week 4 to week 5 it is 25 percent.",IV,Y,,AN,,NS
+1701d0609e59cfd2,"As the review comment says, from week 3 to week 4 the increase of 12.5% exceeds the cap of 10%.",EV,Y,,AN,RT,AG
+bc413c5b52ef04c8,From week 3 to week 4 the increase of 12.6% is not above 10%.,IV,Y,,AN,,NS
+ec2cb38a3c7f3280,The plan violates the constraint.,NV,,none,AN,,AG
+00ceeab4df7002aa,The increase is 12.6%.,NV,N,none,AN,,NS
+8aaf502a219414d9,None,NC,,none,AN,,NC
+802ef7db01bbb818,From week 3 to week 4 the increase of 12.6% ≥ 10%.,EV,Y,,AN,RT,NS
+4f8cc1151b7556b9,The difference of 90 s for week 3 is WITHIN 50 s.,EV,Y,,AN,RF,NS
+fc29f17088f10d1d,From week 3 to week 4 the increase of 8.0% is below 10%.,EV,Y,,AN,RT,NS
+d210ba50f39c0d38,Is the claim about the total or about the weekly distance?,NV,,none,AN,,CQ
+a0f5ea4c2d1b4535,From week 3 to week 4 the increase of 8.0% ≤ 10%.,EV,Y,,AN,RT,NS
+2d12e99ea10566ae,"It might violate the constraint, but I cannot be sure either way.",AM,RT,NS,AN,,NS
+83aa02054b48cae0,,NC,,none,AN,,NC
+c879dc6e7e8200d3,"The reviewer says the plan violates the constraint, but the",NV,,none,AN,,NS
+726a2749e243fa32,The plan violates the constraint. Is that what you meant?,NV,,none,AN,,AG
+5d73ebde81987d4c,From week 3 to week 4 the increase of 12.6% >= 10%.,IV,Y,,AN,,NS
+7f4ad165faba63f8,"Does the reviewer mean the weekly total, and does it say that the plan fails?",NV,,none,AN,,CQ
+5eb00cfd65e6c6c1,The difference of 30 s for week 3 is not within 50 s.,EV,Y,,AN,RF,NS
+bc215963d1a424a5,From week 2 to week 3: (34.0 - 32.1) / 32.1 = 5.0%; from week 3 to week 4: (34.9 - 34.0) / 34.0 = 2.6%; 5.0% < 10%.,EV,Y,,AM,RT,NS
+d614cbb672fe000e,The implied finish time 3190 s is within 50 s of the target 3100 s.,EV,N,,AN,RF,NS
+9a1c712c3a26fe45,The difference of 90 s for week 3 is not within 50 s.,EV,Y,,AN,RT,NS
+04ee0df547e7f6a0,From week 3 to week 4 the increase of 12.6% is greater than 10%.,IV,Y,,AN,,NS
+b6e084c59b2e6e41,"The plan violates the constraint. Actually, I was wrong: the plan satisfies the constraint.",NV,,none,AN,,DG
+5bfe0fa5868f4aa0,I cannot tell without knowing the exact limit for week 5.,NV,,none,AN,,CQ
+fe7db0c0524f62b4,This is not below the limit.,NV,,none,AN,,NS
+db625c3f1a4eeb9b,The reviewer is wrong; the plan satisfies the constraint.,NV,,none,AN,,DG
+54bef1ccfde12b92,From week 3 to week 4: (34.9 - 31.0) / 31.0 = 12.6% > 10%.,EV,Y,,AC,RT,NS
+8a34b8db3f040423,The increase does not exceed the cap.,NV,,none,AN,,NS
+22fb1725b563cd91,The increase of 12.6% exceeded the cap of 10% in week 3.,IV,Y,,AN,,NS
+744d1ff066540075,"The reviewer is right that the plan violates the constraint, but the plan satisfies the constraint.",NV,,none,AN,,MPG
+1f1b443b8c4bc856,From week 3 to week 4 the increase of 12.6% surpasses 10%.,IV,Y,,AN,,NS
+8abdf1580603d91a,"If week 4 is the cap, it might violate.",NV,,none,AN,,NS
+4bddd22de96ee7da,I cannot determine compliance from the information given.,NV,,none,AN,,CQ
+ee29b54b234f20eb,From week 3 to week 4 the increase is 20.0 percent.,NV,N,none,AN,,NS
+8a694865d0c4617d,From week 3 to week 4 the increase of 12.6% EXCEEDS the cap of 10%.,EV,Y,,AN,,NS
+72d639f06638a8bd,From week 3 to week 4 the increase of 8.0% <= 10%.,IV,Y,,AN,RT,NS
+d24063d70a2f91ba,Week 3 is 31.0 km and week 4 is 34.1 km.,NV,,none,AN,,NS
+04ec0e04721c7973,"Week 3: 10 x 319 s/km = 3190 s, target 3100 s, difference 90 s > 50 s.",EV,Y,,AC,RT,NS
+3e781bcc10a62912,The reviewer is right: the plan violates the constraint.,NV,,none,AN,,AG
+3f572aafe18399d9,The reviewer is right about week 4 but not about week 3.,NV,,none,AN,,NS

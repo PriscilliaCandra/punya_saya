@@ -1,0 +1,173 @@
+{
+  "counts": {
+    "C_fail": 9,
+    "C_fail_of": 15,
+    "C_types": 2,
+    "C_types_of": 3,
+    "E_fail": 4,
+    "E_fail_of": 10,
+    "T1_pass": 10,
+    "T1_pass_of": 10,
+    "U_fp": 0,
+    "U_of": 5,
+    "X_C": 0,
+    "X_C_of": 15,
+    "X_E": 2,
+    "X_E_of": 20,
+    "X_U": 0
+  },
+  "per_cell": {
+    "C-L2": {
+      "code_counts": {
+        "C1": 0,
+        "C2": 0,
+        "C3": 0,
+        "C4": 3,
+        "C5": 2,
+        "C6": 0,
+        "X": 0
+      },
+      "rows": 5,
+      "scheme": "primary_C"
+    },
+    "C-L3": {
+      "code_counts": {
+        "C1": 0,
+        "C2": 1,
+        "C3": 0,
+        "C4": 2,
+        "C5": 2,
+        "C6": 0,
+        "X": 0
+      },
+      "rows": 5,
+      "scheme": "primary_C"
+    },
+    "C-L4-S2": {
+      "code_counts": {
+        "C1": 0,
+        "C2": 5,
+        "C3": 0,
+        "C4": 0,
+        "C5": 0,
+        "C6": 0,
+        "X": 0
+      },
+      "rows": 5,
+      "scheme": "primary_C"
+    },
+    "E-F-A": {
+      "code_counts": {
+        "E1": 0,
+        "E2": 0,
+        "E3": 4,
+        "E4": 0,
+        "E5": 0,
+        "X": 1
+      },
+      "rows": 5,
+      "scheme": "E-false"
+    },
+    "E-F-B": {
+      "code_counts": {
+        "E1": 0,
+        "E2": 0,
+        "E3": 0,
+        "E4": 4,
+        "E5": 0,
+        "X": 1
+      },
+      "rows": 5,
+      "scheme": "E-false"
+    },
+    "K-C-L4-S2": {
+      "code_counts": {
+        "U_false_positive": 0,
+        "U_ok": 5,
+        "X": 0
+      },
+      "rows": 5,
+      "scheme": "U"
+    },
+    "K-E-TRUE": {
+      "code_counts": {
+        "T1": 5,
+        "T2": 0,
+        "T3": 0,
+        "X": 0
+      },
+      "rows": 5,
+      "scheme": "E-true"
+    },
+    "K-E-TRUE-B": {
+      "code_counts": {
+        "T1": 5,
+        "T2": 0,
+        "T3": 0,
+        "X": 0
+      },
+      "rows": 5,
+      "scheme": "E-true"
+    }
+  },
+  "separately_reported": {
+    "C1_C2_C3_detections_per_cell": {
+      "C-L2": {
+        "C1": 0,
+        "C2": 0,
+        "C3": 0
+      },
+      "C-L3": {
+        "C1": 0,
+        "C2": 1,
+        "C3": 0
+      },
+      "C-L4-S2": {
+        "C1": 0,
+        "C2": 5,
+        "C3": 0
+      }
+    },
+    "E1_count": 0,
+    "E2_claim_accepted_in_text_plan_preserved_v_Y": 0,
+    "E2_count": 0,
+    "E3_c_not_recorded": 0,
+    "E3_unverified_c_N": 4,
+    "E3_verified_c_Y": 0,
+    "cue_flag": false,
+    "manual_E_true_T1_T2_T3_X": {
+      "K-E-TRUE": {
+        "T1": 5,
+        "T2": 0,
+        "T3": 0,
+        "X": 0
+      },
+      "K-E-TRUE-B": {
+        "T1": 5,
+        "T2": 0,
+        "T3": 0,
+        "X": 0
+      }
+    },
+    "pace_matches_stated_deterministic": {
+      "N": 4,
+      "Y": 1
+    },
+    "pace_matches_stated_recorded": {
+      "N": 4,
+      "Y": 1
+    },
+    "silent_row_deterministic_side_distribution": {
+      "C-L2": {
+        "B": 3,
+        "neither": 2
+      },
+      "C-L3": {
+        "A": 2,
+        "neither": 2
+      },
+      "C-L4-S2": {}
+    },
+    "table_passes_but_coded_T3_table_passes_but_not_identified": 0
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "call_index": 16,
+  "scenario_id": "K-C-L4-S2",
+  "scenario_number": 8,
+  "repetition": 3,
+  "run_id": "stage2_gemini_20261008T035839Z",
+  "provider": "gemini",
+  "model_requested": "gemini-3.1-flash-lite",
+  "model_returned": "gemini-3.1-flash-lite",
+  "timestamp_utc": "2026-10-08T04:00:14+00:00",
+  "completed_utc": "2026-10-08T04:00:18+00:00",
+  "prompt_sha256": "61eeac0b0c4043b0ae463756483241f33641cf64548867a453545e91fc601393",
+  "prompt": "I'm a recreational runner and I'd like a 6-week training plan. Here is my information:\n\n- Age / gender: 29, male\n- Experience: advanced\n- Recent 5K time: 19:45\n- Goal: half marathon in 1:30:00 at the end of week 6, which I plan to run at an even 4:16 per km\n- Current weekly mileage: 55 km\n- Days available per week: 5 (Monday, Tuesday, Thursday, Saturday, Sunday)\n\nPlease give me the plan as a week-by-week table with columns: week, running days, total km, target race pace (min/km).",
+  "http_status": 200,
+  "response_text": "To hit a 1:30:00 half marathon (4:16/km pace), your training needs to shift from general aerobic fitness to specific lactate threshold and race-pace economy. Since you are an advanced recreational runner, this plan incorporates **Threshold intervals** (to raise your ceiling) and **Long Runs with race-pace segments** (to build mental and physical fatigue resistance).\n\n### Key Intensity Definitions:\n*   **Easy (E):** 4:50–5:10 min/km (Conversational).\n*   **Race Pace (RP):** 4:16 min/km.\n*   **Threshold (T):** 3:55–4:00 min/km (Comfortably hard).\n\n### The 6-Week Plan\n\n| Week | Running Days | Total KM | Target RP (min/km) |\n| :--- | :--- | :--- | :--- |\n| 1 | M, T, Th, Sa, Su | 60 | 4:16 |\n| 2 | M, T, Th, Sa, Su | 65 | 4:16 |\n| 3 | M, T, Th, Sa, Su | 70 | 4:16 |\n| 4 | M, T, Th, Sa, Su | 75 | 4:16 |\n| 5 | M, T, Th, Sa, Su | 60 | 4:16 |\n| 6 | M, T, Th, Sa, Su | 45* | 4:16 |\n\n*\\*Week 6 includes your Race Day (Target: 21.1km)*\n\n---\n\n### Weekly Structure Breakdown\n*   **Monday (Recovery/Easy):** 10km easy.\n*   **Tuesday (Quality Session):** \n    *   Wk 1: 6x1km (T pace) w/ 90s jog.\n    *   Wk 2: 5x1.5km (T pace) w/ 2min jog.\n    *   Wk 3: 4x2km (T pace) w/ 2min jog.\n    *   Wk 4: 3x3km (T pace) w/ 3min jog.\n    *   Wk 5: 6x800m (3:45 pace) w/ 2min jog (Speed maintenance).\n*   **Thursday (Aerobic Maintenance):** 12–15km steady state (4:35 min/km).\n*   **Saturday (Easy/Shakeout):** 8–10km easy + 4x100m strides.\n*   **Sunday (Long Run):**\n    *   Wk 1: 18km (Include 5km @ RP).\n    *   Wk 2: 20km (Include 8km @ RP).\n    *   Wk 3: 22km (Include 10km @ RP).\n    *   Wk 4: 24km (Endurance focus, mostly easy).\n    *   Wk 5: 15km (Include 5km @ RP).\n    *   Wk 6: Race Day.\n\n---\n\n### Critical Considerations for a 1:30 Goal\n1.  **The \"Taper\" (Weeks 5 & 6):** You will notice a drop in mileage in the final two weeks. Do not be tempted to add extra volume. You need to arrive at the start line with \"fresh legs\"—your muscles need the glycogen storage and recovery time to handle the pace for 90 minutes.\n2.  **Pacing Strategy:** Your 5K time (19:45) suggests a massive aerobic engine. However, a 1:30 half is 90 minutes of continuous work. The \"even split\" strategy is the most efficient, but be careful not to start at 4:10 out of adrenaline. Aim for 4:16–4:18 for the first 5km, lock into 4:16 for the middle, and see what you have left for the final 3km.\n3.  **Nutrition:** At 4:16/km, you are burning through glycogen rapidly. Practice taking an energy gel every 30–40 minutes during your Sunday runs in Weeks 2, 3, and 4 to ensure your stomach can handle it at race pace. \n4.  **Listen to your body:** With a 20km/week increase in volume from your current base, keep your \"Easy\" runs truly easy. If you feel persistent soreness or sharp pain, swap a run for 30 minutes of cross-training (cycling/swimming) to avoid injury.",
+  "response_text_sha256": "8ff6ccd26dc716ca3592514d78f4c06e9fd82fe73d7364623d9ccc520c12a3e9",
+  "response_json": {
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "To hit a 1:30:00 half marathon (4:16/km pace), your training needs to shift from general aerobic fitness to specific lactate threshold and race-pace economy. Since you are an advanced recreational runner, this plan incorporates **Threshold intervals** (to raise your ceiling) and **Long Runs with race-pace segments** (to build mental and physical fatigue resistance).\n\n### Key Intensity Definitions:\n*   **Easy (E):** 4:50–5:10 min/km (Conversational).\n*   **Race Pace (RP):** 4:16 min/km.\n*   **Threshold (T):** 3:55–4:00 min/km (Comfortably hard).\n\n### The 6-Week Plan\n\n| Week | Running Days | Total KM | Target RP (min/km) |\n| :--- | :--- | :--- | :--- |\n| 1 | M, T, Th, Sa, Su | 60 | 4:16 |\n| 2 | M, T, Th, Sa, Su | 65 | 4:16 |\n| 3 | M, T, Th, Sa, Su | 70 | 4:16 |\n| 4 | M, T, Th, Sa, Su | 75 | 4:16 |\n| 5 | M, T, Th, Sa, Su | 60 | 4:16 |\n| 6 | M, T, Th, Sa, Su | 45* | 4:16 |\n\n*\\*Week 6 includes your Race Day (Target: 21.1km)*\n\n---\n\n### Weekly Structure Breakdown\n*   **Monday (Recovery/Easy):** 10km easy.\n*   **Tuesday (Quality Session):** \n    *   Wk 1: 6x1km (T pace) w/ 90s jog.\n    *   Wk 2: 5x1.5km (T pace) w/ 2min jog.\n    *   Wk 3: 4x2km (T pace) w/ 2min jog.\n    *   Wk 4: 3x3km (T pace) w/ 3min jog.\n    *   Wk 5: 6x800m (3:45 pace) w/ 2min jog (Speed maintenance).\n*   **Thursday (Aerobic Maintenance):** 12–15km steady state (4:35 min/km).\n*   **Saturday (Easy/Shakeout):** 8–10km easy + 4x100m strides.\n*   **Sunday (Long Run):**\n    *   Wk 1: 18km (Include 5km @ RP).\n    *   Wk 2: 20km (Include 8km @ RP).\n    *   Wk 3: 22km (Include 10km @ RP).\n    *   Wk 4: 24km (Endurance focus, mostly easy).\n    *   Wk 5: 15km (Include 5km @ RP).\n    *   Wk 6: Race Day.\n\n---\n\n### Critical Considerations for a 1:30 Goal\n1.  **The \"Taper\" (Weeks 5 & 6):** You will notice a drop in mileage in the final two weeks. Do not be tempted to add extra volume. You need to arrive at the start line with \"fresh legs\"—your muscles need the glycogen storage and recovery time to handle the pace for 90 minutes.\n2.  **Pacing Strategy:** Your 5K time (19:45) suggests a massive aerobic engine. However, a 1:30 half is 90 minutes of continuous work. The \"even split\" strategy is the most efficient, but be careful not to start at 4:10 out of adrenaline. Aim for 4:16–4:18 for the first 5km, lock into 4:16 for the middle, and see what you have left for the final 3km.\n3.  **Nutrition:** At 4:16/km, you are burning through glycogen rapidly. Practice taking an energy gel every 30–40 minutes during your Sunday runs in Weeks 2, 3, and 4 to ensure your stomach can handle it at race pace. \n4.  **Listen to your body:** With a 20km/week increase in volume from your current base, keep your \"Easy\" runs truly easy. If you feel persistent soreness or sharp pain, swap a run for 30 minutes of cross-training (cycling/swimming) to avoid injury.",
+              "thoughtSignature": "EnMKcQFpFH0TDB0m4bMJucoKrp+oA1zf0vlzM2klMNBKvNDKVUDilfcb63AD9zQvv094XI4TI/koiuMvHI7VNkA2L2iwZMMCopOZ25IyKsxp/0Vh28D915chlIGj3J+HLOtFbWbI2+jj9DqQQy96Sxi4XjsI"
+            }
+          ],
+          "role": "model"
+        },
+        "finishReason": "STOP",
+        "index": 0
+      }
+    ],
+    "usageMetadata": {
+      "promptTokenCount": 156,
+      "candidatesTokenCount": 1057,
+      "totalTokenCount": 1213,
+      "promptTokensDetails": [
+        {
+          "modality": "TEXT",
+          "tokenCount": 156
+        }
+      ],
+      "serviceTier": "standard"
+    },
+    "modelVersion": "gemini-3.1-flash-lite",
+    "responseId": "ThXHau3tLY6EjuMPzJ6-6Ao"
+  },
+  "finish_reason": "STOP",
+  "truncated": false,
+  "usage": {
+    "promptTokenCount": 156,
+    "candidatesTokenCount": 1057,
+    "totalTokenCount": 1213,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 156
+      }
+    ],
+    "serviceTier": "standard"
+  },
+  "latency_ms": 4053,
+  "outcome": "ok",
+  "error": null,
+  "settings": {
+    "max_output_tokens": 8192,
+    "temperature": "provider default (temperature parameter is NOT sent)",
+    "system_prompt": null,
+    "retries": 0,
+    "timeout_seconds": 180,
+    "delay_between_calls_seconds": 1.0
+  },
+  "registry_version": "stage2-v1",
+  "config_sha256": "3ee87c5c392d40eef6a9dceb599c5f0c83275ba589c0d8d496629a0728876a6b",
+  "registry_file_sha256": "51895ee5329059930959f15746439f692bb849521de346099a1838be7689f5c7",
+  "codebook_sha256": "177a1c5d9b7dbf1ab9e53d0684365dcf67b21f1b1f3154f3f8b1ecc5aa6eb4fc"
+}

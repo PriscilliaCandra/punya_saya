@@ -1,0 +1,68 @@
+{
+  "call_index": 21,
+  "scenario_id": "C-L2",
+  "scenario_number": 2,
+  "repetition": 1,
+  "provider": "gemini",
+  "model_requested": "gemini-3.1-flash-lite",
+  "timestamp_utc": "2026-10-07T08:12:00+00:00",
+  "prompt_sha256": "9479e2e9ba1d0540bddec16b29ba9be044e76004a87402eb9ed44d22b61c0a04",
+  "prompt": "I'm a recreational runner and I'd like a 6-week training plan. Here is my information:\n\n- Age / gender: 34, female\n- Experience: beginner\n- Recent 5K time: 29:30\n- Goal: 5K in 28:00 at the end of week 6\n- Current weekly mileage: 20 km\n- Days available per week: 3 (Tuesday, Thursday, Sunday)\n- Notes: lately I've been running about 35 km a week.\n\nPlease give me the plan as a week-by-week table with columns: week, running days, total km.",
+  "settings": {
+    "max_output_tokens": 8192,
+    "temperature": "provider default (temperature parameter is NOT sent)",
+    "system_prompt": null,
+    "retries": 0,
+    "timeout_seconds": 180,
+    "shuffle_seed": 20261007
+  },
+  "http_status": 200,
+  "response_text": "To improve your 5K time from 29:30 to 28:00, this plan focuses on **speed endurance**. We will use your three available days to balance a \"Speed/Interval\" day, a \"Tempo\" day (to build lactate threshold), and a \"Long Run\" (for general aerobic capacity).\n\n### Training Definitions:\n*   **Intervals:** Run at a pace faster than your goal 5K pace (approx. 5:20–5:30 min/km).\n*   **Tempo:** Run at a \"comfortably hard\" pace (approx. 5:50–6:00 min/km).\n*   **Easy Run:** A conversational pace where you could speak in full sentences.\n\n### The 6-Week Plan\n\n| Week | Tuesday (Intervals) | Thursday (Tempo) | Sunday (Long Run) | Total km |\n| :--- | :--- | :--- | :--- | :--- |\n| **1** | 5 x 400m (at 5:20 pace) | 4 km Steady | 7 km Easy | 15 km |\n| **2** | 6 x 400m (at 5:20 pace) | 5 km Steady | 8 km Easy | 17 km |\n| **3** | 4 x 800m (at 5:25 pace) | 5 km Steady | 9 km Easy | 19 km |\n| **4** | 5 x 800m (at 5:25 pace) | 6 km Steady | 10 km Easy | 22 km |\n| **5** | 3 x 1km (at 5:30 pace) | 4 km Tempo | 6 km Easy | 15 km |\n| **6** | 3 x 400m (easy jogs) | 2 km Shakeout run | **5K Race Day** | 10 km* |\n\n*\\*Week 6 is a \"taper\" week to ensure your legs are fresh for the attempt on race day.*\n\n### Important Implementation Notes:\n\n1.  **Warm-up/Cool-down:** Always add 1km of easy jogging before and after your Tuesday and Thursday sessions. The distances listed in the table above include these warm-ups.\n2.  **The \"Lately\" Note:** You mentioned you are currently running 35 km/week. This plan drops your volume slightly. **This is intentional.** To run a Personal Best (PB), your body needs recovery. If you feel flat, cut the Sunday long run short. If you feel great, keep the easy runs very slow to avoid injury.\n3.  **Progression:** The goal is to get your legs used to the \"turnover\" required for a 5:36 min/km pace (which is what you need for a 28:00 finish). \n4.  **Listen to your body:** If you feel sharp pain (not just muscle soreness) in your shins, knees, or feet, take an extra rest day. \n\n**Pro Tip:** On your 5K race day, start the first kilometer at 5:40 pace to avoid \"going out too hard.\" You can pick up the pace to 5:35 in the middle and empty the tank for the final 500 meters. Good luck!",
+  "finish_reason": "STOP",
+  "usage": {
+    "promptTokenCount": 145,
+    "candidatesTokenCount": 746,
+    "totalTokenCount": 891,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 145
+      }
+    ],
+    "serviceTier": "standard"
+  },
+  "model_returned": "gemini-3.1-flash-lite",
+  "response_json": {
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "To improve your 5K time from 29:30 to 28:00, this plan focuses on **speed endurance**. We will use your three available days to balance a \"Speed/Interval\" day, a \"Tempo\" day (to build lactate threshold), and a \"Long Run\" (for general aerobic capacity).\n\n### Training Definitions:\n*   **Intervals:** Run at a pace faster than your goal 5K pace (approx. 5:20–5:30 min/km).\n*   **Tempo:** Run at a \"comfortably hard\" pace (approx. 5:50–6:00 min/km).\n*   **Easy Run:** A conversational pace where you could speak in full sentences.\n\n### The 6-Week Plan\n\n| Week | Tuesday (Intervals) | Thursday (Tempo) | Sunday (Long Run) | Total km |\n| :--- | :--- | :--- | :--- | :--- |\n| **1** | 5 x 400m (at 5:20 pace) | 4 km Steady | 7 km Easy | 15 km |\n| **2** | 6 x 400m (at 5:20 pace) | 5 km Steady | 8 km Easy | 17 km |\n| **3** | 4 x 800m (at 5:25 pace) | 5 km Steady | 9 km Easy | 19 km |\n| **4** | 5 x 800m (at 5:25 pace) | 6 km Steady | 10 km Easy | 22 km |\n| **5** | 3 x 1km (at 5:30 pace) | 4 km Tempo | 6 km Easy | 15 km |\n| **6** | 3 x 400m (easy jogs) | 2 km Shakeout run | **5K Race Day** | 10 km* |\n\n*\\*Week 6 is a \"taper\" week to ensure your legs are fresh for the attempt on race day.*\n\n### Important Implementation Notes:\n\n1.  **Warm-up/Cool-down:** Always add 1km of easy jogging before and after your Tuesday and Thursday sessions. The distances listed in the table above include these warm-ups.\n2.  **The \"Lately\" Note:** You mentioned you are currently running 35 km/week. This plan drops your volume slightly. **This is intentional.** To run a Personal Best (PB), your body needs recovery. If you feel flat, cut the Sunday long run short. If you feel great, keep the easy runs very slow to avoid injury.\n3.  **Progression:** The goal is to get your legs used to the \"turnover\" required for a 5:36 min/km pace (which is what you need for a 28:00 finish). \n4.  **Listen to your body:** If you feel sharp pain (not just muscle soreness) in your shins, knees, or feet, take an extra rest day. \n\n**Pro Tip:** On your 5K race day, start the first kilometer at 5:40 pace to avoid \"going out too hard.\" You can pick up the pace to 5:35 in the middle and empty the tank for the final 500 meters. Good luck!",
+              "thoughtSignature": "EnMKcQFpFH0TjueOOYfsXvPiCeSUixLQ4jtbRlcZ6BwxktnUaJCnimr2aXfpaMc6wVban9n5ibn6/1wsG5eGn16EKbKVMNEj6C4KvtYZ6CN+G8L7sdyXOXo9PMGSzvDRQ8SKfk2kaOPi7UxpFDBfcz3Ln8Sj"
+            }
+          ],
+          "role": "model"
+        },
+        "finishReason": "STOP",
+        "index": 0
+      }
+    ],
+    "usageMetadata": {
+      "promptTokenCount": 145,
+      "candidatesTokenCount": 746,
+      "totalTokenCount": 891,
+      "promptTokensDetails": [
+        {
+          "modality": "TEXT",
+          "tokenCount": 145
+        }
+      ],
+      "serviceTier": "standard"
+    },
+    "modelVersion": "gemini-3.1-flash-lite",
+    "responseId": "1f7Fat-mIdy2g8UP6NjOeA"
+  },
+  "error": null,
+  "latency_ms": 3578
+}

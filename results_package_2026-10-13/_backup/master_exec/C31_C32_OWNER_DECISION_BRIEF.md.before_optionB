@@ -1,0 +1,164 @@
+# C-31 / C-32 owner decision brief (PROPOSED — NOT ADOPTED; every decision field is PENDING)
+
+Prepared 2026-10-13. Purpose: let the owner (and the advisor) decide two open points with the facts in one place. Nothing here is a decision, an approval or a protocol change. MD-01 and MD-02 as applied in the code are **working technical decisions directed by the project owner, not formal owner/advisor approvals**. No scoring or adapter code was changed for this brief; no live call, pilot, main run, token count by a provider or credit use was made. Paths: spec = `research_design/SCENARIO_CONSTRUCTION_SPECIFICATION_v2_7_DRAFT.md`; record = `research_design/STEP3_OWNER_DECISIONS_RECORD_DRAFT.md`. Reproduce every table below with `python -B -I research_design/step10/sf2_variants_analysis.py`; the facts are pinned by `test_sf2_variants.py` (11 tests).
+
+Three kinds of statement are kept apart: **[CODE]** what the present code does (reproducible fact); **[TEXT]** what the protocol says (cited with lines); **[READING]** an interpretation or recommendation (not adopted).
+
+## 1. The question in one paragraph
+[TEXT] §13.4 line 810 defines SF2 as "Empty response: no non-whitespace character." with no exception, and §13.6 lines 830-831 make any SF2 a FAIL-S while `SF1 + SF4 <= f_S` (FZ-v1: `f_S` = 1) is tolerated. [CODE] `s10_scoring.sf_flags` (line 59) does not emit SF2 when the same call also meets SF1 or SF4, and the adapter returns an empty text for every HTTP error, timeout and transport exception. Read literally and independently, SF2 would accompany almost every SF1 and SF4 call, and the tolerance of §13.6 for SF1 and SF4 could never be used. The text does not say which of the two intentions wins.
+
+## 2. Sources (line numbers of 2026-10-13)
+- spec 805-816 (§13.4: SF1 "Transport failure: HTTP/API error or timeout." line 809; SF2 line 810; SF3 811; SF4 "Provider block: safety/blocked finish reason or no candidate returned." 812; SF5 813; "Structural failures are SF1–SF5." 816); spec 828-834 (§13.6: PASS 830, FAIL-S 831, FAIL-U 832, `f_S` and `θ_unp` declared at step 6 on 834); spec 838 (round-1 FAIL-S action by failure TYPE: SF1 -> {timeout, delay, retry}; SF3 -> {max output tokens}; SF2, SF5 -> pure implementation fix (H1-H4) only; SF4 -> none (STOP)); spec 869 (§13.7 counts only).
+- record 12.18 row 1 (SF and UNP counts disjoint), 12.36 (error marker or non-2xx status = SF1 even with text; prompt block reason = SF4), 12.37 (see the audit in `PROPOSED_RECORD_CORRECTION_12_37.md`); FZ-v1 row 18 (`f_S` = 1); PJR J-10 ("tolerates one transport or block failure in 18 calls", as cited in `MASTER_PREPILOT_RESOLUTION.md`).
+- code: `s10_scoring.py` `sf_flags` 46-63, `decision_type`/`decision_counts` 83-109, `pilot_counts`; `s10_runner.py` `GeminiProvider.generate` (HTTPError -> status, empty text, `HTTP <code>`; any other exception, including a non-JSON body, -> status None, empty text, exception class name; `finish_reason` is `None` when there is no candidate), `run` (a provider exception is recorded as its class name).
+
+## 3. Variants compared (for the SF2 flag only; SF1, SF3, SF4, SF5 detection is identical everywhere)
+| Variant | Rule for SF2 | Status |
+|---|---|---|
+| **Current / B** | SF2 when the text is empty and the call is not SF1 and not SF4 | [CODE] today; B = ratify this precedence as a record entry |
+| **A1** | SF2 whenever the text is empty (literal, no exception) | [READING] option |
+| **A2a** | SF2 only when a response was received (integer HTTP status 2xx and no error marker) and the text is empty | [READING] option |
+| **A2b** | A2a, but not when SF4 is met | [READING] option |
+| **A2c** | SF2 when the text is empty and the call is neither SF1 nor SF4 (status-less records allowed) | [READING]; proven equal to B (section 5) |
+
+Decision rule common to all (working decision MD-01, not ratified): all flags are kept; a call meeting SF2, SF3 or SF5 is one hard count; otherwise a call meeting SF1 or SF4 is one soft count (`f_S` per call); the round is one failed call among 17 clean calls, `f_S` = 1.
+
+## 4. Decision table (generated from the real code and the variant functions)
+Cells are `flags -> round outcome`. "Current code" shows flags / recording primary (first flag in the provisional order SF1 > SF4 > SF3 > SF2 > SF5; recording only) / outcome from the REAL scoring code; the B column is a separate simulation and is asserted equal to it. Columns after "Current code": B, A1, A2a, A2b, A2c.
+
+| Case | Description | Current code: flags / primary / outcome | B | A1 | A2a | A2b |
+|---|---|---|---|---|---|---|
+| K01 | HTTP 2xx, candidate with finish STOP, body empty | SF2 / SF2 / FAIL-S | SF2 -> FAIL-S | SF2 -> FAIL-S | SF2 -> FAIL-S | SF2 -> FAIL-S | SF2 -> FAIL-S |
+| K02 | HTTP 2xx, body whitespace only | SF2 / SF2 / FAIL-S | SF2 -> FAIL-S | SF2 -> FAIL-S | SF2 -> FAIL-S | SF2 -> FAIL-S | SF2 -> FAIL-S |
+| K03 | HTTP 2xx, body empty, finish MAX_TOKENS | SF3+SF2 / SF3 / FAIL-S | SF3+SF2 -> FAIL-S | SF3+SF2 -> FAIL-S | SF3+SF2 -> FAIL-S | SF3+SF2 -> FAIL-S | SF3+SF2 -> FAIL-S |
+| K04 | HTTP 503, body empty | SF1 / SF1 / PASS | SF1 -> PASS | SF1+SF2 -> FAIL-S | SF1 -> PASS | SF1 -> PASS | SF1 -> PASS |
+| K05 | timeout (no response; status None) | SF1 / SF1 / PASS | SF1 -> PASS | SF1+SF2 -> FAIL-S | SF1 -> PASS | SF1 -> PASS | SF1 -> PASS |
+| K06 | transport exception (URLError; status None) | SF1 / SF1 / PASS | SF1 -> PASS | SF1+SF2 -> FAIL-S | SF1 -> PASS | SF1 -> PASS | SF1 -> PASS |
+| K07 | HTTP 200 but body not JSON (adapter: exception class, status None) | SF1 / SF1 / PASS | SF1 -> PASS | SF1+SF2 -> FAIL-S | SF1 -> PASS | SF1 -> PASS | SF1 -> PASS |
+| K08 | valid text with HTTP 500 and error marker | SF1 / SF1 / PASS | SF1 -> PASS | SF1 -> PASS | SF1 -> PASS | SF1 -> PASS | SF1 -> PASS |
+| K09 | valid text, HTTP 200, but error marker (inconsistent metadata) | SF1 / SF1 / PASS | SF1 -> PASS | SF1 -> PASS | SF1 -> PASS | SF1 -> PASS | SF1 -> PASS |
+| K10 | valid text, no HTTP status, no error marker | - / - / PASS | - -> PASS | - -> PASS | - -> PASS | - -> PASS | - -> PASS |
+| K11 | finish SAFETY, body empty | SF4 / SF4 / PASS | SF4 -> PASS | SF4+SF2 -> FAIL-S | SF4+SF2 -> FAIL-S | SF4 -> PASS | SF4 -> PASS |
+| K12 | finish SAFETY, partial text | SF4 / SF4 / PASS | SF4 -> PASS | SF4 -> PASS | SF4 -> PASS | SF4 -> PASS | SF4 -> PASS |
+| K13 | no candidate (HTTP 200, finish None, body empty); identical record for a candidate without text and without finishReason | SF4 / SF4 / PASS | SF4 -> PASS | SF4+SF2 -> FAIL-S | SF4+SF2 -> FAIL-S | SF4 -> PASS | SF4 -> PASS |
+| K14 | prompt block reason, no candidate, body empty | SF4 / SF4 / PASS | SF4 -> PASS | SF4+SF2 -> FAIL-S | SF4+SF2 -> FAIL-S | SF4 -> PASS | SF4 -> PASS |
+| K15 | error marker + block reason, body empty (HTTP 500) | SF1+SF4 / SF1 / PASS | SF1+SF4 -> PASS | SF1+SF4+SF2 -> FAIL-S | SF1+SF4 -> PASS | SF1+SF4 -> PASS | SF1+SF4 -> PASS |
+| K16 | SF1+SF3: HTTP 500 marker, text, MAX_TOKENS | SF1+SF3 / SF1 / FAIL-S | SF1+SF3 -> FAIL-S | SF1+SF3 -> FAIL-S | SF1+SF3 -> FAIL-S | SF1+SF3 -> FAIL-S | SF1+SF3 -> FAIL-S |
+| K17 | SF4+SF5: prompt block reason, text, parser raises | SF4+SF5 / SF4 / FAIL-S | SF4+SF5 -> FAIL-S | SF4+SF5 -> FAIL-S | SF4+SF5 -> FAIL-S | SF4+SF5 -> FAIL-S | SF4+SF5 -> FAIL-S |
+| K18 | clean response (control) | - / - / PASS | - -> PASS | - -> PASS | - -> PASS | - -> PASS | - -> PASS |
+| K19 | no HTTP status, no error marker, body empty (incoherent record) | SF2 / SF2 / FAIL-S | SF2 -> FAIL-S | SF2 -> FAIL-S | - -> PASS | - -> PASS | SF2 -> FAIL-S |
+| K20 | HTTP 2xx, body only a no-break space U+00A0 (not in the code's whitespace set) | - / - / PASS | - -> PASS | - -> PASS | - -> PASS | - -> PASS | - -> PASS |
+
+Reading the table: K01-K03 are SF2 in every variant. K04-K07 (HTTP error, timeout, transport exception, non-JSON body; the last three have no status) differ only under A1. K11, K13, K14 (blocked or no-candidate with empty text) differ under A1 **and A2a**. K15 (SF1+SF4 with an empty body) differs only under A1. K16, K17 (SF1+SF3, SF4+SF5) are FAIL-S in every variant and in the current code. K19 is the status-less empty record (an incoherent record): SF2 today, no flag at all under A2a and A2b.
+
+## 5. What the analysis established
+1. [CODE] The "current" column equals variant B on all 20 cases, and variant A2c equals B on an exhaustive grid of 384 records (HTTP status None/200/503 x error marker x finish reason None/STOP/MAX_TOKENS/SAFETY x block reason x four texts x parser exception). The options therefore reduce to three genuinely different outcomes: **B ≡ A2c** (keep), **A2a**, **A1**.
+2. **A1 makes the soft allowance unreachable for adapter-made records** (K04-K07, K11, K13, K14, K15 become FAIL-S). Consequence for spec line 838: a round-1 failure caused by a provider block (SF4 + SF2) or a timeout (SF1 + SF2) would carry the type SF2 (remedy: pure implementation fix only) instead of SF4 (STOP) or SF1 (timeout/delay/retry whitelist), because SF2 outranks them in the decision vector; the SF1 whitelist and the SF4 STOP would then almost never apply. 10 tests of the current suites flip (`deferred_patches/DEFERRED_PATCHES.md`, P1b).
+3. **A2a keeps a transport error soft but makes every empty-bodied block hard** (K11, K13, K14): the typical block response has no text, so only a block that returns partial text (K12) would stay soft.
+4. **A2b still has a hole** (K19 and 12 grid records): a record with empty text, no error marker and no status is not "received" under A2 and would produce no flag at all (counted as UNP, a measured outcome and not a failure), whereas today it is SF2. Closing the hole by allowing a status-less record without error is exactly A2c ≡ B.
+5. [CODE] The record cannot distinguish "no candidate" from "a candidate without text and without `finishReason`" (K13): the adapter stores neither a candidate count nor a presence flag, and `sf_flags` uses `finish_reason is None` with HTTP 200 and empty text as the "no candidate" signal. A candidate with finish STOP and no text is SF2 (K01); the same candidate without a `finishReason` is SF4.
+6. [CODE] A 2xx response whose body is not decodable JSON is stored with status None and the exception class name (K07), so the 2xx status is lost and the call is SF1, not an empty response, in every variant except A1.
+7. [CODE] "Whitespace" is the set space, TAB, LF, VT, FF, CR (`sf_flags` line 59). A body of only U+00A0 is NOT SF2 (K20); it goes to parsing and, having no `Verdict:` field, is UNP (counted in the UNP share, not a structural failure). §13.4 does not define the set.
+8. Hard flags (SF3, SF5) decide identically in all variants and are not affected by C-31: a call that meets SF3 or SF5 is FAIL-S whatever else it meets (K16, K17), already guaranteed under the working decision MD-01.
+
+## 6. Evaluation of A2 as a recommendation
+[READING] A2 in the form "SF2 = a received 2xx response that is empty" is not a free-standing third rule: in its strict form (A2a) it hardens empty blocks; with the block exception (A2b) it leaves a hole for status-less records; with the hole closed (A2c) it is exactly the current precedence B written as a definition. So the real choice is between **keeping B but writing it as a definition (A2c wording)**, accepting the **harder A2a**, or the **literal A1**. If the owner wants B, the definitions below make the precedence explicit and ratifiable (instead of an undocumented code condition).
+
+### 6.1 Exact definitions that would have to be ratified (all [READING]; none is in the protocol)
+- **D1. Empty response (SF2):** the call is not SF1 and not SF4, and the stored response text contains no character outside the whitespace set of D2. (This is A2c; it is equivalent to the current code.)
+- **D2. Whitespace set:** exactly space (U+0020), TAB, LF, VT, FF, CR. Any other character, including U+00A0 and other Unicode spaces, is content (the call is then parsed and may be UNP).
+- **D3. Received response:** a call whose record has no error marker and no HTTP status outside 2xx. A record with no status and no error marker is treated as received for D1 (it keeps the present SF2 outcome) and is separately reported as `records_without_http_status` (MD-06 may stop on it).
+- **D4. Invalid body:** a body that cannot be decoded, or whose payload structure raises in the adapter, is a transport/API error (SF1) and is never an empty response, whatever the HTTP status was (the adapter then stores status None).
+- **D5. Error and metadata:** an error marker, or a status outside 2xx, makes the call SF1 even if text is present (12.36, already in force); a prompt block reason or a block finish reason makes it SF4 (12.36); neither makes an empty text a separate SF2.
+- **D6. No candidate:** "no candidate returned" (SF4) is recognized by HTTP 200, no error marker, `finish_reason` absent and empty text. A candidate with empty text and no finish reason is not distinguishable and is treated as no candidate; separating them needs an adapter change (a stored candidate indicator), not made.
+- **D7. Soft unit:** `f_S` counts calls, not flags (working decision MD-01 items 4-5).
+- **D8. Recording:** the flags list keeps every flag detected under D1-D6; SF2 is therefore not recorded for an SF1 or SF4 call (an absence by definition, not a hidden flag). If the owner wants the fact "the body was empty" kept, a separate non-SF field (`body_empty`) can be added without changing any outcome; not implemented.
+
+Effect on spec line 838: with D1 an empty-bodied block remains an SF4 round (STOP) and a timeout remains an SF1 round (timeout/delay/retry whitelist).
+
+## 7. Recommendation (not a decision)
+- **R1.** Do not ratify A1: it contradicts the tolerance written in the same section (§13.6 lines 830-831) for the records the adapter produces, and it re-routes the round-1 action (section 5 item 2).
+- **R2.** If the owner/advisor read §13.6 as intending tolerance for SF1/SF4, ratify **B, expressed as definitions D1-D8 (A2c)**, as a record entry (clarification of an undefined precedence). No scoring change is needed except rewriting the marked tests and a comment; `sf_flags` already implements it.
+- **R3.** If they read the text literally and accept the consequence, A1 is a PROTOCOL-level consequence for the meaning of `f_S` (it makes `f_S` irrelevant for adapter records) and should be decided together with `f_S` and the FZ-v1 value, not as a counting detail.
+- **R4.** A2a only if the owner wants empty blocks to be hard failures; state that this removes the soft treatment of a typical block.
+- Either way, ratify the `f_S` per-call unit (D7) in the same entry, and keep the SF3/SF5 rules as they are.
+
+## 8. Explicit questions for the owner / advisor
+- **Q1.** Which reading of §13.4 line 810 versus §13.6 lines 830-831 is intended for a call that is an HTTP error, a timeout or a block **and** has an empty body? **B/A2c** (the error or block explains the empty body: SF1/SF4 only), **A2a**, or **A1**.
+- **Q2.** Is `f_S` a count of calls (working decision) or of flags? (Only matters for SF1+SF4 on one call.)
+- **Q3.** Is the whitespace set D2 accepted, or is a Unicode definition wanted? (A U+00A0-only body is today UNP, not SF2.)
+- **Q4.** Should a record with no HTTP status and no error marker stop the run for review (MD-06) or be classified by D1/D3?
+- **Q5.** Should the adapter store a candidate indicator so that "no candidate" and "candidate without text and without finish reason" can be told apart (D6)? An adapter change needing its own acceptance tests.
+- **Q6.** Who decides: owner only, or owner and advisor? (MD-01 in `MASTER_PROPOSED_DECISION_RECORD.md` names both.)
+
+Decision fields: **Owner: PENDING | Advisor: PENDING | Date: PENDING | Option chosen: PENDING | Edits: PENDING**.
+
+## 9. Consequences of each option for work
+| Option | Code | Tests | Record | Notes |
+|---|---|---|---|---|
+| B / A2c | none (comment only) | rewrite the 4 marked tests in `test_sf2_detection.py` to B; the pinned group becomes ordinary | entry with D1-D8 | `test_sf2_variants.py` stays as documentation |
+| A2a | `sf_flags`: SF2 requires an integer 2xx status and no error marker | rewrite the marked group; K11, K13, K14 flip; K19 needs D3 | entry | `f_S` tolerance applies to blocks with text only |
+| A1 | one condition in `sf_flags` (inactive diff in `deferred_patches/`) | 10 tests flip; rewrite | entry + advisor review of `f_S` | changes round-1 action routing |
+
+Any option: tests are rewritten from the ratified rule, never edited until they pass. The scoring file is a Step 10 harness file (excluded from the FZ index of MD-04), but a change of which calls fail is not a "pure implementation fix" (H1-H4) and must be logged as a decision.
+
+## 10. C-32: assumed input tokens versus prompt length (OD-10 basis)
+[TEXT] record 12.11 OD-10: `I_max` is to be measured on the actual prompt; 12.18 row 6: the owner accepted the 1016-character bound as the Step 7 bound ("a token covers at least one character"), "an assumption, not a measurement"; `MASTER_PREPILOT_RESOLUTION.md` section 4 proposed a gate refusing an assumption below the longest prompt in characters unless a measured basis is stated. [CODE] the gate (`check_gates`) uses `input_tokens_per_call_assumed` only in the cost formula and (working decision MD-02) checks `max_input_characters` against the prompt lengths; it does not compare the two numbers. Prompt lengths: pilot 96 entries and main 1,248 entries, maximum 1,016 characters (`prompt_table.json`).
+
+Cost sensitivity (the real `hard_cap_cost_usd`, output cap 8,192 tokens): 18 calls: US$0.3686 at 1 assumed token, US$0.3741 at 1,016, US$0.3851 at 3,048; 2,496 slots: US$51.12 at 1, US$51.88 at 1,016, US$53.40 at 3,048; the US$100 limit is reached at about 63,381 tokens per call. An understated input assumption changes the cost bound by about 1.5 % at most (1 versus 1,016 tokens); the output term dominates. [READING] The risk of C-32 is the integrity of the stated basis (OD-10 asks for a measurement), not the budget.
+
+Options: **C32-1** keep as is (the owner writes a value >= 1,016 by hand; not enforced); **C32-2** enforce `input_tokens_per_call_assumed` >= longest planned prompt in characters, with an explicit `input_token_basis` object accepted for a measured basis (patch P3b; the form of the basis must be decided first); **C32-3** require a token measurement before any paid call (an external call needing separate written authorization; not allowed in this batch). Recommendation [READING]: C32-1 is acceptable for the 18-call pilot if the authorization states the 1,016 assumption and the character limit in writing; before the main run a measurement method must be chosen (O2: provider count of the 1,248 prompts; or O4: maximum `promptTokenCount` of the pilot calls checked against all prompt lengths). The character limit stays an operational control: not a token measurement, not a cost guarantee, separate from the US$100 cap.
+
+- **Q7.** Accept C32-1 for the pilot?
+- **Q8.** Which measurement method (O2/O4) before the main run, and who authorizes an external count?
+- **Q9.** If P3b is wanted, what exact fields define a "measured basis"?
+
+Decision fields: **PENDING**.
+
+## 11. Prerequisites still pending (this brief removes none)
+Owner/advisor entries for MD-01 (unit, C-31), MD-02 (C-32), MD-06 (provider safe-stop), MD-04 (FZ hash), MD-03 (kappa), MD-07, MD-08, MD-09; human tasks H1-H7 (blind check, seven-day delay, evidence file, rehearsal, owner authorization with `max_input_characters` and `input_tokens_per_call_assumed` >= 1,016 written by the owner, price re-read, write-once store); provider verification L1-L6 (separate written authorization; none done). The pilot gate stays CLOSED (no Step 9 evidence, no valid authorization).
+
+## 12. After a decision
+Record the entry (an owner action; the assistant does not edit the official record), rewrite the marked tests from the ratified rule, run `test_sf2_detection.py`, `test_sf2_variants.py`, `test_sf_matrix_literal.py`, `test_provider_response.py`, `test_step10.py` and `run_all_checks.py --quick`; update `MASTER_CONFLICT_INDEX.md` (C-31/C-32), checklist rows T5/T7/M1/M2 and `deferred_patches/DEFERRED_PATCHES.md`.
+
+## 13. Consequences of each option by failure class (added in the final pre-pilot preparation batch; derived from sections 4-5, no new analysis)
+Round-1 action by failure type (spec line 838): SF1 -> whitelist {timeout, inter-call delay, retry count}; SF3 -> {max output tokens}; SF2, SF5 -> pure implementation fix (H1-H4) only; SF4 -> none (STOP). Which type a mixed call carries is the type of its decision-vector entry (hard flags first, working decision MD-01); a round with several types has no automated action (C-27). "Soft/hard" = the call enters the `SF1+SF4` count or the hard count of the working decision.
+| Record class (example cases) | B ≡ A2c | A2a | A1 |
+|---|---|---|---|
+| HTTP error, timeout, transport exception or non-JSON body, empty text (K04-K07) | SF1; soft; `f_S` tolerance usable; PASS up to `f_S`; if exceeded: SF1 whitelist | same as B | SF1+SF2; HARD; tolerance not usable; any such call FAIL-S; type SF2 -> implementation fix only |
+| Same, with valid text and error marker (K08, K09) | SF1; soft | same | same (no SF2: text present) |
+| Block or no candidate, empty text (K11, K13, K14) | SF4; soft; tolerance usable; if exceeded: STOP | SF4+SF2; HARD; type SF2 -> implementation fix only; STOP route lost | same as A2a |
+| Block with partial text (K12) | SF4; soft | same | same |
+| SF1+SF4 on one call, empty body (K15) | SF1+SF4; one soft call | same | SF1+SF4+SF2; HARD |
+| 2xx, empty or whitespace-only body (K01, K02) | SF2; hard; FAIL-S; implementation fix | same | same |
+| Empty body with MAX_TOKENS (K03) | SF3+SF2; hard | same | same |
+| SF1+SF3 (K16), SF4+SF5 (K17) | hard (SF3 / SF5 decide); FAIL-S | same | same |
+| No status, no error marker, empty body (K19) | SF2; hard | no flag (counted UNP, a measured outcome) unless D3 is added | SF2; hard |
+| Body only U+00A0 (K20) | no flag; UNP | same | same |
+| `f_S` unit | per call (working decision, not ratified) | same | same; but moot for adapter records |
+| PASS/FAIL-S/FAIL-U | unchanged | UNP share may rise where a flag disappears (K19) | FAIL-S rises sharply for transport and block records |
+SF3 and SF5 behave identically in every option; the options differ only in how an empty text is attributed when SF1 or SF4 explains it.
+
+## 14. Definitions that still need approval (inventory; each maps to D1-D8 of section 6.1 or is outside C-31)
+| Term | Current code (fact) | Protocol text | Open question | Where proposed |
+|---|---|---|---|---|
+| Empty response | no char outside space, TAB, LF, VT, FF, CR, and the call is not SF1/SF4 | 810: "no non-whitespace character" | exception for SF1/SF4? | D1 |
+| Whitespace-only | same set; NBSP and other Unicode spaces are content | undefined set | which set | D2, Q3 |
+| No candidate | HTTP 200, no error marker, `finish_reason` absent, empty text | 812: "no candidate returned" | candidate without text and without `finishReason` is indistinguishable | D6, Q5 |
+| Unknown HTTP status | status None without error marker: not SF1; SF2 if empty; reported as `records_without_http_status` | 809 silent | stop for review (MD-06) or classify | D3, Q4 |
+| Non-JSON body | exception class recorded, status None, SF1 | 809: "HTTP/API error" | is a 2xx undecodable body an API error | D4 |
+| Finish reason not listed | recorded and counted (`unlisted_finish_reasons`); scored by content | 811-812 silent | stop for owner review (MD-06 clause 2) or classify | MD-06 (outside C-31) |
+| Timeout | exception class name, SF1; 180 s is per socket operation | 809 "or timeout"; FZ-v1 row 17 | total deadline or per operation | MD-07 (outside C-31) |
+| Transport exception | exception class name, status None, SF1 | 809 | none | D4 |
+| Metadata error | error marker or non-2xx status -> SF1 even with text; prompt block reason -> SF4 | 12.36 | none beyond C-31 | D5 |
+
+## 15. C-32 quantities kept apart (added in the final pre-pilot preparation batch)
+| Quantity | Value and source | What it is | What it is NOT | Evidence needed before it can be approved |
+|---|---|---|---|---|
+| Character limit `max_input_characters` | written by the owner in the authorization; no default. Observed maximum 1,016 characters in `prompt_table.json` (96 pilot entries, 1,248 main entries; PAC at most 1,016, MIL at most 873); the Step 7 worst case was also 1,016 (12.18 row 6) | an operational control on prompt length checked before any provider call; refuses a missing limit, an empty prompt and any prompt above the limit; no truncation | not a token count; not a cost guarantee; not inherited from Step 7 | the owner's authorization file (value, date); the preflight output showing the limit and the maximum observed length; Q7 |
+| Assumed input tokens `input_tokens_per_call_assumed` | the Step 7 assumption: 1016 tokens = at least one token per character (12.18 row 6: "an assumption, not a measurement; the tokenizer was not queried") | an input to the hard-cap cost bound | not measured; not enforced against the character length by the gate (C-32) | owner statement in the authorization; if C32-2 is chosen, the form of a measured basis (Q9) |
+| Measured input tokens | none exists (UNKNOWN) | would be the true count per prompt | n/a | a documented method (O2 provider count with its own written authorization, or O4 pilot `promptTokenCount` checked against all prompt lengths), the table of results, an official entry (Q8) |
+| Output cap | 8,192 tokens (FZ-v1 row 17) | dominant term of the cost bound (US$2.50 per 1M output tokens as stored) | not an input control | none (frozen) |
+| Cost cap | US$100 (OD-10, FZ-v1) | the ceiling; the hard-cap bound is US$0.3741 for 18 calls and US$51.88 for 2,496 slots at 1,016 assumed tokens; US$100 is reached only at about 63,381 tokens per call | not derived from the character limit; unchanged by it | prices re-read on the day (H6); gate check `hard_cap_cost_usd < 100` |
+| Observed cost | computed after a run from stored `usageMetadata` and the stored prices; a lower bound when usage is incomplete | reported by `s10_integrity` | not a pre-run guarantee | L4 (usage fields) |
+Statement to avoid: "1,016 characters therefore at most 1,016 tokens". The code does not claim it; only the Step 7 assumption does, and it is untested (a different model was observed at 2.91-3.10 characters per token, which supports but does not prove the margin).

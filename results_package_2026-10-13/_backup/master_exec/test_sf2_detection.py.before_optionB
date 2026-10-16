@@ -1,0 +1,153 @@
+"""Acceptance tests for the SF2 detection conflict (MASTER_PROPOSED_DECISION_RECORD.md, MD-01, "Open conflict"). Mock records only; no provider, no network.
+
+Text (SCENARIO_CONSTRUCTION_SPECIFICATION_v2_7_DRAFT.md): 13.4 line 810 "SF2 | Empty response: no non-whitespace character."; line 816 "Structural failures
+are SF1-SF5."; 13.6 line 830 PASS needs "no SF2, no SF3, no SF5; SF1 + SF4 <= f_S"; line 831 FAIL-S is "any SF2, SF3, SF5, or SF1 + SF4 > f_S".
+The literal text of 13.4 gives SF2 no exception for calls that also meet SF1 or SF4.
+
+Current implementation (s10_scoring.sf_flags, NOT changed by this file) does not emit SF2 when the call also carries SF1 or SF4. Three groups:
+  * TestSf2CurrentBehaviourPinned  -- pins what the code does today, so a change is a visible, deliberate event (update together with the ratified rule).
+  * TestSf2LiteralTextExpectedToFail -- encodes the literal text; marked expectedFailure because the code departs from it. When the rule is ratified
+    and sf_flags is changed, remove the markers (an "unexpected success" then flags the stale marker).
+  * TestSf2NoRegressionWhereCodeAgreesWithText -- cases where code and text agree; must always pass.
+NOTE (impact measurement, MD-01): the expectedFailure group encodes variant A1 (SF2 on every empty text). Applied to the code it also flips 8 existing tests (and 2 pinned tests here) and makes
+the SF1/SF4 allowance of 13.6 unreachable for adapter-made records; alternatives A2 (SF2 only for a received 2xx response) and B (keep the SF1/SF4 precedence) are in
+MASTER_PROPOSED_DECISION_RECORD.md. If A2 or B is ratified, rewrite the marked group to that rule instead of removing the markers. Conflict id C-31.
+No definition, threshold, denominator or scoring code is changed. Run: python -B -I -W error::ResourceWarning -m unittest discover -s research_design/step10 -p test_sf2_detection.py"""
+import os
+import sys
+import unittest
+from fractions import Fraction as F
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, HERE)
+sys.dont_write_bytecode = True
+import s10_runner as RN  # noqa: E402
+import s10_scoring as SC  # noqa: E402
+
+D = RN.D
+
+
+def rec(**kw):
+    r = {"response_text": "Verdict: satisfied", "error": None, "http_status": 200, "finish_reason": "STOP"}
+    r.update(kw)
+    return r
+
+
+def outcome(bad):
+    """Outcome of an 18-call pilot round: one record `bad`, 17 clean. f_S = 1, theta_unp = 1/2 (FZ-v1 row 18), as in test_sf_matrix_literal."""
+    pc = SC.pilot_counts([bad] + [rec() for _ in range(17)])
+    return D.round_outcome(pc["counts"], pc["n_calls"], 1, F(1, 2), planned_calls=18)["outcome"]
+
+
+# (label, record). Every record has NO non-whitespace character in response_text, so SF2 (13.4 line 810) is met literally.
+EMPTY_BODY_CASES = [
+    ("http_503_empty_body", rec(response_text="", error="HTTP 503", http_status=503)),
+    ("http_503_empty_body_no_error_marker", rec(response_text="", http_status=503)),
+    ("timeout_no_body", rec(response_text="", error="timeout", http_status=None, finish_reason=None)),
+    ("transport_error_whitespace_body", rec(response_text=" \t\r\n\x0b\x0c ", error="HTTP 500", http_status=500)),
+    ("blocked_finish_reason_empty", rec(response_text="", finish_reason="SAFETY")),
+    ("prompt_block_reason_empty", rec(response_text="", finish_reason=None, block_reason="SAFETY")),
+    ("no_candidate_returned", rec(response_text="", finish_reason=None)),
+]
+
+
+class TestSf2CurrentBehaviourPinned(unittest.TestCase):
+    """What sf_flags returns TODAY. These are not a statement of what is right; see the expectedFailure group for the literal text."""
+
+    def test_pinned_flag_sets(self):
+        expected = {
+            "http_503_empty_body": ["SF1"],
+            "http_503_empty_body_no_error_marker": ["SF1"],
+            "timeout_no_body": ["SF1"],
+            "transport_error_whitespace_body": ["SF1"],
+            "blocked_finish_reason_empty": ["SF4"],
+            "prompt_block_reason_empty": ["SF4"],
+            "no_candidate_returned": ["SF4"],
+        }
+        for label, r in EMPTY_BODY_CASES:
+            self.assertEqual(SC.classify(r)["flags"], expected[label], label)
+
+    def test_pinned_outcomes_pass_within_f_S(self):
+        for label, r in EMPTY_BODY_CASES:
+            self.assertEqual(outcome(r), "PASS", label)                      # one soft call, f_S = 1: the departure from the literal text
+
+
+class TestSf2LiteralTextExpectedToFail(unittest.TestCase):
+    """Literal 13.4 line 810 + 13.6 lines 830-831: every empty response carries SF2, independently of any other flag, and any SF2 -> FAIL-S.
+    These fail against the current implementation (documented conflict); they are expectedFailure until the rule is ratified."""
+
+    @unittest.expectedFailure
+    def test_sf1_with_empty_body_also_carries_sf2(self):
+        for label in ("http_503_empty_body", "http_503_empty_body_no_error_marker", "timeout_no_body", "transport_error_whitespace_body"):
+            r = dict(EMPTY_BODY_CASES)[label]
+            fl = SC.classify(r)["flags"]
+            self.assertIn("SF1", fl, label)
+            self.assertIn("SF2", fl, label)
+
+    @unittest.expectedFailure
+    def test_sf4_with_empty_body_also_carries_sf2(self):
+        for label in ("blocked_finish_reason_empty", "prompt_block_reason_empty", "no_candidate_returned"):
+            r = dict(EMPTY_BODY_CASES)[label]
+            fl = SC.classify(r)["flags"]
+            self.assertIn("SF4", fl, label)
+            self.assertIn("SF2", fl, label)
+
+    @unittest.expectedFailure
+    def test_every_empty_body_is_fail_s(self):
+        for label, r in EMPTY_BODY_CASES:
+            self.assertEqual(outcome(r), "FAIL-S", label)
+
+    @unittest.expectedFailure
+    def test_sf1_plus_sf2_is_hard_not_soft_in_the_decision_vector(self):
+        r = dict(EMPTY_BODY_CASES)["http_503_empty_body"]
+        pc = SC.pilot_counts([r])
+        self.assertEqual(pc["counts"]["SF2"], 1)
+        self.assertEqual(pc["counts"]["SF1"], 0)
+        self.assertEqual(pc["flag_totals"]["SF1"], 1)                       # all flags kept
+        self.assertEqual(pc["flag_totals"]["SF2"], 1)
+
+
+class TestSf2NoRegressionWhereCodeAgreesWithText(unittest.TestCase):
+    def test_empty_successful_response_is_sf2_and_fail_s(self):
+        r = rec(response_text="")
+        self.assertEqual(SC.classify(r)["flags"], ["SF2"])
+        self.assertEqual(outcome(r), "FAIL-S")
+
+    def test_whitespace_only_successful_response_is_sf2_and_fail_s(self):
+        for ws in (" ", "\n", " \t\r\n\x0b\x0c", "   \n\n"):
+            r = rec(response_text=ws)
+            self.assertEqual(SC.classify(r)["flags"], ["SF2"], repr(ws))
+            self.assertEqual(outcome(r), "FAIL-S", repr(ws))
+
+    def test_none_text_is_treated_as_empty(self):
+        r = rec(response_text=None)
+        self.assertIn("SF2", SC.classify(r)["flags"])
+        self.assertEqual(outcome(r), "FAIL-S")
+
+    def test_non_ascii_whitespace_is_not_whitespace_for_sf2(self):
+        # 13.4 gives no definition of "whitespace"; the code strips only space, TAB, LF, VT, FF, CR. A NBSP-only body is therefore NOT SF2 (it goes to
+        # parsing). Pinned, not decided: the character set is a separate open point.
+        r = rec(response_text=" ")
+        self.assertNotIn("SF2", SC.classify(r)["flags"])
+
+    def test_valid_text_with_transport_error_is_sf1_only_and_soft(self):
+        for r in (rec(error="HTTP 500", http_status=500), rec(http_status=503), rec(error="timeout", http_status=None)):
+            self.assertEqual(SC.classify(r)["flags"], ["SF1"])                # text present -> no SF2; SF1 independent of the text
+            self.assertEqual(outcome(r), "PASS")                              # one soft call <= f_S
+
+    def test_sf3_with_empty_body_carries_both_sf3_and_sf2(self):
+        r = rec(response_text="", finish_reason="MAX_TOKENS")
+        self.assertEqual(sorted(SC.classify(r)["flags"]), ["SF2", "SF3"])
+        self.assertEqual(outcome(r), "FAIL-S")
+
+    def test_sf1_and_sf4_remain_independent_of_each_other(self):
+        r = rec(error="HTTP 500", http_status=500, block_reason="SAFETY")
+        self.assertEqual(SC.classify(r)["flags"], ["SF1", "SF4"])
+
+    def test_clean_response_has_no_flag(self):
+        self.assertEqual(SC.classify(rec())["flags"], [])
+        self.assertEqual(outcome(rec()), "PASS")
+
+
+if __name__ == "__main__":
+    unittest.main()

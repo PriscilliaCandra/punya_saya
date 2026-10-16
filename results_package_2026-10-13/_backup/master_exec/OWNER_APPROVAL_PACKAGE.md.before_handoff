@@ -1,0 +1,148 @@
+# Owner approval package, MD-01 to MD-10 (PROPOSED — NOTHING IS APPROVED; every field below is blank for the owner)
+
+Source of truth: the "Direction record" and entries of `MASTER_PROPOSED_DECISION_RECORD.md` (this file consolidates them, it adds no new decision) and `C31_C32_OWNER_DECISION_BRIEF.md`. Prepared 2026-10-13. **Working decision** = already applied in code/tests on the researcher's direction; it still needs a formal entry. The assistant does not sign, does not append to the official record (`research_design/STEP3_OWNER_DECISIONS_RECORD_DRAFT.md`) and does not treat any box as ticked. How to use: tick one box per entry, date it, then record the ticked entries as ONE official record entry (draft text for MD-01/MD-02: `PROPOSED_RECORD_CORRECTION_12_37.md` section 7). Fields: `[ ] APPROVE  [ ] REJECT  [ ] AMEND: ______  | Owner: ______  | Advisor (where required): ______  | Date: ______`.
+
+## Quick sign sheet (read this first)
+**Independent approvals** (any order; none needs another): PRD-5; MD-01; MD-02 (with Q7, Q8); MD-03 (K1 or K2); MD-05 part 2; MD-07; MD-08; MD-09; MD-10.
+**Dependent approvals:** **MD-04** needs your file-list choice (A-1) and your answer to A-2; its procedure can be approved now, but the official hash is computed only after the entries that change listed files are settled (MD-03 K2 changes `s7_recode.py`; Q5 or any MD-01 change touches `s10_scoring.py`); **MD-06** needs your answer to **B-1**.
+**Exact answers the entry must contain**
+- *MD-04 list:* "FZ file list = L-__" (copy-paste lists in Appendix A; for an own list, write the paths one per line) and "A-2 = include / exclude the Step 10 scoring files".
+- *MD-06 / B-1:* "B-1 = (a)", "(b)" or "(c)" with the sentence template of Appendix B (the assistant does not choose).
+**What each approval authorizes (and nothing more)**
+| Patch / action | Authorized only by | Not authorized by it |
+|---|---|---|
+| P5 `fz_index.py` activation (+ its 7 tests) | MD-04 procedure + list | computing the official hash (needs the prerequisites above and your instruction at that time); gate enforcement (box E-1) |
+| Official FZ index computation, exactly once | MD-04 + prerequisites settled + your go at that point | any change to a listed file afterwards |
+| FZ-hash enforcement in the gates (`s10_runner.py`, `s11_pilot.py`) | box **E-1** | P5 activation alone |
+| P2 safe-stop activation + rewrite of the 5 legacy tests | MD-06 + B-1 answered | block-name lists (need L3); P8 |
+| Q5 adapter field + SF4/SF2 rule for the rare shape | box **Q5** | MD-01 (it does not cover Q5) |
+| P3b assumed-token gate | box **Q9** (C32-2 and the form of a measured basis) | MD-02 as written (C32-1 needs no code) |
+| P4 kappa / re-code | MD-03 = K2, and the Step 7 re-freeze authorization (box **R-7**) | K1 (no code) |
+| P7 anchor check | MD-09 + H7 declaration | the decision script |
+| P8 resume | MD-08 + P2 active | anything for the pilot |
+| P11 connection-test tool and one provider test | box **P11** + a separate written authorization file (ceiling, prompt hash, handling) | spending, token counts, a pilot |
+| P12 O4 usage reader (read-only; prints numbers only) | box **P12** + MD-02 Q8 | any provider token count (O2) |
+| A1 diff | MD-01 = A1 (not recommended) | |
+**Additional authorization boxes (blank):** E-1 `[ ] APPROVE [ ] REJECT`  Q5 `[ ] APPROVE [ ] REJECT`  Q9 `[ ] APPROVE [ ] REJECT`  R-7 `[ ] APPROVE [ ] REJECT`  P11 `[ ] APPROVE [ ] REJECT`  P12 `[ ] APPROVE [ ] REJECT`   | Owner: ______  Date: ______
+
+## Order by critical path (what blocks what)
+1. MD-05 item PRD-5 (blocks the evaluation of the human blind check) -> 2. MD-01 and MD-02 (the pilot rules in the code) -> 3. MD-04 (FZ hash; needs your file list) -> 4. MD-06 (safe-stop) -> 5. MD-03 (kappa; Step 7 re-freeze if K2) -> 6. MD-07, MD-10, rest of MD-05 (confirmations) -> 7. MD-09 and MD-08 (needed after the pilot, not before). The FZ hash must be computed after items 2-6 are settled and before the first pilot call.
+
+## MD-05 (part 1) PRD-5 unit sets of the blind-check worksheet — decide first
+- **Decision/recommendation:** adopt the field-specific unit-token sets printed in spec §11.2 step 3 (line 699). Requires formal approval (reading of a frozen clause).
+- **Consequences:** a foreign unit gives CHECKER ERROR (logged); no effect on the registry or the primary analysis. **Alternative rejected:** the older global unit list.
+- **Affects:** `step9/s9_blindcheck.py` `UNITS`/`normalize` (already implement the printed sets); spec lines 699, 1131. **Prerequisite:** none. **Ambiguity:** none.
+- `[ ] APPROVE  [ ] REJECT  [ ] AMEND: ______  | Owner: ______  | Date: ______`
+
+## MD-01 SF counting for the pilot decision (C-04, C-05, C-31) — WORKING DECISION, formal entry needed
+- **Decision/recommendation:** keep all flags; a call meeting SF2, SF3 or SF5 is one hard count; any other call meeting SF1 or SF4 is one soft call; `f_S` counts calls; **option B**: SF1/SF4 take precedence over SF2 (an empty body explained by an HTTP/transport error or by a block/no candidate is not also SF2); definitions D1-D8 (brief section 6.1); no new outcome label. Owner + advisor.
+- **Consequences:** a 503/timeout/block with empty body is soft (tolerated up to `f_S` = 1); an empty body of a received non-error response stays SF2 (FAIL-S); hard flags are never hidden. **Alternatives rejected:** A1 (voids the `f_S` tolerance for adapter records, re-routes the round-1 action to the SF2 remedy), A2a (every empty block hard), A2b (hole for status-less records), per-flag `f_S` (protocol change).
+- **Affects:** spec §13.4 (810), §13.6 (830-831, 838); `s10_scoring.py`, `s11_pilot.py`, `test_sf2_detection.py` (19), `test_sf_matrix_literal.py` (14), `test_sf2_variants.py` (11). **Prerequisite:** none.
+- **Unresolved:** Q5 (candidate without text and finish reason vs no candidate; section "Q5" of the brief, section 16) is NOT decided by this approval; live provider behaviour is unknown.
+- `[ ] APPROVE  [ ] REJECT  [ ] AMEND: ______  | Owner: ______  | Advisor: ______  | Date: ______`
+
+## MD-02 Input-size basis, token measurement and cost (C-01, C-23, C-32) — WORKING DECISION, formal entry needed
+- **Decision/recommendation:** preflight maximum **1,016 characters** per prompt (verified maximum of the build: 96 pilot / 1,248 main prompts; pre-filled in the authorization template, you confirm it when you sign the authorization); refuse an empty or longer prompt before any provider call; never truncate; characters are not tokens; `input_tokens_per_call_assumed` = 1,016 is the Step 7 ASSUMPTION, not a measurement; pilot: accept as is (C32-1); main run: measure by O4 after the pilot (brief section 17), O2 only with separate written authorization; US$100 ceiling unchanged, stop if it cannot be assured. Owner.
+- **Consequences:** the hard-cap bound is about US$0.37 for 18 calls and US$51.88 for 2,496 slots at the 1,016 assumption; the input term is about 1.5 % of it. **Alternatives rejected:** inheriting the Step 7 bound silently; a gate on assumed tokens vs characters now (P3b: the form of a "measured basis" is undefined); a provider token count now (spending).
+- **Affects:** `s10_runner.py`, `templates/owner_authorization_TEMPLATE.json`, `test_input_limit.py` (10); record 12.11 OD-10, 12.18 row 6. **Prerequisite:** none for the pilot. **Unresolved:** the main-run measurement itself (needs pilot data).
+- `[ ] APPROVE  [ ] REJECT  [ ] AMEND: ______  | Owner: ______  | Date: ______`   Q7 accept C32-1 for the pilot `[ ]`  Q8 O4 first for the main run `[ ]`
+
+## MD-04 FZ hash contract (C-03, C-18, C-19) — needs your file list (details in Appendix A)
+- **Decision/recommendation:** the FZ hash = SHA-256 of a canonical index {path -> SHA-256} of the listed FZ files, computed ONCE before the first pilot call, stored as a new file, recorded in the decision record and every run manifest, recomputed and enforced by the gates. Recommended list **L-B** (19 files, Appendix A); L-C (21 files) only with a supplement rule (Appendix A, A-2). Owner + advisor.
+- **Consequences:** any later change of a listed file changes the hash (new FZ version, re-pilot); the decision record, run folders and the final freeze manifest stay outside the index. **Alternatives rejected:** chain of existing manifest hashes; "researcher-supplied, unverified" (today).
+- **Affects:** spec 797, 662, 1190; new `fz_index.py` (inactive P5, 7 tests); gate change in `s10_runner.py` (a separate approval). **Prerequisite:** the list and approval of the procedure; items MD-01..MD-06 settled first.
+- `[ ] APPROVE procedure  [ ] REJECT  [ ] AMEND: ______  | File list chosen: [ ] L-A  [ ] L-B  [ ] L-C  [ ] own: ______  | A-2: [ ] include [ ] exclude the Step 10 scoring files  | Owner: ______  | Date: ______`
+
+## MD-06 Provider response safe-stop policy (C-12..C-15) — formal approval needed (details in Appendix B)
+- **Decision/recommendation:** after the record is stored, stop for owner review on: (1) returned model ID missing or not exactly the requested ID; (2) finish reason not STOP, not token limit, not a documented block name; (4) record without HTTP status and without error marker; (5) error marker or non-2xx remains SF1. SF4 only for structural signals (no candidate; a block-reason field); block NAMES only after an authorized observation. Owner + advisor.
+- **Consequence you must accept:** a stop ends the round as RUN_INCOMPLETE and `s11_pilot` refuses an incomplete round; one anomaly therefore consumes one of the two pilot rounds (Appendix B, question B-1; the assistant does not choose). **Alternatives rejected:** record only (today); automatic SF classification of new names (protocol change).
+- **Affects:** `s10_runner.py`, `s10_integrity.py`, 5 legacy tests; inactive P2 diff + 7 tests. **Prerequisite:** your answer to B-1.
+- `[ ] APPROVE  [ ] REJECT  [ ] AMEND: ______  | B-1 answered: [ ] (a)  [ ] (b)  [ ] (c)  [ ] other: ______  | Owner: ______  | Advisor: ______  | Date: ______`
+
+## MD-03 Kappa and the re-code procedure (C-02, C-09) — formal approval; touches frozen Step 7 files
+- **Decision/recommendation:** K2: raw agreement + cross-tables per variable and Cohen's kappa labelled "intra-rater consistency; no inter-rater reliability claim"; "undefined" with counts for degenerate tables; sample = all if at most 20 else max(20, ceil 20 %); delay at least 14 days; concealed first-pass codes; columns `recode1_*`. Fallback K1 (raw only; a recorded departure from the literal spec line 1002). Owner + advisor.
+- **Consequences:** K2 changes `step7/s7_recode.py` and codebook 5.1/5.3 = a Step 7 re-freeze before the FZ hash; K1 changes nothing. **Alternatives rejected:** K3 (needs a threshold no source gives), K4 (amends §16.3: protocol change).
+- **Affects:** spec 1000-1003, OD-3, record 12.21 row 6, 12.24. **Prerequisite:** decide before the FZ list is finalized.
+- `[ ] APPROVE K2  [ ] APPROVE K1  [ ] REJECT  [ ] AMEND: ______  | Owner: ______  | Advisor: ______  | Date: ______`
+
+## MD-07 Timeout meaning (C-16)
+- **Recommendation:** 180 s is a per-socket-operation timeout as built (stated in every run summary; calls above 180 s are flagged after the fact); no total deadline now. Record entry only; no code. **Alternative rejected:** total wall-clock deadline (changes which calls are SF1). **Affects:** FZ-v1 row 17; `GeminiProvider`. **Prerequisite:** before the FZ hash.
+- `[ ] APPROVE  [ ] REJECT  [ ] AMEND: ______  | Owner: ______  | Date: ______`
+
+## MD-10 Confirmations of earlier choices (C-20, C-21, C-22, C-24, C-25, C-28)
+- **Recommendation:** confirm PC-2, I-6 informational (gate counts 30 and 14), P-3 item 1, F-3 closed, PRD-8 unchanged, and the Step 8 choices of record 12.28 (F-4, PG4, PG11a bundle of 624 files, A6b actor), with an advisor review of the Step 8 choices before the FZ hash. No code change.
+- `[ ] APPROVE  [ ] REJECT  [ ] AMEND: ______  | Owner: ______  | Advisor: ______  | Date: ______`
+
+## MD-05 (part 2) PG3, PG11b, SF/UNP policy, coding eligibility
+- **Recommendation:** all as built. PG3 span reading ratified (spec 461, 525; strict reading rejects 90 of 104 MIL templates); PG11b literal scan kept with the risk stated (ordinary words in model comments may block secondary coding); SF/UNP interim (an SF call is SF only; §18.2 as written; SF count and rate reported beside the proportions); coding eligibility as implemented. **Alternatives rejected:** strict PG3, narrowing PG11b, Policy 1/2, parse-first (protocol changes). **Affects:** spec §8.1, §8.2, §13.4, §18.2, §16; nothing in code if ratified. Before the FZ hash.
+- `[ ] APPROVE  [ ] REJECT  [ ] AMEND: ______  | Owner: ______  | Advisor: ______  | Date: ______`
+
+## MD-09 Anchoring, authorization content, order of runs (C-18) — needed after the pilot, before the decision script
+- **Recommendation:** anchor the decision record by your own commit (commit ID recorded in the final freeze manifest and run manifests; committing is your act, not the assistant's); authorization content as in H5 of `HUMAN_TASKS_H1_H7_OPERATIONAL_CHECKLIST.md`; order pilot -> integrity -> decision -> record anchored -> final freeze manifest -> main. Alternative: external timestamped copy of the record's SHA-256. Affects spec 662, 1132.
+- `[ ] APPROVE  [ ] REJECT  [ ] AMEND: ______  | Store chosen: ______  | Owner: ______  | Date: ______`
+
+## MD-08 Resume after a transport halt (C-17) — needed before the main run only
+- **Recommendation:** adopt clauses 1-6 as drafted; implement nothing for the pilot (resume is not on the pilot path); build P8 after a pilot PASS, after MD-06/P2. Current behaviour (no resume; same-folder rerun refused) is pinned by `test_ledger_resilience.py` (11). Affects spec 871-875.
+- `[ ] APPROVE  [ ] REJECT  [ ] AMEND: ______  | Owner: ______  | Date: ______`
+
+## Patches that can be activated immediately after which approval
+| Patch | Activate after | Then run |
+|---|---|---|
+| P5 `fz_index.py` (+7 tests) | MD-04 + file list | its 7 tests, the FZ index once (point in time below), `run_all_checks.py --quick` |
+| P2 safe-stop (+7 tests, 5 legacy tests rewritten to the adopted policy) | MD-06 + answer B-1 | the relevant suites, `--quick`, gate check |
+| Q5 adapter field (brief section 16) | Q5 approval (changes SF4/SF2 for one rare shape) | new adapter/scoring tests, `--quick` |
+| P3b assumed-token gate | Q9 (form of a measured basis) | `test_input_limit.py` + new cases |
+| P4 (K2) | MD-03 K2 | Step 7 tests, new Step 7 freeze manifest |
+| P7, P8, P11 | MD-09 + H7; MD-08 + P2; owner authorizes a connection test | their own acceptance tests |
+| A1 diff (`P1b…INACTIVE`) | only if you choose A1 in MD-01 (not recommended) | rewrite `test_sf2_detection.py` |
+
+---
+## Appendix A. FZ index request (P5; confirmed against spec 797 and FZ-v1)
+**Contract of the inactive tool (checked against `deferred_patches/P5_fz_index.py.INACTIVE`):** input = repository root + a text file listing relative paths (one per line); output = a NEW file with canonical JSON {path: sha256} (sorted keys, compact separators, ASCII, one final LF), the FZ hash printed = SHA-256 of that file; `verify` recomputes and compares (optionally with an expected hash); it never overwrites, refuses missing, duplicate, absolute or `..` paths and a list that contains the output file; reads no network. It matches spec 797 ("FZ ... hashed before the first pilot call") and 662/1190 (the hash is recorded in the decision record; the final freeze manifest is a later object). It does not conflict with FZ-v1: FZ-v1 "carries no self-hash" and defines only `register_canonical_sha256` for the register; the stale decision-record entry in FZ-v1 `artifact_hashes` (C-19) stays historical because the decision record is outside the index. **Gate enforcement is NOT part of the tool** (a gate change needs your approval).
+**Your decisions:**
+- **A-1 The list: comparison.** Spec 797 enumerates the FZ set. The Step 8 build manifest already records the SHA-256 of the 15 generator-code files, the build inventory (2,026 files), the spec, the FZ-v1 register and the Step 7 manifest; the gate runs `s8_verify` against it.
+| | L-A (4 files) | L-B (19 files) | L-C (21 files) |
+|---|---|---|---|
+| Scope | spec; FZ-v1; Step 7 manifest; Step 8 manifest | L-A + the 15 generator-code files the Step 8 manifest hashes (`impl_a.py`; 11 Step 7 freeze-set files incl. codebook, parser, `s7_decision.py`, `s7_recode.py`; 3 `step8/` build files) | L-B + `step10/s10_scoring.py`, `step10/s10_analysis.py` |
+| Binds directly | manifests only; everything else by hash inside them | codebooks, parser grammar, decision script, generator code (spec 797 items) | also the pilot SF decision code and the §18 analysis code |
+| Left out | the 15 files are bound only through manifest hashes (a drift is caught by the gate's verifier, not by the index) | the Step 10 scoring/analysis, runner, integrity, report, glue | runner, integrity, report, glue |
+| Consequence for later fixes | none beyond Step 7/8 rules | harness fixes (H1-H4) stay outside the index, as spec 13.6 intends | any H1-H4 pure fix to `s10_scoring.py`/`s10_analysis.py` would change the index although H4 says a pure fix creates no new FZ version: a **supplement rule** is required (the fix is logged with code hashes before/after and the index is re-issued as a logged supplement) |
+| Verdict | smallest; relies on verifier | **recommended**: matches spec 797 items directly and the H1-H4 mechanism | only if you want the decision/analysis code bound and accept the supplement rule |
+- **Copy-paste lists** (paths relative to the repository root `D:\research s2`; all verified to exist on 2026-10-13; one path per line):
+  - L-A:
+    research_design/SCENARIO_CONSTRUCTION_SPECIFICATION_v2_7_DRAFT.md
+    research_design/PARAMETER_FREEZE_MANIFEST_FZ_v1.json
+    research_design/step7/STEP7_PROMPT_SPECIFICATION_FREEZE_MANIFEST_v1.json
+    research_design/step8_output/step8_build_7a6bbe465c66/manifest.json
+  - L-B = L-A plus:
+    research_design/implementation_a/impl_a.py
+    research_design/step7/CODEBOOK_S2_S3_v1_DRAFT.md
+    research_design/step7/codebook_battery_v1.py
+    research_design/step7/parser_battery_v1.py
+    research_design/step7/prompt_specification_v1.py
+    research_design/step7/s7_bundle.py
+    research_design/step7/s7_core.py
+    research_design/step7/s7_decision.py
+    research_design/step7/s7_diagnostic.py
+    research_design/step7/s7_parser.py
+    research_design/step7/s7_recode.py
+    research_design/step7/s7_refcheck.py
+    research_design/step8/s8_build.py
+    research_design/step8/s8_construct.py
+    research_design/step8/s8_gates.py
+  - L-C = L-B plus:
+    research_design/step10/s10_scoring.py
+    research_design/step10/s10_analysis.py
+- **A-2 Decision you must make:** MD-04 as drafted excludes "the Step 10 harness", while spec 797 lists "scoring definitions" and "primary outcome, denominators and reporting structure (§18)", implemented in `s10_scoring.py` and `s10_analysis.py`. Spec 13.6 protects executable code by H1-H4 (byte-identical regression, logged hashes) and says a pure implementation fix creates no new FZ version. Revised recommendation (correcting the earlier one): exclude them (L-B) and rely on H1-H4, because binding them in the index conflicts with H4 unless a supplement rule is adopted; note that a change of the pilot decision rule itself is not a pure fix and must therefore be settled BEFORE the hash. If you choose L-C, adopt the supplement rule in the same entry.
+- `[ ] procedure approved  | List: ______  | Timing accepted [ ]  | Owner: ______ Date: ______`
+
+## Appendix B. MD-06 / P2 explained
+- **Exact behaviour change.** After each call the record, the raw file and the ledger `raw`/`classified` entries are written as today. Then the runner checks the stored record: status absent and no error marker; returned model ID missing or different from `gemini-3.5-flash-lite` (for a 2xx record); finish reason not in the known sets. On a hit it stops, writes `RUN_INCOMPLETE` with the reason, makes no further call. Records with an error marker or a non-2xx status are not anomalies (they are SF1 and the run continues). Classification and scoring are unchanged.
+- **Legacy tests affected (5, exact reason).** Three are fixtures that return a 200 response without `model_returned`: `test_step10.TestRunner.test_pilot_records_failures_without_retry` (call 2), `test_pilot_flow.TestPilotGlue.test_round_one_fail_s_is_not_final`, `test_pilot_flow.TestPilotGlue.test_round_two_fail_s_stops_and_fail_u_is_stop_u`; the fix is giving those mock responses the requested model ID (the draft already changes the shared `good()` fixture). Two encode the opposite policy on purpose and must be rewritten to the adopted rule: `test_provider_response.TestRunLevel.test_returned_model_difference_does_not_stop_or_reclassify` and `test_mixed_responses_run_keeps_ledger_hashes_retries_and_marks_failures` (it feeds a different model ID and an unlisted finish reason and expects the run to continue).
+- **B-1 What happens to a pilot round after a safe-stop anomaly (the assistant does not choose).**
+  - *Facts.* Spec 13.6: "at most 2 pilot rounds in total for the whole main experiment"; round 2 is the follow-up of a round-1 FAIL-S with one whitelisted change (new FZ version); the lineage records every pilot round ever run; the spec says nothing about a round that stops without an outcome. Tooling: `pilot_round_1`/`pilot_round_2` are only scope labels in the authorization; the runner keeps NO round counter and refuses only an existing output folder; a preflight failure creates nothing and consumes nothing; a stopped run leaves its folder with `RUN_INCOMPLETE`, a `halt` reason, the ledger and raw files intact; `s11_pilot report/decide` refuse an incomplete run (exit 2, nothing written), so no outcome, PASS or FAIL-S, exists for it.
+  - *Option (a), the stopped run counts as a pilot round.* Consequence: it has no outcome, so the spec defines no next action; a follow-up round needs your (and the advisor's) rule, because round 2 is defined only after FAIL-S. Record: a disposition entry "pilot attempt of scope S, folder F, ledger final hash H, recorded calls N, halt reason R: counted as round __; next step: ______".
+  - *Option (b), the stopped run is declared void (not a round).* Consequence: after the cause is understood the same scope is run again under the identical FZ (a new authorization and a new output folder; no code change is needed to do so); this effectively raises the number of attempts above the cap of 2 unless the advisor accepts that a void run is not a round; if fixing the cause changes executable code it must satisfy H1-H4, otherwise it is a new FZ version that counts toward the cap. Record: the same disposition entry with "void" and the advisor's acceptance; the folder is kept and listed in the lineage.
+  - *Option (c), MD-06 is not adopted (record and report only, as today).* Consequence: no stop, no round question; anomalies are counted and reported (`provider_checks`) and the pilot decision proceeds on counts; a returned-model or finish-reason problem would be seen only after the round.
+  - *In every option* the stopped folder is never deleted or edited, and the owner writes the disposition in the official record before any further run. Sentence templates: "B-1 = (a): a safe-stop run counts as a pilot round; next step: ______." / "B-1 = (b): a safe-stop run is void; the advisor accepted on ______; the folder is kept in the lineage." / "B-1 = (c): MD-06 is not adopted."
+- **Acceptance criteria before activation:** MD-06 and B-1 recorded; the 5 tests rewritten to the adopted policy (not weakened); the 7 new tests pass; single-flag outcomes unchanged; block-name lists unchanged until L3; `run_all_checks.py --quick` OK; gate still CLOSED; mock-only.

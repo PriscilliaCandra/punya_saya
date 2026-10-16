@@ -1,0 +1,65 @@
+{
+  "manifest_purpose": "Step 1 methodology-freeze record required by SCENARIO_CONSTRUCTION_SPECIFICATION_v2_7_DRAFT.md (document status line and section 21.1, step 1). The format and location were not specified by v2.7 and were approved by the project owner on 2026-10-09. This manifest carries no self-hash.",
+  "version_tag": "S2-SCENARIO-METHODOLOGY-v2.7-FROZEN",
+  "freeze_step": "Step 1 - Methodology frozen (section 21.1)",
+  "freeze_date": "2026-10-09",
+  "owner_approval": {
+    "approved_by": "project owner (written instruction in the working conversation)",
+    "date": "2026-10-09",
+    "statement": "Approval to freeze research_design/SCENARIO_CONSTRUCTION_SPECIFICATION_v2_7_DRAFT.md as written, based on the completed bounded review and the findings presented; v2.7 retained, no v2.8, specification content not modified.",
+    "note": "The earlier model-session reviews were not independent human review. The owner's approval above is the final human review that the v2.7 lineage (row 17) named as pending."
+  },
+  "frozen_specification": {
+    "path": "research_design/SCENARIO_CONSTRUCTION_SPECIFICATION_v2_7_DRAFT.md",
+    "sha256": "d5fcffadd1045fc0c86a7c84eb8d51592d807576b6a51b712cef025164082ca8",
+    "bytes": 219455,
+    "lines": 1407
+  },
+  "owner_decisions_recorded": [
+    {
+      "id": "OD-1",
+      "status": "APPROVED (owner decision)",
+      "date": "2026-10-09",
+      "invariant": "N is odd and N >= 5; K = N - 1 is even and K >= 4. Permitted N values include 5, 7, 9, 11, and so on. This is the invariant enforced by gate A2 and used by the class-assignment rule of sections 9.2-9.3.",
+      "specification_reference": "section 19.2 (OD-1); section 21.1 step 1, prerequisite (i)"
+    },
+    {
+      "id": "Horizon A decisions PRD-1, PRD-2, PRD-3, PRD-7, PRD-9 and PC-3",
+      "status": "decided for v2.7 (recorded in the specification, section 19.3 and Appendix B7)",
+      "date": "2026-10-09",
+      "note": "Not reopened by this freeze."
+    }
+  ],
+  "step1_prerequisites_section_21_1": {
+    "i_OD_1_resolved_in_writing": "satisfied - recorded above",
+    "ii_horizon_A_decisions_recorded": "satisfied - specification section 19.3",
+    "iii_text_valid_under_deferred_decisions": "satisfied by the rule's own terms - the rule E-EMPTY-TARGET with OD-4 is listed as pending item PRD-8 in section 19.3",
+    "iv_audit_and_other_prerequisites": "satisfied - owner final review and approval recorded above; no other step-1 prerequisite is stated in v2.7"
+  },
+  "frozen_artifacts_unchanged": [
+    { "path": "pilot_clarification/CODEBOOK_v2.md", "sha256": "177a1c5d9b7dbf1ab9e53d0684365dcf67b21f1b1f3154f3f8b1ecc5aa6eb4fc", "bytes": 19694, "named_in_v2_7": "section 0 (hash prefix 177a1c5d..b4fc)" },
+    { "path": "pilot_clarification/CODEBOOK_v2_freeze_manifest.json", "sha256": "669ef62e758b4243a732ac417f6dd670623637d1f8fd19453a2f5124ee1891b2", "bytes": 1424, "named_in_v2_7": "section 0 (hash prefix 669ef62e..891b2)" },
+    { "path": "pilot_clarification/stage2_prompt_specification.md", "sha256": "5d88b1e57557d9fb8ba67d9623972d3420953e9e3f28961e0dfed401b3637a80", "bytes": 21083, "named_in_v2_7": "section 0 (hash prefix 5d88b1e5..7a80)" },
+    { "path": "pilot_clarification/scenario_registry_stage2_v1.json", "sha256": "51895ee5329059930959f15746439f692bb849521de346099a1838be7689f5c7", "bytes": 26256, "named_in_v2_7": "section 0 (hash prefix 51895ee5..89f5c7)" },
+    { "path": "pilot_clarification/CODEBOOK.md", "sha256": "263bec0b589be0c5e65e9ba27c16036bed03f76ab54f1edbf373445a9173cc82", "bytes": 4377, "named_in_v2_7": "section 0 (named without a hash; hashed here at freeze time and matches the hash in CODEBOOK_v2_freeze_manifest.json)" }
+  ],
+  "lineage_retained_unchanged": [
+    { "path": "research_design/SCENARIO_CONSTRUCTION_SPECIFICATION_v2_DRAFT.md", "role": "v2.3", "sha256": "61bf398d59bad3c3d729cdc8e3f5217ee7162a47023bdc30a12fb752fe487196", "bytes": 146462 },
+    { "path": "research_design/SCENARIO_CONSTRUCTION_SPECIFICATION_v2_4_DRAFT.md", "role": "v2.4", "sha256": "17af97e1c1282254be697314ecdae0ae5158f9124632bdfae4e09a269b6523e2", "bytes": 173441 },
+    { "path": "research_design/SCENARIO_CONSTRUCTION_SPECIFICATION_v2_5_DRAFT.md", "role": "v2.5", "sha256": "da9cacf8fb32cc158c4aa52b34cbea7a6760ae3332ddc836f43103fa68bc6aa5", "bytes": 198826 },
+    { "path": "research_design/SCENARIO_CONSTRUCTION_SPECIFICATION_v2_6_DRAFT.md", "role": "v2.6", "sha256": "19f989337a8b8c9fab6a8497f36049ad8267b248c8d99bd77c56e9c92ceea425", "bytes": 212125 },
+    { "path": "research_design/SCENARIO_CONSTRUCTION_v2_7_REVISION_REPORT.md", "role": "v2.7 revision report (companion document)", "sha256": "e1429bb7bd3c59cec04c480faa0fd44a7cce8b9616a3976b7446c368aba18edb", "bytes": 5497 }
+  ],
+  "named_frozen_but_not_enumerated": "v2.7 section 0 also names pilot_clarification/ in full (including runs/**, STAGE2_RECONCILIATION_* and the stage2_*_specification.md files) and paper/ as never to be edited. They carry no recorded hashes in v2.7 and are not enumerated in this manifest; this is a limitation of the available baseline.",
+  "still_open_after_freeze": {
+    "owner_decisions": "OD-2, OD-3, OD-4 (due at Step 2); OD-5 (Step 3); OD-6 (before Step 7); OD-7 (any time). The freeze does not resolve any of them.",
+    "pending_items": "PRD-4, PRD-5, PRD-6, PRD-8, PRD-10, PC-1, PC-2 (section 19.3); their wording in the frozen text stands as the default, and a different outcome would require a new methodology version (section 13.2)."
+  },
+  "git_state_at_freeze": {
+    "branch": "master",
+    "head": "224d9101f3737bf5d5057b2cb8835ddea037a860",
+    "history": "No commit, push or Git tag was made. research_design/ is untracked, so Git does not protect these files; the recorded SHA-256 values are the integrity record.",
+    "pre_existing_changes": "31 pre-existing status lines (deleted PHASE_*.md and README.md, 9 modified backend files, untracked directories) were preserved untouched."
+  },
+  "read_only_note": "The specification and this manifest are marked read-only by file attribute as an additional safeguard only; filesystem permissions do not substitute for the recorded hashes or version control."
+}

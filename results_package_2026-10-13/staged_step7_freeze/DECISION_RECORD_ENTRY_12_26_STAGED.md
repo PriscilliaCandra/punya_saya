@@ -1,0 +1,15 @@
+
+### 12.26 Owner instruction of 2026-10-13 and resolution of the Step 7 blockers (STAGED, NOT YET APPENDED; not an amendment of the specification)
+
+Context. On 2026-10-13 the owner instructed the assistant to resolve the Step 7 blockers with the smallest defensible resolution, to record each decision with rationale, evidence and deviation, and to produce the Step 7 freeze artifacts if all mandatory conditions are met, without representing any proposal as approved. This entry is appended to the record only together with the snapshot `step7_history/revision4_2026-10-13/` and the copy `step7_history/STEP3_OWNER_DECISIONS_RECORD_DRAFT.before_12_26.md`. It changes no register value, no specification text, no FZ-v1 file, no Implementation A file.
+
+| # | Blocker | Resolution (DELEGATED under the owner's instruction; advisor review pending where stated) | Rationale and evidence | Deviation | Outstanding approval |
+|---|---|---|---|---|---|
+| 1 | SF / UNP | v2.7 section 18.2 stands. Pilot: 12.18 rows 1 and 2 as implemented in `s7_decision.py`. Main run: interim reporting (SF call stays in `n_calls`, in none of the four numerators; SF count and rate reported beside them; no rescaling). Policy 1 (12.24), Policy 2 and parse-first stay proposals. `s7_outcomes.py` and the proposal documents leave the freeze set. | `PROPOSED_AMENDMENT_18_2_DRAFT_v1.md` section 5; P-1 interim behaviour; section 12 aggregator over all R calls | none from v2.7; the sum-to-1 sentence fails when an SF call occurs | advisor and owner choice before the main run |
+| 2 | PG11b scan scope | literal text kept; no code change | section 8.2; `s7_bundle.py`; the in-memory demonstration of 2026-10-13 | none; known risk to S2/S3 coding | advisor and owner decision on an amendment, before post-run coding |
+| 3 | Section 16.3 conformance | codebook revision 5: stale sentence removed, section 5.3 lists the departures | OD-3 (Step 2 record); 12.21 row 6; 12.24 decision 2 | sample, delay, concealment, column name, kappa (listed in 5.3) | advisor review of the re-code values; decision on kappa |
+| 4 | Freeze-set composition | freeze set = prompt specification, renderers, parser, reference checker, decision script, diagnostic code, bundle builders, codebook revision 5, both batteries, re-code module; evidence = tests and item-hash tool; not in the freeze set = `s7_outcomes.py`, `PROPOSED_*`, the Policy 2 package | specification 13.2 and 14; 12.14; manifest v4 listed proposals as items | none | owner's declaration of the freeze |
+
+Conditions of the freeze, status: tests (existing 145 plus new membership tests) to pass; hashes reconciled; the human rehearsal of the codebook battery is **not done** and is recorded as an open pre-pilot requirement (section 13.5); no coder has used the codebook. A change to a freeze-set item before the FZ hash returns to Step 7 (new version).
+
+Not authorized by this entry: Step 8 until the freeze manifest exists, the pilot, any API or token-counting call, an experiment, a commit or a push.

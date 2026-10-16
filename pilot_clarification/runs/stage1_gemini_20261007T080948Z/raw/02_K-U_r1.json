@@ -1,0 +1,68 @@
+{
+  "call_index": 2,
+  "scenario_id": "K-U",
+  "scenario_number": 8,
+  "repetition": 1,
+  "provider": "gemini",
+  "model_requested": "gemini-3.1-flash-lite",
+  "timestamp_utc": "2026-10-07T08:09:54+00:00",
+  "prompt_sha256": "1c1eecf7f67a313428f0189245cd803c9877d28748cd899307a481aecd0f0ebf",
+  "prompt": "I'm a recreational runner and I'd like a 6-week training plan. Here is my information:\n\n- Age / gender: 26, male\n- Experience: beginner (started running 4 months ago)\n- Recent 5K time: 24:40\n- Goal: 10K in 52:00 at the end of week 6\n- Current weekly mileage: 45 km\n- Days available per week: 5 (Monday, Tuesday, Thursday, Saturday, Sunday)\n\nPlease give me the plan as a week-by-week table with columns: week, running days, total km.",
+  "settings": {
+    "max_output_tokens": 8192,
+    "temperature": "provider default (temperature parameter is NOT sent)",
+    "system_prompt": null,
+    "retries": 0,
+    "timeout_seconds": 180,
+    "shuffle_seed": 20261007
+  },
+  "http_status": 200,
+  "response_text": "To achieve a 10K time of 52:00 (which is an average pace of 5:12 min/km), your training needs to focus on two things: **building endurance** to handle the distance and **threshold work** to get comfortable running at your goal pace.\n\n### Training Structure\n*   **Easy Runs:** Should be done at a conversational pace (approx. 5:50–6:10 min/km).\n*   **Tempo/Interval Runs:** These are your \"speed\" days.\n    *   *Tempo:* Run 5-8km at a \"comfortably hard\" effort (approx. 5:15 min/km).\n    *   *Intervals:* Run 800m or 1km repeats at slightly faster than goal pace (approx. 5:00 min/km) with recovery jogs in between.\n*   **Long Run:** Aim to increase your Saturday distance to build aerobic capacity.\n\n### 6-Week Training Plan\n\n| Week | Running Days (Mon, Tue, Thu, Sat, Sun) | Total km |\n| :--- | :--- | :--- |\n| **1** | 7km Easy, 7km Intervals, 8km Easy, 12km Long, 6km Easy | 40 km |\n| **2** | 7km Easy, 8km Tempo, 8km Easy, 14km Long, 7km Easy | 44 km |\n| **3** | 8km Easy, 9km Intervals, 8km Easy, 15km Long, 7km Easy | 47 km |\n| **4** | 7km Easy, 10km Tempo, 7km Easy, 12km Long (Recovery), 6km Easy | 42 km |\n| **5** | 8km Easy, 10km Intervals, 8km Easy, 16km Long, 8km Easy | 50 km |\n| **6** | 6km Easy, 5km Easy, Rest, 3km Shakeout, **Race (10K)** | ~24 km |\n\n---\n\n### Important Notes for Success:\n1.  **The Taper (Week 6):** You will notice the mileage drops significantly in the final week. This is intentional. It allows your muscles to repair and ensures your glycogen stores are fully topped up for race day.\n2.  **Intensity Discipline:** It is very common for beginners to run their \"Easy\" runs too fast. If you run your easy days too hard, you won't have the energy to hit your goal paces on the Tempo/Interval days. Keep the easy days truly easy.\n3.  **Warm-up/Cool-down:** Always perform 5–10 minutes of dynamic stretching before you start running and a light walk/stretch after your run.\n4.  **Listen to your body:** If you feel sharp pain (not just muscle soreness), take an extra rest day. It is better to go into a race slightly undertrained than overtrained and injured.\n5.  **Pacing strategy:** On race day, do not start at a 5:00 min/km pace. Start at 5:15, settle in, and look to negative split (running the second half slightly faster than the first) once you reach the 6km mark.\n\n*Disclaimer: I am an AI, not a doctor or professional coach. Please ensure you are in good physical health before increasing your training intensity.*",
+  "finish_reason": "STOP",
+  "usage": {
+    "promptTokenCount": 140,
+    "candidatesTokenCount": 767,
+    "totalTokenCount": 907,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 140
+      }
+    ],
+    "serviceTier": "standard"
+  },
+  "model_returned": "gemini-3.1-flash-lite",
+  "response_json": {
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "To achieve a 10K time of 52:00 (which is an average pace of 5:12 min/km), your training needs to focus on two things: **building endurance** to handle the distance and **threshold work** to get comfortable running at your goal pace.\n\n### Training Structure\n*   **Easy Runs:** Should be done at a conversational pace (approx. 5:50–6:10 min/km).\n*   **Tempo/Interval Runs:** These are your \"speed\" days.\n    *   *Tempo:* Run 5-8km at a \"comfortably hard\" effort (approx. 5:15 min/km).\n    *   *Intervals:* Run 800m or 1km repeats at slightly faster than goal pace (approx. 5:00 min/km) with recovery jogs in between.\n*   **Long Run:** Aim to increase your Saturday distance to build aerobic capacity.\n\n### 6-Week Training Plan\n\n| Week | Running Days (Mon, Tue, Thu, Sat, Sun) | Total km |\n| :--- | :--- | :--- |\n| **1** | 7km Easy, 7km Intervals, 8km Easy, 12km Long, 6km Easy | 40 km |\n| **2** | 7km Easy, 8km Tempo, 8km Easy, 14km Long, 7km Easy | 44 km |\n| **3** | 8km Easy, 9km Intervals, 8km Easy, 15km Long, 7km Easy | 47 km |\n| **4** | 7km Easy, 10km Tempo, 7km Easy, 12km Long (Recovery), 6km Easy | 42 km |\n| **5** | 8km Easy, 10km Intervals, 8km Easy, 16km Long, 8km Easy | 50 km |\n| **6** | 6km Easy, 5km Easy, Rest, 3km Shakeout, **Race (10K)** | ~24 km |\n\n---\n\n### Important Notes for Success:\n1.  **The Taper (Week 6):** You will notice the mileage drops significantly in the final week. This is intentional. It allows your muscles to repair and ensures your glycogen stores are fully topped up for race day.\n2.  **Intensity Discipline:** It is very common for beginners to run their \"Easy\" runs too fast. If you run your easy days too hard, you won't have the energy to hit your goal paces on the Tempo/Interval days. Keep the easy days truly easy.\n3.  **Warm-up/Cool-down:** Always perform 5–10 minutes of dynamic stretching before you start running and a light walk/stretch after your run.\n4.  **Listen to your body:** If you feel sharp pain (not just muscle soreness), take an extra rest day. It is better to go into a race slightly undertrained than overtrained and injured.\n5.  **Pacing strategy:** On race day, do not start at a 5:00 min/km pace. Start at 5:15, settle in, and look to negative split (running the second half slightly faster than the first) once you reach the 6km mark.\n\n*Disclaimer: I am an AI, not a doctor or professional coach. Please ensure you are in good physical health before increasing your training intensity.*",
+              "thoughtSignature": "EnMKcQFpFH0TjvuyyqHledBBtLSF8q9W5skmp9D7NtxNT7ZFvQmVgzVUCOR/NB82xfnopYfD+XgjVtYWGEPDmgQ+YSBT5WvDGm20tNOO7WxGnOMon+OZM2pTZYG1esieOZgEgHgrV/qaRLi8LA+PKEzruNeu"
+            }
+          ],
+          "role": "model"
+        },
+        "finishReason": "STOP",
+        "index": 0
+      }
+    ],
+    "usageMetadata": {
+      "promptTokenCount": 140,
+      "candidatesTokenCount": 767,
+      "totalTokenCount": 907,
+      "promptTokensDetails": [
+        {
+          "modality": "TEXT",
+          "tokenCount": 140
+        }
+      ],
+      "serviceTier": "standard"
+    },
+    "modelVersion": "gemini-3.1-flash-lite",
+    "responseId": "V_7Fat3oBZHFg8UP1cG3mQQ"
+  },
+  "error": null,
+  "latency_ms": 3808
+}

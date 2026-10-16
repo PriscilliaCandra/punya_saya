@@ -1,0 +1,140 @@
+STEP 4 NUMERIC-STAGE DRY RUN -- specification v2.7 (frozen), section 21.1 step 4
+Scope: numeric-stage gates, screening aids, reading-invariance check. No prompt, no rendering gate,
+no pilot, no model/API call, no experiment, no parameter change.
+
+PREREQUISITE HASHES
+  spec            d5fcffadd1045fc0c86a7c84eb8d51592d807576b6a51b712cef025164082ca8  MATCH
+  impl_a.py       008f542d1d90a44cc4073b5be2a451fde9775c3b8b3f600805edbf4ffb501d3e  MATCH
+  test_impl_a.py  cbcda3638afe5a444fbeb01414111113ea3882d3a8a6e0fe1a821ce7c7eefe7b  MATCH
+
+PARAMETERS AND SOURCES (record = research_design/STEP3_OWNER_DECISIONS_RECORD_DRAFT.md)
+  P                        10                                                           record s4
+  N                        5                                                            record s1 (K = 4)
+  tau_F                    50                                                           record s4
+  rho_NT                   0.40                                                         record s4
+  D_dist                   10                                                           record s4
+  windows (shared)         W_V=[0.60,0.90] W_MILD=[1.10,1.30] W_CLEAR=[1.50,2.00]       record s4 (OD-5 not final)
+  S_list main              200..450 step 10, L_M=26                                     record s4
+  G_list main              310..335 step 1, L_P=26                                      record s4
+  S_pilot                  (455, 465) step 10                                           record s3
+  G_pilot                  (340, 341) step 1                                            record s3
+  L_pilot / pilot extras   2 / 0                                                        record s3
+  X_min, X_max             100, 999                                                     record s4
+  G_min, G_max             300, 349                                                     record s4 (G 300-349)
+  p_min, p_max             270, 420                                                     record s4
+  Tm_min, Tm_max           2700, 4200                                                   record s4
+  z, hw*, level            1.96, 0.20, 0.95                                             record s1
+  C_max                    2496                                                         record s1
+  R_min, R_cap             2, 2                                                         record s1
+  n_boot, L_small          10000, 10                                                    record s1
+
+  inputs consistency: len(S_MAIN)=2*13 -> True; len(G_MAIN)=2*13 -> True; planned slots 8*K*R*(n_M+2n_P) = 2496 (C_max 2496); pilot minimum 18 calls/round (not executed)
+
+====================================================================================================
+REGISTER: MAIN
+  S_list = 200..450 (len 26); G_list = 310..335 (len 26); K = 4
+  built = True; templates: MIL 104, PAC 208
+
+  gate  status         detail
+  M1    PASS
+  M2    PASS
+  M3    PASS
+  M4    PASS
+  M5    PASS
+  M6    PASS
+  M7    PASS
+  M8    PASS
+  M9    PASS
+  M10   PASS
+  M11   PASS
+  Q1    PASS
+  Q2    PASS
+  Q3    PASS
+  Q4    PASS
+  Q5    PASS
+  Q6    PASS
+  Q7    PASS
+  Q8    PASS
+  Q9    PASS
+  Q10   PASS
+  Q11   PASS
+  Q12   PASS
+  A1a   PASS
+  A2    PASS
+  A3    PASS
+  A4    PASS
+  A5    PASS
+  A6a   PASS
+  A7    PASS
+
+  SUMMARY MAIN: PASS 30, FAIL 0, NOT EVALUATED 0 of 30
+  numerically admissible (all 30 numeric-stage gates PASS): True
+
+  A3 reading used by the gate (templates of the registry, one class per slot): PASS
+  A3 all-classes reading (informative, NOT the gate): PASS (0 failure message(s))
+  readings differ: False
+
+  Screening aids (informational; they never reject):
+   MIL: {'U_M': '20', 'RC-M1': True, 'RC-M2': True, 'RC-M3': True, 'RC-M4': True, 'RC-M5': True, 'RC-M6': True, 'Xprev_max': '505', 'RC-M7': True}
+   PAC: {'RC-P1': True, 'RC-P2': True, 'RC-P3': True, 'RC-P4': True, 'RC-P5': True, 'RC-P6': True, 'RC-P7': True, 'm_star': 10, 'RC-P8': True}
+   tau interval: tau_lo = 50, tau_hi = 599/4 (149.75), integers 50..149, tau_F inside: True
+   G_adm size 40; every G_list element screened-eligible: True
+
+  Reading-invariance check over 104 MIL and 208 PAC templates (informational, not a gate): all readings agree
+
+====================================================================================================
+REGISTER: PILOT (L_pilot = 2, extras = 0; pilot-registry stage per PC-2 is ambiguous)
+  S_list = 455..465 (len 2); G_list = 340..341 (len 2); K = 4
+  built = True; templates: MIL 8, PAC 16
+
+  gate  status         detail
+  M1    PASS
+  M2    PASS
+  M3    PASS
+  M4    PASS
+  M5    PASS
+  M6    PASS
+  M7    PASS
+  M8    PASS
+  M9    PASS
+  M10   PASS
+  M11   PASS
+  Q1    PASS
+  Q2    PASS
+  Q3    PASS
+  Q4    PASS
+  Q5    PASS
+  Q6    PASS
+  Q7    PASS
+  Q8    PASS
+  Q9    PASS
+  Q10   PASS
+  Q11   PASS
+  Q12   PASS
+  A1a   PASS
+  A2    PASS
+  A3    PASS
+  A4    PASS
+  A5    PASS
+  A6a   PASS
+  A7    PASS
+
+  SUMMARY PILOT (L_pilot = 2, extras = 0; pilot-registry stage per PC-2 is ambiguous): PASS 30, FAIL 0, NOT EVALUATED 0 of 30
+  numerically admissible (all 30 numeric-stage gates PASS): True
+
+  A3 reading used by the gate (templates of the registry, one class per slot): PASS
+  A3 all-classes reading (informative, NOT the gate): PASS (0 failure message(s))
+  readings differ: False
+
+  Screening aids (informational; they never reject):
+   MIL: {'U_M': '91/2', 'RC-M1': True, 'RC-M2': True, 'RC-M3': True, 'RC-M4': True, 'RC-M5': True, 'RC-M6': True, 'Xprev_max': '522', 'RC-M7': True}
+   PAC: {'RC-P1': True, 'RC-P2': True, 'RC-P3': True, 'RC-P4': True, 'RC-P5': True, 'RC-P6': True, 'RC-P7': True, 'm_star': 10, 'RC-P8': True}
+   tau interval: tau_lo = 50, tau_hi = 599/4 (149.75), integers 50..149, tau_F inside: True
+   G_adm size 40; every G_list element screened-eligible: True
+
+  Reading-invariance check over 8 MIL and 16 PAC templates (informational, not a gate): all readings agree
+
+VERDICT INPUTS
+  MAIN  numerically admissible: True
+  PILOT numerically admissible: True
+  Numeric admissibility only: rendering-stage gates (PG*, A1b, A6b) were not run (3.7).

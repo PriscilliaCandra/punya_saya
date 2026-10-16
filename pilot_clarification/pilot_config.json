@@ -1,0 +1,19 @@
+{
+  "stage": 1,
+  "scenarios_expected": 10,
+  "repetitions": 3,
+  "hard_cap_calls": 30,
+  "shuffle_seed": 20261007,
+  "max_output_tokens": 8192,
+  "temperature_policy": "provider default (temperature parameter is NOT sent)",
+  "system_prompt": null,
+  "retries": 0,
+  "timeout_seconds": 180,
+  "concurrency": 1,
+  "delay_between_calls_seconds": 1.0,
+  "api_key_env": {
+    "gemini": "GEMINI_API_KEY",
+    "openai": "OPENAI_API_KEY",
+    "anthropic": "ANTHROPIC_API_KEY"
+  }
+}

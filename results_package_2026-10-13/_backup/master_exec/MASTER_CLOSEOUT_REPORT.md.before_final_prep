@@ -1,0 +1,81 @@
+# Master closeout report (local pre-pilot batch, 2026-10-13)
+
+**The research is NOT pilot-ready. The pilot gate is CLOSED, as expected.** This report states what was actually done and verified in the closeout batch; it makes no claim about decisions that have not been made. Status vocabulary: PROPOSED, WORKING DECISION (applied in code on the project owner's direction; not an official entry; not approved by the advisor), PENDING OWNER, APPROVED (real approval only). **Nothing is APPROVED.** The official record (`STEP3_OWNER_DECISIONS_RECORD_DRAFT.md`) was not edited.
+
+## 1. Work completed, with evidence
+| Item | Evidence |
+|---|---|
+| Baseline validated before editing: no unexpected change since the previous batch; relevant suites passed | `test_sf2_variants` OK, `test_sf2_detection` OK (4 expected failures), `test_sf_matrix_literal` OK, `test_ledger_resilience` OK, `test_provider_response` OK, `test_input_limit` OK |
+| Docstrings of `s10_scoring.py` (module) and `s11_pilot.py` (line 5) corrected so that they describe the behaviour in force as a working decision | edit script asserts the code AST (docstring excluded) is identical before and after; backups `_backup/master_exec/s10_scoring.py.before_docstring`, `s11_pilot.py.before_docstring`; `test_sf_matrix_literal`, `test_pilot_flow`, `test_sf2_detection`, `test_sf2_variants` re-run OK; `test_step10` and all others in the regression below |
+| Inactive P1b diff regenerated for the new `s10_scoring.py` base (CRLF-preserving) | applied with `patch -p1 --binary` to a scratch copy: clean, result byte-equal to the intended patched copy; the real file was not touched |
+| Decision status register (MD-01 to MD-10) added to `MASTER_PROPOSED_DECISION_RECORD.md`; per-patch register (P1 to P10) added to `deferred_patches/DEFERRED_PATCHES.md` | both state "no entry is APPROVED"; B for C-31 stays a RECOMMENDATION in the brief and in MD-01 item 2b |
+| Cross-document reconciliation: checklist, `NEXT_ACTIONS.md` (D4 row, label collision between advisor-brief D1-D8 and brief definitions D1-D8), `00_INDEX.md`, conflict index (C-33 wording), execution report (hash correction), `PROPOSED_RECORD_CORRECTION_12_37.md` (factual basis, impact, approvals) | greps: register headings present once; C-31/C-32/C-33 rows present |
+| Reproduction package checked: `run_all_checks.py` registers the SF acceptance, SF2 detection, SF2 variant, ledger, provider-response and input-limit suites | `--quick` run: every check OK, slow Step 8 suite SKIPPED (not affected by this batch), gate check exit 2 = CLOSED (expected) |
+The 384-record grid and the 20-case analysis were not repeated; their results are pinned by `test_sf2_variants.py` (11 tests, OK) and were used as the baseline.
+
+## 2. Files changed in this batch and why
+- `research_design/step10/s10_scoring.py`, `s11_pilot.py` — docstring text only (stale statements 5 and 6 of the correction audit). Hashes now `67b85b183fab...`, `68fc807f85a7...`; `s10_runner.py` `86954f14c790...` and `s10_integrity.py` `17c1ec621b23...` unchanged.
+- `deferred_patches/P1b_sf2_independent_detection.diff.INACTIVE` — regenerated for the new base; still inactive.
+- `deferred_patches/DEFERRED_PATCHES.md` — base hash reference; status register with files, dependencies, acceptance tests, owner and the explicit condition to continue.
+- `MASTER_PROPOSED_DECISION_RECORD.md` — status register at the top.
+- `MASTER_PILOT_READINESS_CHECKLIST.md` — status vocabulary note in section 2.
+- `NEXT_ACTIONS.md` — D4 row reconciled, reconciliation note.
+- `00_INDEX.md` — closeout report row.
+- `MASTER_CONFLICT_INDEX.md` — C-33 wording.
+- `PROPOSED_RECORD_CORRECTION_12_37.md` — rows 5-6 marked corrected; section 5 (evidence, impact if corrected or not, approvals).
+- `MASTER_EXECUTION_REPORT.md` — addendum 2 (hash correction).
+- New: this report. Backups of every edited file: `_backup/master_exec/*.before_closeout`, `*.before_docstring`. Rollback: copy the backup over the file; delete this report.
+
+## 3. Owner / advisor decisions still PENDING
+C-31 (Q1-Q6: SF2 with SF1/SF4; recommendation B written as definitions D1-D8, not adopted; unit of `f_S`; whitespace set; status-less record; candidate indicator); C-32 (Q7-Q9: assumed-token gate, main-run token method, form of a "measured basis"); C-33 (whether and how to append a status entry to the official record; draft text in `PROPOSED_RECORD_CORRECTION_12_37.md`); MD-03 kappa/re-code; MD-04 FZ hash contract and file list; MD-05 PG3, PG11b, SF/UNP policy, eligibility, PRD-5; MD-06 provider safe-stop and block names; MD-07 timeout; MD-08 resume; MD-09 anchor and authorization content; MD-10 confirmations of Step 8 choices. Ratification of the working decisions MD-01 and MD-02 is also PENDING.
+
+## 4. Human tasks not done (no evidence created)
+H1 blind check of 624 files; H2 seven-day delay after the last viewing (clock not running); H3 Step 9 evidence file; H4 codebook rehearsal (40 rows); H5 owner authorization (with `max_input_characters` and `input_tokens_per_call_assumed` >= 1,016 written by the owner); H6 price and model re-read on the day of the paid call; H7 declaration of the write-once store (PRD-6).
+
+## 5. Provider verification not authorized, not done
+L1 request field names, L2 returned model ID form, L3 finish-reason vocabulary and block names, L4 usage fields, L5 timeout behaviour, L6 token count of the 1,344 prompts. Each needs separate written owner authorization (`MASTER_PILOT_READINESS_CHECKLIST.md` section 4). The Gemini adapter and `BLOCK_REASONS` remain UNVERIFIED against the live API; mock tests do not prove compatibility.
+
+## 6. Patches held and their dependencies
+| Patch | Status | Depends on / explicit condition to continue |
+|---|---|---|
+| P1 | DONE as working decision | ratification of MD-01 unit |
+| P1b | READY FOR OWNER APPROVAL | answers Q1-Q6; if B/A2c, no scoring change |
+| P2 | READY FOR OWNER APPROVAL (stop clauses) + BLOCKED BY PROVIDER VERIFICATION (names) | MD-06, L1-L3 |
+| P3 | DONE as working decision | ratification of MD-02 |
+| P3b | READY FOR OWNER APPROVAL; O2 BLOCKED BY PROVIDER VERIFICATION | Q7-Q9 |
+| P4 | DEFERRED | MD-03; Step 7 freeze-set files |
+| P5 | DEFERRED | MD-04 with the file list |
+| P6 | DEFERRED | MD-07, L5 |
+| P7 | BLOCKED BY HUMAN TASK + DEFERRED | H7, MD-09 |
+| P8 | DEFERRED | MD-08, P2, MD-01, MD-06 |
+| P9 | PARTLY DONE | P2, P5, P7, P8 |
+| P10 | DONE for this batch | repeat after any decision |
+Full table with files, acceptance tests and owners: `deferred_patches/DEFERRED_PATCHES.md`, end of file. No held patch was applied to raise a completion figure.
+
+## 7. Integrity check results
+| Check | Result |
+|---|---|
+| Spec v2.7 | sha256 `d5fcffadd104...` as recorded in the checklist |
+| Step 7 freeze manifest | `202979de2a88...` as recorded |
+| Step 8 build manifest | `09eed00eeb79...` as recorded; Step 8 verifier and Implementation B OK |
+| FZ-v1 | `149445715a82...` as recorded |
+| Official decision record | `5a7ff7687850...`, last modified 10:31, before the first batch; unchanged (12.30, 12.37 not edited) |
+| Stage 1/2 | `verify_stage_evidence.py` OK; Stage 2 headline recomputation OK; no file under `pilot_clarification` changed |
+| Registries, Step 7, Step 8 folders | no file changed since 10:00 |
+| `.env` / credentials | no `.env` file exists in the repository root; none read or written |
+| Git | no commit, push, reset, stash or other operation |
+| Human evidence / authorization | none created; no timestamp invented |
+
+## 8. Pilot gate status
+**CLOSED.** Gate check exit 2. Reasons: (1) no Step 9 evidence file (no human blind check); (2) no valid owner authorization (the template is empty and rejected). In addition the readiness checklist lists open decisions that must be recorded before the pilot (M1 to M11) and the open provider verification. Passing tests opened nothing and cannot open it. Main-run gate: CLOSED (needs a PASS pilot record, anchor, final freeze manifest and an authorization for 2,496 calls).
+
+## 9. Next actions in dependency order
+1. **Owner/advisor:** answer Q1-Q9 of `C31_C32_OWNER_DECISION_BRIEF.md`; decide on the correction entry for the record (C-33). Then the assistant rewrites the four marked tests from the ratified rule (no scoring change if B/A2c).
+2. **Owner/advisor, before the FZ hash:** MD-03, MD-04 (file list), MD-05, MD-07, MD-10; then the FZ index (P5) and any Step 7 re-freeze (P4). The FZ hash precedes the first pilot call.
+3. **Owner/advisor, before the pilot:** MD-06 (safe-stop) and, if wanted, a written authorization for a single connection test (L1-L5) once its criteria hold; then P2.
+4. **Researcher (human):** decide the viewing-stop date (B1) -> H1 blind check (after PRD-5 is decided) -> wait at least 7 days -> H3 evidence file; H4 rehearsal; H5 authorization after M2/C-32 is settled; H6 on the day.
+5. **Gate check** without `--live` (must print "gates open" for the right reasons) -> pilot round 1 only on the owner's explicit instruction -> `s10_integrity` -> `s11_pilot report` -> `decide`.
+6. **After the pilot:** H7 and MD-09 (anchor, P7), final freeze manifest, main-run token method (Q8), MD-08/P8 if resume is wanted, coding preparation.
+
+## 10. Confirmation
+No live provider call, pilot, main run, credit use, token count by a provider, `.env` or credential access, human evidence, authorization file, or Git operation was made in this batch. The batch stops here.

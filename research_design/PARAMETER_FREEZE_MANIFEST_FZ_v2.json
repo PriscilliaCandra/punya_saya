@@ -1,0 +1,241 @@
+{
+ "artifact_hashes": {
+  "research_design/PARAMETER_FREEZE_MANIFEST_FZ_v1.json": "149445715a8280f4079bcd34d3594e25fe1b6b30118e382e96e94360c0faf338",
+  "research_design/SCENARIO_CONSTRUCTION_SPECIFICATION_v2_7_DRAFT.md": "d5fcffadd1045fc0c86a7c84eb8d51592d807576b6a51b712cef025164082ca8"
+ },
+ "changes_from_fz_v1": {
+  "changed_rows": [
+   "row17_model_and_settings"
+  ],
+  "pilot_cap": "the pilot of FZ-v2 is round 2 and final (12.64 D1)",
+  "reason": "the Gemini pilot round 1 ended FAIL-S (SF1, HTTP 429) and the main run cannot be served by the available provider quota; the owner decided (12.63, 12.64 D1-D12) on the local model; spec 13.6: a change of the model creates a new FZ version, voids the pilot data and consumes round 2",
+  "unchanged_rows_verified_equal_to_fz_v1": [
+   "fixed_rules",
+   "not_frozen_here",
+   "operational_cost_limit_usd",
+   "row10_plausibility",
+   "row11_L_M",
+   "row11_L_P",
+   "row11_n_M",
+   "row11_n_P",
+   "row12_R",
+   "row13_C_max_planned_main_call_slots",
+   "row13_R_cap",
+   "row13_R_min",
+   "row14_precision",
+   "row15_interval",
+   "row18_pilot",
+   "row19_blind_check",
+   "row1_P_percent",
+   "row2_N",
+   "row3_rho_NT",
+   "row4_windows_shared_OD5",
+   "row5_D_dist_km",
+   "row6_tau_F_s",
+   "row7_S_list",
+   "row8_G_list",
+   "row9_X"
+  ]
+ },
+ "cost_estimate_conditional": {
+  "api_cost_usd": 0,
+  "basis": "local provider; API cost only",
+  "not_counted": "hardware, electricity and time",
+  "note": "the Gemini estimate is kept in FZ-v1 only",
+  "operational_cost_limit_usd": 100
+ },
+ "freeze_date": "2026-10-16 (prepared)",
+ "freeze_step": "Step 6 - Parameter freeze (section 21.1), new FZ version",
+ "fz_version": "FZ-v2 (PREPARED 2026-10-16; NOT FROZEN until the owner's instruction to compute the official FZ hash)",
+ "manifest_purpose": "FZ-v2 parameter-freeze record (section 21.1 step 6 repeated by a new FZ version, specification 13.6 versioning rule). It differs from FZ-v1 ONLY in register item 17 (model, provider and decoding settings: Gemini replaced by the local Ollama model llama3.2:3b), decision record 12.63 and 12.64. FZ-v1 is unchanged and stays as history. This manifest carries no self hash.",
+ "model_verification": {
+  "api_calls_made": 0,
+  "date": "2026-10-16",
+  "details": {
+   "families": [
+    "llama"
+   ],
+   "family": "llama",
+   "format": "gguf",
+   "parameter_size": "3.2B",
+   "parent_model": "",
+   "quantization_level": "Q4_K_M"
+  },
+  "documentation_gaps": "done_reason values and the error body are not defined in the documentation read; 'length' for a truncated answer was observed for this version",
+  "documentation_read": [
+   "docs.ollama.com/modelfile",
+   "docs.ollama.com/faq",
+   "github ollama/ollama docs/api.md"
+  ],
+  "model_digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+  "model_template_sha256": "966de95ca8a62200913e3f8bfbf84c8494536f1b94b49166851e76644e966396",
+  "note": "the FZ-v1 model_verification (Gemini) stays in FZ-v1",
+  "ollama_version": "0.6.7",
+  "parameters": "stop                           \"<|start_header_id|>\"\nstop                           \"<|end_header_id|>\"\nstop                           \"<|eot_id|>\"",
+  "tool": "loopback requests to the installed Ollama server (GET /api/version, GET /api/tags, POST /api/show) and the evaluation 12.62"
+ },
+ "not_authorized_by_this_freeze": [
+  "official FZ hash (needs the owner's instruction)",
+  "pilot",
+  "main run",
+  "any external paid API",
+  "commit or push"
+ ],
+ "open_items_carried": [
+  "PRD-4, PRD-5, PRD-6, PRD-8, PRD-10, PC-1, PC-2 (specification 19.3)",
+  "open audit findings F-3, F-4, T-1, I-6 and limited independence of checks",
+  "OD-6 before Step 7",
+  "OD-7 any time",
+  "MD-09 (anchoring of the pilot decision record)",
+  "floor-effect risk TH10 accepted as a disclosed limitation (12.64 D12)"
+ ],
+ "owner_decisions": {
+  "J-1..J-11": "kept with qualifications (2026-10-12, PJR 10.2)",
+  "OD-10": "US$100 operational cost limit; estimates conditional; recompute with measured I_max at Step 7; if >100 or not assured, stop before paid API call and ask owner",
+  "OD-5": "shared windows (2026-10-12)",
+  "OD-8": "gemini-3.5-flash-lite, thinking_level=minimal, only frozen model; gemini-3.8-flash unfrozen, not usable in this FZ; replacement = new FZ version + repeated required validation",
+  "OD-9": "max_output_tokens=8192 initial operational limit; not evidence of complete responses; check at Step 7; change = new FZ version, never silent"
+ },
+ "preconditions_verified": {
+  "d3_verification_2026-10-16": "installed Ollama version, model digest, template hash, parameters and details equal the evaluation 12.62; runtime options equal the evaluation (num_ctx 16384, num_predict 8192, keep_alive 30m, stream false)",
+  "decision_records": [
+   "12.63",
+   "12.64"
+  ],
+  "evaluation_summary_sha256": "d63ec45ae111cdc9e40b18257f1211fcb440b7cbb9ea9f7453679823a8f6a568"
+ },
+ "register": {
+  "fixed_rules": {
+   "K": 4,
+   "N": 5,
+   "pilot_cap_rounds": 2
+  },
+  "not_frozen_here": [
+   "row 16 seeds (step 11)",
+   "row 20 wording (step 7)",
+   "prompt specification",
+   "registry",
+   "generator code"
+  ],
+  "operational_cost_limit_usd": 100,
+  "row10_plausibility": {
+   "G_max": 349,
+   "G_min": 300,
+   "Tm_max": 4200,
+   "Tm_min": 2700,
+   "p_max": 420,
+   "p_min": 270
+  },
+  "row11_L_M": 26,
+  "row11_L_P": 26,
+  "row11_n_M": 13,
+  "row11_n_P": 13,
+  "row12_R": 2,
+  "row13_C_max_planned_main_call_slots": 2496,
+  "row13_R_cap": 2,
+  "row13_R_min": 2,
+  "row14_precision": {
+   "hw_star": "0.20",
+   "level": "0.95",
+   "multiplicity": "per-cell unadjusted, not simultaneous (DP2(i), OD-4)",
+   "n_cells": 12,
+   "precision_targeted_contrasts": "none",
+   "z": "1.96"
+  },
+  "row15_interval": {
+   "L_small": 10,
+   "n_boot": 10000
+  },
+  "row17_model_and_settings": {
+   "base_url": "http://127.0.0.1:11434",
+   "concurrency": 1,
+   "delay_between_calls_s": 1,
+   "keep_alive": "30m",
+   "max_output_tokens": 8192,
+   "model_digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+   "model_id": "llama3.2:3b",
+   "model_template_sha256": "966de95ca8a62200913e3f8bfbf84c8494536f1b94b49166851e76644e966396",
+   "num_ctx": 16384,
+   "ollama_version": "0.6.7",
+   "provider": "Ollama",
+   "retries": 0,
+   "returned_model_id": "recorded for every call",
+   "sampling_options": "top_k, top_p and seed are not sent (Ollama defaults apply); decoding is non-deterministic by default (evaluation 12.62: 0 of 16 repeat pairs identical)",
+   "stream": false,
+   "system_prompt": "none",
+   "temperature": "not sent (Ollama default applies)",
+   "thinking_level": "not applicable",
+   "timeout_s": 180
+  },
+  "row18_pilot": {
+   "G_pilot": [
+    340,
+    341
+   ],
+   "L_pilot": 2,
+   "S_pilot": [
+    455,
+    465
+   ],
+   "c_stop": 5,
+   "calls_min_main": 100,
+   "f_S": 1,
+   "pilot_extras": 0,
+   "theta_main": "0.10",
+   "theta_unp": "0.50"
+  },
+  "row19_blind_check": {
+   "coverage": "100%",
+   "minimum_delay_days": 7
+  },
+  "row1_P_percent": 10,
+  "row2_N": 5,
+  "row3_rho_NT": "0.40",
+  "row4_windows_shared_OD5": {
+   "W_CLEAR": [
+    "1.50",
+    "2.00"
+   ],
+   "W_MILD": [
+    "1.10",
+    "1.30"
+   ],
+   "W_V": [
+    "0.60",
+    "0.90"
+   ]
+  },
+  "row5_D_dist_km": 10,
+  "row6_tau_F_s": 50,
+  "row7_S_list": {
+   "S_0": 200,
+   "last": 450,
+   "length": 26,
+   "step": 10,
+   "unit": "tenths of km"
+  },
+  "row8_G_list": {
+   "G_0": 310,
+   "last": 335,
+   "length": 26,
+   "step": 1,
+   "unit": "s/km"
+  },
+  "row9_X": {
+   "X_max": 999,
+   "X_min": 100
+  }
+ },
+ "register_canonical_sha256": "72972e446c23f63c8e4dd3b20e5b7c12ef25c44d88c33a114b5c3f92d1eeaf30",
+ "register_hash_method": "SHA-256 of the UTF-8 JSON of the 'register' object with sorted keys and separators (',', ':'), ensure_ascii=False",
+ "specification": {
+  "path": "research_design/SCENARIO_CONSTRUCTION_SPECIFICATION_v2_7_DRAFT.md",
+  "sha256": "d5fcffadd1045fc0c86a7c84eb8d51592d807576b6a51b712cef025164082ca8",
+  "unchanged": true
+ },
+ "supersedes": {
+  "file_sha256": "149445715a8280f4079bcd34d3594e25fe1b6b30118e382e96e94360c0faf338",
+  "path": "research_design/PARAMETER_FREEZE_MANIFEST_FZ_v1.json",
+  "register_canonical_sha256": "c7d50e115b08b6d70b9c35f1d09183118c3d2aaffa89b1c838987f7ab73987a2"
+ }
+}

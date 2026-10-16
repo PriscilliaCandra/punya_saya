@@ -1,0 +1,68 @@
+{
+  "call_index": 27,
+  "scenario_id": "C-L4",
+  "scenario_number": 4,
+  "repetition": 3,
+  "provider": "gemini",
+  "model_requested": "gemini-3.1-flash-lite",
+  "timestamp_utc": "2026-10-07T08:12:27+00:00",
+  "prompt_sha256": "c42adcd05d26b22faea395fdaf9630f8ffa0ae2258875660dc77a9ffd1f1f30c",
+  "prompt": "I'm a recreational runner and I'd like a 6-week training plan. Here is my information:\n\n- Age / gender: 29, male\n- Experience: advanced\n- Recent 5K time: 19:45\n- Goal: half marathon in 1:30:00, which I plan to run at an even 5:00 per km\n- Current weekly mileage: 55 km\n- Days available per week: 5 (Monday, Tuesday, Thursday, Saturday, Sunday)\n\nPlease give me the plan as a week-by-week table with columns: week, running days, total km.",
+  "settings": {
+    "max_output_tokens": 8192,
+    "temperature": "provider default (temperature parameter is NOT sent)",
+    "system_prompt": null,
+    "retries": 0,
+    "timeout_seconds": 180,
+    "shuffle_seed": 20261007
+  },
+  "http_status": 200,
+  "response_text": "To break 1:30:00 in the half marathon (a pace of ~4:16/km), your current 5K time of 19:45 suggests you have the raw speed, but need to build the \"aerobic engine\" and lactate threshold endurance to hold that pace for 21.1 km.\n\nSince you are an \"advanced\" recreational runner, this plan utilizes **polarized training**: hard days are quite hard, and easy days are strictly for recovery.\n\n### The Training Strategy:\n*   **Tuesday (Intervals):** VO2 Max work to improve your economy at race pace.\n*   **Thursday (Threshold):** Tempo runs to push your lactate threshold closer to your goal pace.\n*   **Saturday (Easy/Recovery):** Keeping the legs moving without fatigue accumulation.\n*   **Sunday (Long Run):** Building aerobic capacity. \n*   **Monday:** Optional light recovery run or full rest (included as a short run here to meet your 5-day preference).\n\n| Week | Running Days | Total Km | Focus |\n| :--- | :--- | :--- | :--- |\n| 1 | Mon, Tue, Thu, Sat, Sun | 58 km | Base maintenance + 6km Tempo |\n| 2 | Mon, Tue, Thu, Sat, Sun | 62 km | 8x800m intervals @ 3:45/km |\n| 3 | Mon, Tue, Thu, Sat, Sun | 65 km | 10km Tempo @ 4:25/km |\n| 4 | Mon, Tue, Thu, Sat, Sun | 70 km | Peak volume; 18km Long Run |\n| 5 | Mon, Tue, Thu, Sat, Sun | 60 km | Sharpening; 5x1km @ 4:00/km |\n| 6 | Mon, Tue, Thu, Sat, Sun | 45 km | Taper; Race Day on Sunday |\n\n---\n\n### Detailed Weekly Structure\n\n*   **Tuesdays (Quality):**\n    *   Wk 1: 6km Tempo run @ 4:20/km.\n    *   Wk 2: 8 x 800m @ 3:45/km (90 sec rest).\n    *   Wk 3: 5 x 1200m @ 4:05/km (2 min rest).\n    *   Wk 4: 10 x 400m @ 1:25 (60 sec rest).\n    *   Wk 5: 5 x 1km @ 4:00/km (2 min rest).\n    *   Wk 6: 3km easy + 4 x 200m strides.\n\n*   **Thursdays (Threshold/Race Pace):**\n    *   Focus on holding your goal pace (4:16/km) for increasing durations. Build from 20 minutes up to 45 minutes of sustained \"Tempo\" effort throughout the 6 weeks.\n\n*   **Sundays (Long Run):**\n    *   Progress your Sunday long run: 14km -> 15km -> 16km -> 18km -> 12km (Wk 5) -> Race Day.\n\n### Notes for Success:\n1.  **Easy Runs:** Your easy/recovery runs (Monday/Saturday) should be at a conversational pace (approx. 4:50–5:15/km). Do not run these too fast; they are intended to build capillary density without taxing your nervous system.\n2.  **Pacing:** 1:30:00 is a \"flat\" sub-90. Ensure you practice your race-day fueling during your Thursday and Sunday runs.\n3.  **Taper:** Week 6 is about freshness. Keep the intensity in the early part of the week, but significantly reduce the volume to ensure your glycogen stores are topped off for race day.\n4.  **Listen to your body:** Given the jump in volume and intensity, if you feel a sharp pain (not just soreness), take a rest day. An extra rest day is better than an injury. \n\n*Disclaimer: Consult with a medical professional before starting a high-intensity training program.*",
+  "finish_reason": "STOP",
+  "usage": {
+    "promptTokenCount": 141,
+    "candidatesTokenCount": 951,
+    "totalTokenCount": 1092,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 141
+      }
+    ],
+    "serviceTier": "standard"
+  },
+  "model_returned": "gemini-3.1-flash-lite",
+  "response_json": {
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "To break 1:30:00 in the half marathon (a pace of ~4:16/km), your current 5K time of 19:45 suggests you have the raw speed, but need to build the \"aerobic engine\" and lactate threshold endurance to hold that pace for 21.1 km.\n\nSince you are an \"advanced\" recreational runner, this plan utilizes **polarized training**: hard days are quite hard, and easy days are strictly for recovery.\n\n### The Training Strategy:\n*   **Tuesday (Intervals):** VO2 Max work to improve your economy at race pace.\n*   **Thursday (Threshold):** Tempo runs to push your lactate threshold closer to your goal pace.\n*   **Saturday (Easy/Recovery):** Keeping the legs moving without fatigue accumulation.\n*   **Sunday (Long Run):** Building aerobic capacity. \n*   **Monday:** Optional light recovery run or full rest (included as a short run here to meet your 5-day preference).\n\n| Week | Running Days | Total Km | Focus |\n| :--- | :--- | :--- | :--- |\n| 1 | Mon, Tue, Thu, Sat, Sun | 58 km | Base maintenance + 6km Tempo |\n| 2 | Mon, Tue, Thu, Sat, Sun | 62 km | 8x800m intervals @ 3:45/km |\n| 3 | Mon, Tue, Thu, Sat, Sun | 65 km | 10km Tempo @ 4:25/km |\n| 4 | Mon, Tue, Thu, Sat, Sun | 70 km | Peak volume; 18km Long Run |\n| 5 | Mon, Tue, Thu, Sat, Sun | 60 km | Sharpening; 5x1km @ 4:00/km |\n| 6 | Mon, Tue, Thu, Sat, Sun | 45 km | Taper; Race Day on Sunday |\n\n---\n\n### Detailed Weekly Structure\n\n*   **Tuesdays (Quality):**\n    *   Wk 1: 6km Tempo run @ 4:20/km.\n    *   Wk 2: 8 x 800m @ 3:45/km (90 sec rest).\n    *   Wk 3: 5 x 1200m @ 4:05/km (2 min rest).\n    *   Wk 4: 10 x 400m @ 1:25 (60 sec rest).\n    *   Wk 5: 5 x 1km @ 4:00/km (2 min rest).\n    *   Wk 6: 3km easy + 4 x 200m strides.\n\n*   **Thursdays (Threshold/Race Pace):**\n    *   Focus on holding your goal pace (4:16/km) for increasing durations. Build from 20 minutes up to 45 minutes of sustained \"Tempo\" effort throughout the 6 weeks.\n\n*   **Sundays (Long Run):**\n    *   Progress your Sunday long run: 14km -> 15km -> 16km -> 18km -> 12km (Wk 5) -> Race Day.\n\n### Notes for Success:\n1.  **Easy Runs:** Your easy/recovery runs (Monday/Saturday) should be at a conversational pace (approx. 4:50–5:15/km). Do not run these too fast; they are intended to build capillary density without taxing your nervous system.\n2.  **Pacing:** 1:30:00 is a \"flat\" sub-90. Ensure you practice your race-day fueling during your Thursday and Sunday runs.\n3.  **Taper:** Week 6 is about freshness. Keep the intensity in the early part of the week, but significantly reduce the volume to ensure your glycogen stores are topped off for race day.\n4.  **Listen to your body:** Given the jump in volume and intensity, if you feel a sharp pain (not just soreness), take a rest day. An extra rest day is better than an injury. \n\n*Disclaimer: Consult with a medical professional before starting a high-intensity training program.*",
+              "thoughtSignature": "EnMKcQFpFH0TpbHjVg7BqU/JY9r5r4YNat1zoDNRiW3Oa0l2wgD5g9FJjdsJWKMkcGMYhLF6EoTnh8StryAsIlRknO0uwQl7UOc2TH9oVmkH9TPPD5dS6mPbepmhXlSiKGPA7NC3NzGZgcKBkBdh503UcFGc"
+            }
+          ],
+          "role": "model"
+        },
+        "finishReason": "STOP",
+        "index": 0
+      }
+    ],
+    "usageMetadata": {
+      "promptTokenCount": 141,
+      "candidatesTokenCount": 951,
+      "totalTokenCount": 1092,
+      "promptTokensDetails": [
+        {
+          "modality": "TEXT",
+          "tokenCount": 141
+        }
+      ],
+      "serviceTier": "standard"
+    },
+    "modelVersion": "gemini-3.1-flash-lite",
+    "responseId": "8P7Fao-JHN7UjuMPsaztKA"
+  },
+  "error": null,
+  "latency_ms": 4241
+}

@@ -3,42 +3,20 @@ import { Star, ArrowLeft, CheckCircle2, AlertCircle, Loader2, Sparkles, Award, S
 import DisclaimerBanner from '../components/DisclaimerBanner';
 import Button from '../components/ui/Button';
 import { submitPlanEvaluation } from '../api';
+import { LIKERT_CRITERIA } from '../constants/likertCriteria';
 
-const LIKERT_CRITERIA = [
-  {
-    key: 'personalization_score',
-    title: '1. Personalization',
-    description: 'How well does this plan adapt to your specific age, 5K personal best, target race goal, and reported injury limitations?',
-    labels: ['1 - Very Generic', '2 - Somewhat Generic', '3 - Moderate', '4 - Well Personalized', '5 - Highly Personalized']
-  },
-  {
-    key: 'usefulness_score',
-    title: '2. Perceived Usefulness',
-    description: 'How practical and helpful is this weekly schedule for guiding your real-world running routine?',
-    labels: ['1 - Not Useful', '2 - Slightly Useful', '3 - Moderately Useful', '4 - Very Useful', '5 - Extremely Useful']
-  },
-  {
-    key: 'clarity_score',
-    title: '3. Clarity of Workouts & Paces',
-    description: 'Are the pace targets, warm-up protocols, execution details, and recovery advice easy to comprehend?',
-    labels: ['1 - Very Confusing', '2 - Somewhat Unclear', '3 - Acceptable', '4 - Clear & Direct', '5 - Crystal Clear']
-  },
-  {
-    key: 'confidence_score',
-    title: '4. Confidence in Following the Plan',
-    description: 'How confident do you feel that you could safely adhere to this plan without suffering overtraining or burnout?',
-    labels: ['1 - No Confidence', '2 - Low Confidence', '3 - Neutral', '4 - Confident', '5 - Highly Confident']
-  }
-];
+const EMPTY_SCORES = {
+  personalization_score: null,
+  usefulness_score: null,
+  clarity_score: null,
+  confidence_score: null,
+};
 
 export default function EvaluationPage({ planId, planType = 'ai_personalized', onNavigate, onSelectPlanType }) {
   const [selectedPlanType, setSelectedPlanType] = useState(planType);
-  const [scores, setScores] = useState({
-    personalization_score: 5,
-    usefulness_score: 5,
-    clarity_score: 5,
-    confidence_score: 4,
-  });
+  // Neutral start: null means "not answered yet" and is never sent. No answer is pre-selected, so a
+  // default cannot be mistaken for, or anchor, a deliberate rating.
+  const [scores, setScores] = useState(EMPTY_SCORES);
   const [comments, setComments] = useState('');
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -56,6 +34,10 @@ export default function EvaluationPage({ planId, planType = 'ai_personalized', o
     e.preventDefault();
     if (!planId) {
       setError('No active training plan selected to evaluate. Please generate or select a plan first.');
+      return;
+    }
+    if (LIKERT_CRITERIA.some((c) => scores[c.key] === null)) {
+      setError('Please answer all four questions before submitting. No answer is pre-selected.');
       return;
     }
 
@@ -167,12 +149,7 @@ export default function EvaluationPage({ planId, planType = 'ai_personalized', o
                   setSelectedPlanType(otherPlanType);
                   if (onSelectPlanType) onSelectPlanType(otherPlanType);
                   setSuccess(false);
-                  setScores({
-                    personalization_score: otherPlanType === 'rule_based' ? 3 : 5,
-                    usefulness_score: 4,
-                    clarity_score: 5,
-                    confidence_score: 4,
-                  });
+                  setScores(EMPTY_SCORES);
                   setComments('');
                 }}
               >
@@ -204,7 +181,7 @@ export default function EvaluationPage({ planId, planType = 'ai_personalized', o
                       {criterion.title}
                     </h3>
                     <span className="text-xs font-semibold text-indigo-700">
-                      Score: {currentScore} / 5 ({criterion.labels[currentScore - 1]})
+                      {currentScore === null ? 'Not rated yet' : `Score: ${currentScore} / 5 (${criterion.labels[currentScore - 1]})`}
                     </span>
                   </div>
                   <p className="text-xs text-slate-600 mb-3">{criterion.description}</p>
@@ -224,7 +201,7 @@ export default function EvaluationPage({ planId, planType = 'ai_personalized', o
                             : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-100'
                         }`}
                       >
-                        <Star className={`w-3.5 h-3.5 ${currentScore >= val ? 'fill-current' : 'text-slate-300'}`} />
+                        <Star className={`w-3.5 h-3.5 ${currentScore !== null && currentScore >= val ? 'fill-current' : 'text-slate-300'}`} />
                         <span>{val}</span>
                       </button>
                     ))}
@@ -249,7 +226,7 @@ export default function EvaluationPage({ planId, planType = 'ai_personalized', o
 
             {/* Submit Action */}
             <div className="pt-4 border-t border-slate-100 flex justify-end">
-              <Button type="submit" disabled={loading} variant="success" className="w-full sm:w-auto">
+              <Button type="submit" disabled={loading || LIKERT_CRITERIA.some((c) => scores[c.key] === null)} variant="success" className="w-full sm:w-auto">
                 {loading ? (
                   <>
                     <Loader2 className="w-4 h-4 animate-spin" />

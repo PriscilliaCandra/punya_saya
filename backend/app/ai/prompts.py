@@ -37,15 +37,17 @@ def build_user_prompt(profile: RunnerProfileCreate, rule_plan: Dict[str, Any]) -
             "target_race_pace_per_km": rule_plan["target_pace_per_km"],
             "training_pace_zones": rule_plan["paces"]
         },
-        "rule_based_baseline_week": rule_plan["week_1_plan"]
+        "rule_based_baseline_plan": rule_plan["weeks"]
     }
 
     instructions = """
 Please generate the personalized AI training plan based on the structured input above.
+rule_based_baseline_plan is the complete deterministic multi-week schedule (every week, in order).
+Produce one entry in "weeks" for EVERY week of that schedule, in the same order.
 
 CRITICAL NUMERICAL PRESERVATION RULE:
-You MUST keep the exact distance_km, weekly_mileage_km, workout_type, and pace_target provided in the rule_based_baseline_week.
-Do NOT modify the workout distances or pace numbers.
+For each week you MUST keep the exact week_number, phase, weekly_mileage_km, and for each workout the exact day, workout_type, distance_km, pace_target, and intensity_zone from rule_based_baseline_plan.
+Do NOT add, remove, or reorder weeks or workouts. Do NOT invent paces, zones, volumes, or progression.
 Your role is to personalize:
 1. Warm-up and cool-down protocols tailored to the runner's experience level.
 2. Step-by-step workout executions with sensory and mental pacing cues.
@@ -55,18 +57,24 @@ Your role is to personalize:
 Format your output as a valid JSON object with the following structure:
 {
   "coach_overview": "A warm, motivating 2-3 paragraph personalized introduction addressing the runner's specific profile and goal.",
-  "weekly_mileage_km": <exact float from baseline week>,
-  "workouts": [
+  "weeks": [
     {
-      "day": "Monday",
-      "workout_type": "<exact workout_type from baseline>",
-      "distance_km": <exact distance_km from baseline>,
-      "pace_target": "<exact pace_target from baseline>",
-      "intensity_zone": "<exact intensity_zone from baseline>",
-      "warmup_cooldown": "<Explicit warm-up and cool-down protocol personalized for runner's experience>",
-      "workout_execution": "<Detailed step-by-step description with mental pacing cues and cadence focus>",
-      "recovery_instruction": "<Hydration, nutrition, and post-run recovery guidance>",
-      "purpose": "<Why this workout is critical for their specific race target>"
+      "week_number": 1,
+      "phase": "<exact phase from baseline week>",
+      "weekly_mileage_km": <exact float from baseline week>,
+      "workouts": [
+        {
+          "day": "Monday",
+          "workout_type": "<exact workout_type from baseline>",
+          "distance_km": <exact distance_km from baseline>,
+          "pace_target": "<exact pace_target from baseline>",
+          "intensity_zone": "<exact intensity_zone from baseline>",
+          "warmup_cooldown": "<Explicit warm-up and cool-down protocol personalized for runner's experience>",
+          "workout_execution": "<Detailed step-by-step description with mental pacing cues and cadence focus>",
+          "recovery_instruction": "<Hydration, nutrition, and post-run recovery guidance>",
+          "purpose": "<Why this workout is critical for their specific race target>"
+        }
+      ]
     }
   ],
   "personalized_insights": {

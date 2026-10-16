@@ -1,0 +1,34 @@
+{
+  "artifact": "CODEBOOK_v2.md",
+  "version": "v2",
+  "status": "FROZEN",
+  "frozen_at_utc": "2026-10-08T01:58:16Z",
+  "codebook_path": "pilot_clarification/CODEBOOK_v2.md",
+  "codebook_sha256": "177a1c5d9b7dbf1ab9e53d0684365dcf67b21f1b1f3154f3f8b1ecc5aa6eb4fc",
+  "codebook_bytes": 19694,
+  "codebook_format": {
+    "encoding": "UTF-8",
+    "line_endings": "LF",
+    "bom": false,
+    "trailing_newlines": 1
+  },
+  "decision_record": {
+    "path": "pilot_clarification/runs/stage1_gemini_20261007T080948Z/analysis/codebook_v2_revision_2.md",
+    "sha256": "1a9ebb3eb0b16de7c90291bad2b69e36ea18e2572ccfda1782aca1119ff80a41",
+    "extracted_lines": "422-539",
+    "excluded_fence_lines": [
+      421,
+      540
+    ]
+  },
+  "previous_codebook": {
+    "path": "pilot_clarification/CODEBOOK.md",
+    "sha256": "263bec0b589be0c5e65e9ba27c16036bed03f76ab54f1edbf373445a9173cc82"
+  },
+  "stage1_reference": {
+    "run_id": "stage1_gemini_20261007T080948Z",
+    "registry_sha256": "d5213f039073acc72140956b46c792c4f76d980e2c800982cbca247bafb86e81",
+    "registry_sha256_method": "SHA-256 of json.dumps(registry, sort_keys=True) encoded as UTF-8 (scenarios.registry_sha256); equals registry_sha256 in the run manifest.json"
+  },
+  "scope": "Freezes the measurement codebook only. Stage 2 scenario design, registry, prompts, analyzer specification, configuration, runner and experiment execution are not frozen by this artifact."
+}

@@ -1,0 +1,68 @@
+{
+  "call_index": 19,
+  "scenario_id": "C-L2",
+  "scenario_number": 2,
+  "repetition": 2,
+  "provider": "gemini",
+  "model_requested": "gemini-3.1-flash-lite",
+  "timestamp_utc": "2026-10-07T08:11:49+00:00",
+  "prompt_sha256": "9479e2e9ba1d0540bddec16b29ba9be044e76004a87402eb9ed44d22b61c0a04",
+  "prompt": "I'm a recreational runner and I'd like a 6-week training plan. Here is my information:\n\n- Age / gender: 34, female\n- Experience: beginner\n- Recent 5K time: 29:30\n- Goal: 5K in 28:00 at the end of week 6\n- Current weekly mileage: 20 km\n- Days available per week: 3 (Tuesday, Thursday, Sunday)\n- Notes: lately I've been running about 35 km a week.\n\nPlease give me the plan as a week-by-week table with columns: week, running days, total km.",
+  "settings": {
+    "max_output_tokens": 8192,
+    "temperature": "provider default (temperature parameter is NOT sent)",
+    "system_prompt": null,
+    "retries": 0,
+    "timeout_seconds": 180,
+    "shuffle_seed": 20261007
+  },
+  "http_status": 200,
+  "response_text": "To reach your goal of a 28:00 5K (a pace of 5:36 min/km), this plan focuses on **interval training** to build your top-end speed and **sustained effort runs** to build your aerobic engine.\n\n### Strategy for your 3 days:\n*   **Tuesday (Intervals):** These are designed to push you slightly faster than your goal pace to make 5:36 feel comfortable.\n*   **Thursday (Recovery/Steady):** Keep this at a conversational pace (easy running).\n*   **Sunday (Long Run):** Gradually increase the distance to improve your endurance.\n\n| Week | Tuesday (Intervals) | Thursday (Easy) | Sunday (Long Run) | Total km |\n| :--- | :--- | :--- | :--- | :--- |\n| **1** | 6 x 400m @ 5:25 pace (90s rest) | 6 km easy | 8 km steady | **18.4 km** |\n| **2** | 4 x 800m @ 5:30 pace (2m rest) | 6 km easy | 9 km steady | **21.2 km** |\n| **3** | 8 x 400m @ 5:20 pace (90s rest) | 7 km easy | 10 km steady | **22.2 km** |\n| **4** | 5 x 800m @ 5:25 pace (2m rest) | 7 km easy | 11 km steady | **24.0 km** |\n| **5** | 3 x 1km @ 5:30 pace (3m rest) | 6 km easy | 7 km easy | **16.0 km** |\n| **6** | 4 x 400m @ 5:20 pace (2m rest) | 4 km easy | **5K RACE (28:00)** | **10.6 km** |\n\n---\n\n### Key Notes for Success:\n\n1.  **The \"Lately\" Note:** You mentioned you are currently running 35 km/week. This plan intentionally pulls your volume back slightly (averaging 18-24 km). This is a **taper and quality-focused approach**. By dropping the volume, you allow your legs to recover fully so you can run the Tuesday intervals at the high intensity required to hit your 28:00 goal.\n2.  **Warm-ups/Cool-downs:** For the Tuesday interval sessions, please ensure you do a 1.5 km easy jog to warm up before starting the intervals, and a 1 km jog to cool down after. (These are included in the total km count).\n3.  **Pacing:**\n    *   **Easy runs:** Should be done at a pace where you can hold a full conversation (likely 6:30–7:00 min/km). Do not run these too fast; their only purpose is recovery and time on feet.\n    *   **Steady runs:** These should be slightly faster than easy pace, but still controlled.\n4.  **Race Week (Week 6):** You will notice the mileage drops significantly. This is to ensure your glycogen stores are full and your muscles are fresh for the attempt on Sunday.\n5.  **Listen to your body:** If you feel any sharp pain (not just muscle soreness), take an extra rest day. 34 is a great age for running, but recovery is more important than it was in your 20s!\n\n**Good luck—you are only 90 seconds away from your goal, which is very achievable with these targeted sessions!**",
+  "finish_reason": "STOP",
+  "usage": {
+    "promptTokenCount": 145,
+    "candidatesTokenCount": 821,
+    "totalTokenCount": 966,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 145
+      }
+    ],
+    "serviceTier": "standard"
+  },
+  "model_returned": "gemini-3.1-flash-lite",
+  "response_json": {
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "To reach your goal of a 28:00 5K (a pace of 5:36 min/km), this plan focuses on **interval training** to build your top-end speed and **sustained effort runs** to build your aerobic engine.\n\n### Strategy for your 3 days:\n*   **Tuesday (Intervals):** These are designed to push you slightly faster than your goal pace to make 5:36 feel comfortable.\n*   **Thursday (Recovery/Steady):** Keep this at a conversational pace (easy running).\n*   **Sunday (Long Run):** Gradually increase the distance to improve your endurance.\n\n| Week | Tuesday (Intervals) | Thursday (Easy) | Sunday (Long Run) | Total km |\n| :--- | :--- | :--- | :--- | :--- |\n| **1** | 6 x 400m @ 5:25 pace (90s rest) | 6 km easy | 8 km steady | **18.4 km** |\n| **2** | 4 x 800m @ 5:30 pace (2m rest) | 6 km easy | 9 km steady | **21.2 km** |\n| **3** | 8 x 400m @ 5:20 pace (90s rest) | 7 km easy | 10 km steady | **22.2 km** |\n| **4** | 5 x 800m @ 5:25 pace (2m rest) | 7 km easy | 11 km steady | **24.0 km** |\n| **5** | 3 x 1km @ 5:30 pace (3m rest) | 6 km easy | 7 km easy | **16.0 km** |\n| **6** | 4 x 400m @ 5:20 pace (2m rest) | 4 km easy | **5K RACE (28:00)** | **10.6 km** |\n\n---\n\n### Key Notes for Success:\n\n1.  **The \"Lately\" Note:** You mentioned you are currently running 35 km/week. This plan intentionally pulls your volume back slightly (averaging 18-24 km). This is a **taper and quality-focused approach**. By dropping the volume, you allow your legs to recover fully so you can run the Tuesday intervals at the high intensity required to hit your 28:00 goal.\n2.  **Warm-ups/Cool-downs:** For the Tuesday interval sessions, please ensure you do a 1.5 km easy jog to warm up before starting the intervals, and a 1 km jog to cool down after. (These are included in the total km count).\n3.  **Pacing:**\n    *   **Easy runs:** Should be done at a pace where you can hold a full conversation (likely 6:30–7:00 min/km). Do not run these too fast; their only purpose is recovery and time on feet.\n    *   **Steady runs:** These should be slightly faster than easy pace, but still controlled.\n4.  **Race Week (Week 6):** You will notice the mileage drops significantly. This is to ensure your glycogen stores are full and your muscles are fresh for the attempt on Sunday.\n5.  **Listen to your body:** If you feel any sharp pain (not just muscle soreness), take an extra rest day. 34 is a great age for running, but recovery is more important than it was in your 20s!\n\n**Good luck—you are only 90 seconds away from your goal, which is very achievable with these targeted sessions!**",
+              "thoughtSignature": "EnMKcQFpFH0TkbZRG9Lc67twu1R1QrIONqB95HqLQcys5i6mc6PuKDwIqDsx2huSOGnHQkBky31jgN1DeWQTjzXwKHzxPm9y5ZtuPgdlB+UPw5Zf0FWeABvV7NGZrLCFUi6fvIghNw5sGzAgl/5T4Q7fEn8n"
+            }
+          ],
+          "role": "model"
+        },
+        "finishReason": "STOP",
+        "index": 0
+      }
+    ],
+    "usageMetadata": {
+      "promptTokenCount": 145,
+      "candidatesTokenCount": 821,
+      "totalTokenCount": 966,
+      "promptTokensDetails": [
+        {
+          "modality": "TEXT",
+          "tokenCount": 145
+        }
+      ],
+      "serviceTier": "standard"
+    },
+    "modelVersion": "gemini-3.1-flash-lite",
+    "responseId": "yf7Fap68POXEg8UP0fX6kAU"
+  },
+  "error": null,
+  "latency_ms": 5395
+}

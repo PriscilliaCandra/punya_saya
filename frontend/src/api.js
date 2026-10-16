@@ -61,6 +61,15 @@ export async function fetchEvaluationStats() {
   return apiFetch('/evaluations/stats');
 }
 
+// Blinded RQ3 instrument: plans are returned as "A" and "B" and the server maps the label to the condition.
+export async function fetchBlindPlans(planId) {
+  return apiFetch(`/evaluations/blind/${encodeURIComponent(planId)}`);
+}
+
+export async function submitBlindEvaluation(evalData) {
+  return apiFetch('/evaluations/blind', { method: 'POST', body: JSON.stringify(evalData) });
+}
+
 // --- Authentication ---
 
 export async function registerAccount({ email, password, displayName }) {

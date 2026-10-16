@@ -1,0 +1,27 @@
+{
+  "call_index": 10,
+  "scenario_id": "K-U",
+  "scenario_number": 8,
+  "repetition": 2,
+  "provider": "gemini",
+  "model_requested": "gemini-3.8-flash",
+  "timestamp_utc": "2026-10-07T07:23:53+00:00",
+  "prompt_sha256": "1c1eecf7f67a313428f0189245cd803c9877d28748cd899307a481aecd0f0ebf",
+  "prompt": "I'm a recreational runner and I'd like a 6-week training plan. Here is my information:\n\n- Age / gender: 26, male\n- Experience: beginner (started running 4 months ago)\n- Recent 5K time: 24:40\n- Goal: 10K in 52:00 at the end of week 6\n- Current weekly mileage: 45 km\n- Days available per week: 5 (Monday, Tuesday, Thursday, Saturday, Sunday)\n\nPlease give me the plan as a week-by-week table with columns: week, running days, total km.",
+  "settings": {
+    "max_output_tokens": 8192,
+    "temperature": "provider default (temperature parameter is NOT sent)",
+    "system_prompt": null,
+    "retries": 0,
+    "timeout_seconds": 180,
+    "shuffle_seed": 20261007
+  },
+  "http_status": null,
+  "response_text": "",
+  "finish_reason": null,
+  "usage": null,
+  "model_returned": null,
+  "response_json": null,
+  "error": "ReadTimeout: The read operation timed out",
+  "latency_ms": 180035
+}

@@ -1,0 +1,52 @@
+# Next actions (2026-10-13)
+
+Status words: DONE (evidence exists), READY_FOR_HUMAN (everything prepared, only a person can act), WAITING_FOR_ADVISOR (decision record entry needed), BLOCKED (cannot start until a named dependency is met), NOT_STARTED (technical work Claude Code can still do). A human task is never shown as DONE without a file that proves it.
+
+## Gate status (checked by reading `s10_runner.check_gates` and by running the gate check without `--live`)
+**CLOSED.** Reasons: (1) no Step 9 evidence file (no human blind check exists); (2) no valid owner authorization (`templates/owner_authorization_TEMPLATE.json` is empty and is rejected). Implementation B and the Step 8 verifier agree on the build (re-checked 2026-10-13 by `run_all_checks.py`); the model settings of the register match the expected frozen values.
+
+## A. What Claude Code can still do
+| # | Action | Status | Done when |
+|---|---|---|---|
+| A1 | Small provider fixes: key preflight before the first call, `thoughtsTokenCount` in the cost figure, measured latency (`PROVIDER_STATIC_AUDIT.md` items 11-13) | NOT_STARTED (optional, needs your go-ahead because it edits tested code) | code change + tests pass |
+| A2 | Command-line tool for `s12_coding.prepare_coding` / `tabulate` | NOT_STARTED | CLI + synthetic tests |
+| A3 | Resume of a transport-halted main run (§13.8) from the ledger | NOT_STARTED (design choices first) | resume tool + tests; same FZ version enforced |
+| A4 | Everything else technical before the pilot | DONE (Steps 7-12 components, `INDEX`) | see `00_INDEX.md` |
+| A5 | One authorized live connection test of the adapter | BLOCKED by owner authorization and by the decision on how the response is handled | one call, recorded, response unread |
+
+## B. Researcher tasks (steps in order)
+| # | Action | Status | Artifact | Done when |
+|---|---|---|---|---|
+| B1 | Decide the date you stop viewing registry content | READY_FOR_HUMAN | your own note | you wrote a true date |
+| B2 | Blind check of 624 files (`HUMAN_TASK_GUIDE.md` part 1) | READY_FOR_HUMAN | filled worksheet | evaluator shows `NO REJECT` and 100 % coverage |
+| B3 | Wait until completion date is at least 7 days after B1 | BLOCKED by B1/B2 | none | date check passes in the gate |
+| B4 | Create the evidence file with the evaluator | BLOCKED by B2, B3 | `step9_evidence.json` | file exists, gate reason (1) disappears |
+| B5 | Codebook rehearsal (part 2) | READY_FOR_HUMAN | filled sheet + comparison.json | comparison done, disagreements noted for the advisor |
+| B6 | Write the owner authorization for pilot round 1 | READY_FOR_HUMAN, but depends on D (cost basis) | `authorization.json` | gate reason (2) disappears |
+| B7 | Re-verify model, prices and cost limit at the freeze (PJR J-9) | READY_FOR_HUMAN | a dated note | prices read on that date |
+| B8 | Declare the write-once store for the decision record (PRD-6) | READY_FOR_HUMAN | a record entry | before Step 11 |
+
+## C. Advisor / owner decisions (`ADVISOR_DECISION_BRIEF.md`)
+| Item | Status | Needed by |
+|---|---|---|
+| D1 PG3 reading | WAITING_FOR_ADVISOR | before pilot |
+| D2 PG11b scan scope | WAITING_FOR_ADVISOR (owner kept literal on 2026-10-13) | before FZ hash |
+| D3 SF/UNP policy | WAITING_FOR_ADVISOR (interim = v2.7 as written) | before FZ hash / main run |
+| D4 multi-flag order | WAITING_FOR_ADVISOR (provisional order) | before pilot |
+| D5 re-code values, §16.3 departures | WAITING_FOR_ADVISOR | before FZ hash |
+| D6 coding eligibility | WAITING_FOR_ADVISOR | before coding |
+| D7 PRD-5 | WAITING_FOR_ADVISOR | before the blind check is evaluated |
+| other items (PRD-6, P-2, P-4/OD-10 input size, PC-2, I-6, P-3) | WAITING_FOR_ADVISOR / owner | see the brief |
+
+## D. Prerequisites
+- **Pilot round 1:** B2-B4 (evidence), B5 (rehearsal, section 13.5), B6 (authorization), D1 and D4 decided or accepted in writing, B7, a present API key in the environment (not checked by the runner), no gate reason left. The pilot has 18 calls, 1 repetition, structural-only, counts printed, no human reads responses.
+- **Round 2 (only after a round-1 FAIL-S with a whitelisted change):** a new FZ version, then a new authorization with scope `pilot_round_2`.
+- **Step 11:** PASS record, PRD-6 store, FZ-hash handling (P-2), then `s11_final_freeze_manifest.py`.
+- **Main run (2,496 calls):** final pilot decision PASS, authorization with scope `main`, D3 and D5 settled before the FZ hash.
+- **Coding:** D2, D6, B5, then `s12_coding.prepare_coding`.
+
+## E. Order of actions
+B1 -> B2 -> (D7 decided) -> B3 -> B4 -> B5 -> D decisions -> B6, B7 -> gate check (`OPERATIONS_RUNBOOK.md` section 2) -> pilot round 1 -> `s10_integrity` -> `s11_pilot report` -> `s11_pilot decide` -> (round 2 or STOP or Step 11) -> main run -> integrity -> report -> coding preparation. The earliest possible pilot date is the day after B4 plus the decisions; the 7-day delay cannot be shortened.
+
+## F. Documents
+`ADVISOR_DECISION_BRIEF.md`, `HUMAN_TASK_GUIDE.md`, `OPERATIONS_RUNBOOK.md`, `PROVIDER_STATIC_AUDIT.md`, `01_EXECUTION_STATUS_REPORT.md`, decision record entries 12.26 to 12.33.

@@ -1,0 +1,77 @@
+{
+  "blocked_reasons": [],
+  "checks": [
+    {
+      "detail": "",
+      "id": "I1",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "id": "I2",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "id": "I3",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "id": "I4",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "id": "I5",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "id": "I6",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "id": "I7",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "id": "I8",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "id": "I9",
+      "passed": true
+    },
+    {
+      "detail": "model_returned set ['gemini-3.1-flash-lite']",
+      "id": "I10",
+      "passed": true
+    }
+  ],
+  "model_id_differs": false,
+  "model_returned_set": [
+    "gemini-3.1-flash-lite"
+  ],
+  "status": "BLOCKED_CODING_INCONSISTENT",
+  "warnings": [
+    "call 4 K-C-L4-S2 r4: unapproved pace header variant(s): Target Race Pace",
+    "call 8 C-L4-S2 r2: unapproved pace header variant(s): Target Race Pace",
+    "call 9 C-L4-S2 r5: unapproved pace header variant(s): Target Pace (Goal/Race)",
+    "call 25 K-C-L4-S2 r5: unapproved pace header variant(s): Target Race Pace",
+    "call 27 C-L4-S2 r3: unapproved pace header variant(s): Target Race Pace",
+    "B13 (E-F-A r5): unrecognized notes key 'm'",
+    "B11 (E-F-B r4): unrecognized notes key 'm'",
+    "B06 (E-F-A r2): unrecognized notes key 'm'",
+    "B39 (E-F-B r3): unrecognized notes key 'm'",
+    "B32 (E-F-A r1): unrecognized notes key 'm'",
+    "B28 (E-F-A r4): unrecognized notes key 'm'",
+    "B37 (E-F-B r2): unrecognized notes key 'm'",
+    "B17 (E-F-B r1): unrecognized notes key 'm'",
+    "B03 (E-F-B r5): unrecognized notes key 'm'",
+    "B29 (E-F-A r3): unrecognized notes key 'm'"
+  ]
+}

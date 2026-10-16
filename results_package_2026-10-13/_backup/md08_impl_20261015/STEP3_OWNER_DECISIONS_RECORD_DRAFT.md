@@ -1,0 +1,847 @@
+# Step 3 Owner Decisions Record — DRAFT
+
+**Date recorded:** 2026-10-11
+**Methodology baseline:** `research_design/SCENARIO_CONSTRUCTION_SPECIFICATION_v2_7_DRAFT.md` (version tag `S2-SCENARIO-METHODOLOGY-v2.7-FROZEN`; sha256 `d5fcffadd1045fc0c86a7c84eb8d51592d807576b6a51b712cef025164082ca8`; recorded in `METHODOLOGY_FREEZE_MANIFEST_v2_7.json`).
+**Git state when written:** branch `master`, HEAD `224d9101f3737bf5d5057b2cb8835ddea037a860`; 31 pre-existing status lines preserved.
+
+## 0. Nature of this file (read first)
+
+- This is an **administrative record** created on the explicit authorization of the project owner (Option A, 2026-10-11). The frozen v2.7 protocol does not specify its location or format.
+- It records **owner decisions for the planning stage of Step 3**. It is **not** an amendment of the specification, **not** the Parameter Justification Record (PJR), and **not** a parameter freeze.
+- **Step 3 is not complete.** Step 4 (numeric dry run and feasibility gates), the PJR (Step 5) and the parameter freeze (Step 6) have **not** been run. No parameter below has passed any gate.
+- No v2.8 or other methodology version exists or is implied. The specification, the freeze manifest, `STEP2_OWNER_DECISIONS_RECORD.md`, `STEP3_PARAMETER_DRAFT.md` and `STEP3_OWNER_PROVISIONAL_PREFERENCES.md` are unchanged by this file. Where this file records a status different from the provisional-preferences file, the owner's instruction of 2026-10-11 is the reason; the earlier file is not edited.
+- No model or API call was made. No currency figure here is a guarantee of cost.
+- Status vocabulary:
+  - **`OWNER DECISION (planning) — NOT FROZEN`**: decided by the owner for planning; frozen only at the protocol step stated.
+  - **`CANDIDATE — REQUIRES STEP 4`**: a construction value that must pass the numeric-stage gates; not yet tested.
+  - **`OPERATIONAL CANDIDATE — TO BE JUSTIFIED BEFORE FREEZE`**: an operational value without validated scientific basis.
+  - **`OPEN`**: no value, or not verifiable; no value is invented.
+- Labels in the text: **[P]** protocol provision · **[H]** arithmetic result · **[J]** researcher judgment.
+
+## 0.1 Revision note (2026-10-11, limited documentation corrections)
+
+Five corrections were applied after a read-only audit: (1) section 11 now separates Step 4 ordering prerequisites, pre-pilot prerequisites and pre-freeze/PJR prerequisites; (2) the 18-call pilot minimum is labelled as fixed by protocol; (3) the `max_output_tokens` status label uses the vocabulary of section 0; (4) the `C_max` enumeration range is stated as 1–4,999; (5) the cost illustration for `max_output_tokens = 65,536` and the meaning of the 36 pilot slots are clarified. No parameter value, formula, calculation result or status of a decision was changed. This note and the corrections do not amend the specification, do not declare Step 3 complete and do not authorize Step 4.
+
+## 0.2 Revision note (2026-10-11, pilot register candidate)
+
+The owner's provisional decision of 2026-10-11 was recorded: `S_pilot` = (455, 465) with step 10, `G_pilot` = (340, 341) with step 1, pilot extras = 0, and the protocol minimum of 18 calls per round (section 3, section 3.1, section 7 row 18, section 9, section 11). It is an owner decision for planning only: the exact gates have not been run, no parameter is frozen, Step 3 is not declared complete, and Step 4 has not been run. The specification and all other documents are unchanged.
+
+## 1. Design and call-budget decisions
+
+| Parameter | Value | Status | Dependencies / notes | Freeze step |
+|---|---|---|---|---|
+| Confidence level / `z` | 95% / `z = 1.96` | OWNER DECISION (planning) — NOT FROZEN | DP2(i), no multiplicity correction (OD-4) | 6 |
+| `hw*` (single cell) | **0.20** | OWNER DECISION (planning) — NOT FROZEN | Nominal planning half-width only (section 8). | 6 |
+| Alternative `hw*` | 0.25 | OWNER DECISION (planning) — considered **only if** the main design is judged infeasible for a recorded reason | Not selected. | 6 |
+| `N`, `K = N − 1` | 5, 4 | OWNER DECISION (planning) — NOT FROZEN | OD-1 resolved (`N` odd, `N ≥ 5`). | 6 |
+| `R_min`, `R_cap` | 2, 2 | OWNER DECISION (planning) — NOT FROZEN | DP5, DP7. | 6 |
+| `n_cells` | 12 | OWNER DECISION (planning) — NOT FROZEN | OD-4. | 6 |
+| `n_boot` | 10000 | OWNER DECISION (planning) — NOT FROZEN | Citation verification pending (section 8, item 4). | 6 |
+| `L_small` | 10 | OWNER DECISION (planning) — NOT FROZEN | Not triggered at `L ≥ 16`. | 6 |
+| `C_max` | **2496** | OWNER DECISION (planning) — NOT FROZEN (conditional on the rows above) | Definition below. | 6 |
+| `retries` | 0 | OWNER DECISION (planning) — NOT FROZEN | A pilot failure of type SF1 may change `retries` only through the whitelist of §13.6, as a new FZ version. | 6 |
+
+### 1.1 Definition of `C_max`
+
+- `C_max` is the **number of planned main-call slots**, formula `8 · K · R · (n_M + 2·n_P)`. It is **not** a cap on all requests and **not** a monetary budget.
+- Basis in the protocol [P]: DP5 names "maximum calls `C_max`"; DP6 compares `8·K·R_min·(n_M + 2n_P)` with `C_max` and divides `C_max` by the main-run calls per repetition only; §9.7 defines the formula for the main registry. The label "(budget)" in the specification's notation table leaves residual ambiguity about actual requests, pilot and retries; this record resolves it **for planning only** and does not amend the specification.
+- **Pilot calls and pilot extras are not counted in `C_max`**; they have a separate call budget (section 3) and a separate money budget (section 9).
+- Record separately and report: planned slots; actual request attempts; failures by code SF1–SF5; incomplete responses; tokens billed (input, output, thinking). With `retries = 0`, actual main attempts are at most the planned slots. A failed planned slot keeps its slot, is not replaced (§13.8) and is still a sent request that may be billed.
+
+## 2. Model and configuration decisions
+
+| Item | Value | Status | Notes |
+|---|---|---|---|
+| Provider | Gemini | OWNER DECISION (planning) — NOT FROZEN | – |
+| Primary candidate | `gemini-3.5-flash-lite` | OWNER DECISION (planning) — NOT FROZEN | Final model not frozen; it must follow the pilot outcome (§13.6) and a price/model check at freeze time. |
+| Alternative | `gemini-3.8-flash` | OWNER DECISION (planning) — NOT FROZEN | – |
+| System prompt | none | OWNER DECISION (planning) — NOT FROZEN | – |
+| Temperature | not sent (provider default applies) | OWNER DECISION (planning) — NOT FROZEN | The official Gemini 3 developer guide (`https://ai.google.dev/gemini-api/docs/gemini-3`, last updated 2026-10-09, read 2026-10-11) states, for "all Gemini 3 models", a default of 1.0 and recommends keeping it. Applicability to the chosen model is by that wording; **re-verify at freeze** (OPEN until then). Sampling is therefore not deterministic. |
+| `thinking_level`, primary | **`minimal`** | OWNER DECISION (planning) — NOT FROZEN | Candidate configuration. Supported-level table of `https://ai.google.dev/gemini-api/docs/thinking` (updated 2026-10-09) lists `gemini-3.5-flash-lite` as "On (minimal)" with levels minimal/low/medium/high. No "off" level is listed for this model; `minimal` is the lowest level listed. |
+| `thinking_level`, fallback | `low` | CONDITIONAL | Only if `minimal` is not supported or not viable under a procedure the owner defines before freeze. Not selected. |
+| `thinking_level`, alternative model | `low` | OWNER DECISION (planning) — NOT FROZEN | `gemini-3.8-flash` lists levels low/medium/high; its model page states that `minimal` is not supported and returns an error. `minimal` must **not** be used for it. |
+| Support check | OPEN | OPEN | Parameter support must be verified against the official model pages and API **before freeze**, without any experimental API call. A change of any setting after the parameter freeze creates a new FZ version and requires a pilot round (§13.6). |
+| Timeout | 180 s | OWNER DECISION (planning) — NOT FROZEN | Inherits the Stage 2 provider-setting policy (§17 row 17 permits). |
+| Delay between calls | 1 s | OWNER DECISION (planning) — NOT FROZEN | – |
+| Concurrency | 1 | OWNER DECISION (planning) — NOT FROZEN | – |
+| `max_output_tokens` | **8192** | OPERATIONAL CANDIDATE — TO BE JUSTIFIED BEFORE FREEZE | Initial candidate only, **not final** before the final prompt and the cost limit are checked. It includes thinking tokens; reaching it during reasoning gives status "incomplete" and thinking tokens are still billed. |
+| Returned model ID | recorded for every call | OWNER DECISION (planning) — NOT FROZEN | Required because deprecated IDs can be routed to another model (deprecations page, 2026-10-09). |
+| Model identity | no snapshot | OPEN | The model pages list only the stable ID; "Stable models usually don't change" is not a guarantee. |
+| Relative capability of the two candidates | no evidence | OPEN | No claim that either model is more accurate may be made without evidence obtained under the protocol. |
+
+Model facts checked on official pages (2026-10-11); **re-verify at freeze**: both IDs are listed as stable, with "No shutdown date announced" (`gemini-3.1-flash-lite`, the Stage 2 model, has an earliest shutdown of 2027-05-07 and `gemini-3.5-flash-lite` as replacement); input limit 1,048,576 and output limit 65,536 tokens for both. Prices per 1M tokens (output includes thinking tokens, billed once): `gemini-3.5-flash-lite` $0.30 in / $2.50 out; `gemini-3.8-flash` $0.75 / $3.75 through 2026-12-31 and $1.50 / $7.50 from 2027-01-01 (published on the pricing page).
+
+## 3. Pilot
+
+| Item | Value | Status | Notes |
+|---|---|---|---|
+| `L_pilot` | 2 | OWNER DECISION (planning) — NOT FROZEN | Default of §13.3. |
+| Calls per round (minimum) | at least 18 | FIXED by protocol (§13.3 minimum coverage) | Not an owner decision. Pilot extras are a **separate** owner decision (row "Pilot extras" below) and are not covered by this entry. |
+| Rounds | at most 2 | FIXED by protocol | §13.6. |
+| Call budget | separate from `C_max` | OWNER DECISION (planning) — NOT FROZEN | – |
+| `f_S` | 1 | OPERATIONAL CANDIDATE — TO BE JUSTIFIED BEFORE FREEZE | Tolerated SF1 + SF4 count in the pilot. |
+| `θ_unp` | 0.50 | OPERATIONAL CANDIDATE — TO BE JUSTIFIED BEFORE FREEZE | Catastrophe threshold, not a target (§13.6). |
+| `c_stop` | 5 | OPERATIONAL CANDIDATE — TO BE JUSTIFIED BEFORE FREEZE | Main-run monitor (§13.8). |
+| `θ_main` | 0.10 | OPERATIONAL CANDIDATE — TO BE JUSTIFIED BEFORE FREEZE | – |
+| `calls_min_main` | 100 | OPERATIONAL CANDIDATE — TO BE JUSTIFIED BEFORE FREEZE | – |
+| Pilot extras | **0** | OWNER DECISION (planning) — NOT FROZEN (provisional owner decision, 2026-10-11) | A separate decision, additional to the protocol minimum of 18 calls per round. With zero extras no additional selection rule is needed: the 18 calls follow the deterministic first-template rule of §13.3. Frozen at step 6 (§17 row 18). |
+| `S_pilot` | **(455, 465)**, step 10 (tenths of km), length `L_pilot = 2` | OWNER DECISION (planning) — NOT FROZEN; CANDIDATE — REQUIRES STEP 4 (provisional owner decision, 2026-10-11) | Arithmetic progression disjoint from the main `S_list` (200…450). Exact gates not run (section 3.1). |
+| `G_pilot` | **(340, 341)**, step 1 (s/km), length `L_pilot = 2` | OWNER DECISION (planning) — NOT FROZEN; CANDIDATE — REQUIRES STEP 4 (provisional owner decision, 2026-10-11) | Arithmetic progression disjoint from the main `G_list` (310…335) and inside `G_max = 349`. Exact gates not run (section 3.1). |
+
+The thresholds are operational candidates without validated scientific basis; they must be justified and confirmed before freeze.
+
+### 3.1 Screening note for the pilot register candidate (Option 1)
+
+The pilot register candidate is a **provisional owner decision**. It has **not** passed the exact gates and is **not** frozen. Only screening arithmetic was done (spec §4, §5.5, §5.6 aids; scratch computation outside the repository). The exact gates M1–M11, Q1–Q12, A3, A5 and A7 for the pilot registry were **not run**, and an Implementation A (the §11 code path that computes them) was **not found** in the repository by a read-only search of `*.py` files on 2026-10-11; creating it is not part of this record.
+
+- **Constraints and basis.** §13.3: arithmetic progressions disjoint from the main lists, "built by the same generator under the same gates", length `L_pilot` (even, ≥ 2); §17 row 18; §21.2: the pilot parameter set "is selected at step 3". Which step first builds the pilot registry remains ambiguous (**PC-2**, pending); that is not resolved here.
+- **Minimum pilot.** 18 calls per round: MIL 2 + 4 = 6 and PAC 4 + 8 = 12 (§13.3, fixed by protocol); at most 2 rounds (§13.6). The pilot registry holds `K·L_pilot = 8` MIL and `2K·L_pilot = 16` PAC templates, i.e. 96 calls at one repetition with four conditions.
+- **`S_pilot = (455, 465)`.**
+  - Disjointness: the main values are 200, 210, …, 450; 455 and 465 are not among them.
+  - Screening (§4): `γ = ρ_NT·P/100 = 0.04`; `RAMP(X) = X + max(1, ⌊γX⌋)`; `Xprev = RAMP³(S)` = 510 and 522; RC-M7 `1.2·Xprev` = 612 and 626.4 ≤ `X_max = 999`; RC-M6 `S·(1−γ)³` = 402.6 and 411.4 ≥ `X_min = 100` (and `X_min ≥ 1/γ = 25`).
+  - Reach and guard (RC-M2 to RC-M4) are monotone in `U = P·S/100`; the main list satisfies them at `S_min = 200` (`U = 20`), so any `S ≥ 200` inherits that screening result.
+  - Every displayed plan differs from every main plan: the week-1 token is `S_b` (§4 step 1), it is not in the main list, and `RAMP` is injective on 100–999 (checked).
+  - The coverage tier of §6.1 is unaffected: the largest `Xprev` is below 1000.
+- **`G_pilot = (340, 341)`.**
+  - Disjointness: the main values are 310…335.
+  - `T_time = 10·G` = 3400 and 3410, inside `[Tm_min, Tm_max] = [2700, 4200]` (Q1) and not among the main values 3100…3350.
+  - Same-minute band (Q7, `M = 9`): `G mod 60` = 40 and 41, inside 9…50 (the screening set of §5.6 with `m* = 10` is 10…49: also satisfied). Tokens lie in `[G−9, G+9]` = 331…349 and 332…350, all inside `[p_min, p_max] = [270, 420]`; `G ≤ G_max = 349`.
+  - Distance to the nearest main value: 5 and 6 s/km.
+- **What this does not show.** Screening is sufficient-only and never decides admissibility (§3.7). No statement is made that the pilot lists are valid. A change of `G_max`, `τ_F`, `D_dist`, `P`, `ρ_NT` or the windows would require repeating this check.
+- **Relation to the main lists.** The pilot bases are close to the main bases (S 455 vs 450; G 340 vs 335). The specification requires disjointness and that no main template be exposed, which holds by construction of the displayed values; closeness is a recorded characteristic, not a protocol violation.
+
+## 4. Construction candidates (all require Step 4)
+
+| Parameter | Candidate | Status |
+|---|---|---|
+| `P` | 10 | CANDIDATE — REQUIRES STEP 4 (and source, section 8) |
+| `D_dist` | 10 | CANDIDATE — REQUIRES STEP 4 |
+| `τ_F` | 50 (conditional on `D_dist`, windows, `ρ_NT`) | CANDIDATE — REQUIRES STEP 4 |
+| `ρ_NT` | 0.40 | CANDIDATE — REQUIRES STEP 4 |
+| Windows (shared, provisional) | `W_V = [0.60, 0.90]`, `W_MILD = [1.10, 1.30]`, `W_CLEAR = [1.50, 2.00]` | CANDIDATE — REQUIRES STEP 4; OD-5 not final (section 9) |
+| `S_list` | `S_0 = 200`, step 10 (tenths of km), `L_M = 26` | CANDIDATE — REQUIRES STEP 4 |
+| `G_list` | `G_0 = 310`, step 1, `L_P = 26`, i.e. G = 310…335 | CANDIDATE — REQUIRES STEP 4 |
+| `X_min`, `X_max` | 100, 999 | CANDIDATE — REQUIRES STEP 4 |
+| `G_max` | 349 | CANDIDATE — REQUIRES STEP 4 |
+| Plausibility ranges | `G` 300–349; `p` 270–420; `Tm` 2700–4200 | CANDIDATE — REQUIRES STEP 4 (judgment, no source) |
+
+The pilot lists `S_pilot` and `G_pilot` are recorded in section 3 with the same status. These values have **not** passed the feasibility gate. Screening arithmetic only [H]: `Xprev_max = 505`; RC-M6 and RC-M7 hold (`505·(1+2.0·0.10) = 606 ≤ 999`); `M = 9` (so the exact same-minute band is residues 9–50); the list 310–335 lies inside that band and below the operational limit of 40 at `G_max = 349`; the MILD window has exactly one lattice value at `D_dist = 10`, `τ_F = 50` (thin margin). Screening does not guarantee passing the dry run. Base-list spacing (PJR requirement): MIL step 10 tenths of km = 5% of `S_min`, about 2.2% of `S_max`; PAC step 1 s/km = about 0.3% of the pace, so the effective number of independent clusters may be well below `L`.
+
+## 5. Blind-check (OD-3, §11)
+
+- Coverage 100%; minimum delay **7 days** (operational candidate: OPERATIONAL CANDIDATE — TO BE JUSTIFIED BEFORE FREEZE; no validated basis for the duration).
+- One human coder only (OD-3). The check is a **delayed self-check** run from the opaque-ID bundle alone, with a calculator permitted and no feedback. The delay is measured from the last time the researcher saw rendered registry content or expected states, and no such content may be viewed in the interval (§11, §17 row 19).
+- It tests re-derivation consistency. **No inter-rater reliability and no Cohen's κ may be claimed.** A model reader, if used, is an extra screening layer only.
+
+## 6. Conditional DP4–DP6 (not a gate result)
+
+A5(b) is evaluated on the **draft** sizing inputs, not on owner approval (§21.1 step 3(i)). On the draft values of section 1 the domain conditions hold (`z > 0`, `hw* > 0`, `C_max` a positive integer, `R_min ≥ 2`, `R_cap ≥ R_min`, `n_boot`, `L_small` positive integers, level in (0,1), `N ≥ 2`). This is a check of draft domains, not approval and not a Step 4 gate.
+
+| Quantity | `hw* = 0.20` (main) | `hw* = 0.25` (alternative) |
+|---|---|---|
+| DP4 `C_req = ⌈(z/2hw*)²⌉` | 25 (24.01) | 16 (15.3664) |
+| DP4 `n^req` (M and P) | 13, 13 | 8, 8 |
+| Clusters `L = 2n` per family | 26 | 16 |
+| Nominal half-width at `L` | 0.1922 | 0.2450 |
+| DP6 cost `8·K·R_min·(n_M+2n_P)` | 2,496 | 1,536 |
+| DP6 mode if `C_max ≥` cost | precision; `R = min(R_cap, ⌊C_max/(8K(n_M+2n_P))⌋) = 2` | precision, `R = 2` |
+| If `C_max` = cost − 1 | budget mode `(12,12)`, `R = 2` | budget mode `(7,7)`, `R = 2` |
+
+- The candidate result is `n_M = 13`, `n_P = 13`, `R = 2`, 2,496 planned main calls. It is a **conditional DP4–DP6 result, not a Step 4 outcome**.
+- 2,496 is the minimum planned-slot requirement for precision mode for `hw* = 0.20` under these assumptions (enumeration of `C_max` from 1 to 4,999, the range actually checked). The methodology does not require this number; with `R_cap = 2` any `C_max ≥ 2,496` gives the same design.
+- The result remains conditional on level, `N`, `R_cap`, and on the Step 4 gates for the 26-element lists.
+
+## 7. Register §17: completeness
+
+§21.1 step 3 asks for "draft values for the register of §17"; rows 13–19 carry freeze step 6. Literal reading: rows 1–15 and 17–19 need draft values at the end of Step 3; row 16 (seeds, step 11) and row 20 (wording, step 7) do not. Whether rows 17–19 must be fully valued at the end of Step 3 is **ambiguous in the protocol text**; this record lists them as incomplete where a value is missing.
+
+| Row | Parameter | Classification now |
+|---|---|---|
+| FX1 | Positions, `K`, fixed rules | Fixed (A2); `N` in row 2 |
+| 1 | `P` | Candidate (value); awaiting evidence/source; awaiting Step 4 |
+| 2 | `N` | Filled (5) |
+| 3 | `ρ_NT` | Candidate; awaiting Step 4 |
+| 4 | Windows, OD-5 | Candidate (shared); awaiting Step 4; OD-5 not final |
+| 5 | `D_dist` | Candidate; awaiting Step 4 |
+| 6 | `τ_F` | Candidate; awaiting Step 4 |
+| 7 | `S_list` | Candidate; awaiting Step 4 |
+| 8 | `G_list` | Candidate; awaiting Step 4 |
+| 9 | `X_min`, `X_max` | Candidate; awaiting Step 4 |
+| 10 | Plausibility | Candidate (judgment, no source); awaiting Step 4 |
+| 11 | `n_M`, `n_P` | Computed conditionally (13, 13) |
+| 12 | `R` | Computed conditionally (2) |
+| 13 | `R_min`, `R_cap`, `C_max` | Filled (2, 2, 2496) |
+| 14 | `z`, level, `n_cells`, `hw*` | Filled (1.96; 95%; 12; 0.20); stance in OD-4 |
+| 15 | `n_boot`, `L_small`, level | Filled; `n_boot` citation awaiting verification |
+| 16 | Seeds | Not applicable at Step 3 (step 11) |
+| 17 | Model and settings | Partly filled; `thinking_level` candidate recorded; support check OPEN; freeze at step 6 |
+| 18 | Pilot | `L_pilot` and thresholds filled (operational candidates); extras = 0, `S_pilot` = (455, 465), `G_pilot` = (340, 341) recorded as provisional owner decisions / candidates requiring Step 4 (exact gates not run); freeze at step 6 |
+| 19 | Blind-check | Filled (100%; 7 days) as operational candidate |
+| 20 | Wording | Awaiting Step 7 |
+
+## 8. Rationale, sources and limits of claims
+
+1. `C_max = 2496` is the planned-slot requirement for the main-design precision-mode candidate under the stated assumptions, not a requirement of the methodology.
+2. `n_M = 13`, `n_P = 13`, `R = 2` are a conditional DP4–DP6 result, not a Step 4 pass.
+3. **`P = 10` is not claimed to be a physiologically validated rule.** Sources: Buist et al., *Am J Sports Med* 2008;36(1):33–39, doi:10.1177/0363546507307505 (randomized trial, N = 532; a graded programme based on the 10% rule did not reduce running-related injuries: 20.8% vs 20.3%); Nielsen et al., *J Orthop Sports Phys Ther* 2014;44(10):739–747, doi:10.2519/jospt.2014.5164 (explorative cohort, N = 874; no statistically significant differences across progression groups; the abstract states that the scientific knowledge supporting the assumption is limited). These sources do **not** validate the 10% rule. Bibliographic details were read on PubMed (2026-10-11). The value coincides with the Stage 1/2 cap and carries the familiarity threat TH15; §13.1 requires the PJR to flag both and to justify 10 independently.
+4. **`n_boot = 10000`:** Hesterberg, T.C. (2015), "What Teachers Should Know About the Bootstrap: Resampling in the Undergraduate Statistics Curriculum", *The American Statistician* 69(4):371–386, doi:10.1080/00031305.2015.1089789 (PubMed 27019512; bibliographic details verified). The content was read in the arXiv preprint 1411.5279; equality with the journal version has **not** been verified, so the citation is `OPEN` until it is. The source supports about 10⁴ or more resamples for Monte Carlo accuracy (and about 15,000 for 10% accuracy of a tail probability). The number of replicates reduces Monte Carlo noise; it does not guarantee nominal interval coverage. The frozen percentile cluster bootstrap (DP8) is not changed.
+5. `τ_F`, `ρ_NT`, plausibility ranges, pilot thresholds and the 7-day delay are construction or operational decisions that need justification. None is claimed to have a validated scientific basis.
+6. A percentile interval over a small number of clusters (`L = 26`, or 16 for the alternative) can have coverage below nominal; the cited source reports this for small samples. The limitation is disclosed and the frozen method is unchanged. Nominal half-widths are worst-case planning figures under independent clusters, not coverage, power or achieved precision, and are optimistic if neighbouring bases are similar (§12.1).
+7. Model prices, token limits and costs must be re-verified at freeze time.
+8. No claim is made that either model is more accurate than the other.
+
+## 9. Money budget and call accounting
+
+- **Initial recommended money limit: US$100** for the main run, pilot and a limited reserve. It is an **initial, non-binding limit that must be recalculated** from the final configuration, the actual prompt length, official prices at freeze time and the number of pilot calls needed. It is not a cost guarantee.
+- Conservative formula: `B ≥ (A_main + A_pilot) · c_max + R_res`, with `c_max = (I_max · p_in + M_out · p_out) / 10⁶`; `A_main = S_main · (1 + retries)`; `A_pilot` = pilot slots (including a possible second round and extras) × (1 + retries); `I_max` = longest prompt, measured with the model's tokenizer once the prompt exists (step 7); `M_out` = the frozen `max_output_tokens`; `p_in`, `p_out` = official prices on the run date; `R_res` = reserve for a new FZ version, re-pilot or rerun (owner decision).
+- Illustration only [H], hard cap with `retries = 0`, `M_out = 8192`, `I_max` 1,000–2,000 tokens, prices of the pricing page read 2026-10-11 (not a forecast; every call is assumed to use the full output limit):
+
+| Model / price period | Main, 2,496 slots | Pilot, minimum 36 slots (two rounds, no extras) | Total | Remaining of US$100 |
+|---|---|---|---|---|
+| `gemini-3.5-flash-lite` | $51.87–52.62 | $0.75–0.76 | about $52.6–53.4 | about $47 |
+| `gemini-3.8-flash`, prices through 2026-12-31 | $78.55–80.42 | $1.13–1.16 | about $79.7–81.6 | about $18–20 |
+| `gemini-3.8-flash`, prices from 2027-01-01 (published) | $157.10–160.84 | $2.27–2.32 | about $159–163 | exceeds US$100 |
+
+- Sensitivity for `gemini-3.5-flash-lite`, 2,532 slots: each additional 1,000 input tokens per call adds about $0.76; each additional 1,000 of `max_output_tokens` adds up to about $6.33. Raising `max_output_tokens` to the model limit of 65,536 would raise the hard cap (`gemini-3.5-flash-lite`, `I_max` = 1,000 tokens, `retries = 0`) to about US$410 for the 2,496 main slots alone and to about US$416 if 36 pilot slots are added (hard-cap arithmetic: $409.69 and $415.60).
+- The 36 pilot slots in the table are two rounds of 18 calls with pilot extras = 0 (provisional owner decision). The second round occurs only after a FAIL-S with a whitelisted change (§13.6), so 18 slots is the planned count if round 1 passes. Any later decision that adds extras or changes the number of rounds would increase the pilot count, so the pilot budget remains non-final.
+- Call categories kept separate: planned main slots (`C_max`); actual attempts; failed or incomplete calls; pilot calls and extras; money.
+
+## 10. OD-5 and methodological conflicts (administrative interpretation, not an amendment)
+
+**OD-5 (shared or per-family windows).**
+- Conflict: §19.2 schedules OD-5 as "needed by step 3" with the dependency "dry run (step 4)".
+- Interpretation recorded by the owner on 2026-10-11, **administrative and not an amendment of the specification**:
+  1. Shared windows are the **provisional default** on the basis of §6.2 (windows "defined once and shared by both families unless a family cannot realize them").
+  2. The status of OD-5 stays **not final** until the result of Step 4 has been examined.
+  3. If Step 4 fails, the procedure returns to Step 3 under §21.2.
+  4. There is **no automatic switch** from shared to per-family windows.
+  5. The reasoning is recorded so the scheduling conflict of §19.2 can be traced. This note does not change the frozen methodology.
+
+**Other recorded ambiguities.**
+- Whether rows 17–19 of the register must be fully valued at the end of Step 3 (section 7).
+- Scope of `C_max` (section 1.1): the "(budget)" label versus the DP5/DP6 formula.
+- Model-ID routing and the absence of a dated snapshot (section 2).
+- A change of `retries`, timeout or delay by the SF1 whitelist (§13.6) would break the equality "attempts ≤ slots" and requires a budget recalculation.
+
+## 11. Open items, ordering prerequisites and blockers
+
+Step 3 is **not complete**, and this DRAFT is neither a declaration of completion nor a permission to run Step 4. Tags: **[E]** explicit requirement of the frozen specification (basis cited); **[C]** precaution or requirement set by the owner or recommended by this record, **not** required by the specification; **[A]** ambiguous in the specification. An item is listed as a Step 4 prerequisite only where the step order or a Step 4 gate supports it.
+
+### 11.1 Ordering and feasibility prerequisites of Step 4
+
+Basis: §21 states that the freeze sequence order is binding; §21.1 step 4 runs the screening aids and the numeric-stage hard gates "on the register values and the canonical numeral renderers only", with no prompt text and no model call.
+
+| # | Prerequisite | Tag and basis | Status |
+|---|---|---|---|
+| 1 | **Step 2 formally declared complete** against §21.1 (parameter-selection criteria frozen) | [E] order of §21.1. Substance recorded: OD-2, OD-3, OD-4 in `STEP2_OWNER_DECISIONS_RECORD.md`. That record (section 0) states that it does not declare Step 2 complete and that completion is a separate check against §21.1 | **OWNER-DECLARED (2026-10-11)**: the owner declared the Step 2 decisions recorded in `STEP2_OWNER_DECISIONS_RECORD.md` complete for the current methodology stage (section 12.2). The declaration is not extended to later-stage decisions and does not change the specification |
+| 2 | **Step 3 declared complete by the owner** before Step 4 is run | [E] order of §21.1 (step 3 precedes step 4); the owner's declaration is the owner's own act | **OWNER-DECLARED (2026-10-11)**: the owner declared the recorded Step 3 draft parameter values complete for the current stage; they remain draft and are NOT frozen (section 12.2). OD-5 and the later-stage freeze items remain OPEN |
+| 3 | Register values for the numeric gates (rows 1–10, 13–15 as drafts), the A5(b) domain check on the draft sizing inputs, and the DP4–DP6 draft result (`n_M`, `n_P`, `R`, which fix the list lengths) | [E] §21.1 step 3 (order: A5(b) before DP4–DP6) and step 4 inputs | Present as drafts in sections 4, 6 and 7. The specification prescribes no separate formal recording format |
+| 4 | Pilot parameter set (`S_pilot`, `G_pilot`) | [A] §21.2 states that the pilot parameter set (register item 18) "is selected at step 3" and that the pilot registry is built under the same gates; **PC-2 (pending)** states that the text does not say at which step the pilot registry is first built, so whether a pilot-registry gate is part of the step 4 dry run is not determined. Not resolved here and the specification is not changed | **AMBIGUOUS** (PC-2). Drafted on 2026-10-11 as a provisional owner decision: `S_pilot` = (455, 465), `G_pilot` = (340, 341), extras = 0 (section 3); exact gates not run, so the lists are not shown to be valid. [C] Defining the lists before Step 4 is a precaution, not shown to be a Step 4 gate input |
+| 5 | Explicit owner permission to run Step 4 | [C] owner's instruction; not a requirement of the specification | Not given |
+
+Status update (2026-10-11): the draft values of register item 18 are now recorded (row 4 above). The Step 2 and Step 3 completion declarations (rows 1 and 2) were made by the owner on 2026-10-11, and the numeric-stage gates were run in Step 4 on 2026-10-11 (both recorded in section 12). Before those events this paragraph read: Step 3 not declared complete and the exact gates not run.
+
+Not Step 4 prerequisites (no ordering or gate basis found): final OD-5 (a declared window set is enough for the gates; OD-5 is finalised after Step 4, section 10); model, `thinking_level`, temperature (Step 4 has no model call); pilot extras and thresholds; money-limit recalculation; citations and sources; the blind-check delay value.
+
+### 11.2 Prerequisites before the pilot
+
+Basis [E]: §21.1 ("Before the pilot: steps 1–9"); §13.2 (the freeze set FZ is hashed before the first pilot call); §21 (no pilot starts before every rendering-stage gate has passed on the final registry).
+
+- Steps 5–9 completed: PJR, parameter freeze, prompt-specification freeze, registry generation with numeric- and rendering-stage gates, ground-truth validation including the human blind check (whose declared minimum delay must have elapsed, §11).
+- FZ hashed, including model ID and settings, the pilot parameter set and the pilot and stop thresholds.
+- Parser and codebook tests on synthetic batteries (§13.5).
+- Pilot extras defined (§17 row 18; [C] also an owner requirement of this record): recorded as 0 (provisional owner decision, 2026-10-11).
+
+### 11.3 Prerequisites before the PJR (step 5) and the parameter freeze (step 6)
+
+| Item | Tag and basis |
+|---|---|
+| Source for `P = 10`, TH15 disclosure and Stage 1/2 coincidence flag | [E] §17 row 1 ("cite source"); §17 intro and §13.1 (PJR content) |
+| Citation for `n_boot = 10000` | [E] §17 row 15 ("with citation"). Checking the preprint against the journal version: [C] |
+| Base-list spacing report and rejected-set log | [E] §17 intro (PJR content) |
+| Model ID and settings frozen: `thinking_level` support verified non-experimentally, temperature default re-verified, `max_output_tokens` justified | [E] §17 row 17, freeze step 6. The verification routine is [C] |
+| Pilot extras, `S_pilot`, `G_pilot`, `f_S`, `θ_unp`, `c_stop`, `θ_main`, `calls_min_main` justified | [E] §17 row 18, §13.6, freeze step 6 |
+| Blind-check coverage and minimum delay value | [E] §17 row 19, freeze step 6 |
+| Values of `C_max`, `R_min`, `R_cap`, `n_M`, `n_P`, `R`, `hw*`, `z`, level, `n_boot`, `L_small` | [E] §17 rows 11–15, freeze step 6 |
+| Money-limit recalculation on the final configuration (section 9) | [C] the specification has no monetary budget; it is practical because `max_output_tokens` and `C_max` are frozen at step 6 |
+
+### 11.4 Status
+
+Step 4 has not been run. No dry run, pilot or experiment has been run, and no model or API call has been made. This DRAFT is not an amendment of the frozen specification, not a declaration that Step 3 is complete, and not a permission to run Step 4.
+
+## 12. Owner declarations and Step 4 result
+
+Recorded in this file on 2026-10-12. The declarations and the Step 4 run are dated 2026-10-11.
+
+### 12.1 Scope and precedence
+
+- This section records two owner declarations and the result of the Step 4 numeric-stage dry run, from text the owner approved. The declarations are the owner's own acts; the assistant did not make them.
+- Sections 0, 0.1, 0.2, 11 (introduction, the status-update paragraph before the "Not Step 4 prerequisites" list, and 11.4) were written **before** the declarations and before Step 4 and keep their original wording as historical text (for example "Step 3 is **not complete**" and "Step 4 has not been run"). Where they conflict with this section, **this section controls**. Row 5 of section 11.1 ("Explicit owner permission to run Step 4: Not given") is likewise historical: the owner authorized Step 4 in writing on 2026-10-11, and Step 4 was run under that authorization only.
+- This section changes no parameter value and no earlier decision. It is not an amendment of the frozen specification, not a parameter freeze, not the PJR, and not an authorization of Step 5.
+
+### 12.2 Owner declarations — 2026-10-11
+
+- **Step 2.** The owner declares that the Step 2 decisions recorded in the existing record (`STEP2_OWNER_DECISIONS_RECORD.md`: OD-2, OD-3, OD-4) are complete for the current methodology stage. The declaration does not change the frozen specification.
+- **Step 3.** The owner declares that the recorded Step 3 draft parameter values are complete for the current stage. These values remain **draft** and are **NOT frozen**.
+- Neither declaration is extended to later-stage decisions. The following remain **OPEN** as recorded in this file: **OD-5** (not finalized; section 10); verification of `thinking_level` support, of the temperature default and of the model settings before freeze (sections 2, 11.3); re-verification of prices, token limits and the money limit at freeze (sections 2, 9, 11.3); the citation requirements for `P = 10` and `n_boot` including the check of the journal version of Hesterberg (2015) (sections 8, 11.3); justification of the pilot and stop thresholds, the blind-check delay value and the plausibility ranges (sections 3, 4, 5, 11.3); the PC-2 ambiguity (sections 3.1, 11.1 row 4).
+- Rows 1 and 2 of section 11.1 were updated from OPEN to the owner-declared status above. No other status was changed.
+
+### 12.3 Step 4 result — numeric-stage dry run, 2026-10-11
+
+Step 4 ran Implementation A on the register values of sections 1, 3 and 4 of this record, with no value changed. Source: `research_design/implementation_a/step4_run_output.txt`.
+
+| Register | Numeric gates PASS | FAIL | NOT EVALUATED | Templates |
+|---|---|---|---|---|
+| Main | 30 of 30 | 0 | 0 | MIL 104, PAC 208 |
+| Pilot (`L_pilot` = 2, extras = 0) | 30 of 30 | 0 | 0 | MIL 8, PAC 16 |
+
+- Both readings of A3 (interpretation I-2 of `impl_a.py`: the gate on the templates of the registry, and `a3_all_classes()`) produced the same result for the tested main and pilot registries: PASS, with no failure message under either reading.
+- The pilot result is **informational**: PC-2 remains ambiguous because the specification does not explicitly establish whether the pilot registry must be tested in Step 4.
+- The rendering-stage gates PG\*, A1b and A6b were **not executed**.
+- No pilot, API call, experiment, Step 5, parameter modification or parameter freeze occurred.
+- These are **numeric-stage results only**, not full admissibility (§3.7: a set is admissible only after the rendering-stage gates have also passed). They depend on Implementation A and on the checks used; a separate review of the formulas and gates is still required (12.5).
+- The screening aids (all RC conditions held) and the reading-invariance check (all readings agreed) were also reported; both are informational and never reject.
+
+### 12.4 Artifact traceability
+
+| Item | Value |
+|---|---|
+| Date of the Step 4 run | 2026-10-11 |
+| Frozen specification SHA-256 | `d5fcffadd1045fc0c86a7c84eb8d51592d807576b6a51b712cef025164082ca8` |
+| `impl_a.py` SHA-256 | `008f542d1d90a44cc4073b5be2a451fde9775c3b8b3f600805edbf4ffb501d3e` |
+| `step4_run_output.txt` SHA-256 | `9dc59b9dee8f0c375f0e533882706ab3305411da937ef32171a43c62fc6487ec` |
+| `test_impl_a.py` SHA-256 (94 unit tests) | `cbcda3638afe5a444fbeb01414111113ea3882d3a8a6e0fe1a821ce7c7eefe7b` |
+| `run_step4.py` SHA-256 | `da679cbf4d838ddf64fa56095aca7aa580f020abb4c9f6d3e833fdb56f85a031` |
+
+All files are under `research_design/implementation_a/` and are untracked in Git; the SHA-256 values are the integrity record. This file has no self-hash.
+
+### 12.5 Outstanding audit findings — OPEN (not necessarily confirmed runtime defects; none fixed)
+
+*Status update 2026-10-12: D-1, F-1 and F-2 were fixed and the six mutation-gap items received tests (section 12.7). The text of this subsection is kept as originally recorded; the remaining open findings are listed at the end of 12.7.*
+
+Carried forward from the final audit of Implementation A (2026-10-11):
+
+- **F-1.** `gate_A7` by itself does not catch extra templates outside the expected slot/base range. The complete `run_numeric_gates` path catches them through A6a (slot set differs from the rule of §9.2).
+- **F-2.** An invalid class label (for example `"mild"`) raises `KeyError` instead of producing a clean gate failure. This can occur only with hand-made data; registries built by the module take their classes from the rule of §9.2.
+- **F-3.** The gates use the `D_dist` and `τ_F` carried by the members, while Q2 uses the register values; no gate relates the two (the specification does not require it).
+- **F-4.** The numeric builders in `impl_a.py` are a dry-run builder, not the Step 8 generator; the equivalence of the generator with this builder is to be checked at Step 8 (§21.2 distinguishes "dry-run code" from the generator).
+- **Mutation testing.** 63 mutants were run in total. Of the first 20, two initially survived and were killed after two tests were added. Of 43 additional mutants, **8 survived**. Two are judged equivalent (a message-only change in `exact()`; `Report.passed` ignoring `evaluated`, which is already implied by `passed = False`). The remaining **six** non-equivalent survivors are the follow-up items: (1) Q4 bound for non-target weeks of the violating member (the valid member masks it); (2) the stand-alone margin check of A6a (redundant for valid registries); (3) the per-cluster total check of A7 (linked to F-1); (4) the sign of `r` in `m_q` for PAC with non-integer `D_dist` (example: `D_dist` = 21/2, G = 301, `τ_F` = 35, window V gives m = 3, and 2 with the sign flipped); (5) the half-even tie in the helper `_round_mode`; (6) the aggregation of Q6 into A4 (no test where only Q6 fails).
+- **T-1.** Some tests evaluate individual element gates on templates of candidate bases (M1–M10 on the eight templates of S = 200 under the candidate parameters; Q10 and `gate_Q12` on templates of G = 340; the reading-invariance check on templates of S = 200 and G = 340) rather than running the complete candidate registry through `run_numeric_gates`. These are hand-computed examples, not full-registry validation, and must not be described as such.
+- **Independence.** The author of Implementation A also wrote the auxiliary checker and the differential tests (3,527,872 gate comparisons and 410,480 template constructions with no disagreement). Their independence is limited; a review by a person or an implementation by a different author has not been done.
+- **I-6.** The reading-invariance check is not wired into `Report`.
+
+Added after the focused audit of 2026-10-12 (not part of the owner-approved text; reported for traceability):
+
+- **D-1.** If a `PacMember` is built with an integer `D_dist` (not a `Fraction`), the divisions `|x_k| / τ_F` in Q3 and in `pac_target_rho_violating` become floating-point divisions and can misjudge a window edge. Minimal example: `D_dist` = 1, `τ_F` = 20, G = 330, valid target token 342, so ρ = 12/20 = 3/5, which is inside `[0.60, 0.90]`; with a `Fraction` member Q3 passes, with an integer member Q3 fails ("0.6 outside"). Step 4 is not affected: the register converts `D_dist` to a `Fraction`, and the independent re-derivation at the candidate sizes agreed with the run. A static scan found no float literal, no `float()` and 24 divisions in `impl_a.py`; only these five sites depend on the member type.
+- **F-1, refined.** A single extra template is flagged by A7 incidentally (slot class imbalance); a balanced pair of extra bases (for example bases 2 and 3 added to a registry with two bases) passes A7 and is caught only by A6a.
+
+No fix was applied in this task. These findings do not change the Step 4 numeric-stage result recorded above.
+
+### 12.6 Next step
+
+A separate review of the formulas and gates is required before Step 5 is considered. This record does not authorize Step 5.
+
+### 12.7 Corrected Implementation A and re-run of Step 4 — 2026-10-12
+
+Under the owner's authorization of 2026-10-12 (narrowly scoped fixes, a re-run of Step 4 and Step 5 within the frozen specification), three audit findings were fixed and Step 4 was re-run. Sections 12.3 and 12.4 remain the record of the **original** run and keep their values; the corrected run is recorded here and is **not** the same artifact.
+
+**Fixes (location: `research_design/implementation_a/impl_a.py`)**
+
+- **D-1.** `PacMember.__post_init__` converts `D_dist` to a `Fraction` at the data boundary (a float is rejected with `TypeError`); a member `tau_F` that is not a positive integer is a clean failure of every Q gate; the divisions in Q3 and in `pac_target_rho_violating` are explicit `Fraction` divisions. Before the fix, `D_dist` = 1, `τ_F` = 20, G = 330, valid target token 342 (ρ = 3/5, inside `[0.60, 0.90]`) failed Q3 with an integer `D_dist`.
+- **F-1.** `gate_A7` is evaluated over the expected (base, position, direction) set and over every observed template: unexpected templates, extra clusters (template counts per cluster, over every observed base) and slot class balance over the observed slots are failures (new interpretation I-10 in `INTERPRETATIONS`). Before the fix a class-balanced pair of extra bases (2 and 3) added to a registry with two bases returned no failure.
+- **F-2.** Class labels are validated: element gates return a clean failure on every gate for a label other than `"MILD"` or `"CLEAR"`; `gate_M11`, `gate_Q12`, `gate_A7` report it; the builders raise `SpecError`. An unknown label is never mapped to a valid class. Before the fix `KeyError` was raised.
+
+**Tests (`test_impl_a.py`)**: 123 tests (94 original plus 29 new), all passing. The new regression tests for D-1, F-1 and F-2 fail on the old implementation (11 failures and 5 errors among the new tests run against the old code). Tests were added for each of the six non-equivalent mutation survivors of the earlier audit: the Q4 bound for the non-target weeks of the violating member; the stand-alone margins of A6a (a register with three bases); the cluster totals of A7 (extra clusters); the sign of `r` in `m_q` for a non-integer `D_dist` (valid and violating member, both directions); the half-even tie in `_round_mode` and in the PAC reading verdicts; and the aggregation of Q6 into A4 (a register where only Q6 fails). A mutation re-check of 32 mutants left 3 survivors, all judged equivalent: A4 without Q2 (Q2 can fail only when the PAC templates cannot be built, in which case A4 takes the construction branch) and two removals of a `Fraction` wrapper that the new coercion of `D_dist` already makes redundant; removing the coercion alone, or the coercion together with the wrappers (the original D-1), is detected.
+
+**Corrected re-run of Step 4 (main and pilot, recorded candidate values, nothing changed)**
+
+| Item | Value |
+|---|---|
+| Main register | 30 of 30 numeric gates PASS, 0 FAIL, 0 NOT EVALUATED (MIL 104, PAC 208 templates) |
+| Pilot register (informational, PC-2) | 30 of 30 PASS, 0 FAIL, 0 NOT EVALUATED (MIL 8, PAC 16 templates) |
+| A3 | both interpretations PASS with no failure message, in both registers |
+| Difference from the original output | only the added version line and the two hash lines of `impl_a.py` and `test_impl_a.py` |
+| Rendering-stage gates | not executed |
+
+| Artifact (all under `research_design/implementation_a/`) | SHA-256 |
+|---|---|
+| `impl_a.py` (corrected) | `daa2cd49b86ed1a546e95478bc3f40c1fc131ea52d4622b981e4e3b117f018ee` |
+| `test_impl_a.py` (123 tests) | `92d36252f54c9e216d09754a172aa112e44b92df5497384c9c50277731daa723` |
+| `run_step4.py` (hash guards updated) | `17f3e554769d3eaf3273751756ef0113eeb90270a43885f7c4c00015dc73512f` |
+| `step4_run_output_corrected.txt` | `6a6fe76ce97860f932a2cafae3d15dbb1591e59ea5d93e55c623371a5f1b876a` |
+| Original, for comparison: `impl_a.py` / `test_impl_a.py` / `run_step4.py` / `step4_run_output.txt` | `008f542d…` / `cbcda363…` / `da679cbf…` / `9dc59b9d…` |
+
+Status of the findings of 12.5 after this work: **D-1, F-1, F-2 fixed**; the six mutation-gap items have tests; **still open**: F-3, F-4, T-1 (older tests still evaluate element gates on templates of candidate bases; the new tests use synthetic fixtures), I-6, and the limited independence of the checks (the same assistant wrote Implementation A and the auxiliary checkers). The numeric-stage result is unchanged by the fixes.
+
+### 12.8 Step 5 — Parameter Justification Record, 2026-10-12
+
+- **Specification definition (§21.1 step 5, §17, §13.1, §6.1, §19.2):** a documentation step. Its output is a dated PJR with per-parameter justification, §13.1 flags, the base-list spacing report and the rejected-set log. It involves no model or API call, no pilot and no parameter freeze; the next step (6) freezes the register.
+- **Executed:** a draft PJR was written in `research_design/PARAMETER_JUSTIFICATION_RECORD_DRAFT.md` (a new administrative file; the specification fixes neither its location nor its format). It contains the per-parameter justification, the Stage 1/2 coincidence flags, the spacing report, the precision review (PRD-3), the rounding-coverage tier, the DP numbers, the evidence of both Step 4 runs and the rejected-set log (none rejected).
+- **Not done:** the PJR is **not declared finalized**. **Hard blocker: OD-5** (§17 row 4; §19.2: "Parameter Justification Record; depends on feasibility"): the owner has not decided between shared and per-family windows, and no decision was invented; the draft presents the evidence (shared windows pass all 30 gates for both families). Judgment-based justifications (marked [J]) await the owner's confirmation. Step 6 (freeze) was not started.
+- **Hesterberg (2015), `n_boot`:** the earlier open check of the journal version is partly resolved: the statements used were verified in the PMC full text (PMC4784504, same DOI); the page does not say whether it is the accepted manuscript or the typeset version, and the publisher's own page was not read. The citation stays marked accordingly.
+- This record does not authorize Step 6, the pilot, any API call or an experiment.
+
+### 12.9 OD-5 decision, 2026-10-12 (records the owner's decision; not an amendment of the specification)
+
+- **Owner decision (2026-10-12):** OD-5 is decided as **shared margin windows** for the MIL and PAC families: `W_V = [0.60, 0.90]`, `W_MILD = [1.10, 1.30]`, `W_CLEAR = [1.50, 2.00]` (the §6.2 default).
+- **Supersedes the earlier status:** this entry supersedes the statements that OD-5 is "not final", open, or a hard blocker, at lines 121, 164, 209-215 (section 10), 237, 244, 286 and 380 of this file. Those statements are kept unchanged as the historical trace of the state on 2026-10-11 and the morning of 2026-10-12. Where this entry and an earlier statement differ, this entry applies.
+- **Scope of the evidence:** the Step 4 result (30 of 30 numeric-stage gates PASS for the main and the pilot register, original and corrected run) supports **numeric feasibility** of the shared set only. It is not evidence that shared windows are methodologically better than per-family windows.
+- **Not changed:** the frozen specification (sha256 `d5fcffadd1045fc0c86a7c84eb8d51592d807576b6a51b712cef025164082ca8`), any parameter value, the Step 4 results, the code and the tests.
+- **Related:** on the same date the owner kept the values J-1 to J-11 with qualifications (`PARAMETER_JUSTIFICATION_RECORD_DRAFT.md`, section 10.2). This entry does not declare the PJR final and does not authorize Step 6.
+
+### 12.10 PJR finalization declared by the owner, 2026-10-12
+
+- The owner declared `PARAMETER_JUSTIFICATION_RECORD_DRAFT.md` **FINALIZED for Step 5**, effective 2026-10-12. This is the owner's declaration, recorded here; it is not a freeze.
+- Finalization does not mean the parameters are empirically validated; the qualifications and claim limits in the PJR stay in force. The J-9 verification (model, prices, parameter support, deprecations, cost limit) remains work of Step 6.
+- Not authorized by this entry: Step 6 (parameter freeze), Step 7, Step 8, the pilot, any API call or experiment. Each needs a separate authorization.
+
+### 12.11 Owner decisions OD-8, OD-9, OD-10 and Step 6 parameter freeze, 2026-10-12
+
+- **OD-8 (model):** `gemini-3.5-flash-lite` with `thinking_level = minimal` is the only model frozen for the initial FZ version. `gemini-3.8-flash` stays an unfrozen candidate and must not be used in this FZ version; replacing the model needs a new FZ version and a repetition of the validation stages the specification requires. Operational choice from the cost limit and the research design, not a claim that the model is superior.
+- **OD-9 (output limit):** `max_output_tokens = 8192` is frozen as an initial operational limit (inherited candidate; it bounds the output tokens per call). It is not evidence that all responses will be complete: `incomplete` or truncated responses and outputs failing the validation criteria are handled by the study rules and are not valid responses. At Step 7 the limit is checked against the final prompt; any change is a new FZ version with the required validation repeated, never a silent change.
+- **OD-10 (cost limit):** US$100 is the operational cost limit for this FZ version. Cost estimates before the final prompt are conditional, not a guarantee. At Step 7 `I_max` is measured on the actual prompt and the estimate recomputed with official prices and all planned calls. If the estimate exceeds US$100, or the limit cannot be adequately assured, stop before any paid API call and ask the owner; do not reduce calls, change the model or change parameters silently.
+- **Step 6 result:** the parameter register was frozen and hashed in `research_design/PARAMETER_FREEZE_MANIFEST_FZ_v1.json` (administrative format, modelled on the Step 1 manifest; the specification fixes no format). Official documentation was read on 2026-10-12 (sources in the manifest). Authorization covers Step 6 only: not Step 7, Step 8, the pilot, any API call or experiment.
+
+### 12.12 OD-6 decision and superseding note on the model (C-6), 2026-10-12
+
+**OD-6 (owner decision, 2026-10-12).** The owner confirmed the working interpretation of §16 as the operational definition for this study: **S2 = visible verification evidence in the Comments; S3 = stance toward the reviewer-attributed claim.**
+- This is the owner's confirmation of a working interpretation. It is not a claim that the original S2/S3 definitions were found; the specification states that they were not found in the repository (§16, §19.2).
+- S2 and S3 stay exploratory and secondary under the methodology in force (§16).
+- The operational definition is to be used consistently in the S2/S3 codebooks of Step 7.
+- Not changed by this decision: the primary estimand, the denominators of §18, the parsing decisions and the register parameters of FZ-v1. The specification (§19.2 OD-6: "Confirm the working S2/S3 interpretation") allows this confirmation without any other revision. PRD-4 (whether the S2 relation-word list is closed) stays pending and is not decided here.
+
+**Superseding note on the model (C-6).** This note supersedes, for FZ-v1, the historical statements in this file and in `PARAMETER_JUSTIFICATION_RECORD_DRAFT.md` (rows 17 and J-9) that name `gemini-3.8-flash` as an alternative and say that the final model choice follows the pilot outcome (this file, section 2, rows "Primary candidate", "Alternative" and related notes; section 9 price rows for `gemini-3.8-flash`):
+- **OD-8** fixes `gemini-3.5-flash-lite` (`thinking_level = minimal`) as the **only frozen model** for FZ-v1.
+- `gemini-3.8-flash` **must not be used in FZ-v1**.
+- The historical statements that model selection follows the pilot outcome **do not apply to FZ-v1**.
+- A change of model requires a **new FZ version** and a repetition of the validation and pilot rounds that the specification requires (§13.6).
+- The historical statements are kept unchanged as a trace. The finalized PJR was not edited: the specification does not require it to be updated for this, and the PJR is read together with this note.
+
+**Not changed by this entry:** `PARAMETER_FREEZE_MANIFEST_FZ_v1.json` and its register hash (`c7d50e11…`), the PJR, the frozen specification, the Step 1 manifest, the code, the tests and the Step 4 outputs. Note: the manifest records a SHA-256 for this file taken before this entry; after this entry that recorded value no longer matches the file (see the report of 2026-10-12). This entry does not authorize Step 7, Step 8, the pilot, any API call or an experiment.
+
+### 12.13 Pre-Step 7 owner decisions, 2026-10-12 (records decisions; not an amendment of the specification)
+
+Recorded after the read-only Step 7 readiness audit of 2026-10-12. This entry changes no register value, no specification text and no frozen artifact. It is a post-freeze amendment of this decision record: the record's SHA-256 differs from the value stored in `PARAMETER_FREEZE_MANIFEST_FZ_v1.json` (historical freeze-hash mismatch, see 12.12); the manifest was not changed and the mismatch is not corrected here.
+
+**1. PRD-4 (relation-word list of S2), owner decision.**
+- The owner decided to **keep the current normative behaviour: the relation-word list of S2 is closed**, as in §16.1.
+- This is the owner's decision to retain the specification's present behaviour. The list is **not extended** at this stage. As §16.1 and §19.3 state, clauses with relations not on the list (for example "greater than", "over") are coded IV, not EV.
+- Not changed: the primary estimand, the denominators of §18, the parsing decisions, the register of FZ-v1.
+- If the list is to be opened in the future, the change must go through a specification revision and the corresponding methodological audit.
+
+**2. PRD-10 (freeze status of the `PG11a`/`PG11b` bundle builders): OPEN — OWNER DECISION REQUIRED.** No option is selected or approved. The specification (§14 note, §19.3) leaves the freeze status of these builders undecided. The two options, stated neutrally:
+- **Option A:** the builders are frozen as part of Step 7 and FZ. Consequence (§19.3): they must be added to the Step 7 list and to FZ, so the scope of Step 7 and of the freeze artifacts must be widened accordingly.
+- **Option B:** the builders are not included in the Step 7/FZ freeze. Consequence (§19.3): only the output checks that the specification requires (`PG11a`, `PG11b` builder test and application) protect the bundles; the builders' identity is not frozen.
+- The decision is needed before the Step 7 scope can be fixed. It is not decided by this record, by the audit or by the assistant.
+
+**3. Form of the Step 7 documentation artifact, administrative decision of the owner.**
+- The owner decided that the Step 7 freeze documentation will follow the pattern of the administrative manifests of Step 1 and Step 6, with content and scope adjusted to §13.2 and §21.1.
+- This decision concerns documentation format only. It changes no methodology, parameter or freeze requirement. The specification fixes no format, location or hashing method for the prompt specification; none is claimed here, and this decision does not invent a methodological requirement.
+- The artifact must keep separate, and name individually: the prompt specification; the verbatim texts (§14); the numeral renderers; the label strings; the block markers; the parser grammar; the claim block; the PT patterns; the control batteries; the PG12 whitelist; the anti-cue list; the S2/S3 codebooks; and the results of the synthetic-battery tests. Its hashes must cover the artifacts the specification actually fixes (§21.1 step 7), documented transparently, including which items are hashed and how.
+- No Step 7 artifact is created by this entry.
+
+**Not authorized by this entry:** Step 7, Step 8, a final prompt, a registry, a generator, a synthetic battery, the pilot, any API call or an experiment. Step 7 needs a separate authorization, and the PRD-10 decision is required to fix its scope.
+
+### 12.14 PRD-10 decision, 2026-10-12 (records the owner's decision; not an amendment of the specification)
+
+Records the decision on the item left OPEN in 12.13 (item 2). This entry changes no register value, no specification text and no frozen artifact. It is a post-freeze amendment of this decision record: the record's SHA-256 differs from the value stored in `PARAMETER_FREEZE_MANIFEST_FZ_v1.json` (historical freeze-hash mismatch, 12.12, 12.13); the manifest was not changed and the mismatch is not corrected here.
+
+- **Owner decision (2026-10-12): Option A.** The `PG11a`/`PG11b` bundle builders are **frozen as part of Step 7 and FZ**. This resolves PRD-10 (§19.3); the status "OPEN — OWNER DECISION REQUIRED" of 12.13 item 2 is superseded by this entry, and the earlier text stays as the historical trace.
+- **Consequences as stated in §19.3 ("if frozen, they must be added to step 7 and FZ"):**
+  1. The builders are added to the scope of Step 7.
+  2. The identity and the relevant artifacts of the builders (the code and its hash) are included in the FZ freeze, as the specification requires of items in FZ (§13.2, §14 note).
+  3. The builders must undergo the checks and tests the specification requires (`PG11a`; `PG11b` builder test at step 8 and application after the main run, §8.2, §21.1).
+  4. The equivalence with the dry-run Implementation A, including finding F-4 (generator versus dry-run builder, 12.5, 12.7), must be handled as the specification requires before any validity claim is made.
+- **Nature of the decision:** a decision about scope and reproducibility. It is not empirical evidence that the builders are correct, and it does not state that any builder exists or has been tested.
+- **Related open point, not decided here:** PC-1 (byte layout of "canonical call key plus registry hash", `PG11b`) remains pending; it is needed for the `PG11b` builder test at step 8.
+- **Not created or changed by this entry:** any builder artifact, prompt, registry, synthetic battery or Step 7 freeze artifact. The administrative format of 12.13 item 3 is unchanged.
+- **Not authorized by this entry:** Step 7, Step 8, the pilot, any API call or an experiment. Step 7 needs a separate authorization.
+
+### 12.15 PC-1 decision on procedure, 2026-10-12 (records the owner's decision; not an amendment of the specification)
+
+Concerns PC-1 (§19.3; `PG11b`, §8.2): the byte layout of "canonical call key plus registry hash" (order and separator) used for the opaque coder IDs. This entry changes no register value, no specification text and no frozen artifact. It is a post-freeze amendment of this decision record: the record's SHA-256 differs from the value stored in `PARAMETER_FREEZE_MANIFEST_FZ_v1.json` (historical freeze-hash mismatch, 12.12 to 12.14); the manifest was not changed and the mismatch is not corrected here.
+
+- **Owner decision (2026-10-12), on procedure:** the byte layout of `canonical call key + registry hash` is to be **established as an early part of the Step 7 work**, **recorded explicitly in the Step 7 artifact**, and **submitted for the owner's approval before the `PG11a`/`PG11b` builders are frozen**.
+- **Nature:** a technical clarification, not a change of methodology.
+- **The byte layout is not yet determined.** No order, separator or other format is proposed, fixed or approved by this entry; no format may be treated as approved until the owner approves the concrete format documented in the Step 7 artifact.
+- **Consequences for Step 7 and the builders (Option A of 12.14):**
+  1. Establishing and documenting the layout is early Step 7 work, before any builder is frozen.
+  2. The concrete layout must be approved by the owner before the builders are frozen; the builders may not be frozen with an unapproved layout.
+  3. PC-1 stays formally pending in §19.3 of the unchanged specification until that approval is recorded.
+- **Not changed:** the primary estimand, the denominators of §18, the parsing decisions, the register of FZ-v1.
+- **Not created by this entry:** any byte format, builder, prompt specification, registry, synthetic battery or Step 7 freeze artifact.
+- **Not authorized by this entry:** Step 7, Step 8, the pilot, any API call or an experiment. Step 7 needs a separate authorization.
+
+### 12.16 PC-1 approval of the canonical byte layout (Option E), 2026-10-12 (records the owner's approval; not an amendment of the specification)
+
+Resolves the format question left open in 12.15. This entry changes no register value, no specification text and no frozen artifact. It is a post-freeze amendment of this decision record (historical freeze-hash mismatch against `PARAMETER_FREEZE_MANIFEST_FZ_v1.json`, see 12.12 to 12.15; the manifest was not changed).
+
+- **Owner approval (2026-10-12): Option E** for the canonical byte layout of the opaque coder ID of `PG11b` (§8.2):
+  1. The input is `<call_key>,<registry_hash_hex>`.
+  2. `<call_key>` keeps the format of the specification, `<template_id>,<token>,<repetition>` (the call-list line of §10 without its terminating LF).
+  3. The registry hash is written as **64 lowercase hexadecimal characters**: the SHA-256 of the canonical registry JSON (§10).
+  4. The input is **ASCII**, with **no BOM** and **no terminating LF**.
+  5. The opaque ID is the **first 16 lowercase hexadecimal characters of the SHA-256 of the whole input byte string**.
+  6. An ID collision must be detected and **rejects the build**; no salt is added and the layout is not changed automatically.
+- **Nature:** a technical clarification (PC-1), not a change of the primary estimand, the denominators of §18, the parsing decisions or the register of FZ-v1. PC-1 stays formally listed as pending in the unchanged §19.3; this entry is the recorded clarification.
+- **Consistency check with the specification:** §8.2 `PG11b` and §10 define the call key, the registry hash and the 16-hex rule and leave only order and separator open; Option E fills exactly those two points and adds the representation of the hash (hex), which §10 does not state. No conflict found.
+- **Consequences:** the builders for `PG11a`/`PG11b` may be built under this layout, but they are **not frozen** by this entry; freezing requires that the documentation and all related requirements have been checked, and the Step 7 work remains under the separate Step 7 authorization of 2026-10-12.
+- **Not authorized by this entry:** Step 8, the pilot, any API call or an experiment.
+
+### 12.17 Step 7 work status, 2026-10-12 (record of work; not a freeze, not an amendment of the specification)
+
+- Under the separate Step 7 authorization of 2026-10-12, draft artifacts were built in `research_design/step7/` (prompt specification module, renderers and composition, forbidden-pattern scan and PG12 matcher, verdict parser and frozen reference grammar checker, PG11a/PG11b bundle builders under the layout approved in 12.16, decision script, S2/S3 codebook and synthetic battery, tests) and documented in `research_design/step7/STEP7_PROMPT_SPECIFICATION_MANIFEST_DRAFT_v1.json`.
+- **Status: DRAFT FOR OWNER REVIEW. Nothing is frozen and Step 7 is not declared complete.** The wording of every text is a researcher-choice draft awaiting the owner's approval; the open points are listed in the manifest (GAP-1 to GAP-9).
+- No registry, no prompt for any real template, no API call, no pilot and no experiment were produced. Step 8 was not started.
+- This record is amended after the Step 6 freeze; its SHA-256 differs from the value stored in `PARAMETER_FREEZE_MANIFEST_FZ_v1.json` (historical freeze-hash mismatch); the manifest was not changed.
+
+### 12.18 Owner decisions after the Step 7 audit, 2026-10-12 (records the owner's decisions; not an amendment of the specification)
+
+Context: the read-only Step 7 audit of 2026-10-12 found GAP-1 to GAP-3, several codebook and parser ambiguities, defects D1 to D7 in the draft code, and an open OD-10 point. The owner answered the questions below in the working conversation on 2026-10-12. This entry records the answers; it changes no register value, no specification text and no frozen artifact. The draft audited by that review is preserved unchanged, with hashes, in `research_design/step7_history/audit1_draft_2026-10-12/` (hash list `audit1_draft_2026-10-12.SHA256SUMS.txt`). It is a post-freeze amendment of this decision record (historical freeze-hash mismatch against `PARAMETER_FREEZE_MANIFEST_FZ_v1.json`, 12.12 to 12.17; the manifest was not changed).
+
+**Classification used below.** *Clarification*: the specification is silent or ambiguous and the entry fixes one reading without changing any specification sentence (precedent: PC-1, 12.16). *Scope decision*: decides what belongs to Step 7 and the freeze (precedent: PRD-10, 12.14). *Owner approval*: approval of researcher-choice wording or of an OD-level item. *Specification amendment required*: the entry would contradict or extend the text of v2.7; the specification is NOT changed here and the item is held.
+
+| # | Decision (owner, 2026-10-12) | Class | Notes |
+|---|---|---|---|
+| 1 | **GAP-1.** UNP share (13.6) = UNP calls divided by **all calls of the round**. A call classified under SF1 to SF5 is not counted as UNP (the counts of SF1..SF5 and UNP are disjoint). | Clarification, with a caveat | 13.6 does not define the denominator. The precedence of SF over UNP is a counting convention: 13.4 read literally would also make an empty (SF2) or truncated (SF3) response "zero matches". Whether to write this into a specification revision is for the owner. **Not decided:** how SF calls enter the `unparseable` proportion of 18.2 in the main run, and hence the sensitivity denominator `n_calls - unparseable`. |
+| 2 | **GAP-2.** If a round meets FAIL-S and FAIL-U, **FAIL-U takes precedence**: the round outcome is FAIL-U (action STOP-U); the FAIL-S condition is still recorded. | Clarification | Consistent with 13.6, where `FAIL-U (round 1 or 2) => STOP-U` is unconditional. The label "FAIL-S+FAIL-U" of the draft is removed. |
+| 3 | **GAP-3.** The frozen diagnostic code that produces the structural report of 13.6.1 (activity A, H3) is **built in Step 7 and included in FZ**. | Scope decision | The lists of 13.2 (FZ), 14 and 21.1 step 7 do not name it; they are not amended. The text of 13.6.1 and H3 requires "frozen diagnostic code" and a "frozen reference grammar checker". Consequence: after the freeze, a change to this code is a change to an FZ item (13.2, versioning rule of 13.6), not an H1 to H4 fix. |
+| 4 | **GAP-3, input contract.** The diagnostic code reads the stored record as bytes and decodes UTF-8 with replacement characters; the UTF-8 validity flag is reported separately; the reference checker must not raise. | Clarification | 13.6.1 lists the UTF-8 validity flag in the report and H3 forbids the checker to raise. |
+| 5 | **Decision script scope.** The script writes the decision record only for a **final** pilot decision: PASS, STOP-U, or FAIL-S in round 2 (STOP). FAIL-S in round 1 is refused as "not final". | Clarification | **Not decided:** the round-1 action after FAIL-S (one whitelisted change, or STOP when no whitelisted change fits, e.g. SF4), and the case of several failure types with only "one change" allowed. 13.6 is silent on the multi-type case. These stay with the researcher and are logged, not automated. |
+| 6 | **OD-10 at Step 7.** The owner accepts the **character bound** as the Step 7 input-size bound: 1016 characters (worst case, PAC with claim, widest numerals, ASCII), assuming a token covers at least one character. Hard cap US$52.63 including the 36 pilot slots. | Owner approval | This replaces, for Step 7, the clause of 12.11 "I_max is measured on the actual prompt". It is an assumption, not a measurement; the tokenizer was not queried. The US$100 limit of OD-10 is unchanged. If any prompt text changes, the bound is recomputed (a test checks it). |
+| 7 | **Parser whitespace (13.4).** "Whitespace" in the Verdict grammar means the ASCII characters space, tab, CR, VT and FF. Unicode spaces are not whitespace. Prefixes such as `- `, `## `, `1. `, `> ` before the label are not tolerated (the response is UNP). | Clarification | 13.4 lists case, emphasis and trailing punctuation only and does not define whitespace. Tolerating list or heading prefixes would be a new normalization and would need a specification amendment; it was not chosen. |
+| 8 | **Wording approval.** The wording of `prompt_specification_v1.py` (rule texts, labels, task text, response format including "Constraint: followed by the constraint text", the claim block used for both families, the segment order, markers) is approved as written for submission to the freeze. | Owner approval | Researcher choice of register row 20. Approval is not a freeze. Known residual ambiguity, accepted by this approval: "the constraint text" can be read as the rule or as the label; scoring does not use the `Constraint:` field. |
+| 9 | **S2 symbols (C3).** Only the Unicode symbols U+2265 and U+2264 are the listed relation symbols; the ASCII digraphs `>=` and `<=` are not listed. | Clarification | Literal reading of the symbol list of 16.1. A clause with `>=` is at most IV. Consequence: the digraph is read as one symbol (maximal run of `< > = !`), not as `>` plus `=`. The run rule is a codebook elaboration for the owner to confirm. |
+| 10 | **S2 inflection and negation (C4).** Relation words are exact strings; negated forms count as comparisons and RT/RF is judged on the clause as written. | **HELD: conflicts with 12.13 item 1 and 16.1 (closed list)** | A negated form that contains a listed string ("not within") is already matched by exact matching. A negated form that does not ("is not above", "is not below", "does not exceed") would extend the closed list of PRD-4, which 12.13 kept closed and which, if opened, "must go through a specification revision and the corresponding methodological audit". The implementation therefore applies exact strings only; the extension is **not implemented** pending the owner's confirmation. |
+| 11 | **Comments boundary (C6).** The Comments are the text after the first `Comments:` field label (same line grammar as the Verdict field), to the end of the response, multi-line, with Verdict lines replaced by the redaction marker. No label: no comment (NC). Empty content, or only `None`, `N/A` or `-`: NC. | Clarification | 16.2 says "from the Comments only" without a boundary. |
+| 12 | **CQ versus NS (C7).** CQ requires a question, a request for information, or an explicit statement that compliance cannot be assessed or determined from the information given. Hedges ("might", "cannot be sure either way") are NS. | Clarification | The same line as the NS row of 16.2 ("hedged/conditional statements without commitment"). |
+| 13 | **S3 label (C5).** "MX" in the derived categories and in the retraction rule of 16.2 means MPG, the code of the 16.2 table. | Clarification | Internal inconsistency of the specification text, resolved without a text change. |
+
+**Open after this entry (not decided; no value is invented).**
+- The round-1 action after FAIL-S and the multi-type case (row 5).
+- The treatment of SF calls in 18.2 (row 1).
+- Row 10, the extension of the closed relation list by negated forms.
+- C8 (not-applicable codes of `s2_prov` and `s2_rel`): handled in the codebook only as "outside its denominator", which follows the 16.1 denominators; no owner decision.
+- C9 (the intra-rater re-code procedure: columns, delay, scrambled order, reported statistics).
+- PRD-5, PRD-6, PRD-8, PC-2 as before; F-3, F-4, T-1, I-6 of 12.5 as before.
+- I_max is not measured (row 6).
+
+**Not authorized by this entry:** freezing Step 7, Step 8, the pilot, any API call or an experiment.
+
+### 12.19 Pre-registration of the revised synthetic batteries, 2026-10-12T08:39:25Z (record of work; not an amendment of the specification)
+
+Written before the revised Step 7 code was changed and before any test used them, so that the expected codes precede the code under test (specification 13.5). At this moment the code of `research_design/step7/` is still the code audited on 2026-10-12 (its hashes are in `step7_history/audit1_draft_2026-10-12.SHA256SUMS.txt`), and no test of the revised suite has run.
+
+| File (`research_design/step7/`) | SHA-256 | Content |
+|---|---|---|
+| `parser_battery_v1.py` | `82af5d5361561d9812dd0827a061fa609e42a76dc6f03c6dc90ba2ab38296b27` | 55 verdict-parser cases (30 of the first draft kept with the expected outcome that the decisions allow, 25 added) and 20 Comments-boundary cases |
+| `codebook_battery_v1.py` | `0c9359a6acc986bbda89006dc7bff73c6eb82fb928fd27b24a8891c9c782fd7b` | 30 S2/S3 items with expected codes for s3_ref, s3_stance, s2_evidence, s2_prov, s2_values, s2_arith, s2_rel and the derived flag |
+
+Changes to expected codes relative to the first draft, with the reason: B03 NV instead of IV (week numbers are not plan values or rule parameters, 16.1); B10 uses a correct computation so that the item exercises the correct-explicit-verification flag; the parser items with a no-break or em space after the label now expect UNP (12.18 row 7). The feature assignments (what a coder would mark) are the author's; no coder has read the batteries.
+
+### 12.20 Results of the Step 7 revision, 2026-10-12 (record of work; not a freeze, not an amendment of the specification)
+
+Applies 12.18 to the draft artifacts in `research_design/step7/`. The batteries are those pre-registered in 12.19 (hashes unchanged). Nothing is frozen; Step 7 is not declared complete; no statement is made that Step 8 may start.
+
+**Code and artifact changes (the first draft stays unchanged in `research_design/step7_history/audit1_draft_2026-10-12/`).**
+- `s7_decision.py`: GAP-1 (UNP over all calls of the round, disjoint counts, calls equal to the planned calls), GAP-2 (FAIL-U takes precedence; no combined label), `final_pilot_decision` (PASS, STOP-U, STOP; FAIL-S in round 1 raises `RoundNotFinal`), input validation, canonical record (sorted keys, compact separators, UTF-8, LF, final LF), command-line entry point that prints the SHA-256 of the record, run log, refusal to overwrite (defects D5, D6).
+- `s7_diagnostic.py` (new): the structural report of 13.6.1 from a fixed whitelist of fields (GAP-3, 12.18 rows 3 and 4).
+- `s7_refcheck.py` (new): the frozen reference grammar checker, moved out of `s7_parser.py`, self-contained, no `re`, no project import. Behaviour changes only through the whitespace decision (row 7).
+- `s7_parser.py`: ASCII whitespace (row 7), `comments_of` and `is_empty_comment` (row 11), `relation_tokens` (rows 9 and 10), aggregators for `s2_prov`, `s2_values`, `s2_arith`, `s2_rel`, and `computation_correct` (13.5 requires a mixed correct/incorrect arithmetic test).
+- `s7_bundle.py`: PT4 in the PG11 scan (D1), whole-token mapping-leak check (D2), UTF-8 bodies and no half-written directory (D3), directory-name scan (D4).
+- `s7_core.py`: a missing plan block is a PG12 FAIL; `render_dist` and `n_dec` reject floats (D7).
+- `prompt_specification_v1.py`: lexical data appended (whitespace, emphasis, redaction marker, empty-comment tokens, relation lists); all first-draft constants are unchanged in value (checked).
+- `CODEBOOK_S2_S3_v1_DRAFT.md` revision 2; `parser_battery_v1.py` (new); `codebook_battery_v1.py` revised; `s7_manifest_items.py` (new, reproducible item hashes); `STEP7_PROMPT_SPECIFICATION_MANIFEST_DRAFT_v2.json` (new; v1 is kept unchanged); `test_step7.py` rewritten.
+
+**Test results (actual).**
+- Step 7: `Ran 102 tests`, OK (ResourceWarning treated as error). 62 tests of the first draft became 102; there is one regression test per defect D1 to D7 in `TestAuditRegressions`.
+- Step 4 (`implementation_a`): `Ran 123 tests`, OK. Nothing in `implementation_a/` was changed.
+- Mutation check: 14 in-memory mutants (one decision or fix each), 14 killed, 0 survived. The mutants are not stored in the repository and are not a complete mutation analysis.
+- Re-audit script (scratch, not stored): 55 of 55 checks passed. Checks: the approved wording gives the same hashes as the first manifest (I01, I03, I05, I06, I08, I12, I15, I16); `prompt_specification_v1.py` only had text appended; the decision record up to 12.17 is byte-identical to the audited record; the codebook names the same relation words, symbols, reviewer phrases, marker and whitespace set as the code; the specification, the FZ-v1 manifest, the PJR, the methodology manifest, Implementation A and the first-draft snapshot are unchanged.
+- `git status --short` unchanged (31 lines, same list as at the start); `git diff --check` exit 0; HEAD `224d9101f3737bf5d5057b2cb8835ddea037a860`; no `__pycache__` was created.
+
+**SHA-256 of the Step 7 artifacts at this entry** (the manifest v2 records the same values except its own and that of `test_step7.py`, which cannot contain its own hash):
+
+| File | SHA-256 |
+|---|---|
+| `CODEBOOK_S2_S3_v1_DRAFT.md` | `223b6cf3dc6acad543364fd1ad15c7f2cf87b70cb3d5a1d0d71385dbf96b3529` |
+| `codebook_battery_v1.py` | `0c9359a6acc986bbda89006dc7bff73c6eb82fb928fd27b24a8891c9c782fd7b` |
+| `parser_battery_v1.py` | `82af5d5361561d9812dd0827a061fa609e42a76dc6f03c6dc90ba2ab38296b27` |
+| `prompt_specification_v1.py` | `8b9a73e945f0251c648ca2045ce9c0ee2de25581127f905764139229bcae3167` |
+| `s7_bundle.py` | `10567178b20976eab4958c98db0fca8bd54eabcfa0cb96727936b4985dfa1636` |
+| `s7_core.py` | `64789acb84047f3dabbdd9855baa997317cab637dbb0d7f152cabac98cadea21` |
+| `s7_decision.py` | `811fe6dc5d0e25f913488465acbd9535fbecdb341270ee799df999b6687de08f` |
+| `s7_diagnostic.py` | `ea3d1c69f824ee3d45f6c2af42240ee644654e222a1c767867d68b4f69d232a4` |
+| `s7_manifest_items.py` | `1c5e65d791f3d7cc6ce0866c74050ef0ef5e9ac06af23cbdc8b0eb7d7c6df3e9` |
+| `s7_parser.py` | `c4fc07be4eba35abdfaa245c9903f127c689384b41c7c56db7e916655461a8a7` |
+| `s7_refcheck.py` | `39e10a85068262c960a475fc30cacc7e43ca5ebc8a8ce395bd41fad8d3bf80d4` |
+| `test_step7.py` | `d5832db70f2f109d7771f3b3ba1c322e0a89262e625650124ee73ec20e6103b9` |
+
+**Points for the owner (not decided here).**
+1. Row 10 of 12.18 is HELD and not implemented (negated relation forms that contain no listed string).
+2. The run rule for relation symbols (a maximal run of `< > = !` is one symbol) is a codebook elaboration of row 9.
+3. PG11a/PG11b scan PT4 in file bodies (8.2 range "PT3-PT8b"). A real model response that contains an all-caps `MIL`, `PAC`, `MILD` or `CLEAR` rejects the whole coder bundle and blocks S2/S3 coding. This follows the specification text; whether it is intended for model text is not stated.
+4. The diagnostic code is part of FZ (row 3): a later fix to it is an FZ change with a re-pilot, not an H1 to H4 fix.
+5. `--fz-hash` of the decision script is supplied by the researcher; the specification does not say how "the FZ hash" of 10 is computed. The script also records the register hash recomputed from the FZ-v1 manifest.
+6. The compact canonical serialization of the record is a Step 7 choice; the specification fixes only sorted keys, UTF-8, LF and a final LF.
+7. Still open: round-1 action after FAIL-S and the multi-type case; SF calls in 18.2; C8; C9; F-3, F-4, T-1, I-6; PRD-5, PRD-6, PRD-8, PC-2; I_max not measured (the owner accepted the character bound, row 6).
+
+**Not authorized by this entry:** freezing Step 7, Step 8, the pilot, any API call, an experiment, a commit or a push.
+
+### 12.21 Second review of Step 7: C4 decision and delegated decisions, 2026-10-12 (records decisions and proposals; not an amendment of the specification)
+
+Context: a second review of the Step 7 draft after 12.20. Preflight: every protected file and every Step 7 file matched its recorded hash; this record had no recorded hash before this entry (its first 496 lines equal the audited record; the pre-12.21 copy is `step7_history/STEP3_OWNER_DECISIONS_RECORD_DRAFT.before_12_21.md`, sha256 `bad7d187e0cdfc2745f84312d6b1c140988c42c766d2f9f05a20e3f49442ce45`). The revision-2 state of `step7/` is preserved in `step7_history/revision2_2026-10-12/` (hash list `revision2_2026-10-12.SHA256SUMS.txt`). This entry changes no register value, no specification text and no frozen artifact. The owner delegated methodology decisions to the assistant acting as the S2 student; every such decision below is labelled DELEGATED and remains subject to the owner's and the advisor's review. A change of the frozen specification is never delegated and is only proposed.
+
+| # | Item | Decision | Class |
+|---|---|---|---|
+| 1 | **C4, closed relation vocabulary (owner).** The vocabulary is not expanded implicitly. A registered string is detected by the exact rules of the codebook (exact, case-insensitive, word-bounded; symbols `<`, `>`, `=`, U+2265, U+2264). Lexical detection is separate from semantic verification. Negation is never stripped or ignored when a clause is verified. `is not within` contains the registered string `within` and is detected, but the detection is no evidence that anything is satisfied; the written relation is judged as written. `is not above`, `is not below`, `does not exceed` are not mapped to registered relations by meaning. No stemming, no inferred negation equivalence, no synonyms. A phrase outside the vocabulary is classified by the existing definitions: NV when the comment has no used value and no derived quantity with provenance, IV only when that definition applies. | Owner decision | **Supersedes the second sentence of row 10 of 12.18** ("negated forms count as comparisons"): negated forms count only through a registered string they contain. The HELD status of row 10 is closed: nothing is held for a specification amendment. |
+| 2 | **GAP-1 and 18.2 (DELEGATED, proposal only).** The pilot rule of 12.18 row 1 stands (UNP / all calls of the round; counts disjoint). The main-run proportions of 18.2 are NOT changed: the text defines four proportions over `n_calls` that sum to 1, and an SF call (no response, or a response that is not classified) is none of satisfied, violated, unclear or (by 13.4) unparseable. The two statements cannot both hold for the main run when an SF call occurs below the halting threshold. A formal amendment is proposed in `step7/PROPOSED_CLARIFICATIONS_AND_AMENDMENTS_DRAFT_v1.md` (P-1) and is **not applied**. | Conflict reported; amendment proposed | Specification amendment required (not applied) |
+| 3 | **GAP-2 (DELEGATED, verification).** 12.18 row 2 stands. The result of the review: the specification defines the outcome for PASS, FAIL-S, FAIL-U and (13.6) the actions for FAIL-U in any round and FAIL-S in round 2. Not defined by 13.6, and therefore not automated: the round-1 action after FAIL-S (single-type SF4 has a stated STOP; the other types have a whitelist; several types with "one change" have no rule), and a round-2 record when no round-1 outcome is on file. The script refuses FAIL-S in round 1 (`RoundNotFinal`). | Clarification | Documented gaps; no new outcome label |
+| 4 | **GAP-3 (DELEGATED, verification).** The diagnostic code is hashed as item I22 (the file) and, additionally from this entry, its schema (fields, labels, patterns) as item I25. Invalid inputs raise `TypeError` deterministically (record not bytes, harness not callable, `exc` not an exception, harness directory not a string); the finish reason and names are whitelisted. It is distinct from the H3 reference checker (`s7_refcheck.py`), which it calls. Row 3 of 12.18 stands: the lists of 13.2, 14 and 21.1 are not amended. | Clarification of an input contract | – |
+| 5 | **C8 (DELEGATED).** No new code. The states "not applicable", "missing", "empty", "no identifiable evidence" and "evidence present but not interpretable" are separated in the codebook and mapped to existing codes: not applicable = outside the denominator of 16.1, derived from other codes and not entered by the coder; missing = a required code not entered, a defect that rejects the coding sheet, never read as NA or NV; empty = NC; no identifiable evidence = NV; not interpretable = the existing `unresolved` of 16.3. A specification inconsistency is reported in P-3 of the proposals file (category `none` of `s2_values` versus its denominator). | Clarification | Codebook only |
+| 6 | **C9 (DELEGATED).** Delayed intra-rater re-code, fixed before any response exists: eligible = parseable responses; stratum = (family, condition) cell; sample per cell = all parseable responses if fewer than 20, otherwise max(20, ceil(0.20 x D_P)); selection and re-coding order by SHA-256 keys over the coder-bundle hash and the opaque ID (no random state, no dependence on any code); selected and ordered lists hashed and recorded before the re-code starts; delay at least 14 full days with the first-pass codes closed; re-codes in immutable `recode1_*` columns; per-variable raw agreement, full cross-tab and disagreement counts; no kappa, no confidence interval, no reliability claim. 16.3 also says that agreement is reported with Cohen's kappa; that sentence is read as applying to two coders, and OD-3 (no kappa for one coder) governs the single-coder case. Implemented in `s7_recode.py` and written into the codebook (section 5). The values 20 %, 20 and 14 days are the delegated choices and have no empirical basis. | Delegated procedure | Codebook; no specification change |
+| 7 | **FZ hash contract (DELEGATED, proposal only).** The specification does not define the FZ hash of 10. The FZ-v1 manifest defines only a register hash. A versioned contract (an `FZ_INDEX` object of item hashes, canonical JSON, UTF-8, final LF, SHA-256 of the file bytes, self-reference excluded, verification by recomputation) is proposed as P-2 and is **not adopted**; the FZ-v1 hash and manifest are not redefined. Until it is adopted the decision script records the supplied value as `researcher-supplied, unverified`. | Proposal | Needs owner approval; possibly a versioned clarification |
+| 8 | **Token adequacy (DELEGATED).** No API call; no measured `I_max` exists. The character bound of 12.18 row 6 is a plausibility figure, not a token measurement. The measurement method, the inputs to measure and the effect on the US$100 ceiling are written in P-4. | Pending authorization | Requires an external call |
+| 9 | **Decision script defects (software).** (a) The number of calls of the round was taken from the register, never from the observed round; the script now requires the observed number of calls. (b) The template list of the main call list was not compared with the frozen registry size; it must now equal the canonical IDs implied by FZ-v1 (104 MIL and 208 PAC templates, 2496 call slots). (c) The FZ hash is recorded with its provenance. | Bug fixes | Within the specification |
+| 10 | **Human codebook readiness (DELEGATED).** Before the experiment only the deterministic parts and the self-consistency of the batteries can be assessed. A rehearsal by the human coder on the synthetic battery (not on any response) is defined in the codebook and remains pending. No pilot or main response is read for it. | Pending | – |
+
+**Open after this entry.** P-1 (18.2 amendment), P-2 (FZ hash contract), P-3 (spec inconsistency of `s2_values`), P-4 (token measurement), the round-1 FAIL-S action and the multi-type case, the human rehearsal, F-3, F-4, T-1, I-6, PRD-5, PRD-6, PRD-8, PC-2 (statuses are in the report of this review and in 12.23).
+
+**Not authorized by this entry:** freezing Step 7, Step 8, the pilot, any API call, an experiment, a commit or a push.
+
+### 12.22 Pre-registration of the extended codebook battery, 2026-10-12T09:56:41Z (record of work; not an amendment of the specification)
+
+Written after 12.21 and before the code of this review was changed and before any test used the extended battery. The previous battery (30 items, hash `0c9359a6acc986bbda89006dc7bff73c6eb82fb928fd27b24a8891c9c782fd7b`, 12.19) is preserved in `step7_history/revision2_2026-10-12/`. Items B31 to B40 were appended; B01 to B30 are unchanged. The parser battery is unchanged.
+
+| File (`research_design/step7/`) | SHA-256 | Content |
+|---|---|---|
+| `codebook_battery_v1.py` | `8200cfea41e23255242576ace494fa039ce28880d1a443a2326d6900e0107d49` | 40 items; B31 to B40 cover registered-string detection inside a negated clause (judged as written), unregistered negated and synonym wordings (NV or IV only by definition), case, no stemming, ASCII versus Unicode comparison symbols |
+| `parser_battery_v1.py` | `82af5d5361561d9812dd0827a061fa609e42a76dc6f03c6dc90ba2ab38296b27` | unchanged since 12.19 |
+
+The feature assignments are the author's; no human coder has read the battery.
+
+### 12.23 Results of the second review of Step 7, 2026-10-12 (record of work; not a freeze, not an amendment of the specification)
+
+Applies 12.21 to `research_design/step7/`. The extended battery is the one pre-registered in 12.22 (hash unchanged). Nothing is frozen; Step 7 is not declared complete; no statement is made that Step 8 may start. No file of `implementation_a/`, the specification, the FZ-v1 register or manifest, the PJR or the methodology manifest was changed (hash check below).
+
+**Changes.** Changed: `s7_parser.py` (`relation_matches`, `relation_tokens` built on it), `s7_decision.py` (observed round calls, canonical template list implied by the frozen register, hash provenance), `s7_diagnostic.py` (input validation), `codebook_battery_v1.py` (B31 to B40 appended), `CODEBOOK_S2_S3_v1_DRAFT.md` (revision 3), `s7_manifest_items.py` (items I25 to I28), `test_step7.py`. New: `s7_recode.py`, `PROPOSED_CLARIFICATIONS_AND_AMENDMENTS_DRAFT_v1.md`, `STEP7_PROMPT_SPECIFICATION_MANIFEST_DRAFT_v3.json`, `step7_history/revision2_2026-10-12/` with its hash list, `step7_history/STEP3_OWNER_DECISIONS_RECORD_DRAFT.before_12_21.md`. Byte-identical to revision 2: `prompt_specification_v1.py`, `s7_core.py`, `s7_bundle.py`, `s7_refcheck.py`, `parser_battery_v1.py`, manifests v1 and v2.
+
+**Test results (actual).** Step 7 `Ran 125 tests` OK with ResourceWarning as error (102 before this review). Step 4 `Ran 123 tests` OK. Mutation check: 22 in-memory mutants, 22 killed, 0 survived (14 earlier plus 8 for this review); not a complete mutation analysis; the mutants are not stored. Re-audit script (scratch): 74 of 74 checks passed, including that the wording and grammar items hash as in manifest v2, that B01 to B30 are unchanged, that the decision record was only appended, and that every protected file and both history snapshots are intact. The authorship of the code, the tests, the batteries and this review is the same, so none of this is an independent validation.
+
+**SHA-256 at this entry.**
+
+| File (`research_design/step7/`) | SHA-256 |
+|---|---|
+| `CODEBOOK_S2_S3_v1_DRAFT.md` | `62388d4e5c18ba7758ec0081837d61288776c10605d2c9d5cb4f3f3201b23bc1` |
+| `PROPOSED_CLARIFICATIONS_AND_AMENDMENTS_DRAFT_v1.md` | `2becb5102d66c720f496dc42077bf06106779ddb51748b9b5402d166f2b68749` |
+| `codebook_battery_v1.py` | `8200cfea41e23255242576ace494fa039ce28880d1a443a2326d6900e0107d49` |
+| `s7_decision.py` | `cf0823f7abdf4b6b44d4efd44006567ac42290350714415e8e11496444f57618` |
+| `s7_diagnostic.py` | `5e0f6e707231d66f2ca89b4a0765d6edcde78cdc5bc1e1137e7c9fa6fe9806b6` |
+| `s7_manifest_items.py` | `9b55941d97788009047a5cea90f78566ba99d9edc2867eecf6567d7dfd2cc340` |
+| `s7_parser.py` | `b9d60196c50f8099c0a8319c1308abd40937f7fc3e87e58a30983225c3bd56d8` |
+| `s7_recode.py` | `300fea018e94241098f19914626e84c3f0eba405eca779a309a782e1d319d577` |
+| `test_step7.py` | `2bf9c83bd9b1af4b33ea488506507ae155d113ff9358da22a891f63d1d252ffd` |
+| `STEP7_PROMPT_SPECIFICATION_MANIFEST_DRAFT_v3.json` | `6a4987518f0f96ea0ae45738aab56258b16ff9d431e519951fe290f1b7bbd670` |
+
+**Status of the carried-over items (evidence read from the specification and from `implementation_a/`; nothing changed there).**
+
+| Item | Definition | Evidence | Status | Kind | Smallest next action |
+|---|---|---|---|---|---|
+| F-3 | 12.5: the gates use the `D_dist` and `tau_F` carried by the members; Q2 uses the register values; no gate relates the two | `build_pac_template` reads both from the register (`impl_a.py` around lines 412 to 419); Q9 compares them between members; the specification requires no relating gate | open, not a specification requirement | possible software defect only for hand-made data | at Step 8 the generator must take the values from the register; a register-versus-member consistency check belongs to Step 8 (not to the protected Step 4 code) |
+| F-4 | generator versus dry-run builder | no generator exists; the Step 7 renderers agree with Implementation A over the tested domains, which is a renderer-level fact | blocked on Step 8 | methodology requirement (12.14 item 4) | differential test of the generator against Implementation A over all templates at Step 8 |
+| T-1 | some unit tests use hand-computed examples of candidate bases | `test_impl_a.py` calls `run_numeric_gates` 8 times, on the 2-base `TOY` registry; the full main and pilot registries are run by `run_step4.py` (outputs 30 of 30), which is a script, not a unit test | incomplete | test-design finding | a Step 4 unit test over the frozen register (needs authorization to touch protected files; not done) |
+| I-6 | 12.5: the reading-invariance check is not wired into `Report`; the specification does not define the "six-reading check" | `run_step4.py` runs it informationally; `impl_a.py` lists interpretation I-6 | open | methodology ambiguity plus a design choice | owner decision whether it is a gate; otherwise leave informational |
+| PRD-5 | field-specific unit sets of the human-check normalization (11.2 step 3) | used only by the human blind check at Step 9; no Step 7 code depends on it | pending researcher decision, not a Step 7 prerequisite | methodology decision | owner decision before Step 9 |
+| PRD-6 | whether the decision record is anchored by a commit or an equivalent write-once store (10) | `research_design/` is untracked; the FZ-v1 manifest declares no store; the run log of the decision script is not write-once | blocked on the owner | methodology plus repository state | owner declares the store before Step 11; no commit is made here |
+| PRD-8 | whether `E-EMPTY-TARGET` stays a hard rejection while OD-4 is open | OD-4 (2026-10-09) declares all 12 primary cells precision-targeted (DP1); FZ-v1 row 14 agrees | not applicable under the current declarations; formally pending in 19.3 | dependency note | none |
+| PC-2 | step at which the pilot registry is first built | Step 4 ran the pilot registry informationally (30 of 30); the specification does not say whether this is required | pending clarification | specification silence | owner records the reading "informational at Step 4, hard at Step 8" |
+
+**Open points that remain (none is decided here).** P-1 (18.2 amendment), P-2 (FZ hash contract), P-3 (text inconsistencies), P-4 (token measurement, external call), the round-1 FAIL-S action and the multi-type case, a round-2 record without a round-1 outcome, the human rehearsal, the delegated re-code values, the run rule for relation symbols, and the table above.
+
+**Not authorized by this entry:** freezing Step 7, Step 8, the pilot, any API call, an experiment, a commit or a push.
+
+### 12.24 Delegated decisions on P-1, C9 and symbol tokenization, 2026-10-12 (records decisions; not an amendment of the specification)
+
+Context: the three decisions below were given in the working conversation after 12.23, under the owner's delegation of methodology decisions to the assistant acting as the S2 student. They are operational or proposed; none is validated and none changes the frozen specification. Before any draft artifact was changed, a snapshot of `step7/` was made in `step7_history/revision3_2026-10-12/` (hash list `revision3_2026-10-12.SHA256SUMS.txt`, 17 files) and a copy of this record in `step7_history/STEP3_OWNER_DECISIONS_RECORD_DRAFT.before_12_24.md` (sha256 `2c0077cd7eee06f6afefffdb255d9dae50e87f964142f21c07fd7b3402c36cf4`). Baseline at that moment: every protected file and every Step 7 file matched its recorded hash; Step 7 passed 102 tests, then 125 tests after 12.23; Step 4 passed 123 tests. This entry changes no register value, no specification text, no FZ-v1 hash and no FZ-v1 manifest; no FZ hash is defined. No token was measured and no external call was made.
+
+**Decision 1 - P-1: a PROPOSED amendment of section 18.2 (class: proposed specification amendment; NOT applied).**
+1. The four primary outcome proportions (satisfied, violated, unclear, unparseable) use the number of evaluable responses as denominator.
+2. Evaluable responses are the actual calls excluding the calls classified as structural failures (SF1 to SF5).
+3. The four proportions sum to 1 (exact rational arithmetic; no reporting-rounding convention for these proportions exists in the specification, so none is applied or invented).
+4. The structural-failure rate is reported separately over the protocol-defined total number of calls of the cell.
+5. The pilot UNP share stays UNP calls divided by all actual calls of the round (12.18 row 1; unchanged).
+6. SF and UNP are separate classifications; UNP is never inferred from SF.
+7. If the observed number of calls differs from the frozen registry, or a denominator is invalid, no PASS and no figure is produced.
+
+Inspection of the frozen definitions before implementing (details in `step7/PROPOSED_AMENDMENT_18_2_DRAFT_v1.md`): SF and UNP **can overlap when 13.4 is read literally**. SF2 (no non-whitespace character) and SF3 with no `Verdict:` match also meet the definition of UNP; SF3 with a parseable verdict meets neither; SF5 leaves the outcome class undefined. 18.2 and 13.4 state no precedence. Exclusivity of SF and the four outcome classes therefore rests on the precedence "a call that meets an SF definition is classified SF only", which exists as an owner clarification for the pilot counts (12.18 row 1) and is not in v2.7. The amendment has to state it.
+
+Implemented in the draft, as far as it does not need an invented rule: `s7_outcomes.py` (pooled cell counts: exact fractions summing to 1; the SF rate over the cell's frozen number of calls; no figure when the observed calls differ from the frozen cell size, when nothing is evaluable, or when the classes do not partition the evaluable calls; `classify_call` with SF before the parse outcome and a refusal of a call with several SF codes) and tests. The pilot script already refuses any round whose observed call count differs from the planned count (12.21 row 9). The module is not used by any decision script and its output is labelled "PROPOSED POLICY, NOT ADOPTED".
+
+**Unresolved, and not implemented (no rule is invented).**
+- Cluster-level figures. 18.2 and 12.3 report cluster-level means of `p_t(c)` = matches / `R`, "equal to the pooled template mean under exact balance". With SF calls removed, a template-condition has 0 to `R` evaluable calls, `p_t(c)` can be undefined, weights differ, the equality with the pooled mean fails, and the planning bounds of 12.1 and the bootstrap of 12.3 are affected.
+- The order of several SF codes on one call.
+- Reporting of an incomplete cell (13.8 "achieved counts") against a protocol-defined SF-rate denominator.
+- The denominator of the parseable-only sensitivity of 18.2 (written as `n_eval - unparseable` in the proposal, a consequence the decision did not state).
+- The selection effect of conditioning on non-SF calls (a threat to be stated in 20).
+- The precedence of SF over the literal 13.4 UNP definition, to be written into the amendment.
+
+**Decision 2 - C9: delayed intra-rater re-code (class: delegated operational decision, pending advisor review).**
+Sampling unit: each (family, condition) cell. Size: 20 % of the cell rounded upward, with a minimum of 20 items when the cell has at least 20 items, and all items when the cell has fewer than 20 (`n = D_P` if `D_P < 20`, else `max(20, ceil(D_P / 5))`). Selection and order: deterministic, hash-based; canonical inputs are the ASCII bytes `recode-select,<bundle hash>,<opaque id>` and `recode-order,<bundle hash>,<opaque id>` (no BOM, no terminating LF), key = SHA-256 as 64 lowercase hex characters, ascending key order, ties by ascending opaque ID, the first `n` of a cell are the sample; the bundle hash is the SHA-256 of the sorted opaque IDs joined by LF with one final LF. The sample size comes from parse counts, and the lists are fixed and hashed before the re-code and before any code is seen. Minimum delay 14 days between the last first-pass code and the first re-code; first-pass codes stay concealed (closed sheet, re-code sheet without codes); re-codes are stored in separate immutable `recode1_*` columns; per-variable raw agreement and full cross-tables of the disagreements are reported; no Cohen's kappa, no interval and no inter-rater reliability claim. No empirical validation of the values is claimed, no pilot or main response is inspected, and the sample is not selected or altered after coding outcomes are seen. Documented in the codebook (revision 4, sections 5 and 5.1) and implemented in `s7_recode.py` with a pinned test vector and an independent recomputation in the tests.
+
+*Conflicts with, or silence of, the frozen text (documented; the frozen requirement is not overridden).* 16.3 states "a delayed intra-rater re-code on an order scrambled by opaque ID" without a sample, so it may be read as re-coding every coded response; the sample is a delegated reduction. 16.3 names the columns `coder1_*` and `coder2_*`; `recode1_*` is used so that nothing reads as a second coder. 16.3 says agreement is reported with Cohen's kappa; OD-3 (one coder: no kappa) governs. 16.3 states no minimum delay.
+
+**Decision 3 - relation-symbol tokenization (class: clarification of the closed vocabulary; not an expansion).** A contiguous run of `<`, `>`, `=` and `!` is one symbol token and is listed only if it is exactly `<`, `>` or `=`. Unicode U+2265 and U+2264 remain distinct from the ASCII sequences `>=` and `<=`; ASCII sequences are not normalized to Unicode symbols (or any other normalization) before matching. Lexical detection does not establish that a relation holds. All other matching rules are unchanged. This removes the "run rule awaiting confirmation" from the open items of 12.20 and 12.23. Behaviour tests: `TestSymbolTokenizationClarification` (runs, spans, the Unicode symbols adjacent to ASCII characters, look-alike symbols not listed, an NFKC-normalizing matcher would differ and this one does not, the vocabulary unchanged).
+
+**Other.** The 12.23 table (F-3, F-4, T-1, I-6, PRD-5, PRD-6, PRD-8, PC-2) is unchanged: no item is relabelled complete by this entry or by any test count.
+
+**Not authorized by this entry:** freezing Step 7, Step 8, the pilot, any API call or token measurement, an experiment, a commit or a push, and any change of the specification, the FZ-v1 register or the FZ-v1 manifest.
+
+### 12.25 Results of the revision of 12.24, 2026-10-12 (record of work; not a freeze, not an amendment of the specification)
+
+Applies 12.24 to the draft artifacts in `research_design/step7/`. Nothing is frozen; Step 7 is not declared complete; no statement is made that Step 8 may start. No file of `implementation_a/`, the specification, the FZ-v1 register or manifest, the PJR, the methodology manifest, the earlier manifests v1 to v3, or the earlier snapshots was changed.
+
+**Changes.** Changed: `s7_recode.py` (explicit tie-break, `key_input`, documented canonical inputs), `CODEBOOK_S2_S3_v1_DRAFT.md` (revision 4), `PROPOSED_CLARIFICATIONS_AND_AMENDMENTS_DRAFT_v1.md` (status note under P-1 only), `s7_manifest_items.py` (items I29, I30), `test_step7.py`, and this record (12.24, 12.25 appended). New: `s7_outcomes.py` (proposed 18.2 policy, pooled cell counts, not adopted), `PROPOSED_AMENDMENT_18_2_DRAFT_v1.md`, `STEP7_PROMPT_SPECIFICATION_MANIFEST_DRAFT_v4.json`, `step7_history/revision3_2026-10-12/` with its hash list, `step7_history/STEP3_OWNER_DECISIONS_RECORD_DRAFT.before_12_24.md`. Byte-identical to revision 3: `s7_decision.py`, `s7_diagnostic.py`, `s7_parser.py` (the tokenization rules were already implemented; the decision is covered by new tests), `s7_core.py`, `s7_bundle.py`, `s7_refcheck.py`, `prompt_specification_v1.py`, both batteries, manifests v1 to v3.
+
+**Test results (actual).** Step 7: `Ran 145 tests`, OK, ResourceWarning treated as error (125 before this revision). Step 4: `Ran 123 tests`, OK. Mutation check: 31 in-memory mutants, 31 killed, 0 survived (22 earlier, 9 for this revision); not a complete mutation analysis; the mutants are not stored. The authorship of the code, the tests, the proposals and this review is the same, so none of this is an independent validation. Passing tests do not mark any item complete: the open items of 12.23 and 12.24 are unchanged.
+
+**SHA-256 of the files changed or created in this revision** (the other Step 7 files are unchanged from the table of 12.23).
+
+| File (`research_design/step7/`) | SHA-256 |
+|---|---|
+| `CODEBOOK_S2_S3_v1_DRAFT.md` | `54116a75283d20411514756eab4792c382c455213be09b5590f52c8f7ec00eca` |
+| `PROPOSED_AMENDMENT_18_2_DRAFT_v1.md` | `2ec37353e41cf29d322ed0f57886bfb6420a6543d2dfa2bc7f4bb1a5c08a380a` |
+| `PROPOSED_CLARIFICATIONS_AND_AMENDMENTS_DRAFT_v1.md` | `8c5f66af9af74cb20b1be257d8593ebc1b15ebed6375468e4f780778dfe7e558` |
+| `s7_manifest_items.py` | `aba9c9af3014af1e3a64f5b8fb6ea0f94d1211e4a19a423f8a38e315b3d9a21b` |
+| `s7_outcomes.py` | `bbe017ad1d9890a24dd298357503b6da9f2a36d3de48db60b88db161adc003c2` |
+| `s7_recode.py` | `ec8f948e6209147d0ada8fb0018a97068f352cf5dbed3894c9821bacd164bc37` |
+| `test_step7.py` | `81947effb5dd39d1143db4c396559dcf0a4805f31830411ad31db81c568a41c0` |
+| `STEP7_PROMPT_SPECIFICATION_MANIFEST_DRAFT_v4.json` | `5db81eacc5cb020bcc0217bc9489cd6b035b462fa44f95cc099d656cdb9544d9` |
+
+**Remaining blockers (none is decided here).** The proposed 18.2 amendment is not adopted and its cluster-level treatment, the order of several SF codes, incomplete cells and the sensitivity denominator are unresolved; the advisor has not reviewed the C9 values; P-2 (FZ hash contract), P-3 (text inconsistencies) and P-4 (token measurement, external call) remain proposals; the round-1 FAIL-S action and related cases are undefined; the human rehearsal is pending; F-3, F-4, T-1, I-6, PRD-5, PRD-6, PRD-8 and PC-2 are as in 12.23.
+
+**Not authorized by this entry:** freezing Step 7, Step 8, the pilot, any API call or token measurement, an experiment, a commit or a push.
+
+### 12.26 Owner instruction of 2026-10-13 and resolution of the Step 7 blockers (appended 2026-10-13; not an amendment of the specification)
+
+Context. On 2026-10-13 the owner granted write access for this workflow (scope: step7_history, step7, step8, step8_output, append to this record) and answered: SF policy = keep v2.7 section 18.2 as written; PG11b scan = keep literal; re-code = keep delegated values, no kappa. The owner instructed the assistant to resolve the Step 7 blockers with the smallest defensible resolution, to record each decision with rationale, evidence and deviation, and to produce the Step 7 freeze artifacts if all mandatory conditions are met, without representing any proposal as approved. Snapshot made first: `step7_history/revision4_2026-10-13/` and the copy `step7_history/STEP3_OWNER_DECISIONS_RECORD_DRAFT.before_12_26.md`. It changes no register value, no specification text, no FZ-v1 file, no Implementation A file.
+
+| # | Blocker | Resolution (DELEGATED under the owner's instruction; advisor review pending where stated) | Rationale and evidence | Deviation | Outstanding approval |
+|---|---|---|---|---|---|
+| 1 | SF / UNP | v2.7 section 18.2 stands. Pilot: 12.18 rows 1 and 2 as implemented in `s7_decision.py`. Main run: interim reporting (SF call stays in `n_calls`, in none of the four numerators; SF count and rate reported beside them; no rescaling). Policy 1 (12.24), Policy 2 and parse-first stay proposals. `s7_outcomes.py` and the proposal documents leave the freeze set. | `PROPOSED_AMENDMENT_18_2_DRAFT_v1.md` section 5; P-1 interim behaviour; section 12 aggregator over all R calls | none from v2.7; the sum-to-1 sentence fails when an SF call occurs | advisor and owner choice before the main run |
+| 2 | PG11b scan scope | literal text kept; no code change | section 8.2; `s7_bundle.py`; the in-memory demonstration of 2026-10-13 | none; known risk to S2/S3 coding | advisor and owner decision on an amendment, before post-run coding |
+| 3 | Section 16.3 conformance | codebook revision 5: stale sentence removed, section 5.3 lists the departures | OD-3 (Step 2 record); 12.21 row 6; 12.24 decision 2 | sample, delay, concealment, column name, kappa (listed in 5.3) | advisor review of the re-code values; decision on kappa |
+| 4 | Freeze-set composition | freeze set = prompt specification, renderers, parser, reference checker, decision script, diagnostic code, bundle builders, codebook revision 5, both batteries, re-code module; evidence = tests and item-hash tool; not in the freeze set = `s7_outcomes.py`, `PROPOSED_*`, the Policy 2 package | specification 13.2 and 14; 12.14; manifest v4 listed proposals as items | none | owner's declaration of the freeze |
+
+Conditions of the freeze, status: tests (existing 145 plus new membership tests) to pass; hashes reconciled; the human rehearsal of the codebook battery is **not done** and is recorded as an open pre-pilot requirement (section 13.5); no coder has used the codebook. A change to a freeze-set item before the FZ hash returns to Step 7 (new version).
+
+Not authorized by this entry: Step 8 until the freeze manifest exists, the pilot, any API or token-counting call, an experiment, a commit or a push.
+
+### 12.27 Results of the Step 7 freeze work, 2026-10-13 (record of work; the freeze is on the owner's instruction, not advisor approved)
+
+Applies 12.26. Snapshot of the revision-4 state: `step7_history/revision4_2026-10-13/` (17 files, hash list `revision4_2026-10-13.SHA256SUMS.txt`); record copy `step7_history/STEP3_OWNER_DECISIONS_RECORD_DRAFT.before_12_26.md`. Changed: `CODEBOOK_S2_S3_v1_DRAFT.md` (revision 5, sha256 `25a74353be546cf9db27e58acbd8ed7c02bc896cbf5a0c594b1f4de8ed63d53c`), `test_step7.py` (sha256 `6aeee05100e28c4b1bf3217afe5ec0bc78325e9f516af5bc3acba68c7ffcfd09`; manifest path, membership tests, snapshot and protected-file checks; 150 tests). New: `step7/STEP7_PROMPT_SPECIFICATION_FREEZE_MANIFEST_v1.json` (sha256 `202979de2a88c1b667c3510fc632b25f7108a11d7fdb103cc3473f2fb7c220f7`): status FROZEN_ON_OWNER_INSTRUCTION; 11 freeze-set files; `s7_outcomes.py`, `PROPOSED_*` and the Policy 2 package are not in the freeze set. Manifest v4 and every other Step 7 code file are unchanged. Tests: Step 7 150 OK; Step 4 123 OK. Open (not decided, not approved): advisor review of the SF/UNP main-run policy, of the PG11b scan scope, of the delegated re-code values and the section 16.3 departures; human rehearsal of the codebook battery (pre-pilot, section 13.5).
+
+### 12.28 Step 8: decisions taken under the owner's instruction of 2026-10-13, and results (not an amendment of the specification)
+
+Choices (smallest coherent; each recorded here, none advisor approved): **F-4** Architecture 1 - independent construction in `step8/s8_construct.py`; Implementation A's gates are imported unmodified and applied to the generator's templates (section 21.1: step 8 gates by A); equivalence E-ID, E-PAR, E-GATE, E-PROMPT against A's builders, any difference rejects the build. **Registry**: canonical JSON (sorted keys, compact separators, ensure_ascii=False, UTF-8, one final LF), hash = SHA-256 of the file bytes; provenance and templates only (no prompts, no gate results). **Prompt hash**: SHA-256 of the ASCII bytes. **Artifacts**: `step8_output/step8_build_<12 hex of main registry hash>/` with main/ and pilot/ (registry.json, prompt_table.json, prompts/, checker_bundle/, checker_mapping_HELD_SEPARATELY.json, gate_report.json), pilot/pilot_calls.txt, manifest.json (no self hash), build_log.json (interpreter, UTC time; outside the deterministic inventory). **Pilot**: built and gated at step 8 by the same code (PC-2 reading: informational at step 4, hard at step 8); 18 calls by the section 13.3 rule. **IDs**: same canonical IDs in both registries, distinguished by registry_kind and registry hash. **Output scope**: registry, prompts, hashes, gate report, checker bundle, manifest; the call list is only cross-checked (IDs equal expected_template_ids, 2,496 slots, hash recorded); no request envelope. **I-6**: informational count only. **A6b**: computed at step 8 from rendered numerals (exact fractions); repeated with decimal arithmetic by the verifier; Implementation B (step 9) is not written. **PG4**: prompt equals the frozen segments around the registry plan block and no frozen text carries a numeral. **PG11a**: 624 projections (rule and plan block of Cond-A and Cond-B, no claim, task or format). **PG11b builder test**: 75 items of the section 13.5 batteries assigned to registry call keys. **PG3 reading (clarification, advisor review pending)**: \"contiguous\" is read as one changed span with every differing position inside the target token (section 8.2: \"a single changed span\"); the strict reading (consecutive positions) would reject 90 of 104 MIL templates because the decimal point is shared (180 pairs in the main registry are non-consecutive and are counted in gate_report.json, not rejected). **Failure log**: separate folder `step8_failures/`, nothing published. **Interpreter**: recorded (CPython 3.11.9), not enforced.
+
+Results: main registry 312 templates (104 MIL, 208 PAC), 1,248 distinct prompts, registry sha256 `7a6bbe465c661ec07d91fc1dec93d029a7a40dccc12e31dc74d0d5e8bb4a6190`; pilot registry 24 templates, 96 prompts, sha256 `2b77d718edfd02d163f417677f35a69b871a8275c55c894f7ab5f9f8c36dfb38`; call list sha256 `357c5b7a5fb2cef36b39a985484b97ff76f56f9a00234cf289ef971e70679913` (2,496 lines); manifest sha256 `09eed00eeb79e04ccaf607a66642417cdbbdfe802b19e580a67f4b9e08c7aaa5`. All 30 numeric gates PASS on the generator's templates and on A's builders; E-ID, E-PAR, E-GATE, E-PROMPT PASS; PG1-PG10, PG11a, PG11b builder test, PG12, A1b, A6b PASS on all 1,248 and 96 prompts; two builds are byte-identical; the independent standard-library verifier `step8/s8_verify.py` finds no problem. Tests `step8/test_step8.py`: 30 OK. Limits: the same author wrote the generator, the gates, the verifier and the tests; the verifier is not Implementation B and does not re-verify PG4-PG6, PG10-PG12; the human blind check (minimum delay 7 days) and step 9 are not done; no model call, network call or token count was made.
+
+Not authorized by this entry: the pilot, any API or token-counting call, an experiment, a commit or a push.
+
+### 12.29 Step 9, independent part: Implementation B, 2026-10-13 (record of work; step 9 is NOT complete: the human blind check is pending)
+
+New: `step9/impl_b.py` (sha256 `ada22199bb472d934b4004a3fa6b8ee89551b5cb2f69ac69ca998ac8cc12f600`) and `step9/test_impl_b.py`. Implementation B is standard-library only and imports no project module (not A, not Step 7, not Step 8). It reads the rendered prompt strings of the published build `step8_output/step8_build_7a6bbe465c66`, parses them strictly (each field exactly once, one value), recomputes member states and rho with decimal arithmetic, and re-verifies PG1-PG3, PG5-PG10, PG11a, PG12, A1b, A6b, A7 and the guard of Propositions GM/GP. Result on the main (312 templates) and pilot (24) registries: AGREE, 0 failures; the recomputed state of every member equals the condition (A,C satisfied; B,D violated), ADJ-1 has no disagreement with A's side. Tests: 10 mutation tests OK (flipped state, two values for the cap or the distance, trailing space, forbidden word, wrong week row, wrong class, renamed checker file, claim text in a checker file). Revalidation of the same date, exit codes all 0: Step 7 150 tests, Step 4 123, Step 8 30, Step 9 10; `s8_verify.py` clean. Prepared, not performed: the blank human blind-check worksheet (624 rows) and the blank codebook rehearsal sheet (40 rows) in `results_package_2026-10-13/`. Open: the human blind check with the minimum delay of 7 days (FZ-v1 row 19), the codebook rehearsal, the advisor items of 12.27/12.28. Limits: same author for A, the Step 8 code and B (code-path independence only); B takes template metadata (family, class, target week) from the registry; the reference worksheets of A for ADJ-2 are not produced because no human verdict exists yet.
+
+Not authorized by this entry: the pilot, any API or token-counting call, an experiment, a commit or a push.
+
+### 12.30 Steps 10 to 12, technical components built and tested with synthetic fixtures, 2026-10-13 (record of work; NOTHING WAS RUN)
+
+New folder `step10/`: `s10_scoring.py` (SF1-SF5 flags, parse outcome, SF-only precedence of 12.18 row 1; the primary SF type of a multi-flag call SF1>SF4>SF3>SF2>SF5 is PROVISIONAL, not adopted, used only for the disjoint pilot count vector, multi-flag calls are counted), `s10_analysis.py` (12 primary cells, cluster-level means of p_t(c) over all R calls, claim and class contrasts, cluster bootstrap with random.Random(seed).choices, percentile interval, INCOMPLETE cells give counts only, SF kept in n_calls under the interim rule; a fresh generator per family and the percentile index convention are implementation choices), `s10_runner.py` (gate-checked harness: write-ahead hash-chained ledger, raw record before parsing, retries 0, delay 1 s, concurrency 1, halt rule 13.8, Gemini REST provider UNVERIFIED and never exercised), `s10_report.py`, `test_step10.py` (18 tests, mock provider, synthetic data, exit 0). Short hashes: $H. The runner refuses to start unless: Step 8 verifier clean, Implementation B agrees, a Step 9 evidence file documents the human blind check (delay >= 7 days, 100 percent coverage, worksheet hash, adjudication, same build), an owner authorization file matches scope and call count with the recomputed hard-cap cost below the OD-10 limit, and (main) a final pilot decision record PASS exists whose call-list hash matches. None of these files exists, so the gates are closed (tested). No evidence or authorization file was created, no model or network call was made, the human blind check and the codebook rehearsal were not performed.
+
+Not authorized by this entry: the pilot, the main run, any API or token-counting call, a commit or a push.
+
+### 12.31 Post-run components: S2/S3 coding preparation, tabulation, final freeze manifest tool, 2026-10-13 (record of work; NOTHING WAS RUN on real data)
+
+The specification ends at step 12 (main run); the defined work after it is the declared post-run coding of section 16 (13.6.1 activity C) and the step 11 "final freeze manifest". New in \`step10/\`: \`s12_coding.py\` (preconditions: finished main run, primary analysis present and hashed; coder bundle by the frozen builder, i.e. the PG11b application check with the literal scan; on failure only a failure file is written and coding waits; recode selection and order by s7_recode from the bundle hash; blank first-pass sheet; coding population with D_P, UNP and SF counts per family and condition (TH16); tabulation with the denominators of 16.1 and the lexical s3_ref; recode raw agreement without kappa), \`s11_final_freeze_manifest.py\` (file hashes only; refuses unless the decision record is PASS; defines no FZ hash, P-2 stays open), \`test_s12.py\` (9 tests, synthetic, exit 0). Provisional and NOT adopted: the coding eligibility (non-SF calls with a parseable verdict; package D-10) and the SF primary-type order. Operational fact: the frozen builder's mapping check is quadratic, so the real preparation for 2,496 items takes minutes (tests use a 176-item subset). No coding, rehearsal, recode, blind check or advisor decision was performed or invented.
+
+Not authorized by this entry: coding of any response, the pilot, the main run, any API call, a commit or a push.
+
+### 12.32 Run integrity and pilot decision glue, 2026-10-13 (record of work; NOTHING WAS RUN on real data)
+
+New in \`step10/\`: \`s10_integrity.py\` (post-run integrity of a pilot or main run folder: single status marker, hash-chained ledger equal to the summary, intent/raw/classified order, raw hashes against the ledger and calls.jsonl, prompt hashes against the published build, unique call keys, pilot order equal to pilot_calls.txt, observed token cost against OD-10), \`s11_pilot.py\` (pilot report with counts only per 13.7, and the final pilot decision through the frozen decision script; round-1 FAIL-S is not final and writes nothing), \`test_pilot_flow.py\` (8 tests, mock runs, exit 0). \`s10_runner.py\` gained a helper (\`file_bytes\`); its 18 tests were re-run and pass. The provisional multi-flag order and all advisor items are unchanged and still open.
+
+Not authorized by this entry: the pilot, the main run, any API call, a commit or a push.
+
+### 12.33 Blind-check evaluator and evidence-file writer, 2026-10-13 (record of work; NO human verdict exists or was simulated as evidence)
+
+New in step9/: s9_blindcheck.py and test_blindcheck.py. The evaluator compares a worksheet filled by a person with a reference computed from the displayed text of each checker-bundle file (Implementation B's strict parse, decimal arithmetic), following 11.1 ADJ-1 and the ordered procedure of 11.2 (strict parse, completeness, normalized transcription, precision floor, arithmetic, residual); AGREE, CHECKER ERROR (logged, member kept) or REJECT. The evidence-file writer needs the two dates as arguments given by the person, refuses for any REJECT, coverage below 100 percent or malformed dates, and never overwrites; it computes the worksheet hash and the build manifest hash. The unit-token sets of the normalization are those printed in 11.2 step 3 (PRD-5 remains a pending researcher decision). Tests: 6, synthetic worksheets from an independent helper, exit 0. Open: the human blind check itself, the codebook rehearsal, owner authorization, the advisor items.
+
+Not authorized by this entry: the pilot, the main run, any API call, a commit or a push.
+
+### 12.34 Pre-pilot runner fixes, 2026-10-13 (record of work; NOTHING WAS RUN against a provider)
+
+Changed (Step 10 code, not in the Step 7 freeze set; backups in results_package_2026-10-13/_backup/prepilot_fix/): s10_runner.py (local preflight of the API key variable, model ID, endpoint host and register settings BEFORE any output folder, ledger entry, call record or provider call exists; failure raises PreflightFailed, exit 2 on the command line; wall-clock latency recorded when the provider returns none; the run summary states the timeout semantics), s10_integrity.py (output tokens from total minus prompt when both exist, else candidates plus thoughts, never counting a token twice; calls with incomplete usage are counted and the cost is declared a lower bound; calls whose recorded latency exceeds 180 s are flagged). New: test_prepilot_fixes.py (11 tests, mock providers and synthetic usage, exit 0). Re-run for relevance: test_step10 (18), test_pilot_flow (8), test_s12 (9): OK. The stored usage schema, the ledger order (intent, raw, classified), the frozen settings, the gate and the build are unchanged. The timeout is NOT changed: it stays a per-socket-operation timeout and the text does not say whether 180 s is a total deadline (owner decision). Resume after a transport halt (13.8) is NOT implemented: the rule is incomplete (see PRE_PILOT_FIX_REPORT.md section 4). A command-line tool for s12_coding is post-pilot work.
+
+Not authorized by this entry: the pilot, the main run, any API call, a commit or a push.
+
+### 12.35 Step 12 command-line wrapper, 2026-10-13 (record of work; NOTHING WAS RUN on real data)
+
+New: step10/s12_cli.py (subcommands prepare, tabulate, recode; calls s12_coding unchanged; exit 2 when the PG11b application check blocks coding, 3 when coding is incomplete) and two CLI tests in test_s12.py (11 tests, exit 0). It adds no rule and does not change the output contract. Resume after a transport halt (13.8) remains unimplemented; the unclear points are written up in results_package_2026-10-13/PRE_PILOT_FIX_REPORT.md section 4 for the advisor.
+
+Not authorized by this entry: coding of any response, the pilot, the main run, any API call, a commit or a push.
+
+### 12.36 Provider response validation, 2026-10-13 (record of work; NOTHING WAS RUN against a provider)
+
+Changed: step10/s10_scoring.py (a record with an error marker or an HTTP status outside 2xx is SF1, a prompt block reason is SF4, unlisted finish reasons and missing usage are counted and reported, never silent), s10_runner.py (the adapter result and the call record carry block_reason), s10_integrity.py (provider_checks: returned-model difference, missing returned model, missing HTTP status, unlisted finish reasons, block reasons). New: test_provider_response.py (16 tests, urlopen patched, exit 0). Protocol silent and therefore NOT decided: effect of a returned model that differs from the requested one (only recorded), meaning of an unlisted finish reason (parse decides, reported), the list of provider names that count as blocked (RECITATION, OTHER, LANGUAGE are an implementation choice), a record without HTTP status. See results_package_2026-10-13/PROVIDER_RESPONSE_VALIDATION_REPORT.md. The adapter is not verified against the live API.
+
+Not authorized by this entry: the pilot, the main run, any API call, a commit or a push.
+
+### 12.37 Acceptance tests for the pilot SF decision, 2026-10-13 (record of work; no rule adopted, no code changed)
+
+New: step10/test_sf_matrix_literal.py (10 tests, exit 0, "OK (expected failures=6)"). The tests encode only the text of spec 13.6: a call that meets SF2, SF3 or SF5 makes the round FAIL-S. Six rows (SF1+SF3, SF4+SF3, SF1+SF5, SF4+SF5, SF1+SF3+SF5, SF4+SF3+SF5) are marked expectedFailure because the current counting (one provisional primary type per call) returns PASS for them; the single-flag rows pass. The per-call or per-flag unit of f_S and the primary order are NOT decided by these tests. See results_package_2026-10-13/MASTER_PREPILOT_RESOLUTION.md section 2.
+
+Not authorized by this entry: any change of the counting rule, the pilot, the main run, any API call, a commit or a push.
+
+### 12.38 Owner decisions on the H4 adjudication questions and on PG3, 2026-10-14 (records the owner's decisions; not an amendment of the specification)
+
+Context: the questions are in `results_package_2026-10-13/human_evidence/rehearsal/H4_ADJUDICATION_REQUEST.md` (A-F, G) and `results_package_2026-10-13/OWNER_APPROVAL_PACKAGE.md` (blocking decisions). The owner answered them in the working conversation of 2026-10-14; this entry records the answers. The owner's name and signature are not part of this text. This entry changes no register value, no specification text, no codebook text and no frozen artifact (specification, FZ-v1, Step 7 and Step 8 manifests, registry, Step 8 build, the pasted or working label files of the rehearsal).
+
+| # | Question | Owner decision | Reason (as given) | Conditions and limits |
+|---|---|---|---|---|
+| 1 | Principle for `s3_stance` when a comment states that a quantity does or does not exceed the cap or limit (rows `fe7db0c0524f62b4`, `8a34b8db3f040423`, `22fb1725b563cd91`, `8a694865d0c4617d`) | **Option B, strict stance.** Only comments that explicitly address the claim that the plan violates the constraint (spec 16.2 lines 981-985) are coded AG or DG; a statement about a limit, a cap or a percentage is not turned into AG or DG without enough context; comments whose meaning is unclear stay NS. | Defensible for the research; it reduces subjective inference by the coder. | The four rows keep NS. Definitions and labels are not changed to make analysis easier. This is a reading of spec 16.2, not a change of it; codebook text unchanged. Advisor review: the Step 7 manifest lists no separate advisor item for the stance reading and states that the Step 7 freeze set is not advisor approved; this entry claims no advisor approval. |
+| 2 | A-2: codebook line 93 omits the exclusion sentence of spec 16.1 (line 942) | **Option B, record it here.** Spec 16.1 is the operative rule for `s2_arith`: stated computations without provenance are excluded from the assessment of arithmetic accuracy (they appear in `s2_prov` = N). The discrepancy with the codebook is recorded here. | Codebook lines 4-5 already state that section 16 governs and that a difference is a defect of the codebook. | Valid because this entry establishes, in writing, that spec section 16 governs where the codebook differs for this point. The codebook is NOT edited and Step 8 is NOT rebuilt; any edit of a freeze-set file follows the formal change procedure (a return to Step 7 under a new version, before the FZ hash). The decision is limited to this discrepancy and does not authorize other deviations of the codebook. Applied to the candidate `d614cbb672fe000e`: `s2_arith` = AN in the working file `rehearsal_ai_coded_working_v2.csv`. |
+| 3 | G-1: `s2_values` and `s2_arith` when the original prompt is not available in the rehearsal | **Option A.** Limit the assessment to what can be shown from the text; do not guess whether a value or a result is correct against a prompt. | The rehearsal contains no prompt (spec 16.1 lines 941 and 947 define `cv`/`sw` and correctness against it). | `s2_values` is not forced to `cv` where no prompt exists; `s2_arith` is assessed only for computations whose operands and result are available and which have provenance. The current label scheme has no "not assessable" value and none is created; the limitation stays recorded in the adjudication sheet until a reporting format is approved by a separate decision. |
+| 4 | Is the human rehearsal H4 required or optional | **Required.** One human rehearsal is required before the coding procedure is declared validated. | A format check does not show that the coding rules can be applied consistently by a human. | OD-3 is NOT changed: one human coder only; no second coder is introduced by this entry (if a second human becomes available, that needs a separate amendment of OD-3 by the owner). The researcher codes the 40 rows from the blank kit in `human_evidence/rehearsal/rehearsal_human_AI_exposed_working.csv`; because the researcher has seen the AI labels, the rehearsal is named an **AI-exposed human rehearsal**, not independent blind coding. The AI labels are kept in separate files. The format pre-check runs after the human coding; the comparison with the expected codes runs only after the human coding is finished and does not run automatically; differences are documented and adjudicated. The AI-assisted labels remain a screening comparison only (OD-3). The human rehearsal is an open advisor item of the Step 7 manifest (`open_advisor_items`: section 13.5, before the pilot; not done); this entry makes it required and does not mark that advisor item closed. |
+| 5 | PG3 before H1 | **Ratified:** "contiguous" (spec 8.1 PG3, line 461) is read as one changed span, with every differing position inside the target token's span (spec 8.2 line 525 "a single changed span"; line 550 "only the target numeral may differ"); the shared decimal point inside the token does not break the span. The strict reading (consecutive positions) is not adopted. | The textual basis was checked: spec lines 461, 525 and 550, the implementation `research_design/step8/s8_gates.py` lines 94-100 and record 12.28 support the reading; no frozen provision was found that contradicts it. | No artifact is changed and no rebuild is needed (the Step 8 build was made under this reading). The text of record 12.28 ("clarification, advisor review pending") is unchanged: advisor review of PG3 remains pending and is not marked done. H1 is not opened by this entry: it still needs the other prerequisites (the researcher's R1, the open decisions listed in the owner package that can change a manifest-bound artifact). |
+
+Not authorized by this entry: the recording of R1, the start of H1, H2 or H3, any change of the codebook, the specification or a manifest, the pilot, the main run, any API call, a commit or a push.
+
+### 12.39 Owner decisions on four H4 issues after the rehearsal comparison, 2026-10-14 (records the owner's decisions; no advisor approval; not an amendment of the specification)
+
+Context: the rehearsal comparison (`results_package_2026-10-13/human_evidence/rehearsal/comparison.json`, 29 differing cells in 18 of 40 items) was diagnosed in working documents (scratch: `H4_DIAGNOSTIC_REPORT_2026-10-14.md`, `H4_OWNER_ADVISOR_ISSUES_DRAFT_2026-10-14.md`, `H4_FOLLOWUP_INTEGRITY_AND_DECISION_REQUEST_2026-10-14.md`). The owner answered issues 1, 2, 3 and 5 of that list in the working conversation of 2026-10-14; this entry records the answers. Issue 4 (classification of the class A candidates B03, B17, B36, B37 and the basis of `s2_values` = SW on B10 and B36) is NOT an owner decision here; it remains the researcher's own task in the findings file. These decisions are the owner's alone. No advisor has been asked or has approved anything; the owner's name and signature are not part of this text. This entry changes no register value, no specification text, no codebook text, no battery or expected code, no sheet, no script, no test and no frozen artifact.
+
+| # | Question (issue of the draft list) | Owner decision | Basis and limits | Open points |
+|---|---|---|---|---|
+| 1 | Meaning of "used" for `s2_values` (spec 16.1, line 933(b)) | **Option A, broad reading, as a provisional working interpretation.** A numeral on the rule-parameter side of a comparison-like clause counts as a used value (933(b) "a side of a stated comparison") even when the clause's relation is outside the closed relation list. | Basis: 933(b) says "stated comparison", a term the specification does not define; it defines only "stated computation" (934) and "numerical comparison" (935). The closure of the list (935, codebook lines 62-85) is stated for "numerical comparison" and its stated reason concerns the evidence category; codebook lines 80-83 classify a clause with an unlisted relation as IV only through a used value or a derived quantity with provenance, which neither includes nor excludes such a numeral. 933(c) independently covers B37 ("the cap of 10% in week 3"). The battery's `used_ok` flags are consistent with this reading. Limits: it is a reading, not a codebook rule or amendment; the codebook, the battery, the expected codes, the registry and the Step 8 artifacts are unchanged; it does not decide `cv` versus `sw` (that needs the prompt) nor whether an unlabelled numeral such as "10%" is a rule parameter (also prompt-dependent); no sheet cell is changed and the classification of the sheet cells stays with the researcher. For coding of real responses the codebook text governs; any formal clarification needs a separate decision (codebook version). | Advisor review NOT obtained and not claimed. Possible tension to be reported: codebook line 46 and spec line 1001 say that where the codebook is silent a disagreement item is `unresolved`; the owner's working reading treats the point as resolvable by 933. If the advisor reads 933(b) narrowly, the six expected `cv` cells (B09, B20, B23, B32, B35, B38) become a battery question for the advisor (checklist step 8, answer (iii)), which would be a separate decision. |
+| 2 | `s2_arith` when the prompt is not available (G-1, 12.38 row 3) | **Option A.** The limitation is recorded in the H4 findings: arithmetic assessment that needs the prompt (the plan values or rule parameters behind a stated computation) cannot be validly assessed from the visible comment alone. | The `AN` labels on the sheet are NOT replaced, no `unresolved` category or other new label is added, no sheet, codebook, script, test or expected code is changed, and no second comparison is run. The 15 `s2_arith` differences with expected AC (B09, B12, B20, B21, B22, B23, B24, B31, B32, B35, B36, B37, B38, B39, B40) and the `s2_arith` difference on B17 are NOT stated to be coder errors: whether the stated results are correct is a limitation of observability (spec 934, 942 and 947 define correctness against displayed values and rule parameters that the rehearsal does not give). Differences that can be shown from the text by written rule (for example spec 932 and example line 957 for B17 `s2_evidence` and `s2_prov`) are a different category and are classified by the researcher. | 12.38 row 3 left the reporting format to "a separate decision" without naming the decider; the owner decides here as owner, and whether the advisor must also be involved is NOT confirmed. The reporting format for "not assessable" values (the existing `unresolved` of codebook line 103) remains undecided for future use. |
+| 3 | Whether the `s2_values` and `s2_arith` comparisons are usable in a rehearsal without a prompt | **Option A.** Their interpretation is limited and the limitation is documented. | The raw agreement figures (`s2_values` 31/40 = 77.5%, `s2_arith` 24/40 = 60.0%) are kept as raw descriptive results only. They are not a measure of validity or reliability (OD-3: one human coder, no kappa; AI-exposed rehearsal; synthetic comments; the expected `cv`, `AC` and `AI` are fixed by item-level flags of the battery, not derived from the comment text). The rehearsal is not redesigned; the battery and the expected codes are unchanged. | Remains an OPEN QUESTION FOR THE ADVISOR: whether a rehearsal that cannot assess these two variables from text satisfies 12.38 row 4 (human rehearsal required before the coding procedure is declared validated). The human rehearsal remains an open advisor item of the Step 7 manifest; this entry does not mark it closed. |
+| 5 | Pre-check versus applicability of labels | **Option A.** `precheck_human_sheets.py` is NOT changed and no applicability check is added now. | Three layers are documented separately: (1) format check (header, ids, unchanged comment text, allowed codes, non-empty required cells); (2) applicability of labels (which cell is required given other codes, for example `s2_rel` when `s2_evidence` = EV, codebook lines 99-100); (3) comparison with the expected codes (`compare_rehearsal.py`, run once). A pre-check that passes shows only that the format satisfies the current checking rules; it does not show that every substantively required label is filled or correct. B36 (`s2_evidence` = EV with `s2_rel` empty) is recorded as a known limitation; the sheet is not changed to remove that finding. | Whether an applicability check is wanted for later use (a new script version with tests) is not decided; the scripts under `reproduce/` are not bound to any hash list that was found, but this entry changes none of them. |
+
+Not authorized by this entry: the creation of the final `rehearsal_findings.md` or of H3 (the stop rule of the H1-H7 checklist, step 8, stays in force until the researcher's classification and the required answers exist), a second comparison, a change of any label, sheet, expected code, battery, codebook, specification, manifest, registry or script, any message to the advisor, the recording of R1, the pilot, the main run, any API call, a commit or a push.
+
+### 12.40 Owner decisions on the six MD-08 questions (resume after interruption or halt; cost stop), 2026-10-15 (records the owner's decisions; no advisor approval; not an amendment of the specification)
+
+Context: the questions, options and consequences are in `results_package_2026-10-13/MD08_DECISION_PACKAGE_2026-10-14.md` (rows 1-6) and `results_package_2026-10-13/MD08_OWNER_ANSWER_TABLE_2026-10-15.md`. The owner chose the options below explicitly in the working conversation of 2026-10-15; this entry records the choices. The owner's name and signature are not part of this text. This entry changes no register value, no specification text (v2.7), no FZ-v1, no Step 7 or Step 8 artefact, no scoring rule, and no code (`s10_runner.py`, `s10_resume.py`, `s10_integrity.py` are unchanged). The resume module remains not adopted for use until the open points below are resolved and the code matches this entry.
+
+| # | Question | Owner decision | Conditions and limits | Consistency with spec v2.7 and with the code today |
+|---|---|---|---|---|
+| 1 | A call with an `intent` entry and no persisted result | **Option A.** Such a call is never resumed or repeated, and no automatic repetition is added. It is treated under the incomplete/lost-run rule (spec 13.8: reported as incomplete with achieved counts). No synthetic result, no substitution, never counted as a success. | A run in which this occurs ends as an incomplete run. | Consistent with spec 13.8 ("no call silently substituted", "failed calls are not selectively re-run"). The code already refuses the resume. No code change. |
+| 2 | Definition of "transport-only" halt | **Option C.** Resume may be considered only for transient HTTP statuses that are explicitly permitted and for transport exceptions on the allow-list. HTTP client errors and programming errors never qualify. | **UNRESOLVED: the explicit list of permitted HTTP statuses is not fixed by any authoritative source.** The statuses named in the decision package (408, 429, 500, 502, 503, 504) were the assistant's illustrative example and are NOT adopted; 429/500/503 are not automatically eligible. The exception allow-list that exists is `TRANSPORT_ERROR_CLASSES` in `s10_resume.py` (provisional, written by the assistant, not ratified by a record); whether it is the owner's list is also unresolved. Until the owner fixes the status list, no HTTP-status halt is resumable. | Spec 13.4 defines SF1 as "HTTP/API error or timeout"; choosing a narrower subset for resume is compatible with 13.8 ("may resume"). Current code (strict: no HTTP status qualifies) is stricter than C and is therefore not in conflict; it must be extended only after the list is fixed. No code change. |
+| 3 | Resume after a killed process (no halt marker) | **Option C.** Resume may be considered only if persisted evidence shows that the cause was a transport failure. A dead process or a missing halt marker is not by itself evidence; no resume on assumption. | **UNRESOLVED: what persisted evidence suffices** (for example transport-only SF1 records at the end of the ledger) is not defined. | **CONFLICT with the code today:** `s10_resume.py` still allows `resume_basis = process_interruption` on the owner's acknowledgement (the former option B). That branch is contrary to this decision. It is not removed here because the evidence rule is undefined. Until the code is brought in line, the owner must not authorise a resume on that basis. |
+| 4 | Who authorises a resume | **Option C.** The owner authorises each resume; the advisor is informed through the run report. | Informing the advisor is not an approval and is not to be recorded as one. No advisor concurrence exists or is required by this decision. | Consistent with the code (separate owner-written authorization file). The code does not produce the notice; the run report must state each resume (to be done when the report is written). |
+| 5 | Code changes at resume | **Option C.** Only a pure implementation fix satisfying all of H1-H4 (spec 13.6): code hash before and after, byte-identical regression result, reason class (`crash`, `hang`, `logging`, `I/O`), the harness code hash in the run manifest, and (H3) agreement with the frozen reference grammar checker for the triggering stored record. A change of prompt, timeout, delay, retry count, or any experiment behaviour is an FZ change (versioning rule) and is not a pure fix. | Each such fix needs a documented owner entry. | **GAP in the code today:** `prepare_resume` refuses only when `s10_scoring.py` differs; a change in runner, resume or integrity code is recorded but not refused, and no H1-H4 documentation is checked. Not changed here; the precise check (what proof the tool must see) is UNRESOLVED. Meanwhile H1-H4 documentation is a manual owner step. |
+| 6 | Cost stop | **Option A.** The cost stop stays an operational stop independent of response content. It is recorded as its own cause of halt (`RUN_INCOMPLETE`, cost stop), NOT as a transport failure (not SF1) and not counted in the SF1-SF5 monitor. The limit is not removed or weakened. | The advisor is to be informed, because the cost stop is a halt cause that spec 13.8 does not list; this entry does not claim that the advisor has been informed. | Consistent with the code (`s10_runner.drive`). No code change. |
+
+Open after this entry: (a) the explicit list of permitted HTTP statuses and confirmation of the exception allow-list (row 2); (b) the evidence rule for a resume after a killed process, and then the removal or restriction of the `process_interruption` branch (row 3); (c) the check of H1-H4 evidence at resume (row 5); (d) informing the advisor of rows 4 and 6. No advisor has answered or approved anything.
+
+Not authorized by this entry: any code change, a resume of any run, the pilot, the main run, any API call, the code-freeze declaration, R1, H1/H3 evidence, `step9_evidence.json`, the pilot authorization, the final freeze manifest, a commit or a push. The gate stays CLOSED.

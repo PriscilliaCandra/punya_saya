@@ -1,0 +1,33 @@
+{
+  "run_id": "stage1_gemini_20261007T070917Z",
+  "stage": 1,
+  "dry_run": false,
+  "provider": "gemini",
+  "model_requested": "gemini-3.8-flash",
+  "models_returned": [],
+  "started_utc": "2026-10-07T07:09:17+00:00",
+  "ended_utc": "2026-10-07T07:47:31+00:00",
+  "settings": {
+    "max_output_tokens": 8192,
+    "temperature": "provider default (temperature parameter is NOT sent)",
+    "system_prompt": null,
+    "retries": 0,
+    "timeout_seconds": 180,
+    "shuffle_seed": 20261007
+  },
+  "scenarios": 10,
+  "repetitions": 3,
+  "planned_calls": 30,
+  "registry_sha256": "d5213f039073acc72140956b46c792c4f76d980e2c800982cbca247bafb86e81",
+  "script_sha256": {
+    "run_pilot.py": "e20b6f8e86810a11a666143d87c066812d0d2e90ac4ebf5901fb8c873b659951",
+    "scenarios.py": "bb62aa5995113ab8f5f389f5317e1b7d3dae62399b995d722b0bf38f025a9c21",
+    "pilot_config.json": "d7e34156661590d8a68d6ca4d1ebce9bc3f4b25c8e7c6ff43d7ef06ebb0a6023"
+  },
+  "python": "3.11.9",
+  "platform": "Windows-10-10.0.26300-SP0",
+  "calls_made": 30,
+  "calls_ok": 0,
+  "calls_error": 30,
+  "stopped_after_stage1": true
+}

@@ -1,0 +1,52 @@
+# Results package index (updated 2026-10-13)
+
+| Artifact | Path | Status |
+|---|---|---|
+| Master resolution of the open pre-pilot items | `MASTER_PREPILOT_RESOLUTION.md` | PROPOSED — NOT ADOPTED |
+| Master draft decision record (decision fields PENDING) | `MASTER_PROPOSED_DECISION_RECORD.md` | PROPOSED — NOT ADOPTED |
+| Master implementation plan | `MASTER_IMPLEMENTATION_PLAN.md` | P1 and P3 applied as working decisions; other patches HELD (section 4) |
+| Master pilot readiness checklist | `MASTER_PILOT_READINESS_CHECKLIST.md` | gate CLOSED |
+| Master conflict index (C-01 to C-30) | `MASTER_CONFLICT_INDEX.md` | current |
+| Conflict analysis (OD-10, kappa, FZ hash, SF counts) | `CONFLICT_RESOLUTION_BRIEF.md` | PROPOSED — NOT ADOPTED |
+| Earlier proposals and draft entries | `PROPOSED_FINAL_DECISIONS.md`, `PROPOSED_DECISION_RECORD_ENTRIES.md` | superseded in part by the MASTER files |
+| Provider response validation | `PROVIDER_RESPONSE_VALIDATION_REPORT.md` | no live call |
+| SF acceptance tests from the text of 13.6 | `research_design/step10/test_sf_matrix_literal.py` | 14 tests OK under working decision MD-01 (not ratified); the former 6 expected failures are ordinary tests |
+| SF2 detection acceptance and conflict C-31 | `research_design/step10/test_sf2_detection.py` | 19 tests, no expected failure; encode the working decision on C-31 (option B, not ratified) |
+| Input-size (character limit) acceptance tests | `research_design/step10/test_input_limit.py` | 10 tests OK under working decision MD-02 (not ratified) |
+| Interrupted-run / damaged-ledger characterization | `research_design/step10/test_ledger_resilience.py` | 11 tests OK; no resume exists |
+| C-31 / C-32 owner decision brief (decision table, definitions, questions) | `C31_C32_OWNER_DECISION_BRIEF.md` | PROPOSED — NOT ADOPTED; all decision fields PENDING |
+| Audit of stale SF statements and proposed correction text for the official record | `PROPOSED_RECORD_CORRECTION_12_37.md` | PROPOSED; record not edited |
+| SF2 variant analysis (analysis only, not part of the harness) | `research_design/step10/sf2_variants_analysis.py`, `test_sf2_variants.py` | 11 tests OK |
+| Deferred patches (inactive diff and notes) | `deferred_patches/` | HELD, not applied |
+| Operational checklist for the human tasks H1-H7 (nothing done) | `HUMAN_TASKS_H1_H7_OPERATIONAL_CHECKLIST.md` | READY_FOR_HUMAN; all NOT DONE |
+| Provider verification matrix L1-L6 (procedures only, no call made) | `PROVIDER_VERIFICATION_MATRIX.md` | READY after written owner authorization; all NOT DONE, UNKNOWN |
+| Master closeout report (what was completed, integrity checks, next actions in dependency order) | `MASTER_CLOSEOUT_REPORT.md` | 2026-10-13 closeout; pilot gate CLOSED |
+| Master execution report | `MASTER_EXECUTION_REPORT.md` | 2026-10-13 batch; pilot gate CLOSED |
+| Pre-pilot fix report | `PRE_PILOT_FIX_REPORT.md` | current |
+| Next actions, gate status and order | `NEXT_ACTIONS.md` | current |
+| Advisor / owner decision brief (columns for decisions empty) | `ADVISOR_DECISION_BRIEF.md` | WAITING_FOR_ADVISOR |
+| Guide for the human blind check and codebook rehearsal | `HUMAN_TASK_GUIDE.md` | READY_FOR_HUMAN |
+| Operations runbook (verified commands) | `OPERATIONS_RUNBOOK.md` | current |
+| Static audit of the Gemini adapter | `PROVIDER_STATIC_AUDIT.md` | no live call made |
+| Rehearsal comparator | `reproduce/compare_rehearsal.py` | self-checked on synthetic input; not part of the frozen set |
+| Execution status | `01_EXECUTION_STATUS_REPORT.md` | current |
+| Methodology and freeze record | `02_METHODOLOGY_AND_FREEZE_RECORD.md` (decisions also in `research_design/STEP3_OWNER_DECISIONS_RECORD_DRAFT.md` entries 12.26 to 12.28) | current |
+| Experimental results (Stage 1, Stage 2) | `03_EXPERIMENTAL_RESULTS.md` | final for the data that exist |
+| Analysis and limitations | `04_ANALYSIS_AND_LIMITATIONS.md` | final |
+| Reproduction | `05_REPRODUCIBILITY.md`, `reproduce/` | current |
+| Lecturer brief | `06_LECTURER_DISCUSSION_BRIEF.md` | current |
+| Step 7 freeze manifest | `research_design/step7/STEP7_PROMPT_SPECIFICATION_FREEZE_MANIFEST_v1.json` | FROZEN on owner instruction; advisor items open |
+| Step 7 history snapshot | `research_design/step7_history/revision4_2026-10-13/` | complete |
+| Step 8 code and tests | `research_design/step8/` | 30 tests OK |
+| Step 8 output (registries, prompts, hashes, gate reports, checker bundle, manifest) | `research_design/step8_output/step8_build_7a6bbe465c66/` | published, verified |
+| Steps 10-12 components (scoring, analysis, gated runner, report) | `research_design/step10/` | 18 tests OK (mock provider); gates closed; NOT run |
+| Post-run coding prep, tabulation, final freeze manifest tool | `research_design/step10/s12_coding.py`, `s11_final_freeze_manifest.py` | 9 tests OK (synthetic); NOT run |
+| Run integrity check, pilot report and decision glue | `research_design/step10/s10_integrity.py`, `s11_pilot.py` | 8 tests OK (mock); NOT run |
+| Blind-check evaluator and evidence-file writer | `research_design/step9/s9_blindcheck.py` | 6 tests OK (synthetic); the human check NOT done |
+| Implementation B and tests | `research_design/step9/` | AGREE; 10 tests OK |
+| Codebook rehearsal kit | `codebook_rehearsal_kit/` | blank sheet ready; rehearsal NOT done |
+| Human blind-check kit | `step9_blind_check_kit/` | blank worksheet ready; the check is NOT done |
+| Staged texts used for Step 7 | `staged_step7_freeze/` | applied (kept as record) |
+| v2.7 pilot / main-run outputs | none | not run: blocked at Step 9 |
+
+Commands (read-only unless stated): see `05_REPRODUCIBILITY.md`; Step 8 verification: `python -B -I research_design/step8/s8_verify.py research_design/step8_output/step8_build_7a6bbe465c66`; tests: `python -B -I -W error::ResourceWarning -m unittest discover -s research_design/step8 -p test_step8.py` (about 2 minutes).

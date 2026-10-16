@@ -1,0 +1,127 @@
+.........................................................................................................................................................................................................................................................................................................................................................................Exception ignored in: <_io.FileIO name='D:\\research s2\\research_design\\step8/s8_verify.py' mode='rb' closefd=True>
+Traceback (most recent call last):
+  File "D:\research s2\research_design\step10\test_step11_file_list.py", line 40, in reachable
+    tree = ast.parse(open(os.path.join(RD, p), encoding="utf-8").read())
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\research s2\\research_design\\step8/s8_verify.py' mode='r' encoding='utf-8'>
+Exception ignored in: <_io.FileIO name='D:\\research s2\\research_design\\step9/s9_blindcheck.py' mode='rb' closefd=True>
+Traceback (most recent call last):
+  File "D:\research s2\research_design\step10\test_step11_file_list.py", line 40, in reachable
+    tree = ast.parse(open(os.path.join(RD, p), encoding="utf-8").read())
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\research s2\\research_design\\step9/s9_blindcheck.py' mode='r' encoding='utf-8'>
+Exception ignored in: <_io.FileIO name='D:\\research s2\\research_design\\step9/impl_b.py' mode='rb' closefd=True>
+Traceback (most recent call last):
+  File "D:\research s2\research_design\step10\test_step11_file_list.py", line 40, in reachable
+    tree = ast.parse(open(os.path.join(RD, p), encoding="utf-8").read())
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\research s2\\research_design\\step9/impl_b.py' mode='r' encoding='utf-8'>
+Exception ignored in: <_io.FileIO name='D:\\research s2\\research_design\\step10/s11_final_freeze_manifest.py' mode='rb' closefd=True>
+Traceback (most recent call last):
+  File "D:\research s2\research_design\step10\test_step11_file_list.py", line 40, in reachable
+    tree = ast.parse(open(os.path.join(RD, p), encoding="utf-8").read())
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\research s2\\research_design\\step10/s11_final_freeze_manifest.py' mode='r' encoding='utf-8'>
+Exception ignored in: <_io.FileIO name='D:\\research s2\\research_design\\step10/s12_cli.py' mode='rb' closefd=True>
+Traceback (most recent call last):
+  File "D:\research s2\research_design\step10\test_step11_file_list.py", line 40, in reachable
+    tree = ast.parse(open(os.path.join(RD, p), encoding="utf-8").read())
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\research s2\\research_design\\step10/s12_cli.py' mode='r' encoding='utf-8'>
+Exception ignored in: <_io.FileIO name='D:\\research s2\\research_design\\step10/s12_coding.py' mode='rb' closefd=True>
+Traceback (most recent call last):
+  File "D:\research s2\research_design\step10\test_step11_file_list.py", line 40, in reachable
+    tree = ast.parse(open(os.path.join(RD, p), encoding="utf-8").read())
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\research s2\\research_design\\step10/s12_coding.py' mode='r' encoding='utf-8'>
+Exception ignored in: <_io.FileIO name='D:\\research s2\\research_design\\step7/s7_parser.py' mode='rb' closefd=True>
+Traceback (most recent call last):
+  File "D:\research s2\research_design\step10\test_step11_file_list.py", line 40, in reachable
+    tree = ast.parse(open(os.path.join(RD, p), encoding="utf-8").read())
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\research s2\\research_design\\step7/s7_parser.py' mode='r' encoding='utf-8'>
+Exception ignored in: <_io.FileIO name='D:\\research s2\\research_design\\step7/prompt_specification_v1.py' mode='rb' closefd=True>
+Traceback (most recent call last):
+  File "D:\research s2\research_design\step10\test_step11_file_list.py", line 40, in reachable
+    tree = ast.parse(open(os.path.join(RD, p), encoding="utf-8").read())
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\research s2\\research_design\\step7/prompt_specification_v1.py' mode='r' encoding='utf-8'>
+Exception ignored in: <_io.FileIO name='D:\\research s2\\research_design\\step7/s7_bundle.py' mode='rb' closefd=True>
+Traceback (most recent call last):
+  File "D:\research s2\research_design\step10\test_step11_file_list.py", line 40, in reachable
+    tree = ast.parse(open(os.path.join(RD, p), encoding="utf-8").read())
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\research s2\\research_design\\step7/s7_bundle.py' mode='r' encoding='utf-8'>
+Exception ignored in: <_io.FileIO name='D:\\research s2\\research_design\\step7/s7_core.py' mode='rb' closefd=True>
+Traceback (most recent call last):
+  File "D:\research s2\research_design\step10\test_step11_file_list.py", line 40, in reachable
+    tree = ast.parse(open(os.path.join(RD, p), encoding="utf-8").read())
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\research s2\\research_design\\step7/s7_core.py' mode='r' encoding='utf-8'>
+Exception ignored in: <_io.FileIO name='D:\\research s2\\research_design\\step10/s10_scoring.py' mode='rb' closefd=True>
+Traceback (most recent call last):
+  File "D:\research s2\research_design\step10\test_step11_file_list.py", line 40, in reachable
+    tree = ast.parse(open(os.path.join(RD, p), encoding="utf-8").read())
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\research s2\\research_design\\step10/s10_scoring.py' mode='r' encoding='utf-8'>
+Exception ignored in: <_io.FileIO name='D:\\research s2\\research_design\\step7/s7_recode.py' mode='rb' closefd=True>
+Traceback (most recent call last):
+  File "D:\research s2\research_design\step10\test_step11_file_list.py", line 40, in reachable
+    tree = ast.parse(open(os.path.join(RD, p), encoding="utf-8").read())
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\research s2\\research_design\\step7/s7_recode.py' mode='r' encoding='utf-8'>
+Exception ignored in: <_io.FileIO name='D:\\research s2\\research_design\\step10/s10_report.py' mode='rb' closefd=True>
+Traceback (most recent call last):
+  File "D:\research s2\research_design\step10\test_step11_file_list.py", line 40, in reachable
+    tree = ast.parse(open(os.path.join(RD, p), encoding="utf-8").read())
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\research s2\\research_design\\step10/s10_report.py' mode='r' encoding='utf-8'>
+Exception ignored in: <_io.FileIO name='D:\\research s2\\research_design\\step10/s10_runner.py' mode='rb' closefd=True>
+Traceback (most recent call last):
+  File "D:\research s2\research_design\step10\test_step11_file_list.py", line 40, in reachable
+    tree = ast.parse(open(os.path.join(RD, p), encoding="utf-8").read())
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\research s2\\research_design\\step10/s10_runner.py' mode='r' encoding='utf-8'>
+Exception ignored in: <_io.FileIO name='D:\\research s2\\research_design\\step10/s10_integrity.py' mode='rb' closefd=True>
+Traceback (most recent call last):
+  File "D:\research s2\research_design\step10\test_step11_file_list.py", line 40, in reachable
+    tree = ast.parse(open(os.path.join(RD, p), encoding="utf-8").read())
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\research s2\\research_design\\step10/s10_integrity.py' mode='r' encoding='utf-8'>
+Exception ignored in: <_io.FileIO name='D:\\research s2\\research_design\\step7/s7_decision.py' mode='rb' closefd=True>
+Traceback (most recent call last):
+  File "D:\research s2\research_design\step10\test_step11_file_list.py", line 40, in reachable
+    tree = ast.parse(open(os.path.join(RD, p), encoding="utf-8").read())
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\research s2\\research_design\\step7/s7_decision.py' mode='r' encoding='utf-8'>
+Exception ignored in: <_io.FileIO name='D:\\research s2\\research_design\\step10/s10_analysis.py' mode='rb' closefd=True>
+Traceback (most recent call last):
+  File "D:\research s2\research_design\step10\test_step11_file_list.py", line 40, in reachable
+    tree = ast.parse(open(os.path.join(RD, p), encoding="utf-8").read())
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\research s2\\research_design\\step10/s10_analysis.py' mode='r' encoding='utf-8'>
+Exception ignored in: <_io.FileIO name='D:\\research s2\\research_design\\step10/s11_pilot.py' mode='rb' closefd=True>
+Traceback (most recent call last):
+  File "D:\research s2\research_design\step10\test_step11_file_list.py", line 40, in reachable
+    tree = ast.parse(open(os.path.join(RD, p), encoding="utf-8").read())
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\research s2\\research_design\\step10/s11_pilot.py' mode='r' encoding='utf-8'>
+Exception ignored in: <_io.FileIO name='D:\\research s2\\research_design\\step10/s10_resume.py' mode='rb' closefd=True>
+Traceback (most recent call last):
+  File "D:\research s2\research_design\step10\test_step11_file_list.py", line 40, in reachable
+    tree = ast.parse(open(os.path.join(RD, p), encoding="utf-8").read())
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ResourceWarning: unclosed file <_io.TextIOWrapper name='D:\\research s2\\research_design\\step10/s10_resume.py' mode='r' encoding='utf-8'>
+..
+----------------------------------------------------------------------
+Ran 363 tests in 215.016s
+
+OK
+FZ hash b8803b2497f99a4d9e4227a55509ca466f6e30bb10117edfc766ebb96b1e20aa
+stored b8803b2497f99a4d9e4227a55509ca466f6e30bb10117edfc766ebb96b1e20aa recomputed b8803b2497f99a4d9e4227a55509ca466f6e30bb10117edfc766ebb96b1e20aa
+FZ INDEX MATCHES
+refused: [Errno 17] File exists: 'C:\\Users\\USER\\AppData\\Local\\Temp\\fz_paz11bvh\\i.json'
+synthetic prompts: 64 main + 16 repeats = 80 counted calls (+2 probes); bases disjoint from the registry
+GATE CLOSED:
+  - Step 9 evidence file missing (human blind check not documented)
+  - owner authorization file missing

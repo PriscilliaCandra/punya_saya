@@ -1,0 +1,31 @@
+{
+  "analyzer_sha256": "08e8432e52ec9ed6c68730eb288cf32348c54355aa8709a3bccc0edd72aa3056",
+  "generated_utc": "2026-10-08T06:43:03+00:00",
+  "inputs": {
+    "coded_sheet": "27aeeab35176c92346ac12a14872140c5a94ba72e1625092f3ff41219f1d1c85",
+    "frozen/CODEBOOK_v2.md": "177a1c5d9b7dbf1ab9e53d0684365dcf67b21f1b1f3154f3f8b1ecc5aa6eb4fc",
+    "frozen/CODEBOOK_v2_freeze_manifest.json": "669ef62e758b4243a732ac417f6dd670623637d1f8fd19453a2f5124ee1891b2",
+    "frozen/scenario_registry_stage2_v1.json": "51895ee5329059930959f15746439f692bb849521de346099a1838be7689f5c7",
+    "frozen/stage2_prompt_specification.md": "5d88b1e57557d9fb8ba67d9623972d3420953e9e3f28961e0dfed401b3637a80",
+    "run/STAGE2_COMPLETE": "86aeba1dec236582d156b75835e90a9d6cec907086afc7f329d44259ec912d26",
+    "run/calls.jsonl": "cec0733b639be4e60279666230609bafc182ca58d57a0e0087df0f7c2a457294",
+    "run/config_used.json": "3ee87c5c392d40eef6a9dceb599c5f0c83275ba589c0d8d496629a0728876a6b",
+    "run/integrity/postrun.json": "0b19383483a1482cf5e93d1e486a2641d4c0e0a1050ad174b88831981af2d3a1",
+    "run/manifest.json": "3794c5685eb17076c065a4341625db43396e6174b89a8059432c6083a9ca84de",
+    "run/scenario_registry.json": "51895ee5329059930959f15746439f692bb849521de346099a1838be7689f5c7"
+  },
+  "outputs": {
+    "analysis/STAGE2_ANALYSIS_REPORT.md": "7ae9d29fcf1caf9c00cca743859ecb7b95daf82bed93dc9cc517d1473878f30b",
+    "analysis/coding_key.csv": "c36d9c3caa959d83d9e6516f7f59b89ee32013ad2c82705bcda93c0a67a52588",
+    "analysis/coding_sheet_blank.csv": "ef8a31ae5ab2ca137758bc3536edad754e7c71db748bc514e99bd3ec5ad143cc",
+    "analysis/coding_sheet_filled.csv": "6337dee9fa14f197e5c3a8fda1dd66d729a2bad0c199d0b743f7a68414de5040",
+    "analysis/coding_sheet_filled_reconciled_v1.csv": "27aeeab35176c92346ac12a14872140c5a94ba72e1625092f3ff41219f1d1c85",
+    "analysis/decision_result.json": "f84083e08699c1b7523229681f94fe3cc1b2040ff96925315d703b130f260ce6",
+    "analysis/deterministic_extraction.csv": "8f621fc72e53ef896c316770e91de1242627bf5bce8bce40457dd3da706b10cc",
+    "analysis/deterministic_extraction.json": "2c6396762ad69461b89b71be90ae8483caff107ebd7d1e23ba9b34bbdf21095d",
+    "analysis/integrity_report.json": "1fbb70b96fd8dfbef3397eaaf4ce7bc8385aad1693c1a5c63523241602c790db",
+    "analysis/primary_coding_table.csv": "1d5f1c977be65fb1985f40741e8fb553835dca298a42896656e84c14f6db07e8",
+    "analysis/summary_statistics.json": "b0875791a514224fca5334a7dca9af5746c9eb892c24aa81b5fb95e828727f69"
+  },
+  "python_version": "3.11.9"
+}

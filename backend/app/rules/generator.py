@@ -20,26 +20,43 @@ def generate_weekly_progression_summary(
     - Base Building (Weeks 1 to N-3 with periodic cutback recovery every 4 weeks)
     - Peak volume (Week N-2 or N-3)
     - Tapering (Final 1-2 weeks before race)
+
+    `current` is the build-progression reference: the volume the NEXT build
+    week compounds from. A cutback week now updates `current` to its own
+    (reduced) volume before returning, so the following build week resumes
+    from the actual post-cutback mileage rather than the stale pre-cutback
+    peak (T7 fix — previously produced an unintended ~+25% rebound the week
+    after every cutback, since `current` was left untouched by the cutback
+    branch). Taper/race weeks remain anchored to `base_mileage` (the starting
+    weekly mileage), not to `current`/peak, per the documented methodology
+    (PAPER_DRAFT.md Table II: "Taper | Second-to-last week is 0.85 and last
+    week is 0.55 times the base (starting) mileage") — this anchoring was
+    already correct; only the misleading inline comment below has been fixed.
     """
     progression = []
     current = base_mileage
 
     for w in range(1, total_weeks + 1):
         if w == total_weeks:
-            # Race Week: Tapered volume (~50-60% of baseline)
+            # Race Week: Tapered volume (~55% of the base/starting mileage)
             vol = round(base_mileage * 0.55, 1)
             phase = "Race Week & Taper"
             note = f"Taper week: Reduced volume to keep legs fresh for race day ({target_race_distance})."
         elif w == total_weeks - 1:
-            # Pre-race taper (~75% of peak)
+            # Pre-race taper (0.85x the base/starting mileage, NOT peak volume
+            # -- matches the documented methodology, see function docstring)
             vol = round(base_mileage * 0.85, 1)
             phase = "Taper Phase"
             note = "Begin race taper; maintain intensity in short bursts but drop overall volume."
         elif w % 4 == 0:
-            # Recovery / Cutback week (-15% volume)
+            # Recovery / Cutback week (-15% volume off the current reference)
             vol = round(current * 0.85, 1)
             phase = "Recovery Cutback Week"
             note = "Scheduled deload week to allow muscular and connective tissue adaptation."
+            # T7 fix: the cutback's reduced volume becomes the new reference,
+            # so the next build week progresses from the real post-cutback
+            # mileage instead of silently reverting to the pre-cutback peak.
+            current = vol
         else:
             # Safe 5-8% increase capped at 10%
             increase_factor = 1.06 if base_mileage >= 20 else 1.08
@@ -67,7 +84,7 @@ def distribute_workouts_across_week(
     """
     Distributes workouts scientifically across days of the week:
     - Quality session (Tempo or Interval)
-    - Long Run (max 30% of total weekly volume)
+    - Long Run (planned at 30% of the weekly target volume, capped per race distance and floored at 4 km; the realized share can exceed 30% when few training days are available or volume is low)
     - Easy Aerobic Runs
     - Rest / Active Recovery days
     """
@@ -124,7 +141,7 @@ def distribute_workouts_across_week(
         return single_day_workouts
 
     # Calculate Volume Allocations (80/20 Rule)
-    # Long run is ~28-30% of weekly volume
+    # Long run is planned at 30% of the weekly target (cap and floor below); the realized share can exceed 30%
     long_run_km = round(weekly_mileage * 0.30, 1)
     
     # Minimum and maximum sensible long run bounds
@@ -327,9 +344,9 @@ def generate_rule_based_plan(profile: RunnerProfileCreate) -> Dict[str, Any]:
                 f"Polarized training design heuristic (~80% low-intensity aerobic: {actual_week_mileage * 0.8:.1f} km, "
                 f"~20% high-intensity quality: {actual_week_mileage * 0.2:.1f} km) across {actual_week_mileage:.1f} km total."
             ),
-            "baseline_mileage_constraint": f"Week 1 mileage matches current capacity ({profile.current_weekly_mileage} km) to prevent acute spikes.",
-            "long_run_boundary": "Long run distance is constrained to ≤30% of total weekly volume.",
-            "weekly_progression_heuristic": "Progressive build capped at ≤8-10% weekly mileage increases with scheduled cutback deload weeks.",
+            "baseline_mileage_constraint": f"Week 1 target volume is the current weekly mileage ({profile.current_weekly_mileage} km) times 1.06 (1.08 below 20 km), a design heuristic to limit sudden increases; realized weekly distance can differ from the target because of per-session minimum distances and the available training days.",
+            "long_run_boundary": "Long run is planned at 30% of the weekly target volume, capped per race distance (12/16/21 km) and floored at 4 km; the realized long-run share can exceed 30% with few training days or low volume.",
+            "weekly_progression_heuristic": "Target volume rises by 6-8% per build week (at most 10%) with scheduled cutback deload weeks; realized weekly distance can differ from the target.",
             "rest_day_spacing": f"{7 - profile.training_days_per_week} rest days scheduled strategically around quality and long run sessions."
         },
         # Part 4: AI Personalization Summary

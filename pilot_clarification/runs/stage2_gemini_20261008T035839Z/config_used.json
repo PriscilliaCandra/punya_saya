@@ -1,0 +1,249 @@
+{
+  "stage": 2,
+  "registry_version": "stage2-v1",
+  "provider": "gemini",
+  "model_requested": "gemini-3.1-flash-lite",
+  "scenarios_expected": 8,
+  "repetitions": 5,
+  "planned_calls": 40,
+  "hard_cap_calls": 40,
+  "shuffle_seed": 20261008,
+  "call_order": [
+    [
+      1,
+      "K-E-TRUE-B",
+      2
+    ],
+    [
+      2,
+      "C-L2",
+      1
+    ],
+    [
+      3,
+      "K-E-TRUE",
+      1
+    ],
+    [
+      4,
+      "K-C-L4-S2",
+      4
+    ],
+    [
+      5,
+      "C-L4-S2",
+      4
+    ],
+    [
+      6,
+      "K-C-L4-S2",
+      2
+    ],
+    [
+      7,
+      "C-L3",
+      2
+    ],
+    [
+      8,
+      "C-L4-S2",
+      2
+    ],
+    [
+      9,
+      "C-L4-S2",
+      5
+    ],
+    [
+      10,
+      "C-L3",
+      3
+    ],
+    [
+      11,
+      "E-F-A",
+      5
+    ],
+    [
+      12,
+      "E-F-B",
+      4
+    ],
+    [
+      13,
+      "E-F-A",
+      2
+    ],
+    [
+      14,
+      "C-L4-S2",
+      1
+    ],
+    [
+      15,
+      "C-L3",
+      5
+    ],
+    [
+      16,
+      "K-C-L4-S2",
+      3
+    ],
+    [
+      17,
+      "K-C-L4-S2",
+      1
+    ],
+    [
+      18,
+      "C-L2",
+      5
+    ],
+    [
+      19,
+      "E-F-B",
+      3
+    ],
+    [
+      20,
+      "K-E-TRUE",
+      2
+    ],
+    [
+      21,
+      "K-E-TRUE",
+      3
+    ],
+    [
+      22,
+      "E-F-A",
+      1
+    ],
+    [
+      23,
+      "K-E-TRUE",
+      5
+    ],
+    [
+      24,
+      "C-L2",
+      4
+    ],
+    [
+      25,
+      "K-C-L4-S2",
+      5
+    ],
+    [
+      26,
+      "E-F-A",
+      4
+    ],
+    [
+      27,
+      "C-L4-S2",
+      3
+    ],
+    [
+      28,
+      "E-F-B",
+      2
+    ],
+    [
+      29,
+      "C-L2",
+      3
+    ],
+    [
+      30,
+      "C-L2",
+      2
+    ],
+    [
+      31,
+      "C-L3",
+      1
+    ],
+    [
+      32,
+      "K-E-TRUE-B",
+      5
+    ],
+    [
+      33,
+      "K-E-TRUE",
+      4
+    ],
+    [
+      34,
+      "E-F-B",
+      1
+    ],
+    [
+      35,
+      "K-E-TRUE-B",
+      3
+    ],
+    [
+      36,
+      "E-F-B",
+      5
+    ],
+    [
+      37,
+      "K-E-TRUE-B",
+      1
+    ],
+    [
+      38,
+      "C-L3",
+      4
+    ],
+    [
+      39,
+      "E-F-A",
+      3
+    ],
+    [
+      40,
+      "K-E-TRUE-B",
+      4
+    ]
+  ],
+  "call_order_sha256": "8b98a43e72f7ab243e1ce21a7a18f908286a0b5fcbf2429c06621570e7e30e81",
+  "max_output_tokens": 8192,
+  "temperature_policy": "provider default (temperature parameter is NOT sent)",
+  "system_prompt": null,
+  "retries": 0,
+  "timeout_seconds": 180,
+  "concurrency": 1,
+  "delay_between_calls_seconds": 1.0,
+  "api_key_env": {
+    "gemini": "GEMINI_API_KEY"
+  },
+  "python_version": "3.11.9",
+  "bindings": {
+    "codebook_sha256": "177a1c5d9b7dbf1ab9e53d0684365dcf67b21f1b1f3154f3f8b1ecc5aa6eb4fc",
+    "codebook_freeze_manifest_sha256": "669ef62e758b4243a732ac417f6dd670623637d1f8fd19453a2f5124ee1891b2",
+    "registry_file_sha256": "51895ee5329059930959f15746439f692bb849521de346099a1838be7689f5c7",
+    "registry_canonical_sha256": "c0e9447bb50911f3f7bc33f8fa1d0bda85c909ed39ba82eaa01a1e398a41e76b",
+    "prompt_specification_sha256": "5d88b1e57557d9fb8ba67d9623972d3420953e9e3f28961e0dfed401b3637a80",
+    "stage1_registry_canonical_sha256": "d5213f039073acc72140956b46c792c4f76d980e2c800982cbca247bafb86e81",
+    "call_order_sha256": "8b98a43e72f7ab243e1ce21a7a18f908286a0b5fcbf2429c06621570e7e30e81",
+    "config_specification_sha256": "3fd7df12a39d569add1ca8f010fb1fa12635c4fec53157d3801f62dc8ab5b61c",
+    "runner_specification_sha256": "538dbf979ad8e57df0e11d3b8bb8c93bc4255c05fdd27215ddb5ac958f275136",
+    "analyzer_specification_sha256": "4d55c305da83c2d6d62f1ac7b725e1001884aaab0dda20dae2a70799e470ba5b",
+    "prompt_hashes": {
+      "E-F-A": "1770f1572342116c12e75b0b42efa70789d1a54f2f4b670cba6b56a15024cb49",
+      "E-F-B": "5406c93c376febd64b2df037580f1d1f4ed5995eece059cba390a4e92e8a2a46",
+      "K-E-TRUE": "808c1545b65a1ce4f2052bdd06458967a500de06cd151cffbdaf992702f29967",
+      "K-E-TRUE-B": "4b33b6067d75783dd3b77c0417ef21cfe768a8e5be82d1f5c80e347408776085",
+      "C-L2": "9479e2e9ba1d0540bddec16b29ba9be044e76004a87402eb9ed44d22b61c0a04",
+      "C-L3": "a672ab88f0101ea5c5ca67c36f65205630c85091ab66d6d76070ec190375893c",
+      "C-L4-S2": "ba5ef99887b0dccc05caec191dbe08469f876eb3d0d2ee5e0b8e8afc552bdee8",
+      "K-C-L4-S2": "61eeac0b0c4043b0ae463756483241f33641cf64548867a453545e91fc601393"
+    },
+    "runner_sha256": "b149c57568110d1cd0574b8bec63424fd9b40b5712cbcb2557709a71c96f684e",
+    "analyzer_sha256": "08e8432e52ec9ed6c68730eb288cf32348c54355aa8709a3bccc0edd72aa3056"
+  }
+}

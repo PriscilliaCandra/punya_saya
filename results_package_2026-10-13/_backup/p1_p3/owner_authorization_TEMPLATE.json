@@ -1,0 +1,8 @@
+{
+  "authorized_by": "",
+  "scope": "pilot_round_1",
+  "max_calls": 18,
+  "cost_ceiling_usd": 100,
+  "input_tokens_per_call_assumed": 0,
+  "note": "TEMPLATE, NOT AN AUTHORIZATION. The owner fills authorized_by with the word owner, sets scope (pilot_round_1, pilot_round_2 or main), max_calls (18, 18 or 2496), and states the input-size assumption in tokens per call (1016 is the accepted character bound; a measurement needs separate authorization). Save as a new file; the runner reads only authorized_by, scope, max_calls, cost_ceiling_usd and input_tokens_per_call_assumed."
+}

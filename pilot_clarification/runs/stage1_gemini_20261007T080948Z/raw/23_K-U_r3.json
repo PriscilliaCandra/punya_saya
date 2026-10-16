@@ -1,0 +1,68 @@
+{
+  "call_index": 23,
+  "scenario_id": "K-U",
+  "scenario_number": 8,
+  "repetition": 3,
+  "provider": "gemini",
+  "model_requested": "gemini-3.1-flash-lite",
+  "timestamp_utc": "2026-10-07T08:12:08+00:00",
+  "prompt_sha256": "1c1eecf7f67a313428f0189245cd803c9877d28748cd899307a481aecd0f0ebf",
+  "prompt": "I'm a recreational runner and I'd like a 6-week training plan. Here is my information:\n\n- Age / gender: 26, male\n- Experience: beginner (started running 4 months ago)\n- Recent 5K time: 24:40\n- Goal: 10K in 52:00 at the end of week 6\n- Current weekly mileage: 45 km\n- Days available per week: 5 (Monday, Tuesday, Thursday, Saturday, Sunday)\n\nPlease give me the plan as a week-by-week table with columns: week, running days, total km.",
+  "settings": {
+    "max_output_tokens": 8192,
+    "temperature": "provider default (temperature parameter is NOT sent)",
+    "system_prompt": null,
+    "retries": 0,
+    "timeout_seconds": 180,
+    "shuffle_seed": 20261007
+  },
+  "http_status": 200,
+  "response_text": "To achieve a 10K time of 52:00 (a pace of 5:12 min/km), you need to transition from \"just running\" to structured sessions that build both aerobic endurance and lactate threshold.\n\nSince you are currently running 45 km/week, this plan manages your load by keeping your volume consistent while increasing intensity.\n\n### The Weekly Schedule Structure:\n*   **Tuesday (Intervals):** Focus on running at your goal race pace (5:12/km) or slightly faster.\n*   **Thursday (Tempo):** Sustained efforts at a \"comfortably hard\" pace to improve endurance.\n*   **Saturday (Easy/Recovery):** Keeping the pace conversational.\n*   **Sunday (Long Run):** Building the aerobic base to ensure the 10K distance feels manageable.\n*   **Monday (Easy):** Short recovery run.\n\n### 6-Week Training Plan\n\n| Week | Running Days (Mon, Tue, Thu, Sat, Sun) | Total km |\n| :--- | :--- | :--- |\n| **1** | 7km, 8km (Int), 8km (Temp), 7km, 15km | 45 |\n| **2** | 8km, 9km (Int), 8km (Temp), 8km, 16km | 49 |\n| **3** | 8km, 10km (Int), 9km (Temp), 8km, 17km | 52 |\n| **4** | 7km, 8km (Int), 7km (Temp), 6km, 12km (Recovery) | 40 |\n| **5** | 8km, 10km (Int), 9km (Temp), 8km, 18km | 53 |\n| **6** | 6km, 5km (Easy), 4km (Easy), Rest, **Race (10K)** | 25* |\n\n*\\*Note: Week 6 is a \"taper\" week to ensure your legs are fresh for the race.*\n\n---\n\n### Workout Details\n*   **Intervals (Tuesday):** For example, in Week 2, run 9km total: Warm up 2km, run 6 x 800m at 5:00/km pace (with 2 minutes rest between each), cool down 2km.\n*   **Tempo (Thursday):** Run 2km easy, then run the middle portion (4–6km) at roughly 5:25–5:30/km pace, then 1-2km cool down.\n*   **Long Run (Sunday):** These should be done at an easy, conversational pace (approx. 6:00–6:15/km). If you can't hold a conversation, slow down.\n*   **Week 4 (Recovery):** It is vital to reduce your volume in Week 4 so your body can absorb the training and prevent injury.\n\n### Keys to Success:\n1.  **Don't skip the \"Easy\" runs:** The biggest mistake beginners make is running the easy days too fast. Keep them truly easy so you have the energy to hit your goal paces on Tuesday and Thursday.\n2.  **Consistency:** 5 days a week is a high frequency for a beginner. If you feel sharp pain (not just muscle soreness), take an extra rest day. \n3.  **The Race:** On race day, don't start at a sprint. Aim for 5:15/km for the first 2km, settle into 5:10/km for the middle, and leave whatever you have left for the final 2km.\n\n*Disclaimer: Consult with a healthcare professional before starting any new, intensive exercise program, especially if you have underlying health concerns.*",
+  "finish_reason": "STOP",
+  "usage": {
+    "promptTokenCount": 140,
+    "candidatesTokenCount": 852,
+    "totalTokenCount": 992,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 140
+      }
+    ],
+    "serviceTier": "standard"
+  },
+  "model_returned": "gemini-3.1-flash-lite",
+  "response_json": {
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "To achieve a 10K time of 52:00 (a pace of 5:12 min/km), you need to transition from \"just running\" to structured sessions that build both aerobic endurance and lactate threshold.\n\nSince you are currently running 45 km/week, this plan manages your load by keeping your volume consistent while increasing intensity.\n\n### The Weekly Schedule Structure:\n*   **Tuesday (Intervals):** Focus on running at your goal race pace (5:12/km) or slightly faster.\n*   **Thursday (Tempo):** Sustained efforts at a \"comfortably hard\" pace to improve endurance.\n*   **Saturday (Easy/Recovery):** Keeping the pace conversational.\n*   **Sunday (Long Run):** Building the aerobic base to ensure the 10K distance feels manageable.\n*   **Monday (Easy):** Short recovery run.\n\n### 6-Week Training Plan\n\n| Week | Running Days (Mon, Tue, Thu, Sat, Sun) | Total km |\n| :--- | :--- | :--- |\n| **1** | 7km, 8km (Int), 8km (Temp), 7km, 15km | 45 |\n| **2** | 8km, 9km (Int), 8km (Temp), 8km, 16km | 49 |\n| **3** | 8km, 10km (Int), 9km (Temp), 8km, 17km | 52 |\n| **4** | 7km, 8km (Int), 7km (Temp), 6km, 12km (Recovery) | 40 |\n| **5** | 8km, 10km (Int), 9km (Temp), 8km, 18km | 53 |\n| **6** | 6km, 5km (Easy), 4km (Easy), Rest, **Race (10K)** | 25* |\n\n*\\*Note: Week 6 is a \"taper\" week to ensure your legs are fresh for the race.*\n\n---\n\n### Workout Details\n*   **Intervals (Tuesday):** For example, in Week 2, run 9km total: Warm up 2km, run 6 x 800m at 5:00/km pace (with 2 minutes rest between each), cool down 2km.\n*   **Tempo (Thursday):** Run 2km easy, then run the middle portion (4–6km) at roughly 5:25–5:30/km pace, then 1-2km cool down.\n*   **Long Run (Sunday):** These should be done at an easy, conversational pace (approx. 6:00–6:15/km). If you can't hold a conversation, slow down.\n*   **Week 4 (Recovery):** It is vital to reduce your volume in Week 4 so your body can absorb the training and prevent injury.\n\n### Keys to Success:\n1.  **Don't skip the \"Easy\" runs:** The biggest mistake beginners make is running the easy days too fast. Keep them truly easy so you have the energy to hit your goal paces on Tuesday and Thursday.\n2.  **Consistency:** 5 days a week is a high frequency for a beginner. If you feel sharp pain (not just muscle soreness), take an extra rest day. \n3.  **The Race:** On race day, don't start at a sprint. Aim for 5:15/km for the first 2km, settle into 5:10/km for the middle, and leave whatever you have left for the final 2km.\n\n*Disclaimer: Consult with a healthcare professional before starting any new, intensive exercise program, especially if you have underlying health concerns.*",
+              "thoughtSignature": "EnMKcQFpFH0TownagD03tKV7UvpO5CvlbidiEpWhzu4ifc8ngSZhPFAL5c2dHJ3J38mBU5kWVo9W2jyJDW7uAIUNKaALJpTm3Faw0iZ1NtCQYNuQWkmyzrgvE4xmcuOWKwepqepsCe9/lZZP+auZKEUGKOj1"
+            }
+          ],
+          "role": "model"
+        },
+        "finishReason": "STOP",
+        "index": 0
+      }
+    ],
+    "usageMetadata": {
+      "promptTokenCount": 140,
+      "candidatesTokenCount": 852,
+      "totalTokenCount": 992,
+      "promptTokensDetails": [
+        {
+          "modality": "TEXT",
+          "tokenCount": 140
+        }
+      ],
+      "serviceTier": "standard"
+    },
+    "modelVersion": "gemini-3.1-flash-lite",
+    "responseId": "3f7FavPgI5rdg8UP5qW7qAQ"
+  },
+  "error": null,
+  "latency_ms": 4067
+}

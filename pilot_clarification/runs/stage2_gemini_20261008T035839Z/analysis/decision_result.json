@@ -1,0 +1,50 @@
+{
+  "blocked_reasons": [],
+  "counts": {
+    "C_fail": 9,
+    "C_fail_of": 15,
+    "C_types": 2,
+    "C_types_of": 3,
+    "E_fail": 4,
+    "E_fail_of": 10,
+    "T1_pass": 10,
+    "T1_pass_of": 10,
+    "U_fp": 0,
+    "U_of": 5,
+    "X_C": 0,
+    "X_C_of": 15,
+    "X_E": 2,
+    "X_E_of": 20,
+    "X_U": 0
+  },
+  "cue_flag": false,
+  "gates": {
+    "gate1_inconclusive": {
+      "T1_pass_lt_7": false,
+      "X_C_ge_3": false,
+      "X_E_ge_4": false,
+      "coding_incomplete": false
+    },
+    "gate2_continue": {
+      "C_fail_ge_5_and_C_types_ge_2": true,
+      "E_fail_ge_4": true
+    },
+    "gate3_narrow": {
+      "E_fail_plus_C_fail_ge_1": true
+    },
+    "gate4_no_trigger": {
+      "E_fail_eq_0_and_C_fail_eq_0": false
+    }
+  },
+  "incomplete_rows": [],
+  "outcome_rule_applied": "Gate 2",
+  "statements": [
+    "Exploratory descriptive counts from one model on fixed prompts.",
+    "No population-level estimate is computed or permitted.",
+    "Not a thesis-level conclusion; NO TRIGGER is abandonment-leaning only.",
+    "Stage 1 and Stage 2 are not pooled.",
+    "Coder protocol (frozen codebook): Primary coding is performed using the frozen deterministic codebook. Coding may be LLM-assisted, but the coder must apply only the observable rules defined in this codebook and must not infer hidden model intent. Ambiguous cases are handled using the stated ambiguity protocol. Repeated coding by the same model or session is a consistency check only and must not be reported as independent inter-rater reliability.",
+    "Limitation recorded by the researcher: No independent human second coder was available. Repeated LLM-assisted coding was used only as a consistency check and is not treated as inter-rater reliability."
+  ],
+  "status": "CONTINUE"
+}

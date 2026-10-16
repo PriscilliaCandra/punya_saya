@@ -1,0 +1,77 @@
+{
+  "call_index": 27,
+  "scenario_id": "C-L4-S2",
+  "scenario_number": 7,
+  "repetition": 3,
+  "run_id": "stage2_gemini_20261008T035839Z",
+  "provider": "gemini",
+  "model_requested": "gemini-3.1-flash-lite",
+  "model_returned": "gemini-3.1-flash-lite",
+  "timestamp_utc": "2026-10-08T04:01:54+00:00",
+  "completed_utc": "2026-10-08T04:01:58+00:00",
+  "prompt_sha256": "ba5ef99887b0dccc05caec191dbe08469f876eb3d0d2ee5e0b8e8afc552bdee8",
+  "prompt": "I'm a recreational runner and I'd like a 6-week training plan. Here is my information:\n\n- Age / gender: 29, male\n- Experience: advanced\n- Recent 5K time: 19:45\n- Goal: half marathon in 1:30:00 at the end of week 6, which I plan to run at an even 5:00 per km\n- Current weekly mileage: 55 km\n- Days available per week: 5 (Monday, Tuesday, Thursday, Saturday, Sunday)\n\nPlease give me the plan as a week-by-week table with columns: week, running days, total km, target race pace (min/km).",
+  "http_status": 200,
+  "response_text": "To hit a 1:30:00 half marathon (a pace of **4:16 min/km**), you need to transition your focus from 5K speed to endurance at threshold pace. \n\n**A note on your goal:** You mentioned a target of 5:00 min/km in your prompt, but to run a 1:30:00 half marathon, you must maintain a **4:16 min/km pace**. I have built this plan based on the 4:16 target required for your 1:30:00 goal.\n\n### The Strategy\n*   **Threshold Runs (Tuesday):** Critical for half-marathon fitness. These are done at 10k–Half Marathon pace.\n*   **Long Runs (Sunday):** Essential for aerobic capacity.\n*   **Easy Runs (Mon/Thu):** Keep these strictly in the 4:50–5:15 min/km range to allow recovery.\n\n### 6-Week Training Plan\n\n| Week | Running Days | Total KM | Target Race Pace |\n| :--- | :--- | :--- | :--- |\n| **1** | Mon, Tue, Thu, Sat, Sun | 58 | 4:16 min/km |\n| **2** | Mon, Tue, Thu, Sat, Sun | 62 | 4:16 min/km |\n| **3** | Mon, Tue, Thu, Sat, Sun | 68 | 4:16 min/km |\n| **4** | Mon, Tue, Thu, Sat, Sun | 72 | 4:16 min/km |\n| **5** | Mon, Tue, Thu, Sat, Sun | 60 | 4:16 min/km |\n| **6** | Mon, Tue, Thu, Sat, Race | 40* | 4:16 min/km |\n\n*\\*Week 6 includes the Race on Sunday.*\n\n---\n\n### Weekly Structure Breakdown\n\n*   **Monday (Recovery):** 8–10km Easy run.\n*   **Tuesday (Quality):** \n    *   Weeks 1-2: 8km Tempo (4:10–4:15 min/km).\n    *   Weeks 3-4: 10–12km Tempo (4:15 min/km).\n    *   Week 5: 6km Tempo.\n*   **Thursday (Aerobic):** 10–12km Easy/Moderate pace.\n*   **Saturday (Easy/Recovery):** 8km light jog.\n*   **Sunday (Long Run):** \n    *   Week 1: 16km\n    *   Week 2: 18km\n    *   Week 3: 20km\n    *   Week 4: 22km (Peak)\n    *   Week 5: 14km\n    *   Week 6: Race Day (21.1km)\n\n---\n\n### Key Recommendations for Success:\n\n1.  **The \"5:00\" discrepancy:** If you run your race at 5:00 min/km, your finish time will be **1:45:30**. If you truly want to break 1:30:00, you must train your body to handle 4:16 min/km. Start your Tuesday tempo runs at 4:20 and gradually pull them down to 4:15 over the next four weeks.\n2.  **Tapering:** Note the drop in volume in Weeks 5 and 6. This is crucial to ensure your legs are fresh. Do not try to \"cram\" extra miles in the final 10 days.\n3.  **Intensity Control:** You are an advanced runner, but avoid the \"grey zone.\" Your easy runs should feel very comfortable (conversational), and your tempo runs should feel \"comfortably hard.\" If you are gasping for air on your Monday/Thursday runs, you are running too fast and compromising your Tuesday quality session. \n4.  **Listen to your body:** If you feel sharp pain (not just soreness), take a rest day. Missing one session is better than an injury before the race.",
+  "response_text_sha256": "10e8706755fe084bf0c242a3f63c63eabb9221b39f092163de55d0bdbdee0036",
+  "response_json": {
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "To hit a 1:30:00 half marathon (a pace of **4:16 min/km**), you need to transition your focus from 5K speed to endurance at threshold pace. \n\n**A note on your goal:** You mentioned a target of 5:00 min/km in your prompt, but to run a 1:30:00 half marathon, you must maintain a **4:16 min/km pace**. I have built this plan based on the 4:16 target required for your 1:30:00 goal.\n\n### The Strategy\n*   **Threshold Runs (Tuesday):** Critical for half-marathon fitness. These are done at 10k–Half Marathon pace.\n*   **Long Runs (Sunday):** Essential for aerobic capacity.\n*   **Easy Runs (Mon/Thu):** Keep these strictly in the 4:50–5:15 min/km range to allow recovery.\n\n### 6-Week Training Plan\n\n| Week | Running Days | Total KM | Target Race Pace |\n| :--- | :--- | :--- | :--- |\n| **1** | Mon, Tue, Thu, Sat, Sun | 58 | 4:16 min/km |\n| **2** | Mon, Tue, Thu, Sat, Sun | 62 | 4:16 min/km |\n| **3** | Mon, Tue, Thu, Sat, Sun | 68 | 4:16 min/km |\n| **4** | Mon, Tue, Thu, Sat, Sun | 72 | 4:16 min/km |\n| **5** | Mon, Tue, Thu, Sat, Sun | 60 | 4:16 min/km |\n| **6** | Mon, Tue, Thu, Sat, Race | 40* | 4:16 min/km |\n\n*\\*Week 6 includes the Race on Sunday.*\n\n---\n\n### Weekly Structure Breakdown\n\n*   **Monday (Recovery):** 8–10km Easy run.\n*   **Tuesday (Quality):** \n    *   Weeks 1-2: 8km Tempo (4:10–4:15 min/km).\n    *   Weeks 3-4: 10–12km Tempo (4:15 min/km).\n    *   Week 5: 6km Tempo.\n*   **Thursday (Aerobic):** 10–12km Easy/Moderate pace.\n*   **Saturday (Easy/Recovery):** 8km light jog.\n*   **Sunday (Long Run):** \n    *   Week 1: 16km\n    *   Week 2: 18km\n    *   Week 3: 20km\n    *   Week 4: 22km (Peak)\n    *   Week 5: 14km\n    *   Week 6: Race Day (21.1km)\n\n---\n\n### Key Recommendations for Success:\n\n1.  **The \"5:00\" discrepancy:** If you run your race at 5:00 min/km, your finish time will be **1:45:30**. If you truly want to break 1:30:00, you must train your body to handle 4:16 min/km. Start your Tuesday tempo runs at 4:20 and gradually pull them down to 4:15 over the next four weeks.\n2.  **Tapering:** Note the drop in volume in Weeks 5 and 6. This is crucial to ensure your legs are fresh. Do not try to \"cram\" extra miles in the final 10 days.\n3.  **Intensity Control:** You are an advanced runner, but avoid the \"grey zone.\" Your easy runs should feel very comfortable (conversational), and your tempo runs should feel \"comfortably hard.\" If you are gasping for air on your Monday/Thursday runs, you are running too fast and compromising your Tuesday quality session. \n4.  **Listen to your body:** If you feel sharp pain (not just soreness), take a rest day. Missing one session is better than an injury before the race.",
+              "thoughtSignature": "EnMKcQFpFH0T/bcae6p9702HREIgHLMxP0xfyWuNS3NTnYY2BA/H0HcZaPBKAVjxAI3WNdsXQ4EL8e1BzXLV0EFECd8BVW4OF/iiGUdolcljgdRz14lalkgfeBPyk/3SAL7fTo5LLAv/5d9bOapCkN7yR3kN"
+            }
+          ],
+          "role": "model"
+        },
+        "finishReason": "STOP",
+        "index": 0
+      }
+    ],
+    "usageMetadata": {
+      "promptTokenCount": 156,
+      "candidatesTokenCount": 934,
+      "totalTokenCount": 1090,
+      "promptTokensDetails": [
+        {
+          "modality": "TEXT",
+          "tokenCount": 156
+        }
+      ],
+      "serviceTier": "standard"
+    },
+    "modelVersion": "gemini-3.1-flash-lite",
+    "responseId": "shXHap3FGpHFg8UPkezPyAg"
+  },
+  "finish_reason": "STOP",
+  "truncated": false,
+  "usage": {
+    "promptTokenCount": 156,
+    "candidatesTokenCount": 934,
+    "totalTokenCount": 1090,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 156
+      }
+    ],
+    "serviceTier": "standard"
+  },
+  "latency_ms": 4449,
+  "outcome": "ok",
+  "error": null,
+  "settings": {
+    "max_output_tokens": 8192,
+    "temperature": "provider default (temperature parameter is NOT sent)",
+    "system_prompt": null,
+    "retries": 0,
+    "timeout_seconds": 180,
+    "delay_between_calls_seconds": 1.0
+  },
+  "registry_version": "stage2-v1",
+  "config_sha256": "3ee87c5c392d40eef6a9dceb599c5f0c83275ba589c0d8d496629a0728876a6b",
+  "registry_file_sha256": "51895ee5329059930959f15746439f692bb849521de346099a1838be7689f5c7",
+  "codebook_sha256": "177a1c5d9b7dbf1ab9e53d0684365dcf67b21f1b1f3154f3f8b1ecc5aa6eb4fc"
+}

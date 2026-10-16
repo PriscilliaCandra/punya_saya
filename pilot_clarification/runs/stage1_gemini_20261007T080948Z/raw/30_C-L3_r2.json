@@ -1,0 +1,68 @@
+{
+  "call_index": 30,
+  "scenario_id": "C-L3",
+  "scenario_number": 3,
+  "repetition": 2,
+  "provider": "gemini",
+  "model_requested": "gemini-3.1-flash-lite",
+  "timestamp_utc": "2026-10-07T08:12:42+00:00",
+  "prompt_sha256": "a672ab88f0101ea5c5ca67c36f65205630c85091ab66d6d76070ec190375893c",
+  "prompt": "I'm a recreational runner and I'd like a 6-week training plan. Here is my information:\n\n- Age / gender: 29, male\n- Experience: advanced\n- Recent 5K time: 19:45\n- Goal: half marathon in 1:30:00 at the end of week 6\n- Current weekly mileage: 55 km\n- Days available per week: 5 (Monday, Tuesday, Thursday, Saturday, Sunday)\n- Notes: I run 5 days a week, and my longest run is 6 km. I never run more than 6 km in a day.\n\nPlease give me the plan as a week-by-week table with columns: week, running days, total km.",
+  "settings": {
+    "max_output_tokens": 8192,
+    "temperature": "provider default (temperature parameter is NOT sent)",
+    "system_prompt": null,
+    "retries": 0,
+    "timeout_seconds": 180,
+    "shuffle_seed": 20261007
+  },
+  "http_status": 200,
+  "response_text": "To hit a 1:30:00 half marathon (a pace of 4:16/km), you need to bridge the gap between your current 5K speed and the cardiovascular endurance required for 21.1 km. \n\n**Important Note:** Your current longest run is 6 km, which is a major bottleneck. This plan focuses on \"long run progression\" to build the stamina necessary for the distance, while maintaining your high-intensity speed. \n\n### Training Intensity Guide:\n*   **Easy (E):** Conversational pace (approx. 5:00–5:20/km).\n*   **Tempo (T):** Sustained discomfort (approx. 4:10–4:15/km).\n*   **Intervals (I):** Goal pace or faster (approx. 3:50–4:00/km).\n*   **Long Run (LR):** Mostly easy pace, finishing the last 3-5 km at goal half marathon pace (4:16/km) to practice fatigue resistance.\n\n### 6-Week Training Plan\n\n| Week | Running Days (Mon, Tue, Thu, Sat, Sun) | Total km |\n| :--- | :--- | :--- |\n| **1** | 8E, 10 (5x1km @ 3:55), 8E, 10E, 14 (Long) | 50 km |\n| **2** | 8E, 10 (4x2km @ 4:05), 8E, 10E, 16 (Long) | 52 km |\n| **3** | 10E, 12 (Tempo 8km @ 4:15), 10E, 10E, 18 (Long) | 60 km |\n| **4** | 10E, 10 (6x1km @ 3:50), 10E, 8E, 20 (Long) | 58 km |\n| **5** | 8E, 10 (Tempo 6km @ 4:10), 8E, 6E, 12 (Easy) | 44 km |\n| **6** | 6E, 5 (Intervals 400m fast), Rest, 5E, **Race (21.1km)** | 37.1 km |\n\n---\n\n### Strategy Notes for Success:\n\n1.  **The \"Long Run\" Transition:** You mentioned you never run more than 6 km. You must increase your Sunday long run carefully. If you feel sharp pain (not just muscle soreness) in your shins or feet, slow down your pace significantly rather than cutting the distance.\n2.  **The Goal Pace:** Your 5K time (19:45) is excellent, but a 1:30 half marathon is a significant endurance challenge. During the \"Long Runs,\" ensure you are practicing your race-day fueling (gels/electrolytes).\n3.  **Tapering:** Week 5 and 6 are \"taper\" weeks. You will feel \"fidgety\" or like you are losing fitness because the mileage drops. Trust the process—the lower volume allows your legs to recover so you can hit that 4:16/km pace on race day.\n4.  **Listen to your body:** Moving from a max of 6 km to an 18-20 km long run in 4 weeks is a steep increase. If you feel overly fatigued, shorten the Tuesday or Thursday runs, but **prioritize the Sunday long run.**\n\n*Disclaimer: I am an AI, not a doctor or professional running coach. Since you are significantly increasing your long-run distance, please monitor for overuse injuries and consult a professional if you experience persistent pain.*",
+  "finish_reason": "STOP",
+  "usage": {
+    "promptTokenCount": 165,
+    "candidatesTokenCount": 852,
+    "totalTokenCount": 1017,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 165
+      }
+    ],
+    "serviceTier": "standard"
+  },
+  "model_returned": "gemini-3.1-flash-lite",
+  "response_json": {
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "To hit a 1:30:00 half marathon (a pace of 4:16/km), you need to bridge the gap between your current 5K speed and the cardiovascular endurance required for 21.1 km. \n\n**Important Note:** Your current longest run is 6 km, which is a major bottleneck. This plan focuses on \"long run progression\" to build the stamina necessary for the distance, while maintaining your high-intensity speed. \n\n### Training Intensity Guide:\n*   **Easy (E):** Conversational pace (approx. 5:00–5:20/km).\n*   **Tempo (T):** Sustained discomfort (approx. 4:10–4:15/km).\n*   **Intervals (I):** Goal pace or faster (approx. 3:50–4:00/km).\n*   **Long Run (LR):** Mostly easy pace, finishing the last 3-5 km at goal half marathon pace (4:16/km) to practice fatigue resistance.\n\n### 6-Week Training Plan\n\n| Week | Running Days (Mon, Tue, Thu, Sat, Sun) | Total km |\n| :--- | :--- | :--- |\n| **1** | 8E, 10 (5x1km @ 3:55), 8E, 10E, 14 (Long) | 50 km |\n| **2** | 8E, 10 (4x2km @ 4:05), 8E, 10E, 16 (Long) | 52 km |\n| **3** | 10E, 12 (Tempo 8km @ 4:15), 10E, 10E, 18 (Long) | 60 km |\n| **4** | 10E, 10 (6x1km @ 3:50), 10E, 8E, 20 (Long) | 58 km |\n| **5** | 8E, 10 (Tempo 6km @ 4:10), 8E, 6E, 12 (Easy) | 44 km |\n| **6** | 6E, 5 (Intervals 400m fast), Rest, 5E, **Race (21.1km)** | 37.1 km |\n\n---\n\n### Strategy Notes for Success:\n\n1.  **The \"Long Run\" Transition:** You mentioned you never run more than 6 km. You must increase your Sunday long run carefully. If you feel sharp pain (not just muscle soreness) in your shins or feet, slow down your pace significantly rather than cutting the distance.\n2.  **The Goal Pace:** Your 5K time (19:45) is excellent, but a 1:30 half marathon is a significant endurance challenge. During the \"Long Runs,\" ensure you are practicing your race-day fueling (gels/electrolytes).\n3.  **Tapering:** Week 5 and 6 are \"taper\" weeks. You will feel \"fidgety\" or like you are losing fitness because the mileage drops. Trust the process—the lower volume allows your legs to recover so you can hit that 4:16/km pace on race day.\n4.  **Listen to your body:** Moving from a max of 6 km to an 18-20 km long run in 4 weeks is a steep increase. If you feel overly fatigued, shorten the Tuesday or Thursday runs, but **prioritize the Sunday long run.**\n\n*Disclaimer: I am an AI, not a doctor or professional running coach. Since you are significantly increasing your long-run distance, please monitor for overuse injuries and consult a professional if you experience persistent pain.*",
+              "thoughtSignature": "EnMKcQFpFH0TrQPWQLFu+puZBwsUis8U7zLFhVz41nviW4Bo9ZpLpls09YUire6VADaTZy68rcja0hjatU4e8PCDYAMUhkHu8RdrqH0uzWuLvzXnuu9cRZP9l7q7Wgcgsw4i8862MioeA63yWQLwIbknpI9+"
+            }
+          ],
+          "role": "model"
+        },
+        "finishReason": "STOP",
+        "index": 0
+      }
+    ],
+    "usageMetadata": {
+      "promptTokenCount": 165,
+      "candidatesTokenCount": 852,
+      "totalTokenCount": 1017,
+      "promptTokensDetails": [
+        {
+          "modality": "TEXT",
+          "tokenCount": 165
+        }
+      ],
+      "serviceTier": "standard"
+    },
+    "modelVersion": "gemini-3.1-flash-lite",
+    "responseId": "_v7FaqyNKb3Hg8UPzt_aeA"
+  },
+  "error": null,
+  "latency_ms": 3727
+}

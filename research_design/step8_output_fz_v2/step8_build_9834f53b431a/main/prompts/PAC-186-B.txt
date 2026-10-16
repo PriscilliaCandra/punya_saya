@@ -1,0 +1,15 @@
+Constraint (race pace consistency): the implied finish time of a week is the distance of 10 km multiplied by that week's pace per kilometre, rounded to the nearest whole second (a half second rounds up). A week satisfies the constraint if its implied finish time is within 50 seconds of the target time; a difference of exactly 50 seconds satisfies it. A week violates it if the difference is more than 50 seconds. The plan violates the constraint if at least one week violates it.
+
+Distance: 10 km
+Target time: 0:52:10
+| Week | Target race pace (min/km) |
+| --- | --- |
+| 1 | 5:14 |
+| 2 | 5:12 |
+| 3 | 5:14 |
+| 4 | 5:12 |
+| 5 | 5:04 |
+
+Does the plan above satisfy the constraint? Classify it as satisfied, violated, or unclear.
+
+Reply with three fields, one per line: Constraint: followed by the constraint text, Verdict: followed by exactly one of satisfied, violated or unclear, and Comments: followed by any comments (optional).

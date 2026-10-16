@@ -1,0 +1,68 @@
+{
+  "call_index": 1,
+  "scenario_id": "C-L3",
+  "scenario_number": 3,
+  "repetition": 1,
+  "provider": "gemini",
+  "model_requested": "gemini-3.1-flash-lite",
+  "timestamp_utc": "2026-10-07T08:09:49+00:00",
+  "prompt_sha256": "a672ab88f0101ea5c5ca67c36f65205630c85091ab66d6d76070ec190375893c",
+  "prompt": "I'm a recreational runner and I'd like a 6-week training plan. Here is my information:\n\n- Age / gender: 29, male\n- Experience: advanced\n- Recent 5K time: 19:45\n- Goal: half marathon in 1:30:00 at the end of week 6\n- Current weekly mileage: 55 km\n- Days available per week: 5 (Monday, Tuesday, Thursday, Saturday, Sunday)\n- Notes: I run 5 days a week, and my longest run is 6 km. I never run more than 6 km in a day.\n\nPlease give me the plan as a week-by-week table with columns: week, running days, total km.",
+  "settings": {
+    "max_output_tokens": 8192,
+    "temperature": "provider default (temperature parameter is NOT sent)",
+    "system_prompt": null,
+    "retries": 0,
+    "timeout_seconds": 180,
+    "shuffle_seed": 20261007
+  },
+  "http_status": 200,
+  "response_text": "To hit a 1:30:00 half marathon (a pace of 4:16/km), your primary challenge is not speed—you clearly have that with a 19:45 5K—it is **aerobic capacity and muscular endurance**. You are currently capped at 6 km; to race 21.1 km effectively, we need to extend your long run significantly while maintaining your intensity.\n\n### Strategic Notes:\n1.  **The Progression:** We are moving your long run from 6 km to 16 km. Do not go further than 16–17 km in training; since you are \"advanced\" but have low volume, your risk of injury is higher if you jump to 20+ km too quickly.\n2.  **Intensity:** \n    *   **Tuesday:** Intervals (e.g., 800m or 1km repeats at 5K pace).\n    *   **Thursday:** Tempo runs (20–30 mins at goal half-marathon pace: 4:15–4:20/km).\n    *   **Sunday:** Long run (easy conversational pace).\n3.  **Rest:** Monday is a full rest day. Wednesday and Friday are your recovery days (no running).\n\n### 6-Week Half Marathon Training Plan\n\n| Week | Running Days (T, W*, Th, Sat, Sun) | Total km |\n| :--- | :--- | :--- |\n| **1** | 8km(E), 10km(Int), 8km(T), 6km(E), 10km(LR) | 42 km |\n| **2** | 8km(E), 10km(Int), 10km(T), 8km(E), 12km(LR) | 48 km |\n| **3** | 10km(E), 12km(Int), 10km(T), 8km(E), 14km(LR) | 54 km |\n| **4** | 10km(E), 12km(Int), 12km(T), 10km(E), 16km(LR) | 60 km |\n| **5** | 8km(E), 10km(Int), 10km(T), 8km(E), 12km(LR) | 48 km |\n| **6** | 6km(E), 6km(Reps), 5km(E), Rest, **Race Day (21.1km)** | 38.1 km |\n\n*Note: Days listed are your active days. (E)=Easy, (Int)=Intervals, (T)=Tempo, (LR)=Long Run, (Reps)=Short speed tune-up.*\n\n### Execution Guidelines:\n*   **Easy Runs:** These should feel very comfortable. If you cannot hold a conversation, you are going too fast. \n*   **Tempo Runs:** These are the most important for your goal. Maintain a steady effort at exactly 4:16–4:20/km.\n*   **The Taper (Week 5 & 6):** You will notice the mileage drops in the final two weeks. This is intentional to allow your legs to recover and \"supercompensate,\" ensuring you are fresh for race day.\n*   **Listen to your body:** Because your current longest run is 6 km, weeks 3 and 4 will feel challenging. If you feel sharp pain (not muscle soreness), take an extra rest day. \n\n**Disclaimer:** *Always consult with a medical professional before starting a new high-intensity training program, especially when increasing distance rapidly.*",
+  "finish_reason": "STOP",
+  "usage": {
+    "promptTokenCount": 165,
+    "candidatesTokenCount": 824,
+    "totalTokenCount": 989,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 165
+      }
+    ],
+    "serviceTier": "standard"
+  },
+  "model_returned": "gemini-3.1-flash-lite",
+  "response_json": {
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "To hit a 1:30:00 half marathon (a pace of 4:16/km), your primary challenge is not speed—you clearly have that with a 19:45 5K—it is **aerobic capacity and muscular endurance**. You are currently capped at 6 km; to race 21.1 km effectively, we need to extend your long run significantly while maintaining your intensity.\n\n### Strategic Notes:\n1.  **The Progression:** We are moving your long run from 6 km to 16 km. Do not go further than 16–17 km in training; since you are \"advanced\" but have low volume, your risk of injury is higher if you jump to 20+ km too quickly.\n2.  **Intensity:** \n    *   **Tuesday:** Intervals (e.g., 800m or 1km repeats at 5K pace).\n    *   **Thursday:** Tempo runs (20–30 mins at goal half-marathon pace: 4:15–4:20/km).\n    *   **Sunday:** Long run (easy conversational pace).\n3.  **Rest:** Monday is a full rest day. Wednesday and Friday are your recovery days (no running).\n\n### 6-Week Half Marathon Training Plan\n\n| Week | Running Days (T, W*, Th, Sat, Sun) | Total km |\n| :--- | :--- | :--- |\n| **1** | 8km(E), 10km(Int), 8km(T), 6km(E), 10km(LR) | 42 km |\n| **2** | 8km(E), 10km(Int), 10km(T), 8km(E), 12km(LR) | 48 km |\n| **3** | 10km(E), 12km(Int), 10km(T), 8km(E), 14km(LR) | 54 km |\n| **4** | 10km(E), 12km(Int), 12km(T), 10km(E), 16km(LR) | 60 km |\n| **5** | 8km(E), 10km(Int), 10km(T), 8km(E), 12km(LR) | 48 km |\n| **6** | 6km(E), 6km(Reps), 5km(E), Rest, **Race Day (21.1km)** | 38.1 km |\n\n*Note: Days listed are your active days. (E)=Easy, (Int)=Intervals, (T)=Tempo, (LR)=Long Run, (Reps)=Short speed tune-up.*\n\n### Execution Guidelines:\n*   **Easy Runs:** These should feel very comfortable. If you cannot hold a conversation, you are going too fast. \n*   **Tempo Runs:** These are the most important for your goal. Maintain a steady effort at exactly 4:16–4:20/km.\n*   **The Taper (Week 5 & 6):** You will notice the mileage drops in the final two weeks. This is intentional to allow your legs to recover and \"supercompensate,\" ensuring you are fresh for race day.\n*   **Listen to your body:** Because your current longest run is 6 km, weeks 3 and 4 will feel challenging. If you feel sharp pain (not muscle soreness), take an extra rest day. \n\n**Disclaimer:** *Always consult with a medical professional before starting a new high-intensity training program, especially when increasing distance rapidly.*",
+              "thoughtSignature": "EnMKcQFpFH0TssGIrQ0KjC6cir2UaXbxEv8yk3b8HU0hYz6tLMiWTP2kItmywMrwaIzd2eK3Dq+PULrvj9fK0bGgYoobEunqav/HSwViP5rcsMNugOE3pnrLeC55S2JgK1iJrtdqPpey5/oiXmrjs3P1IEbi"
+            }
+          ],
+          "role": "model"
+        },
+        "finishReason": "STOP",
+        "index": 0
+      }
+    ],
+    "usageMetadata": {
+      "promptTokenCount": 165,
+      "candidatesTokenCount": 824,
+      "totalTokenCount": 989,
+      "promptTokensDetails": [
+        {
+          "modality": "TEXT",
+          "tokenCount": 165
+        }
+      ],
+      "serviceTier": "standard"
+    },
+    "modelVersion": "gemini-3.1-flash-lite",
+    "responseId": "Uv7FauWHCJS8mNMPrc_ikAE"
+  },
+  "error": null,
+  "latency_ms": 4085
+}

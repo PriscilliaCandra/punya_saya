@@ -1,0 +1,9 @@
+{
+  "authorized_by": "",
+  "scope": "pilot_round_1",
+  "max_calls": 18,
+  "cost_ceiling_usd": 100,
+  "input_tokens_per_call_assumed": 0,
+  "note": "TEMPLATE, NOT AN AUTHORIZATION. The owner fills authorized_by with the word owner, sets scope (pilot_round_1, pilot_round_2 or main), max_calls (18, 18 or 2496) and input_tokens_per_call_assumed (a positive integer; 1016 is the accepted Step 7 assumption of one token per character, an assumption and NOT a measurement), and confirms max_input_characters. max_input_characters is pre-filled with 1016, a PROPOSED value (working decision MD-02, researcher's direction 2026-10-13): it is the verified maximum prompt length of the Step 8 build (96 pilot and 1248 main prompts) and the Step 7 worst case; it is an operational limit on prompt length checked before any provider call (an over-limit or empty prompt is refused, nothing is truncated), NOT a token count and NOT a cost guarantee. The file stays invalid until the owner writes authorized_by and input_tokens_per_call_assumed and saves it as a NEW file; the runner reads only authorized_by, scope, max_calls, cost_ceiling_usd, input_tokens_per_call_assumed and max_input_characters. The cost ceiling (US$100) is separate from the input limit.",
+  "max_input_characters": 1016
+}

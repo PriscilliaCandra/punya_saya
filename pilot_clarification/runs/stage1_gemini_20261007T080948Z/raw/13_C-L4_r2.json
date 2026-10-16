@@ -1,0 +1,68 @@
+{
+  "call_index": 13,
+  "scenario_id": "C-L4",
+  "scenario_number": 4,
+  "repetition": 2,
+  "provider": "gemini",
+  "model_requested": "gemini-3.1-flash-lite",
+  "timestamp_utc": "2026-10-07T08:11:11+00:00",
+  "prompt_sha256": "c42adcd05d26b22faea395fdaf9630f8ffa0ae2258875660dc77a9ffd1f1f30c",
+  "prompt": "I'm a recreational runner and I'd like a 6-week training plan. Here is my information:\n\n- Age / gender: 29, male\n- Experience: advanced\n- Recent 5K time: 19:45\n- Goal: half marathon in 1:30:00, which I plan to run at an even 5:00 per km\n- Current weekly mileage: 55 km\n- Days available per week: 5 (Monday, Tuesday, Thursday, Saturday, Sunday)\n\nPlease give me the plan as a week-by-week table with columns: week, running days, total km.",
+  "settings": {
+    "max_output_tokens": 8192,
+    "temperature": "provider default (temperature parameter is NOT sent)",
+    "system_prompt": null,
+    "retries": 0,
+    "timeout_seconds": 180,
+    "shuffle_seed": 20261007
+  },
+  "http_status": 200,
+  "response_text": "To hit a 1:30:00 half marathon (4:16/km pace), your current 5K time of 19:45 is a great foundation. Since you are an \"advanced\" runner, this plan focuses on **threshold development** and **race-pace specificity** to bridge the gap between your 5K speed and the aerobic endurance required for 21.1km.\n\n### Plan Structure\n*   **Tuesday:** Intervals (Speed/VO2 Max)\n*   **Thursday:** Tempo/Threshold (Lactate clearance)\n*   **Saturday/Sunday:** Aerobic endurance (Long runs/Recovery)\n*   **Monday:** Recovery/Easy run\n\n| Week | Running Days | Total km | Focus |\n| :--- | :--- | :--- | :--- |\n| **1** | M, T, Th, Sa, Su | 58 | Base maintenance + 4km Tempo @ 4:20 pace |\n| **2** | M, T, Th, Sa, Su | 62 | Intervals: 6 x 1km @ 3:55 pace |\n| **3** | M, T, Th, Sa, Su | 66 | Threshold: 8km Tempo @ 4:20 pace |\n| **4** | M, T, Th, Sa, Su | 70 | Peak mileage + Long run: 18km easy |\n| **5** | M, T, Th, Sa, Su | 60 | Taper: 5 x 1.6km @ 4:10 pace |\n| **6** | M, T, Th, Sa, Su | 45 | Race Week: Short efforts, active rest |\n\n---\n\n### Key Workout Definitions\n\n*   **Tuesday (Intervals):** These are meant to build your engine. Keep the recovery jog between intervals at 2 minutes. Focus on hitting the goal pace consistently.\n*   **Thursday (Tempo):** This is the most important run for a 1:30 goal. You are practicing running at or just slightly slower than your target half marathon pace (4:16/km). \n*   **Saturday/Sunday (The Long Run):** Keep these at an \"easy\" conversational pace (approx. 4:50–5:00/km). Do not push the pace here; these are for glycogen storage and aerobic capacity.\n*   **Monday:** These should be \"junk-free\" recovery miles. If your legs feel heavy from the weekend, slow down to 5:30/km if necessary.\n\n### Important Notes for Success:\n1.  **The Goal Pace:** 4:16/km is your \"Red Line.\" If you find that your Thursday Tempo runs feel like an all-out effort, you need to pull back to 4:25/km for those specific sessions. You should finish a tempo run feeling like you could have done 1–2 more kilometers at that pace.\n2.  **Tapering:** In Week 6, do not try to \"cram\" extra miles. The goal is to arrive at the start line with full glycogen stores and recovered legs.\n3.  **Cross-Training:** Since you are running 5 days a week, use your rest days (Wednesday/Friday) for mobility or foam rolling. Do not add intense weight lifting during the final 3 weeks, as it will impede your recovery.\n4.  **Nutrition:** Practice taking gels/fuel during your Week 3 and Week 4 long runs. Running a 1:30 half marathon requires efficient fueling; don't experiment with a new brand on race day.\n\n**Disclaimer:** *I am an AI, not a coach. If you experience sharp pain (different from general muscle fatigue), please take extra rest days to prevent injury.*",
+  "finish_reason": "STOP",
+  "usage": {
+    "promptTokenCount": 141,
+    "candidatesTokenCount": 828,
+    "totalTokenCount": 969,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 141
+      }
+    ],
+    "serviceTier": "standard"
+  },
+  "model_returned": "gemini-3.1-flash-lite",
+  "response_json": {
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "To hit a 1:30:00 half marathon (4:16/km pace), your current 5K time of 19:45 is a great foundation. Since you are an \"advanced\" runner, this plan focuses on **threshold development** and **race-pace specificity** to bridge the gap between your 5K speed and the aerobic endurance required for 21.1km.\n\n### Plan Structure\n*   **Tuesday:** Intervals (Speed/VO2 Max)\n*   **Thursday:** Tempo/Threshold (Lactate clearance)\n*   **Saturday/Sunday:** Aerobic endurance (Long runs/Recovery)\n*   **Monday:** Recovery/Easy run\n\n| Week | Running Days | Total km | Focus |\n| :--- | :--- | :--- | :--- |\n| **1** | M, T, Th, Sa, Su | 58 | Base maintenance + 4km Tempo @ 4:20 pace |\n| **2** | M, T, Th, Sa, Su | 62 | Intervals: 6 x 1km @ 3:55 pace |\n| **3** | M, T, Th, Sa, Su | 66 | Threshold: 8km Tempo @ 4:20 pace |\n| **4** | M, T, Th, Sa, Su | 70 | Peak mileage + Long run: 18km easy |\n| **5** | M, T, Th, Sa, Su | 60 | Taper: 5 x 1.6km @ 4:10 pace |\n| **6** | M, T, Th, Sa, Su | 45 | Race Week: Short efforts, active rest |\n\n---\n\n### Key Workout Definitions\n\n*   **Tuesday (Intervals):** These are meant to build your engine. Keep the recovery jog between intervals at 2 minutes. Focus on hitting the goal pace consistently.\n*   **Thursday (Tempo):** This is the most important run for a 1:30 goal. You are practicing running at or just slightly slower than your target half marathon pace (4:16/km). \n*   **Saturday/Sunday (The Long Run):** Keep these at an \"easy\" conversational pace (approx. 4:50–5:00/km). Do not push the pace here; these are for glycogen storage and aerobic capacity.\n*   **Monday:** These should be \"junk-free\" recovery miles. If your legs feel heavy from the weekend, slow down to 5:30/km if necessary.\n\n### Important Notes for Success:\n1.  **The Goal Pace:** 4:16/km is your \"Red Line.\" If you find that your Thursday Tempo runs feel like an all-out effort, you need to pull back to 4:25/km for those specific sessions. You should finish a tempo run feeling like you could have done 1–2 more kilometers at that pace.\n2.  **Tapering:** In Week 6, do not try to \"cram\" extra miles. The goal is to arrive at the start line with full glycogen stores and recovered legs.\n3.  **Cross-Training:** Since you are running 5 days a week, use your rest days (Wednesday/Friday) for mobility or foam rolling. Do not add intense weight lifting during the final 3 weeks, as it will impede your recovery.\n4.  **Nutrition:** Practice taking gels/fuel during your Week 3 and Week 4 long runs. Running a 1:30 half marathon requires efficient fueling; don't experiment with a new brand on race day.\n\n**Disclaimer:** *I am an AI, not a coach. If you experience sharp pain (different from general muscle fatigue), please take extra rest days to prevent injury.*",
+              "thoughtSignature": "EnMKcQFpFH0T1sTlRgp+54HjPIc1rZjRSlg6ccEddobmNjXvs4NCa63neYh2U5GtsOy1xk1T5XXn/OH2G3ePoqbNimCCQCFWPRylweJkVD/d+HLNO8jzxdyXeRgxxn4+7YI6nx8l6EdSq25Tj9t5qfkZ8m6r"
+            }
+          ],
+          "role": "model"
+        },
+        "finishReason": "STOP",
+        "index": 0
+      }
+    ],
+    "usageMetadata": {
+      "promptTokenCount": 141,
+      "candidatesTokenCount": 828,
+      "totalTokenCount": 969,
+      "promptTokensDetails": [
+        {
+          "modality": "TEXT",
+          "tokenCount": 141
+        }
+      ],
+      "serviceTier": "standard"
+    },
+    "modelVersion": "gemini-3.1-flash-lite",
+    "responseId": "pP7FapjqG9K-mNMPwfe30AE"
+  },
+  "error": null,
+  "latency_ms": 4115
+}

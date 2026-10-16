@@ -18,12 +18,15 @@ import RegisterPage from './pages/auth/RegisterPage';
 import ForgotPasswordPage from './pages/auth/ForgotPasswordPage';
 import ResetPasswordPage from './pages/auth/ResetPasswordPage';
 import ResearchApp from './ResearchApp';
+import BlindEvaluationPage from './pages/BlindEvaluationPage';
 
 export default function App() {
   return (
     <AuthProvider>
       <Routes>
         {/* The unmodified S2 research prototype: anonymous, no login required. */}
+        {/* Blinded RQ3 rating page (plans shown only as A and B). Declared before the catch-all research route. */}
+        <Route path="/research/blind/:planId" element={<BlindEvaluationPage />} />
         <Route path="/research/*" element={<ResearchApp />} />
 
         {/* Auth pages have their own minimal centered layout (see LoginPage etc.),

@@ -1,0 +1,91 @@
+# Deferred patches (prepared, NOT applied, NOT adopted)
+
+Prepared 2026-10-13. Nothing in this folder is executed by any script or test. Rule used (`MASTER_IMPLEMENTATION_PLAN.md` section 0): a patch needs its MD entry adopted by the owner (and advisor where the entry says so). Only P1 (hard-flag part, working decision MD-01) and P3 (working decision MD-02) were applied, on the project owner's direction; those are labelled working technical decisions and are NOT institutional approvals. Classes: **A** explicit rule supported by the source; **B** working technical decision, interpretation not explicit, needs ratification; **C** protocol change or new methodology decision, needs approval before any implementation; **D** human task or live action. Conflict ids are in `MASTER_CONFLICT_INDEX.md`. Line numbers: spec = `SCENARIO_CONSTRUCTION_SPECIFICATION_v2_7_DRAFT.md`, record = `STEP3_OWNER_DECISIONS_RECORD_DRAFT.md`, 2026-10-13.
+
+| Patch | Decision needed | Class of what is blocked | Status | Owner of the next action |
+|---|---|---|---|---|
+| P1 hard flags, decision vector, `f_S` per call | MD-01 | A (SF2/SF3/SF5 -> FAIL-S, spec 830-831) + B (`f_S` unit) | APPLIED (working decision); ratification of the unit pending | owner + advisor |
+| **P1b SF2 detection with SF1/SF4** | MD-01 (C-31) | B/C (A1 alters the meaning of `f_S`) | HELD, inactive diff prepared, impact measured | owner + advisor |
+| P2 provider safe-stop | MD-06 | B (stop for review) / C (automatic SF classification) | HELD, design below | owner + advisor; names need a live observation (D) |
+| P3 character limit in gate and preflight | MD-02 | B | APPLIED (working decision) | ratification pending |
+| **P3b assumed-tokens versus prompt length gate; measured-basis field** | MD-02 (C-01, C-23) | B/C (new gate rule; the measured-basis form is undecided) | HELD | owner |
+| P4 kappa / re-code | MD-03 | C for K4, B for K1-K3, freeze-set files | HELD | owner + advisor, before the FZ hash |
+| P5 FZ index tool and enforcement | MD-04 | B; the file list is blank in the draft | HELD | owner + advisor, before the FZ hash |
+| P6 total timeout | MD-07 | C if outcomes change | HELD; no code change recommended now | owner |
+| P7 PRD-6 anchor check | MD-09 | B; store undeclared (D: H7) | HELD | owner |
+| P8 resume after transport halt | MD-08 (+MD-01, MD-06) | B/C | HELD; present behaviour pinned by tests | owner |
+| P9 report tooling | after P1-P8 | n/a | PARTLY APPLIED (P1/P3 fields already in `s11_pilot.report` and the run summary, verified); rest depends on P2/P5/P7/P8 | assistant after adoption |
+| P10 documentation sync | none | n/a | APPLIED for this batch (index, plan, checklist, conflict index, report) | - |
+
+## P1b SF2 detection together with SF1/SF4 (C-31)
+- **Source.** spec 810 (SF2 definition, no exception), 816, 830-831; PJR J-10 (`f_S` = 1 tolerates one transport or block failure in 18 calls); `s10_scoring.sf_flags` line 59 (pre-existing suppression, no record entry adopts it); `GeminiProvider.generate` returns text "" on errors.
+- **Inactive diff:** `P1b_sf2_independent_detection.diff.INACTIVE` (variant A1, one condition in `sf_flags`; written against `s10_scoring.py` sha256 `67b85b18...` (after the docstring-only edit of the closeout batch; applies cleanly in a scratch copy with `patch -p1 --binary`, CRLF-preserving; the earlier `8dcff023...` base differs only in the module docstring)). Rollback: restore from `_backup/p1_p3/` plus the later copy, or reverse the diff.
+- **Measured impact of A1 (monkeypatch, nothing written):** flips 10 tests (8 in older suites, 2 pinned in the new file: `test_provider_response`: `test_missing_key_never_reaches_urlopen`, `test_no_candidates_with_and_without_prompt_block`, `test_transport_failures_are_sf1_and_called_once`, `test_mixed_responses_run_keeps_ledger_hashes_retries_and_marks_failures`; `test_step10`: `test_pilot_records_failures_without_retry`, `test_pilot_counts_are_disjoint_and_content_free`, `test_sf_precedence_and_flags`; `test_sf_matrix_literal`: `test_single_flags_follow_the_text`; `test_sf2_detection`: 2 pinned tests) and succeeds the 4 marked tests; `test_pilot_flow`, `test_prepilot_fixes`, `test_input_limit`, `test_ledger_resilience` unaffected. Semantic effect: every adapter-made transport or block record becomes hard; the soft allowance becomes unreachable.
+- **Options:** A1 literal; A2a/A2b SF2 only for a received 2xx response (A2a hardens empty blocks, A2b leaves a hole for status-less empty records); B keep the precedence and record it, which is identical to A2c (proven on a 384-record grid). See `C31_C32_OWNER_DECISION_BRIEF.md` (table, definitions D1-D8, questions) and `MASTER_PROPOSED_DECISION_RECORD.md` MD-01. If B/A2c is ratified, no scoring change is needed.
+- **Acceptance after ratification (written from the ratified rule):** rewrite `test_sf2_detection.py` marked group; 31-subset matrix with SF2 under the ratified definition; the seven empty-body cases of that file; `test_provider_response` single-flag rows re-derived by hand; `f_S` unit examples unchanged.
+- **Why not applied:** it changes which calls fail the pilot and what FZ-v1 `f_S` means; the working decision MD-01 items 1-7 do not authorize it (item 6 forbids changing definitions, item 7 requires documenting conflicts).
+
+## P2 Provider safe-stop (MD-06; C-12..C-15)
+- **Source.** FZ-v1 row 17 (returned model ID recorded for every call); spec 805-816 (silent on unlisted reasons), 809 (SF1); record 12.36 (line 793); MPR section 3 Q-P1..Q-P4.
+- **Current behaviour (pinned by `test_provider_response.py`, unchanged):** a returned-model difference, an unlisted finish reason and a record without HTTP status are recorded and reported by `s10_integrity`/`pilot_counts`; the run does NOT stop. `BLOCK_REASONS` (eight names) comes from memory of the public API and is UNVERIFIED (MPR Q-P3); it was not extended.
+- **Design for after adoption.** Add `StopForReview` in `s10_runner.run`: after the call record, raw file and ledger `raw` entry are written (raw before the stop), evaluate (1) returned model missing or not exactly the requested ID, (2) finish reason not STOP, not token-limit, not a documented block name, (3) record without HTTP status; on a hit write `RUN_INCOMPLETE` with `halt = "provider anomaly: <reason class>"`, make no further call, keep the chain valid. `classify` unchanged; SF4 names changed only by the owner after a live observation. `s10_integrity` gets a `halt_reason` check.
+- **Acceptance (mock):** each of the three triggers stops after recording; raw exists; hash chain valid; provider call count equals the index of the trigger; retries 0; no stopped run scored as valid; a normal run unchanged; block names list per MD-06.
+- **Blocked by:** MD-06 adoption; the name list needs L1-L3 (live verification, D).
+
+## P3b Assumed-tokens versus prompt-length gate (MD-02; C-01, C-23)
+- **Source.** MPR section 4 ("proposed gate check: refuse if the maximum prompt length in characters exceeds the assumed tokens, unless the owner states a measured basis"); record 12.18 row 6.
+- **Why held.** The exception ("a measured basis") has no defined field or form; a measured basis below the characters (typical 3 chars/token) is legitimate, so a hard refusal without the exception would block a correct future authorization, and the exception is the undecided token-measurement method (P-4/O2). Today the owner must write `input_tokens_per_call_assumed` >= 1,016 by hand; nothing enforces it.
+- **Design after adoption.** Gate reason when `input_tokens_per_call_assumed` < longest planned prompt in characters and the authorization has no `input_token_basis` object `{"method": ..., "document": ..., "measured_max_tokens": int}` accepted by the record; cost gate unchanged; limit and cost remain separate (MD-02 item 8).
+- **Acceptance:** assumed 1,015 with no basis refused; 1,016 accepted; basis present and valid accepted; hard-cap cost unchanged; `test_input_limit.py` still passes.
+- **Main-run token method (MD-02 item 7):** NOT chosen. Options O2 (provider token count of all 1,248 prompts, an external call needing separate authorization, D) and O4 (maximum `promptTokenCount` of pilot calls checked against the 1,248 prompt lengths). No token count by a live call is allowed in this batch.
+
+## P4 Kappa and re-code (MD-03; C-02, C-09)
+- **Source.** spec 1000-1003; OD-3 (`STEP2_OWNER_DECISIONS_RECORD.md` line 45); record 12.21 row 6, 12.24 decision 2; codebook 5.1/5.3.
+- **Why held.** `step7/s7_recode.py` and the codebook are Step 7 freeze-set files: changing them returns to Step 7 (new version, new freeze manifest, before the FZ hash). The method (K1 raw only / K2 kappa labelled / K3 threshold / K4 amend §16.3) is undecided; K4 is PROTOCOL. No reliability method, rule or denominator was changed.
+- **Design after adoption.** K1: record only. K2/K3: add `kappa` per variable to `agreement_table` with the label "intra-rater consistency; no inter-rater reliability claim" and "undefined" with counts for degenerate tables. **Acceptance:** hand-computed kappa on small tables including undefined cases; label present; `test_step7.py` updated knowingly; new freeze manifest.
+
+## P5 FZ index tool and enforcement (MD-04; C-03, C-18, C-19)
+- **Source.** spec 662, 797, 1190; record 603; `s7_decision.py` 163-176 (accepts any 64-hex string); `s11_final_freeze_manifest.py`; MPR section 6.
+- **Why held.** The draft's file list is blank and the contract (object, timing, exclusions, storage) is undecided; enforcement touches `s10_runner.check_gates` (a gate change is itself a decision item, plan section 2) and `s7_decision.py` is frozen. Tool written without the list would invent the object.
+- **Design after adoption.** New `fz_index.py`: canonical JSON {path -> SHA-256} for the adopted list, UTF-8, sorted keys, compact separators, final LF; writes a NEW file only; the FZ hash is the SHA-256 of that file; excludes the decision record, run folders, step10 harness and the final freeze manifest (no circularity: the final manifest hashes the record later). Gate: pilot and main refuse without a recorded hash or on mismatch; check placed in the runner and in `s11_pilot decide` (not in the frozen `s7_decision.py`). **Acceptance:** hand recomputation equals the stored value; one byte changed in a listed file changes it; missing or mismatching hash refused; no cycle (the index excludes its own output).
+
+## P6 Timeout (MD-07; C-16)
+- **Source.** FZ-v1 row 17 (`timeout_s` 180, meaning undefined); `GeminiProvider` (`urlopen(timeout=...)`, per socket operation); `TIMEOUT_SEMANTICS` in every run summary; tests `test_timeout_is_not_presented_as_a_total_deadline`, `test_slow_call_is_flagged_after_the_fact` (existing).
+- **Status.** The per-operation behaviour is documented, summarized and tested; calls above 180 s are flagged after the fact. A total wall-clock deadline would change which calls are SF1 (a behaviour change of a frozen setting) and is held. If adopted: worker-thread or `socket`-level deadline, hit = SF1, never retried, summary text changed, mock test with a provider that blocks past the deadline, frozen value 180 unchanged, FZ decision first.
+
+## P7 Anchor check (MD-09; C-18)
+- **Source.** spec 662 (anchoring "PENDING RESEARCHER DECISION PRD-6"), 1132; record 655.
+- **Why held.** The write-once store is not declared (human task H7), `research_design/` is untracked, and the spec requires the runner to verify the anchor, which cannot be built without the declared store type. Nothing is invented.
+- **Design after adoption.** Main-scope gate: recompute the SHA-256 of the decision record, compare with the anchored value read from the declared store; refuse if missing or different. **Acceptance:** positive (match), negative (one byte changed), boundary (anchor absent, anchor of another record, empty store).
+
+## P8 Resume (MD-08; C-17)
+- **Source.** spec 871-875 ("resumes only under the identical FZ version ... next call_index ... no re-draw"; "no completed call is replaced"); MPR section 5.
+- **Status.** No resume code exists, and an unresolved `intent` is never repeated automatically. Characterization tests added (`test_ledger_resilience.py`): interrupt at call 3 leaves intent without raw and no status marker; integrity reports "not exactly one status marker"; a rerun into the same folder is refused with FileExistsError, calls the provider zero times and changes nothing; no `resume` entry point exists.
+- **Open points (unchanged):** who authorizes, meaning of "transport-only", counter carry-over, disposition of an unresolved intent. **Acceptance after adoption:** plan P8 simulations (a)-(g).
+
+## P9 Report tooling
+- Verified: `s11_pilot.report` returns `counts`, `primary_counts`, `flag_totals`, `multi_flag_calls`, `unlisted_finish_reasons`, `models_returned`, `responses_without_returned_model`; the run summary contains `input_size_check` (limit, prompts checked, maximum observed, basis note) and `timeout_semantics`; the integrity report contains `provider_checks` and the observed-cost basis. Remaining reporting (stops, FZ hash, anchor, resume events) follows P2/P5/P7/P8.
+
+## What a reviewer must not do with this folder
+Do not apply the `.INACTIVE` diff, and do not treat any section as adopted. Each section becomes actionable only after its MD entry has a filled approval block in the official record.
+
+## Status register (closeout 2026-10-13)
+Categories: **DONE** = applied and verified; **READY FOR OWNER APPROVAL** = analysis, text and acceptance criteria complete, waiting only for a decision; **BLOCKED BY HUMAN TASK**; **BLOCKED BY PROVIDER VERIFICATION** (needs separate written authorization for a live connection test, none given); **DEFERRED** = needs a methodological decision or touches frozen artifacts. Applying anything in the last four categories before its condition is met is not allowed. "Owner" = the person who must act next.
+
+| Patch | Status | Files | Depends on | Acceptance tests | Owner | Condition that explicitly allows work to continue |
+|---|---|---|---|---|---|---|
+| P1 hard flags + per-call decision vector | DONE (as WORKING DECISION MD-01; ratification of the `f_S` unit PENDING) | `s10_scoring.py`, `s11_pilot.py`, `test_sf_matrix_literal.py` | MD-01 | `test_sf_matrix_literal` 14, `test_step10` 18, `test_pilot_flow` 8 | owner (ratify) | official entry for MD-01 unit; until then it stays a working decision |
+| P1b SF2 with SF1/SF4 (C-31) | READY FOR OWNER APPROVAL | `s10_scoring.py` only if A1/A2a; none if B/A2c; tests `test_sf2_detection.py` | MD-01, Q1-Q6 | `test_sf2_detection` (4 marked tests to rewrite), `test_sf2_variants` 11 | owner + advisor | recorded answer to Q1; then rewrite marked tests from the ratified rule |
+| P2 provider safe-stop | READY FOR OWNER APPROVAL (stop clauses 1, 2 partial, 4, 5) and BLOCKED BY PROVIDER VERIFICATION (clause 3 block names, model-ID form) | `s10_runner.py`, `s10_integrity.py`, `s10_scoring.py` lists | MD-06, MD-01, L1-L3 | mock cases listed under P2 above; `test_provider_response` 16 | owner + advisor; owner for L1 authorization | MD-06 adopted; names only after an authorized observation |
+| P3 character limit | DONE (as WORKING DECISION MD-02) | `s10_runner.py`, template, `test_input_limit.py` | MD-02 | `test_input_limit` 10 | owner (ratify) | official MD-02 entry |
+| P3b assumed tokens vs prompt length; token method | READY FOR OWNER APPROVAL (gate); BLOCKED BY PROVIDER VERIFICATION (O2 provider token count) | `s10_runner.py` gate, `s10_integrity.py` | MD-02, C-32, Q7-Q9 | cases under P3b above | owner | answers Q7-Q9; O2 needs separate written authorization, O4 can use pilot data |
+| P4 kappa / re-code | DEFERRED (methodological decision and Step 7 freeze-set files) | `step7/s7_recode.py`, codebook 5.1/5.3, `test_step7.py` | MD-03 before the FZ hash | hand-computed kappa tables | owner + advisor | MD-03 adopted; new Step 7 freeze manifest if K2/K3 |
+| P5 FZ index tool and enforcement | DEFERRED (decision with blank file list; gate change) | new `fz_index.py`, `s10_runner.py` gate, `s11_pilot.py` | MD-04 before the first pilot call | hand recomputation, one-byte test, gate refusal | owner + advisor | MD-04 adopted with the file list |
+| P6 total timeout | DEFERRED (meaning of a frozen setting; L5) | `s10_runner.py` `GeminiProvider` | MD-07; L5 | deadline mock test; frozen 180 unchanged | owner | MD-07 chooses a total deadline; otherwise no code change |
+| P7 anchor check | BLOCKED BY HUMAN TASK (H7 store declaration) and DEFERRED (MD-09) | `s10_runner.py` main gate, new verifier | MD-09, H7 | positive, negative, boundary | owner | store declared and MD-09 adopted |
+| P8 resume | DEFERRED (MD-08 plus MD-01, MD-06, P2) | new `s10_resume.py`, `s10_runner.py`, `s10_integrity.py` | MD-08, P2 | plan P8 simulations (a)-(g); current no-resume behaviour pinned by `test_ledger_resilience` 11 | owner | MD-08 adopted with the five open points answered |
+| P9 report tooling | PARTLY DONE (fields for P1/P3 verified); rest follows P2/P5/P7/P8 | `s10_report.py`, `s11_pilot.py` | P2, P5, P7, P8 | report field checks | assistant after adoption | the dependent patches exist |
+| P10 documentation sync | DONE for this batch (index, plan, checklist, conflict index, next actions, decision record register, closeout report) | package documents | none | consistency greps in `MASTER_CLOSEOUT_REPORT.md` | assistant | re-run after any decision |
+
+## P11 (proposed, not in the original plan): connection-test tool for L1-L5
+Not written. A single-call tool is needed because `s10_runner` accepts only `pilot_round_1`, `pilot_round_2` and `main`. Requirements and acceptance tests are in `PROVIDER_VERIFICATION_MATRIX.md` section 0. Status: DEFERRED / BLOCKED BY PROVIDER VERIFICATION authorization; condition to continue: owner approves the connection test in writing and the tool's mock-only acceptance tests are written first. Owner: owner (authorization), assistant (tool, after approval).

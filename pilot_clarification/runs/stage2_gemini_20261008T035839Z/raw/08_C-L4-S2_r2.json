@@ -1,0 +1,77 @@
+{
+  "call_index": 8,
+  "scenario_id": "C-L4-S2",
+  "scenario_number": 7,
+  "repetition": 2,
+  "run_id": "stage2_gemini_20261008T035839Z",
+  "provider": "gemini",
+  "model_requested": "gemini-3.1-flash-lite",
+  "model_returned": "gemini-3.1-flash-lite",
+  "timestamp_utc": "2026-10-08T03:59:37+00:00",
+  "completed_utc": "2026-10-08T03:59:41+00:00",
+  "prompt_sha256": "ba5ef99887b0dccc05caec191dbe08469f876eb3d0d2ee5e0b8e8afc552bdee8",
+  "prompt": "I'm a recreational runner and I'd like a 6-week training plan. Here is my information:\n\n- Age / gender: 29, male\n- Experience: advanced\n- Recent 5K time: 19:45\n- Goal: half marathon in 1:30:00 at the end of week 6, which I plan to run at an even 5:00 per km\n- Current weekly mileage: 55 km\n- Days available per week: 5 (Monday, Tuesday, Thursday, Saturday, Sunday)\n\nPlease give me the plan as a week-by-week table with columns: week, running days, total km, target race pace (min/km).",
+  "http_status": 200,
+  "response_text": "To achieve a 1:30:00 half marathon (4:16/km pace), your goal of \"5:00/km\" in your prompt seems to be a placeholder or a miscalculation. **I have designed this plan targeting the 4:16/km required to break 1:30:00.**\n\nSince you are an \"advanced\" recreational runner, this plan utilizes your current 55km base and builds to a peak of 70km. It incorporates **Threshold intervals** (to improve lactate clearance) and **Long Runs** (to build stamina at race pace).\n\n### Training Intensity Guide\n*   **Easy Runs:** 4:50–5:15 min/km (Aerobic recovery).\n*   **Threshold Intervals:** 4:00–4:05 min/km (Slightly faster than goal race pace).\n*   **Race Pace (RP) Runs:** 4:15–4:18 min/km.\n\n### 6-Week Training Plan\n\n| Week | Running Days | Total KM | Target Race Pace | Focus |\n| :--- | :--- | :--- | :--- | :--- |\n| **1** | M, T, Th, Sa, Su | 58 km | 4:16 min/km | Threshold + Long Run (16km) |\n| **2** | M, T, Th, Sa, Su | 62 km | 4:16 min/km | Intervals + Long Run (18km) |\n| **3** | M, T, Th, Sa, Su | 66 km | 4:16 min/km | Tempo + Long Run (20km) |\n| **4** | M, T, Th, Sa, Su | 70 km | 4:16 min/km | Peak Volume + RP Long Run (22km) |\n| **5** | M, T, Th, Sa, Su | 55 km | 4:16 min/km | Taper: Intervals + Long Run (14km) |\n| **6** | M, T, Th, Sa, Su | 40 km* | 4:16 min/km | Race Week: Taper + Race |\n\n*\\*Includes the 21.1km race distance.*\n\n---\n\n### Weekly Schedule Breakdown\n*   **Monday:** Easy Recovery Run (8–10 km).\n*   **Tuesday:** Quality Session (Intervals or Threshold). *Example: 6 x 1km at 4:00 pace with 90s rest.*\n*   **Thursday:** Mid-week Aerobic Run (12–15 km).\n*   **Saturday:** Easy Recovery or cross-training (keep it very light).\n*   **Sunday:** Long Run (Progression or Race Pace focus).\n\n### Critical Notes for Success:\n1.  **The \"Even Split\" Strategy:** Your goal is 1:30:00. To do this, you must run exactly **4:16/km**. Do not start at 4:00/km; the adrenaline will tempt you, but it will ruin your second half.\n2.  **Threshold Work:** The Tuesday sessions are the most important. If you can hold 4:05/km for 6-8km total of work (broken into intervals), your sub-1:30 goal is well within reach.\n3.  **Tapering:** Do not attempt to \"add extra miles\" in Week 5 or 6. The goal of the final two weeks is to shed fatigue so your legs are fresh for the 4:16/km pace on race day.\n4.  **Listen to your body:** With a 19:45 5K, your aerobic engine is good, but your endurance for 21.1km is the limiter. If you feel sharp pains, replace a Thursday run with an easy cycle to save your joints for the Sunday long run.\n\n*Disclaimer: I am an AI, not a coach. Ensure you monitor for signs of overtraining, especially given the step-up in mileage.*",
+  "response_text_sha256": "06b6976e1501dbe828abf5e32febeb859bf8d26971acfb0ac127fc160e9668ec",
+  "response_json": {
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "To achieve a 1:30:00 half marathon (4:16/km pace), your goal of \"5:00/km\" in your prompt seems to be a placeholder or a miscalculation. **I have designed this plan targeting the 4:16/km required to break 1:30:00.**\n\nSince you are an \"advanced\" recreational runner, this plan utilizes your current 55km base and builds to a peak of 70km. It incorporates **Threshold intervals** (to improve lactate clearance) and **Long Runs** (to build stamina at race pace).\n\n### Training Intensity Guide\n*   **Easy Runs:** 4:50–5:15 min/km (Aerobic recovery).\n*   **Threshold Intervals:** 4:00–4:05 min/km (Slightly faster than goal race pace).\n*   **Race Pace (RP) Runs:** 4:15–4:18 min/km.\n\n### 6-Week Training Plan\n\n| Week | Running Days | Total KM | Target Race Pace | Focus |\n| :--- | :--- | :--- | :--- | :--- |\n| **1** | M, T, Th, Sa, Su | 58 km | 4:16 min/km | Threshold + Long Run (16km) |\n| **2** | M, T, Th, Sa, Su | 62 km | 4:16 min/km | Intervals + Long Run (18km) |\n| **3** | M, T, Th, Sa, Su | 66 km | 4:16 min/km | Tempo + Long Run (20km) |\n| **4** | M, T, Th, Sa, Su | 70 km | 4:16 min/km | Peak Volume + RP Long Run (22km) |\n| **5** | M, T, Th, Sa, Su | 55 km | 4:16 min/km | Taper: Intervals + Long Run (14km) |\n| **6** | M, T, Th, Sa, Su | 40 km* | 4:16 min/km | Race Week: Taper + Race |\n\n*\\*Includes the 21.1km race distance.*\n\n---\n\n### Weekly Schedule Breakdown\n*   **Monday:** Easy Recovery Run (8–10 km).\n*   **Tuesday:** Quality Session (Intervals or Threshold). *Example: 6 x 1km at 4:00 pace with 90s rest.*\n*   **Thursday:** Mid-week Aerobic Run (12–15 km).\n*   **Saturday:** Easy Recovery or cross-training (keep it very light).\n*   **Sunday:** Long Run (Progression or Race Pace focus).\n\n### Critical Notes for Success:\n1.  **The \"Even Split\" Strategy:** Your goal is 1:30:00. To do this, you must run exactly **4:16/km**. Do not start at 4:00/km; the adrenaline will tempt you, but it will ruin your second half.\n2.  **Threshold Work:** The Tuesday sessions are the most important. If you can hold 4:05/km for 6-8km total of work (broken into intervals), your sub-1:30 goal is well within reach.\n3.  **Tapering:** Do not attempt to \"add extra miles\" in Week 5 or 6. The goal of the final two weeks is to shed fatigue so your legs are fresh for the 4:16/km pace on race day.\n4.  **Listen to your body:** With a 19:45 5K, your aerobic engine is good, but your endurance for 21.1km is the limiter. If you feel sharp pains, replace a Thursday run with an easy cycle to save your joints for the Sunday long run.\n\n*Disclaimer: I am an AI, not a coach. Ensure you monitor for signs of overtraining, especially given the step-up in mileage.*",
+              "thoughtSignature": "EnMKcQFpFH0T4ThDnguikT2Cu89GsoDLVTNMJ0qF2YFg9yuZMjcITGYnCPfzZrDswTFtBd0+UIl7cC3IyRdARvhuWuLDZ4PbCIbWPgcFqeLCWf3viy2T92iawJo3N7RGCZTNM4TUR8Wzx1SP6dijyDk/nd6P"
+            }
+          ],
+          "role": "model"
+        },
+        "finishReason": "STOP",
+        "index": 0
+      }
+    ],
+    "usageMetadata": {
+      "promptTokenCount": 156,
+      "candidatesTokenCount": 907,
+      "totalTokenCount": 1063,
+      "promptTokensDetails": [
+        {
+          "modality": "TEXT",
+          "tokenCount": 156
+        }
+      ],
+      "serviceTier": "standard"
+    },
+    "modelVersion": "gemini-3.1-flash-lite",
+    "responseId": "KhXHap69C8jlg8UPrazL-As"
+  },
+  "finish_reason": "STOP",
+  "truncated": false,
+  "usage": {
+    "promptTokenCount": 156,
+    "candidatesTokenCount": 907,
+    "totalTokenCount": 1063,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 156
+      }
+    ],
+    "serviceTier": "standard"
+  },
+  "latency_ms": 3602,
+  "outcome": "ok",
+  "error": null,
+  "settings": {
+    "max_output_tokens": 8192,
+    "temperature": "provider default (temperature parameter is NOT sent)",
+    "system_prompt": null,
+    "retries": 0,
+    "timeout_seconds": 180,
+    "delay_between_calls_seconds": 1.0
+  },
+  "registry_version": "stage2-v1",
+  "config_sha256": "3ee87c5c392d40eef6a9dceb599c5f0c83275ba589c0d8d496629a0728876a6b",
+  "registry_file_sha256": "51895ee5329059930959f15746439f692bb849521de346099a1838be7689f5c7",
+  "codebook_sha256": "177a1c5d9b7dbf1ab9e53d0684365dcf67b21f1b1f3154f3f8b1ecc5aa6eb4fc"
+}

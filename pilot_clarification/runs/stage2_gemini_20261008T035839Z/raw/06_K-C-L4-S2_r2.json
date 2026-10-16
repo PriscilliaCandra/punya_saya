@@ -1,0 +1,77 @@
+{
+  "call_index": 6,
+  "scenario_id": "K-C-L4-S2",
+  "scenario_number": 8,
+  "repetition": 2,
+  "run_id": "stage2_gemini_20261008T035839Z",
+  "provider": "gemini",
+  "model_requested": "gemini-3.1-flash-lite",
+  "model_returned": "gemini-3.1-flash-lite",
+  "timestamp_utc": "2026-10-08T03:59:01+00:00",
+  "completed_utc": "2026-10-08T03:59:32+00:00",
+  "prompt_sha256": "61eeac0b0c4043b0ae463756483241f33641cf64548867a453545e91fc601393",
+  "prompt": "I'm a recreational runner and I'd like a 6-week training plan. Here is my information:\n\n- Age / gender: 29, male\n- Experience: advanced\n- Recent 5K time: 19:45\n- Goal: half marathon in 1:30:00 at the end of week 6, which I plan to run at an even 4:16 per km\n- Current weekly mileage: 55 km\n- Days available per week: 5 (Monday, Tuesday, Thursday, Saturday, Sunday)\n\nPlease give me the plan as a week-by-week table with columns: week, running days, total km, target race pace (min/km).",
+  "http_status": 200,
+  "response_text": "To hit a 1:30:00 half marathon (4:16/km), your training needs to focus on **Threshold/Tempo running** to raise your lactate threshold and **Long Runs** to build the aerobic capacity to hold that pace for 21.1 km.\n\nGiven your current 55 km/week base and 19:45 5K time, this plan scales you up to a peak of 70 km. \n\n### Training Notes:\n*   **Target Race Pace (TRP):** 4:16 min/km.\n*   **Easy Runs (Mon/Thu):** 4:45–5:00 min/km. Do not run these too fast; they are for recovery.\n*   **Tempo/Intervals (Tue):** These should be done at or slightly faster than TRP (4:05–4:15 min/km).\n*   **Long Runs (Sun):** Perform at 4:30–4:45 min/km, gradually finishing the last few kilometers at TRP.\n*   **Saturday:** Short \"shakeout\" runs or optional rest/cross-train.\n\n### 6-Week Half Marathon Plan\n\n| Week | Running Days | Total KM | Target Race Pace (min/km) |\n| :--- | :--- | :--- | :--- |\n| **1** | Mon, Tue, Thu, Sat, Sun | 58 km | 4:16 |\n| **2** | Mon, Tue, Thu, Sat, Sun | 62 km | 4:16 |\n| **3** | Mon, Tue, Thu, Sat, Sun | 68 km | 4:16 |\n| **4** | Mon, Tue, Thu, Sat, Sun | 70 km | 4:16 |\n| **5** | Mon, Tue, Thu, Sat, Sun | 55 km | 4:16 |\n| **6** | Mon, Tue, Thu, Sat, Race | 40 km* | 4:16 |\n\n*\\*Week 6 includes the race on Sunday. Mileage is reduced significantly to allow for tapering.*\n\n---\n\n### Weekly Structure Breakdown:\n\n*   **Monday (Easy):** 10 km easy aerobic base.\n*   **Tuesday (Quality/Speed):** \n    *   Wk 1: 8 x 800m @ 3:55-4:00 pace (2 min rest).\n    *   Wk 2: 12 km Tempo run @ 4:10 pace.\n    *   Wk 3: 5 x 2km @ 4:05 pace (90 sec rest).\n    *   Wk 4: 15 km Tempo run @ 4:15 pace.\n    *   Wk 5: 8 km Tempo @ 4:10 pace.\n    *   Wk 6: 5 km easy with 4x400m strides.\n*   **Thursday (Recovery/Aerobic):** 10–12 km steady-state running.\n*   **Saturday (Shakeout):** 5–8 km very easy recovery run.\n*   **Sunday (Long Run):**\n    *   Wk 1: 16 km\n    *   Wk 2: 18 km\n    *   Wk 3: 20 km\n    *   Wk 4: 22 km (Peak distance)\n    *   Wk 5: 14 km\n    *   Wk 6: **Race Day (21.1 km @ 4:16/km)**\n\n### Critical Advice for Success:\n1.  **The Taper:** Week 5 and 6 are crucial. Do not be tempted to add extra miles because you feel \"fresh\" from the drop in volume. Your body needs to store glycogen and repair micro-tears to perform at your peak on race day.\n2.  **Pacing:** Your 5K time of 19:45 suggests you have the raw speed, but a 1:30:00 half marathon requires high efficiency. Ensure you practice your **race-day nutrition** (gels/hydration) during your Sunday long runs in Weeks 3 and 4.\n3.  **Listen to your body:** If you feel an injury coming on during the peak weeks (3 or 4), prioritize recovery over the scheduled kilometers. One missed run is better than a DNF.",
+  "response_text_sha256": "ade3ddaeaf08928a609303cdad4a99bd55212f61cda67c219caf047f40241760",
+  "response_json": {
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "To hit a 1:30:00 half marathon (4:16/km), your training needs to focus on **Threshold/Tempo running** to raise your lactate threshold and **Long Runs** to build the aerobic capacity to hold that pace for 21.1 km.\n\nGiven your current 55 km/week base and 19:45 5K time, this plan scales you up to a peak of 70 km. \n\n### Training Notes:\n*   **Target Race Pace (TRP):** 4:16 min/km.\n*   **Easy Runs (Mon/Thu):** 4:45–5:00 min/km. Do not run these too fast; they are for recovery.\n*   **Tempo/Intervals (Tue):** These should be done at or slightly faster than TRP (4:05–4:15 min/km).\n*   **Long Runs (Sun):** Perform at 4:30–4:45 min/km, gradually finishing the last few kilometers at TRP.\n*   **Saturday:** Short \"shakeout\" runs or optional rest/cross-train.\n\n### 6-Week Half Marathon Plan\n\n| Week | Running Days | Total KM | Target Race Pace (min/km) |\n| :--- | :--- | :--- | :--- |\n| **1** | Mon, Tue, Thu, Sat, Sun | 58 km | 4:16 |\n| **2** | Mon, Tue, Thu, Sat, Sun | 62 km | 4:16 |\n| **3** | Mon, Tue, Thu, Sat, Sun | 68 km | 4:16 |\n| **4** | Mon, Tue, Thu, Sat, Sun | 70 km | 4:16 |\n| **5** | Mon, Tue, Thu, Sat, Sun | 55 km | 4:16 |\n| **6** | Mon, Tue, Thu, Sat, Race | 40 km* | 4:16 |\n\n*\\*Week 6 includes the race on Sunday. Mileage is reduced significantly to allow for tapering.*\n\n---\n\n### Weekly Structure Breakdown:\n\n*   **Monday (Easy):** 10 km easy aerobic base.\n*   **Tuesday (Quality/Speed):** \n    *   Wk 1: 8 x 800m @ 3:55-4:00 pace (2 min rest).\n    *   Wk 2: 12 km Tempo run @ 4:10 pace.\n    *   Wk 3: 5 x 2km @ 4:05 pace (90 sec rest).\n    *   Wk 4: 15 km Tempo run @ 4:15 pace.\n    *   Wk 5: 8 km Tempo @ 4:10 pace.\n    *   Wk 6: 5 km easy with 4x400m strides.\n*   **Thursday (Recovery/Aerobic):** 10–12 km steady-state running.\n*   **Saturday (Shakeout):** 5–8 km very easy recovery run.\n*   **Sunday (Long Run):**\n    *   Wk 1: 16 km\n    *   Wk 2: 18 km\n    *   Wk 3: 20 km\n    *   Wk 4: 22 km (Peak distance)\n    *   Wk 5: 14 km\n    *   Wk 6: **Race Day (21.1 km @ 4:16/km)**\n\n### Critical Advice for Success:\n1.  **The Taper:** Week 5 and 6 are crucial. Do not be tempted to add extra miles because you feel \"fresh\" from the drop in volume. Your body needs to store glycogen and repair micro-tears to perform at your peak on race day.\n2.  **Pacing:** Your 5K time of 19:45 suggests you have the raw speed, but a 1:30:00 half marathon requires high efficiency. Ensure you practice your **race-day nutrition** (gels/hydration) during your Sunday long runs in Weeks 3 and 4.\n3.  **Listen to your body:** If you feel an injury coming on during the peak weeks (3 or 4), prioritize recovery over the scheduled kilometers. One missed run is better than a DNF.",
+              "thoughtSignature": "EnMKcQFpFH0TxlmRn5Y2KMsGTKPFQI/0tW3cZT9BFB7r+RpLZ1ZJ/Q/zMFS3hv9gBk1SAfbI4gPk0Jh9cOa45R1Rk01YQ2xIxW+uyxt9ZpvsJvkCK+MQVFY+sOUZEgiHRwnI5KqYwoKNvDkjJedn0cx1IMSC"
+            }
+          ],
+          "role": "model"
+        },
+        "finishReason": "STOP",
+        "index": 0
+      }
+    ],
+    "usageMetadata": {
+      "promptTokenCount": 156,
+      "candidatesTokenCount": 1000,
+      "totalTokenCount": 1156,
+      "promptTokensDetails": [
+        {
+          "modality": "TEXT",
+          "tokenCount": 156
+        }
+      ],
+      "serviceTier": "standard"
+    },
+    "modelVersion": "gemini-3.1-flash-lite",
+    "responseId": "BhXHavrWBszOg8UPy5LUgQs"
+  },
+  "finish_reason": "STOP",
+  "truncated": false,
+  "usage": {
+    "promptTokenCount": 156,
+    "candidatesTokenCount": 1000,
+    "totalTokenCount": 1156,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 156
+      }
+    ],
+    "serviceTier": "standard"
+  },
+  "latency_ms": 30366,
+  "outcome": "ok",
+  "error": null,
+  "settings": {
+    "max_output_tokens": 8192,
+    "temperature": "provider default (temperature parameter is NOT sent)",
+    "system_prompt": null,
+    "retries": 0,
+    "timeout_seconds": 180,
+    "delay_between_calls_seconds": 1.0
+  },
+  "registry_version": "stage2-v1",
+  "config_sha256": "3ee87c5c392d40eef6a9dceb599c5f0c83275ba589c0d8d496629a0728876a6b",
+  "registry_file_sha256": "51895ee5329059930959f15746439f692bb849521de346099a1838be7689f5c7",
+  "codebook_sha256": "177a1c5d9b7dbf1ab9e53d0684365dcf67b21f1b1f3154f3f8b1ecc5aa6eb4fc"
+}

@@ -25,17 +25,28 @@ class AIWhyGenerated(BaseModel):
     ai_personalization_additions: str = ""
 
 
-class AIPersonalizedPlan(BaseModel):
-    """
-    Schema for the AI-personalized plan, whether produced by a live LLM or the
-    offline fallback synthesizer. Only textual/explanatory fields are expected to
-    vary between runners; the numeric/structural fields are cross-checked against
-    the deterministic rule-based baseline in app.ai.validator before this model
-    is ever trusted.
-    """
-    coach_overview: str = ""
+class AIWeekPlan(BaseModel):
+    week_number: int
+    phase: str
     weekly_mileage_km: float
     workouts: List[AIWorkoutItem]
+
+
+class AIPersonalizedPlan(BaseModel):
+    """
+    Schema for the AI-personalized multi-week plan, whether produced by a live LLM
+    or the offline fallback synthesizer. `weeks` mirrors the deterministic baseline's
+    `weeks` array one-to-one; only textual/explanatory fields are expected to vary,
+    and the numeric/structural fields are cross-checked week by week against the
+    baseline in app.ai.validator before this model is ever trusted.
+
+    `weekly_mileage_km` and `workouts` are a backward-compatible mirror of week 1
+    (populated from `weeks[0]` after validation) for existing single-week consumers.
+    """
+    coach_overview: str = ""
+    weeks: List[AIWeekPlan]
+    weekly_mileage_km: float = 0.0
+    workouts: List[AIWorkoutItem] = Field(default_factory=list)
     personalized_insights: AIPersonalizedInsights = Field(default_factory=AIPersonalizedInsights)
     ai_personalization_summary: List[str] = Field(default_factory=list)
     why_this_plan_was_generated: AIWhyGenerated = Field(default_factory=AIWhyGenerated)

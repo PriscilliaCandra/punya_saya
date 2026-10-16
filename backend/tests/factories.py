@@ -70,18 +70,26 @@ def make_workout_payload(**overrides: Any) -> Dict[str, Any]:
 
 
 def build_valid_ai_payload(rule_plan: Dict[str, Any]) -> Dict[str, Any]:
-    """Builds a syntactically and numerically valid AI plan payload from a baseline rule plan."""
-    workouts = []
-    for w in rule_plan["week_1_plan"]["workouts"]:
-        workouts.append({
-            **w,
-            "warmup_cooldown": "Personalized warm-up drills.",
-            "workout_execution": "Personalized step-by-step execution cues.",
+    """Builds a syntactically and numerically valid multi-week AI plan payload from a baseline rule plan."""
+    weeks = []
+    for baseline_week in rule_plan["weeks"]:
+        workouts = [
+            {
+                **w,
+                "warmup_cooldown": "Personalized warm-up drills.",
+                "workout_execution": "Personalized step-by-step execution cues.",
+            }
+            for w in baseline_week["workouts"]
+        ]
+        weeks.append({
+            "week_number": baseline_week["week_number"],
+            "phase": baseline_week["phase"],
+            "weekly_mileage_km": baseline_week["weekly_mileage_km"],
+            "workouts": workouts,
         })
     return {
         "coach_overview": "Welcome to your personalized plan!",
-        "weekly_mileage_km": rule_plan["week_1_plan"]["weekly_mileage_km"],
-        "workouts": workouts,
+        "weeks": weeks,
         "personalized_insights": {
             "pacing_strategy": "Stay controlled on easy days.",
             "injury_prevention_note": "Watch the knee on downhills.",

@@ -16,8 +16,10 @@ class AIPlanValidationError(Exception):
     Raised when raw LLM output either fails schema validation or silently
     changes a numerical value that must be controlled exclusively by the
     deterministic rule-based engine (distances, paces, weekly mileage,
-    workout/rest day counts). The caller must treat this as "never trust
-    the AI plan" and fall back to the offline rule-constrained synthesizer.
+    workout/rest day counts) in any week. The production dispatcher treats
+    this as "never trust the AI plan" and falls back to the offline
+    rule-constrained synthesizer; the research path reports it as
+    GEMINI_VALIDATION_FAILED without fallback.
     """
 
 
@@ -44,66 +46,92 @@ def validate_ai_plan(
     except ValidationError as e:
         raise AIPlanValidationError(f"schema validation failed ({e.error_count()} error(s))") from e
 
-    baseline_workouts = rule_plan["week_1_plan"]["workouts"]
+    baseline_weeks = rule_plan["weeks"]
+    if len(parsed.weeks) != len(baseline_weeks):
+        raise AIPlanValidationError(
+            f"week count mismatch: expected {len(baseline_weeks)}, got {len(parsed.weeks)}"
+        )
+
+    for ai_week, baseline_week in zip(parsed.weeks, baseline_weeks):
+        ordered = _validate_week(ai_week, baseline_week, profile)
+        ai_week.workouts = ordered
+
+    week_1 = parsed.weeks[0]
+    parsed.weekly_mileage_km = week_1.weekly_mileage_km
+    parsed.workouts = week_1.workouts
+
+    return parsed
+
+
+def _validate_week(ai_week, baseline_week, profile: RunnerProfileCreate):
+    prefix = f"week {baseline_week['week_number']}"
+    if ai_week.week_number != baseline_week["week_number"]:
+        raise AIPlanValidationError(
+            f"{prefix}: week_number mismatch, got {ai_week.week_number}"
+        )
+    if ai_week.phase.strip() != baseline_week["phase"].strip():
+        raise AIPlanValidationError(
+            f"{prefix}: phase changed: expected '{baseline_week['phase']}', got '{ai_week.phase}'"
+        )
+
+    baseline_workouts = baseline_week["workouts"]
     baseline_by_day = {w["day"]: w for w in baseline_workouts}
 
-    if len(parsed.workouts) != len(baseline_workouts):
+    if len(ai_week.workouts) != len(baseline_workouts):
         raise AIPlanValidationError(
-            f"workout count mismatch: expected {len(baseline_workouts)}, got {len(parsed.workouts)}"
+            f"{prefix}: workout count mismatch: expected {len(baseline_workouts)}, got {len(ai_week.workouts)}"
         )
 
     seen_days = set()
-    for w in parsed.workouts:
+    for w in ai_week.workouts:
         baseline_w = baseline_by_day.get(w.day)
         if baseline_w is None:
-            raise AIPlanValidationError(f"unrecognized day '{w.day}' not present in the rule-based baseline")
+            raise AIPlanValidationError(f"{prefix}: unrecognized day '{w.day}' not present in the rule-based baseline")
         if w.day in seen_days:
-            raise AIPlanValidationError(f"duplicate day '{w.day}' in AI plan")
+            raise AIPlanValidationError(f"{prefix}: duplicate day '{w.day}' in AI plan")
         seen_days.add(w.day)
 
         if w.workout_type.strip().lower() != baseline_w["workout_type"].strip().lower():
             raise AIPlanValidationError(
-                f"workout_type changed on {w.day}: expected '{baseline_w['workout_type']}', got '{w.workout_type}'"
+                f"{prefix}: workout_type changed on {w.day}: expected '{baseline_w['workout_type']}', got '{w.workout_type}'"
             )
         if abs(w.distance_km - baseline_w["distance_km"]) > DISTANCE_TOLERANCE_KM:
             raise AIPlanValidationError(
-                f"distance_km changed on {w.day}: expected {baseline_w['distance_km']}, got {w.distance_km}"
+                f"{prefix}: distance_km changed on {w.day}: expected {baseline_w['distance_km']}, got {w.distance_km}"
             )
         if w.pace_target.strip() != baseline_w["pace_target"].strip():
             raise AIPlanValidationError(
-                f"pace_target changed on {w.day}: expected '{baseline_w['pace_target']}', got '{w.pace_target}'"
+                f"{prefix}: pace_target changed on {w.day}: expected '{baseline_w['pace_target']}', got '{w.pace_target}'"
             )
         if w.intensity_zone.strip() != baseline_w["intensity_zone"].strip():
             raise AIPlanValidationError(
-                f"intensity_zone changed on {w.day}: expected '{baseline_w['intensity_zone']}', got '{w.intensity_zone}'"
+                f"{prefix}: intensity_zone changed on {w.day}: expected '{baseline_w['intensity_zone']}', got '{w.intensity_zone}'"
             )
 
     missing_days = set(baseline_by_day.keys()) - seen_days
     if missing_days:
-        raise AIPlanValidationError(f"missing day(s) in AI plan: {sorted(missing_days)}")
+        raise AIPlanValidationError(f"{prefix}: missing day(s) in AI plan: {sorted(missing_days)}")
 
-    expected_mileage = rule_plan["week_1_plan"]["weekly_mileage_km"]
-    if abs(parsed.weekly_mileage_km - expected_mileage) > MILEAGE_TOLERANCE_KM:
+    expected_mileage = baseline_week["weekly_mileage_km"]
+    if abs(ai_week.weekly_mileage_km - expected_mileage) > MILEAGE_TOLERANCE_KM:
         raise AIPlanValidationError(
-            f"weekly_mileage_km changed: expected {expected_mileage}, got {parsed.weekly_mileage_km}"
+            f"{prefix}: weekly_mileage_km changed: expected {expected_mileage}, got {ai_week.weekly_mileage_km}"
         )
 
     expected_rest_days = 7 - profile.training_days_per_week
-    actual_rest_days = sum(1 for w in parsed.workouts if w.workout_type.strip().lower() == "rest & recovery")
+    actual_rest_days = sum(1 for w in ai_week.workouts if w.workout_type.strip().lower() == "rest & recovery")
     if actual_rest_days != expected_rest_days:
         raise AIPlanValidationError(
-            f"rest day count mismatch: expected {expected_rest_days}, got {actual_rest_days}"
+            f"{prefix}: rest day count mismatch: expected {expected_rest_days}, got {actual_rest_days}"
         )
 
-    actual_training_days = len(parsed.workouts) - actual_rest_days
+    actual_training_days = len(ai_week.workouts) - actual_rest_days
     if actual_training_days != profile.training_days_per_week:
         raise AIPlanValidationError(
-            f"training day count mismatch: expected {profile.training_days_per_week}, got {actual_training_days}"
+            f"{prefix}: training day count mismatch: expected {profile.training_days_per_week}, got {actual_training_days}"
         )
 
     # Re-order to match the baseline's Monday->Sunday sequence so the UI grid
     # stays consistent regardless of the order the LLM emitted workouts in.
-    by_day = {w.day: w for w in parsed.workouts}
-    parsed.workouts = [by_day[day] for day in baseline_by_day.keys()]
-
-    return parsed
+    by_day = {w.day: w for w in ai_week.workouts}
+    return [by_day[day] for day in baseline_by_day.keys()]

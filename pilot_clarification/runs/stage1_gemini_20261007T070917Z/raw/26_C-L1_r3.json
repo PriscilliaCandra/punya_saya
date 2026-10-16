@@ -1,0 +1,27 @@
+{
+  "call_index": 26,
+  "scenario_id": "C-L1",
+  "scenario_number": 1,
+  "repetition": 3,
+  "provider": "gemini",
+  "model_requested": "gemini-3.8-flash",
+  "timestamp_utc": "2026-10-07T07:47:25+00:00",
+  "prompt_sha256": "f105db7308f6cb6a1c377c6e3cb9639d2f9f373d41f1e582cb6b58a223b23cb4",
+  "prompt": "I'm a recreational runner and I'd like a 6-week training plan. Here is my information:\n\n- Age / gender: 34, female\n- Experience: beginner\n- Recent 5K time: 29:30\n- Goal: 5K in 28:00 at the end of week 6\n- Current weekly mileage: 20 km\n- Days available per week: 3 (Tuesday, Thursday, Saturday, Sunday)\n\nPlease give me the plan as a week-by-week table with columns: week, running days, total km.",
+  "settings": {
+    "max_output_tokens": 8192,
+    "temperature": "provider default (temperature parameter is NOT sent)",
+    "system_prompt": null,
+    "retries": 0,
+    "timeout_seconds": 180,
+    "shuffle_seed": 20261007
+  },
+  "http_status": 429,
+  "response_text": "",
+  "finish_reason": null,
+  "usage": null,
+  "model_returned": null,
+  "response_json": null,
+  "error": "HTTP 429: {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.8-flash\\nPlease retry in 16h12m30.14438296s.\",\n    \"status\": \"RESOURCE_EXHAUSTED\",\n    \"details\": [\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.Help\",\n        \"links\": [\n          {\n            \"description\": \"Learn more about Gemini API quotas\",\n            \"url\": \"https://ai.google.dev/gemini-api/docs/rate-limits\"\n          }\n        ]\n      },\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.QuotaFailure\",\n        \"violations\": [\n          {\n            \"quotaMetric\": \"generativelanguage.googleapis.com/generate_content_free_tier_requests\",\n            \"quotaId\": \"GenerateRequestsPerDayPerProjectPerModel-FreeTier\",\n            \"quotaDimensions\": {\n              \"location\": \"global\",\n              \"model\": \"gemini-3.8-flash\"\n            },\n            \"quotaValue\": \"20\"\n          }\n        ]\n      },\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.RetryInfo\",\n        \"retryDelay\": \"58350s\"\n      }\n    ]\n  }\n}\n",
+  "latency_ms": 458
+}

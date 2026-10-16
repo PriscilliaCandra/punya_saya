@@ -1,0 +1,9 @@
+{
+  "authorized_by": "",
+  "scope": "pilot_round_1",
+  "max_calls": 18,
+  "cost_ceiling_usd": 100,
+  "input_tokens_per_call_assumed": 0,
+  "note": "TEMPLATE, NOT AN AUTHORIZATION. The owner fills authorized_by with the word owner, sets scope (pilot_round_1, pilot_round_2 or main), max_calls (18, 18 or 2496), and states the input-size assumption in tokens per call (1016 is the accepted character bound; a measurement needs separate authorization). Save as a new file; the runner reads only authorized_by, scope, max_calls, cost_ceiling_usd and input_tokens_per_call_assumed. max_input_characters: the owner states the operational character limit per prompt (a positive integer). A value that can be checked against existing artefacts: the Step 7 worst case and the actual longest prompt are both 1,016 characters (record 12.18 row 6; step8_output prompt_table.json); that is a candidate, not a default, and it does not apply to paid calls unless the owner writes it here. It is a control on input length, not a token measurement and not a cost guarantee.",
+  "max_input_characters": 0
+}

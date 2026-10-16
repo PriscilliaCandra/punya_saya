@@ -1,0 +1,11 @@
+--- a/research_design/step10/s10_scoring.py
++++ b/research_design/step10/s10_scoring.py
+@@ -58,7 +58,7 @@
+         flags.append("SF3")
+     if fr in BLOCK_REASONS or rec.get("block_reason") or (not rec.get("error") and rec.get("http_status") == 200 and fr is None and not text):
+         flags.append("SF4")                                         # blocked/safety finish, prompt block, or no candidate returned
+-    if not rec.get("error") and not text.strip(chr(32) + chr(9) + chr(10) + chr(11) + chr(12) + chr(13)) and "SF4" not in flags and "SF1" not in flags:
++    if not text.strip(chr(32) + chr(9) + chr(10) + chr(11) + chr(12) + chr(13)):
+         flags.append("SF2")                                         # no non-whitespace character; not emitted when SF1/SF4 explains the empty body
+                                                                     # (option B of C-31: working decision of the researcher, not ratified; see test_sf2_detection.py)
+     if parse_exc is not None:

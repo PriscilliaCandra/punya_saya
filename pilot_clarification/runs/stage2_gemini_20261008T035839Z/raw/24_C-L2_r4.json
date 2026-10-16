@@ -1,0 +1,77 @@
+{
+  "call_index": 24,
+  "scenario_id": "C-L2",
+  "scenario_number": 5,
+  "repetition": 4,
+  "run_id": "stage2_gemini_20261008T035839Z",
+  "provider": "gemini",
+  "model_requested": "gemini-3.1-flash-lite",
+  "model_returned": "gemini-3.1-flash-lite",
+  "timestamp_utc": "2026-10-08T04:01:23+00:00",
+  "completed_utc": "2026-10-08T04:01:27+00:00",
+  "prompt_sha256": "9479e2e9ba1d0540bddec16b29ba9be044e76004a87402eb9ed44d22b61c0a04",
+  "prompt": "I'm a recreational runner and I'd like a 6-week training plan. Here is my information:\n\n- Age / gender: 34, female\n- Experience: beginner\n- Recent 5K time: 29:30\n- Goal: 5K in 28:00 at the end of week 6\n- Current weekly mileage: 20 km\n- Days available per week: 3 (Tuesday, Thursday, Sunday)\n- Notes: lately I've been running about 35 km a week.\n\nPlease give me the plan as a week-by-week table with columns: week, running days, total km.",
+  "http_status": 200,
+  "response_text": "To drop your 5K time from 29:30 to 28:00, you need to introduce **intervals** (to improve your speed/VO2 max) and **tempo runs** (to improve your lactate threshold). \n\nSince you are currently running 35 km per week, we will maintain that volume while focusing on intensity. \n\n### The Training Strategy:\n*   **Tuesday (Speed/Intervals):** Short, fast bursts to get comfortable running at (or faster than) your goal pace.\n*   **Thursday (Tempo/Steady):** A sustained effort at a \"comfortably hard\" pace to build endurance.\n*   **Sunday (Long Run):** A slower, aerobic run to build overall engine capacity.\n\n---\n\n### 6-Week 5K Training Plan\n\n| Week | Tuesday (Intervals) | Thursday (Tempo) | Sunday (Long Run) | Total km |\n| :--- | :--- | :--- | :--- | :--- |\n| **1** | 6 x 400m @ 5:30/km pace | 6 km steady | 8 km easy | 35 km |\n| **2** | 8 x 400m @ 5:30/km pace | 6 km steady | 9 km easy | 37 km |\n| **3** | 4 x 800m @ 5:35/km pace | 7 km steady | 9 km easy | 38 km |\n| **4** | 5 x 800m @ 5:35/km pace | 7 km steady | 10 km easy | 40 km |\n| **5** | 6 x 800m @ 5:30/km pace | 6 km tempo (Goal pace) | 8 km easy | 36 km |\n| **6** | 4 x 400m @ 5:20/km (easy) | 4 km light jog | **Race Day (5K)** | 25 km |\n\n---\n\n### Important Guidelines:\n1.  **Warm-up/Cool-down:** For Tuesday and Thursday sessions, add 1-2 km of slow jogging before and after your specific workout. These are included in the \"Total km\" counts.\n2.  **Pacing:** \n    *   **Goal Pace:** 5:36/km (This gets you to 28:00).\n    *   **Easy Runs (Sunday):** Should be around 6:30–7:00/km. Do not run these too fast; they are for recovery and building aerobic base.\n    *   **Intervals:** Run these slightly faster than your goal pace (as noted in the table) with 90 seconds of walking/slow jogging between reps.\n3.  **Tapering:** Note that Week 6 has significantly less volume. This is a \"taper,\" which allows your legs to recover fully so you are fresh and ready to hit your personal best on race day.\n4.  **Listen to your body:** If you feel sharp pain (not just muscle fatigue), take an extra rest day. It is better to arrive at the start line 100% healthy than 100% trained but injured.\n\n*Disclaimer: As a recreational runner, ensure you are wearing proper running shoes and staying hydrated. If you have any history of heart or respiratory issues, please consult with a medical professional before starting a speed-intensive program.*",
+  "response_text_sha256": "19c01c1c4f462e2436b270bd67be1a98140b98249cf6fae21f12d864c646e1c4",
+  "response_json": {
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "To drop your 5K time from 29:30 to 28:00, you need to introduce **intervals** (to improve your speed/VO2 max) and **tempo runs** (to improve your lactate threshold). \n\nSince you are currently running 35 km per week, we will maintain that volume while focusing on intensity. \n\n### The Training Strategy:\n*   **Tuesday (Speed/Intervals):** Short, fast bursts to get comfortable running at (or faster than) your goal pace.\n*   **Thursday (Tempo/Steady):** A sustained effort at a \"comfortably hard\" pace to build endurance.\n*   **Sunday (Long Run):** A slower, aerobic run to build overall engine capacity.\n\n---\n\n### 6-Week 5K Training Plan\n\n| Week | Tuesday (Intervals) | Thursday (Tempo) | Sunday (Long Run) | Total km |\n| :--- | :--- | :--- | :--- | :--- |\n| **1** | 6 x 400m @ 5:30/km pace | 6 km steady | 8 km easy | 35 km |\n| **2** | 8 x 400m @ 5:30/km pace | 6 km steady | 9 km easy | 37 km |\n| **3** | 4 x 800m @ 5:35/km pace | 7 km steady | 9 km easy | 38 km |\n| **4** | 5 x 800m @ 5:35/km pace | 7 km steady | 10 km easy | 40 km |\n| **5** | 6 x 800m @ 5:30/km pace | 6 km tempo (Goal pace) | 8 km easy | 36 km |\n| **6** | 4 x 400m @ 5:20/km (easy) | 4 km light jog | **Race Day (5K)** | 25 km |\n\n---\n\n### Important Guidelines:\n1.  **Warm-up/Cool-down:** For Tuesday and Thursday sessions, add 1-2 km of slow jogging before and after your specific workout. These are included in the \"Total km\" counts.\n2.  **Pacing:** \n    *   **Goal Pace:** 5:36/km (This gets you to 28:00).\n    *   **Easy Runs (Sunday):** Should be around 6:30–7:00/km. Do not run these too fast; they are for recovery and building aerobic base.\n    *   **Intervals:** Run these slightly faster than your goal pace (as noted in the table) with 90 seconds of walking/slow jogging between reps.\n3.  **Tapering:** Note that Week 6 has significantly less volume. This is a \"taper,\" which allows your legs to recover fully so you are fresh and ready to hit your personal best on race day.\n4.  **Listen to your body:** If you feel sharp pain (not just muscle fatigue), take an extra rest day. It is better to arrive at the start line 100% healthy than 100% trained but injured.\n\n*Disclaimer: As a recreational runner, ensure you are wearing proper running shoes and staying hydrated. If you have any history of heart or respiratory issues, please consult with a medical professional before starting a speed-intensive program.*",
+              "thoughtSignature": "EnMKcQFpFH0TGD0MgElkhH/IBSgEbkBVqmxdD2zukFgmuYj42S5bA+uGnu2kHbjny3Ss4ovWgt0gcEc+Rn2nNm+1B4M4cikljZWsA5x6NfCC3fvWoN9joLia17LMG2TtzgzVFZYz3DkcCc28ks+G43icdjuJ"
+            }
+          ],
+          "role": "model"
+        },
+        "finishReason": "STOP",
+        "index": 0
+      }
+    ],
+    "usageMetadata": {
+      "promptTokenCount": 145,
+      "candidatesTokenCount": 771,
+      "totalTokenCount": 916,
+      "promptTokensDetails": [
+        {
+          "modality": "TEXT",
+          "tokenCount": 145
+        }
+      ],
+      "serviceTier": "standard"
+    },
+    "modelVersion": "gemini-3.1-flash-lite",
+    "responseId": "kxXHas2EO_KiqfkPy93vyAg"
+  },
+  "finish_reason": "STOP",
+  "truncated": false,
+  "usage": {
+    "promptTokenCount": 145,
+    "candidatesTokenCount": 771,
+    "totalTokenCount": 916,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 145
+      }
+    ],
+    "serviceTier": "standard"
+  },
+  "latency_ms": 3699,
+  "outcome": "ok",
+  "error": null,
+  "settings": {
+    "max_output_tokens": 8192,
+    "temperature": "provider default (temperature parameter is NOT sent)",
+    "system_prompt": null,
+    "retries": 0,
+    "timeout_seconds": 180,
+    "delay_between_calls_seconds": 1.0
+  },
+  "registry_version": "stage2-v1",
+  "config_sha256": "3ee87c5c392d40eef6a9dceb599c5f0c83275ba589c0d8d496629a0728876a6b",
+  "registry_file_sha256": "51895ee5329059930959f15746439f692bb849521de346099a1838be7689f5c7",
+  "codebook_sha256": "177a1c5d9b7dbf1ab9e53d0684365dcf67b21f1b1f3154f3f8b1ecc5aa6eb4fc"
+}

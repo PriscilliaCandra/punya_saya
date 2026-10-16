@@ -1,0 +1,77 @@
+{
+  "call_index": 4,
+  "scenario_id": "K-C-L4-S2",
+  "scenario_number": 8,
+  "repetition": 4,
+  "run_id": "stage2_gemini_20261008T035839Z",
+  "provider": "gemini",
+  "model_requested": "gemini-3.1-flash-lite",
+  "model_returned": "gemini-3.1-flash-lite",
+  "timestamp_utc": "2026-10-08T03:58:51+00:00",
+  "completed_utc": "2026-10-08T03:58:56+00:00",
+  "prompt_sha256": "61eeac0b0c4043b0ae463756483241f33641cf64548867a453545e91fc601393",
+  "prompt": "I'm a recreational runner and I'd like a 6-week training plan. Here is my information:\n\n- Age / gender: 29, male\n- Experience: advanced\n- Recent 5K time: 19:45\n- Goal: half marathon in 1:30:00 at the end of week 6, which I plan to run at an even 4:16 per km\n- Current weekly mileage: 55 km\n- Days available per week: 5 (Monday, Tuesday, Thursday, Saturday, Sunday)\n\nPlease give me the plan as a week-by-week table with columns: week, running days, total km, target race pace (min/km).",
+  "http_status": 200,
+  "response_text": "To hit a 1:30:00 half marathon (4:16/km), your training needs to focus on **Threshold/Tempo running** to raise your lactate threshold and **Long Runs** to build the aerobic engine for 21.1km. \n\nSince you are an advanced runner already at 55km/week, this plan will peak at 70km before a one-week taper.\n\n### Training Intensity Guide:\n*   **Easy Runs (Mon/Thu):** 4:45–5:15 min/km. Keep these truly easy to recover.\n*   **Intervals/Tempo (Tue):** Focused on 4:00–4:10 min/km pace.\n*   **Long Runs (Sun):** Start easy, progress to target race pace (4:16) for the final 5-8km.\n\n### 6-Week Half Marathon Plan\n\n| Week | Running Days | Total KM | Target Race Pace |\n| :--- | :--- | :--- | :--- |\n| 1 | Mon, Tue, Thu, Sat, Sun | 55 km | 4:16 min/km |\n| 2 | Mon, Tue, Thu, Sat, Sun | 60 km | 4:16 min/km |\n| 3 | Mon, Tue, Thu, Sat, Sun | 65 km | 4:16 min/km |\n| 4 | Mon, Tue, Thu, Sat, Sun | 70 km | 4:16 min/km |\n| 5 | Mon, Tue, Thu, Sat, Sun | 55 km | 4:16 min/km |\n| 6 | Mon, Tue, Thu, Sat, Race | 40 km* | 4:16 min/km |\n\n*\\*Week 6 includes the 21.1km race.*\n\n---\n\n### Weekly Breakdown & Key Sessions\n\n**Weekly Schedule Template:**\n*   **Monday:** Easy run (8–10km).\n*   **Tuesday:** **Quality Day.**\n    *   W1-2: 6–8 x 800m @ 3:45 pace (2 min rest).\n    *   W3-4: 3 x 3km Tempo @ 4:05 pace (90s rest).\n*   **Thursday:** Recovery/Easy run (10–12km).\n*   **Saturday:** Short \"Shakeout\" or Maintenance run (8km).\n*   **Sunday:** **Long Run.**\n    *   W1: 16km\n    *   W2: 18km\n    *   W3: 20km\n    *   W4: 22km (Peak)\n    *   W5: 14km (Taper)\n    *   W6: Race Day\n\n### Strategic Advice for your 1:30 Goal:\n1.  **The \"Bridge\" Runs:** During your Sunday long runs in weeks 3 and 4, try to run the final 5km at your target race pace (4:16). This teaches your body to handle goal pace while fatigued.\n2.  **Tapering:** Week 5 and 6 are crucial for recovery. Do not feel the urge to add \"extra\" miles if you feel good; the point of the taper is to arrive at the start line with fully recovered glycogen stores and rested legs.\n3.  **Race Strategy:** A 1:30 half marathon is exactly 4:16/km. Do not go out at 4:05/km in the first 5km due to adrenaline. You will pay for it after 15km. Aim to hit the 10km mark at 42:45–43:00 and execute a strong final 5km. \n4.  **Listen to your body:** If your legs feel heavy on Tuesday, turn your interval session into a tempo run. Consistency over 6 weeks is more important than crushing one single workout.",
+  "response_text_sha256": "f69b566998551dd0211135aa3b72f47b96afdfa7195c65ed7bb1a9194a89a8e4",
+  "response_json": {
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "To hit a 1:30:00 half marathon (4:16/km), your training needs to focus on **Threshold/Tempo running** to raise your lactate threshold and **Long Runs** to build the aerobic engine for 21.1km. \n\nSince you are an advanced runner already at 55km/week, this plan will peak at 70km before a one-week taper.\n\n### Training Intensity Guide:\n*   **Easy Runs (Mon/Thu):** 4:45–5:15 min/km. Keep these truly easy to recover.\n*   **Intervals/Tempo (Tue):** Focused on 4:00–4:10 min/km pace.\n*   **Long Runs (Sun):** Start easy, progress to target race pace (4:16) for the final 5-8km.\n\n### 6-Week Half Marathon Plan\n\n| Week | Running Days | Total KM | Target Race Pace |\n| :--- | :--- | :--- | :--- |\n| 1 | Mon, Tue, Thu, Sat, Sun | 55 km | 4:16 min/km |\n| 2 | Mon, Tue, Thu, Sat, Sun | 60 km | 4:16 min/km |\n| 3 | Mon, Tue, Thu, Sat, Sun | 65 km | 4:16 min/km |\n| 4 | Mon, Tue, Thu, Sat, Sun | 70 km | 4:16 min/km |\n| 5 | Mon, Tue, Thu, Sat, Sun | 55 km | 4:16 min/km |\n| 6 | Mon, Tue, Thu, Sat, Race | 40 km* | 4:16 min/km |\n\n*\\*Week 6 includes the 21.1km race.*\n\n---\n\n### Weekly Breakdown & Key Sessions\n\n**Weekly Schedule Template:**\n*   **Monday:** Easy run (8–10km).\n*   **Tuesday:** **Quality Day.**\n    *   W1-2: 6–8 x 800m @ 3:45 pace (2 min rest).\n    *   W3-4: 3 x 3km Tempo @ 4:05 pace (90s rest).\n*   **Thursday:** Recovery/Easy run (10–12km).\n*   **Saturday:** Short \"Shakeout\" or Maintenance run (8km).\n*   **Sunday:** **Long Run.**\n    *   W1: 16km\n    *   W2: 18km\n    *   W3: 20km\n    *   W4: 22km (Peak)\n    *   W5: 14km (Taper)\n    *   W6: Race Day\n\n### Strategic Advice for your 1:30 Goal:\n1.  **The \"Bridge\" Runs:** During your Sunday long runs in weeks 3 and 4, try to run the final 5km at your target race pace (4:16). This teaches your body to handle goal pace while fatigued.\n2.  **Tapering:** Week 5 and 6 are crucial for recovery. Do not feel the urge to add \"extra\" miles if you feel good; the point of the taper is to arrive at the start line with fully recovered glycogen stores and rested legs.\n3.  **Race Strategy:** A 1:30 half marathon is exactly 4:16/km. Do not go out at 4:05/km in the first 5km due to adrenaline. You will pay for it after 15km. Aim to hit the 10km mark at 42:45–43:00 and execute a strong final 5km. \n4.  **Listen to your body:** If your legs feel heavy on Tuesday, turn your interval session into a tempo run. Consistency over 6 weeks is more important than crushing one single workout.",
+              "thoughtSignature": "EnMKcQFpFH0TlrgmJztd8NiXvKITnXPuiiyxEgNRinNNWJ4aW+iXC51fyn1GG/gF7klg6ipcuCTvj9exWiSSsJkCfqNEi5h25Fw0xkV+7IDp+aMkLdk5ZfxDYe6LdmsrSlhoH7PR13h3ZW5Y+emNV8SeiBo0"
+            }
+          ],
+          "role": "model"
+        },
+        "finishReason": "STOP",
+        "index": 0
+      }
+    ],
+    "usageMetadata": {
+      "promptTokenCount": 156,
+      "candidatesTokenCount": 890,
+      "totalTokenCount": 1046,
+      "promptTokensDetails": [
+        {
+          "modality": "TEXT",
+          "tokenCount": 156
+        }
+      ],
+      "serviceTier": "standard"
+    },
+    "modelVersion": "gemini-3.1-flash-lite",
+    "responseId": "_BTHatzXDoLCg8UPtsWQ0Qg"
+  },
+  "finish_reason": "STOP",
+  "truncated": false,
+  "usage": {
+    "promptTokenCount": 156,
+    "candidatesTokenCount": 890,
+    "totalTokenCount": 1046,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 156
+      }
+    ],
+    "serviceTier": "standard"
+  },
+  "latency_ms": 4348,
+  "outcome": "ok",
+  "error": null,
+  "settings": {
+    "max_output_tokens": 8192,
+    "temperature": "provider default (temperature parameter is NOT sent)",
+    "system_prompt": null,
+    "retries": 0,
+    "timeout_seconds": 180,
+    "delay_between_calls_seconds": 1.0
+  },
+  "registry_version": "stage2-v1",
+  "config_sha256": "3ee87c5c392d40eef6a9dceb599c5f0c83275ba589c0d8d496629a0728876a6b",
+  "registry_file_sha256": "51895ee5329059930959f15746439f692bb849521de346099a1838be7689f5c7",
+  "codebook_sha256": "177a1c5d9b7dbf1ab9e53d0684365dcf67b21f1b1f3154f3f8b1ecc5aa6eb4fc"
+}

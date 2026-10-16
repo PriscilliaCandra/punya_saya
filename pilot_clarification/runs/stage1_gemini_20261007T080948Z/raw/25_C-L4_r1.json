@@ -1,0 +1,68 @@
+{
+  "call_index": 25,
+  "scenario_id": "C-L4",
+  "scenario_number": 4,
+  "repetition": 1,
+  "provider": "gemini",
+  "model_requested": "gemini-3.1-flash-lite",
+  "timestamp_utc": "2026-10-07T08:12:17+00:00",
+  "prompt_sha256": "c42adcd05d26b22faea395fdaf9630f8ffa0ae2258875660dc77a9ffd1f1f30c",
+  "prompt": "I'm a recreational runner and I'd like a 6-week training plan. Here is my information:\n\n- Age / gender: 29, male\n- Experience: advanced\n- Recent 5K time: 19:45\n- Goal: half marathon in 1:30:00, which I plan to run at an even 5:00 per km\n- Current weekly mileage: 55 km\n- Days available per week: 5 (Monday, Tuesday, Thursday, Saturday, Sunday)\n\nPlease give me the plan as a week-by-week table with columns: week, running days, total km.",
+  "settings": {
+    "max_output_tokens": 8192,
+    "temperature": "provider default (temperature parameter is NOT sent)",
+    "system_prompt": null,
+    "retries": 0,
+    "timeout_seconds": 180,
+    "shuffle_seed": 20261007
+  },
+  "http_status": 200,
+  "response_text": "To run a 1:30:00 half marathon, you need to maintain a pace of **4:16/km**. Your goal of 5:00/km would result in a 1:45:30 finish, so I have designed this plan to prepare you specifically for the **4:16/km target pace** required for a sub-90 minute finish.\n\nSince you are an advanced runner with a 19:45 5K, your aerobic engine is solid, but we need to increase your \"speed endurance\" to hold sub-4:20/km for 21.1 kilometers.\n\n### Training Intensity Key:\n*   **Easy (E):** 4:50–5:15/km (Conversational).\n*   **Goal Pace (GP):** 4:15–4:17/km.\n*   **Threshold/Intervals (T):** 3:55–4:05/km.\n*   **Long Run (LR):** Mostly E pace with the final 3-5km at GP.\n\n### 6-Week Training Plan\n\n| Week | Running Days | Total km | Focus |\n| :--- | :--- | :--- | :--- |\n| **1** | M(E 10), T(Intervals 8), Th(E 10), S(E 8), Sun(LR 18) | 54 | Aerobic base + speed |\n| **2** | M(E 10), T(Threshold 10), Th(E 12), S(E 8), Sun(LR 20) | 60 | Tempo development |\n| **3** | M(E 10), T(Intervals 10), Th(E 12), S(E 10), Sun(LR 22) | 64 | Peak volume |\n| **4** | M(E 8), T(Threshold 10), Th(E 10), S(E 8), Sun(LR 16) | 52 | Recovery/Absorption |\n| **5** | M(E 10), T(GP Intervals 10), Th(E 10), S(E 6), Sun(LR 14) | 50 | Race specific pace |\n| **6** | M(E 6), T(Speed 6), Th(E 4), S(Rest), Sun(Race 21.1) | 37+ | Taper & Race |\n\n---\n\n### Important Notes for Execution:\n\n1.  **Tuesday Sessions:**\n    *   **Intervals:** 6x800m or 5x1km at 3:55–4:00/km with 90s rest.\n    *   **Threshold:** 6-8km continuous at 4:05–4:10/km.\n    *   **GP Intervals (Week 5):** 4x2km at exactly 4:15/km with 60s jog rest.\n2.  **Long Runs (Sunday):** These are the most important runs. Don't run these too fast. Keep the majority of the distance in your easy zone (4:50+). In the final 3-4km of your long runs, shift into your goal pace (4:16/km) to practice running on tired legs.\n3.  **Tapering (Week 6):** Do not add \"extra\" miles in the final week. Your legs need to be fresh. The Tuesday workout should be light (e.g., 4x400m at race pace) to keep the legs moving without fatigue.\n4.  **Listen to your body:** With an advanced base, you are at risk of overtraining. If you feel sharp pain (not just soreness), take an extra rest day. \n\n**Disclaimer:** *I am an AI, not a doctor or professional coach. Please ensure you are medically cleared for high-intensity training before starting this plan.*",
+  "finish_reason": "STOP",
+  "usage": {
+    "promptTokenCount": 141,
+    "candidatesTokenCount": 902,
+    "totalTokenCount": 1043,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 141
+      }
+    ],
+    "serviceTier": "standard"
+  },
+  "model_returned": "gemini-3.1-flash-lite",
+  "response_json": {
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "To run a 1:30:00 half marathon, you need to maintain a pace of **4:16/km**. Your goal of 5:00/km would result in a 1:45:30 finish, so I have designed this plan to prepare you specifically for the **4:16/km target pace** required for a sub-90 minute finish.\n\nSince you are an advanced runner with a 19:45 5K, your aerobic engine is solid, but we need to increase your \"speed endurance\" to hold sub-4:20/km for 21.1 kilometers.\n\n### Training Intensity Key:\n*   **Easy (E):** 4:50–5:15/km (Conversational).\n*   **Goal Pace (GP):** 4:15–4:17/km.\n*   **Threshold/Intervals (T):** 3:55–4:05/km.\n*   **Long Run (LR):** Mostly E pace with the final 3-5km at GP.\n\n### 6-Week Training Plan\n\n| Week | Running Days | Total km | Focus |\n| :--- | :--- | :--- | :--- |\n| **1** | M(E 10), T(Intervals 8), Th(E 10), S(E 8), Sun(LR 18) | 54 | Aerobic base + speed |\n| **2** | M(E 10), T(Threshold 10), Th(E 12), S(E 8), Sun(LR 20) | 60 | Tempo development |\n| **3** | M(E 10), T(Intervals 10), Th(E 12), S(E 10), Sun(LR 22) | 64 | Peak volume |\n| **4** | M(E 8), T(Threshold 10), Th(E 10), S(E 8), Sun(LR 16) | 52 | Recovery/Absorption |\n| **5** | M(E 10), T(GP Intervals 10), Th(E 10), S(E 6), Sun(LR 14) | 50 | Race specific pace |\n| **6** | M(E 6), T(Speed 6), Th(E 4), S(Rest), Sun(Race 21.1) | 37+ | Taper & Race |\n\n---\n\n### Important Notes for Execution:\n\n1.  **Tuesday Sessions:**\n    *   **Intervals:** 6x800m or 5x1km at 3:55–4:00/km with 90s rest.\n    *   **Threshold:** 6-8km continuous at 4:05–4:10/km.\n    *   **GP Intervals (Week 5):** 4x2km at exactly 4:15/km with 60s jog rest.\n2.  **Long Runs (Sunday):** These are the most important runs. Don't run these too fast. Keep the majority of the distance in your easy zone (4:50+). In the final 3-4km of your long runs, shift into your goal pace (4:16/km) to practice running on tired legs.\n3.  **Tapering (Week 6):** Do not add \"extra\" miles in the final week. Your legs need to be fresh. The Tuesday workout should be light (e.g., 4x400m at race pace) to keep the legs moving without fatigue.\n4.  **Listen to your body:** With an advanced base, you are at risk of overtraining. If you feel sharp pain (not just soreness), take an extra rest day. \n\n**Disclaimer:** *I am an AI, not a doctor or professional coach. Please ensure you are medically cleared for high-intensity training before starting this plan.*",
+              "thoughtSignature": "EnMKcQFpFH0TNs5uuMBYVQ6DqciMROaCyEsC5ZuY/RoJt0JRvbt0C/E/SJLK0LAAIm4FtauR1K+D72cD1Jzh8NxVXM6bVKFIa/XEIGYeFrtFkDJ1I5FrsSPny91v4E8Uj7GU13J+tSkp8zqf0MyaW0oW7RS1"
+            }
+          ],
+          "role": "model"
+        },
+        "finishReason": "STOP",
+        "index": 0
+      }
+    ],
+    "usageMetadata": {
+      "promptTokenCount": 141,
+      "candidatesTokenCount": 902,
+      "totalTokenCount": 1043,
+      "promptTokensDetails": [
+        {
+          "modality": "TEXT",
+          "tokenCount": 141
+        }
+      ],
+      "serviceTier": "standard"
+    },
+    "modelVersion": "gemini-3.1-flash-lite",
+    "responseId": "5v7FaurSIbjMqfkP78eEuA4"
+  },
+  "error": null,
+  "latency_ms": 3968
+}
